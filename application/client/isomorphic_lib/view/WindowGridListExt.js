@@ -27,7 +27,9 @@ isc.WindowGridListExt.addProperties({
             gridList.fetchOperation = 'fetch';
         }
         gridList.reselectOnUpdate = true;
-        this.addItem(toolStrip);
+        gridList.showHeaderMenuButton = false,
+
+            this.addItem(toolStrip);
         this.addItem(gridList);
     }
 });
