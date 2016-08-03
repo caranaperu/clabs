@@ -21,4 +21,5 @@ $lang['matches'] = 'El campo %s no es igual al campo %s.';
 $lang['decimal'] = "El campo %s debe ser un numero decimal.";
 $lang['less_than'] = "El campo %s debe ser menor a %s.";
 $lang['greater_than'] = "El campo %s debe ser mayor a %s.";
+$lang['greater_than_equal'] = "El campo %s debe ser mayor o igual a %s.";
 ?>
