@@ -34,7 +34,7 @@ isc.DynamicFormExt.addProperties({
     autoDraw: false,
     autoSize: false,
     disableValidation: false,
-    errorOrientation: "right",
+    errorOrientation: "left",
     validateOnExit: true,
     synchronousValidation: true,
     autoFocus: true,
