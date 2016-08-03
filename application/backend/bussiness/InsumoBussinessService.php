@@ -29,12 +29,16 @@ class InsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussinessSe
     protected function &getModelToAdd(\TSLIDataTransferObj $dto) {
         $model = new InsumoModel();
         // Leo el id enviado en el DTO
+        $model->set_insumo_tipo($dto->getParameterValue('insumo_tipo'));
         $model->set_insumo_codigo($dto->getParameterValue('insumo_codigo'));
         $model->set_insumo_descripcion($dto->getParameterValue('insumo_descripcion'));
         $model->set_tcostos_codigo($dto->getParameterValue('tcostos_codigo'));
         $model->set_tinsumo_codigo($dto->getParameterValue('tinsumo_codigo'));
-        $model->set_unidad_medida_codigo($dto->getParameterValue('unidad_medida_codigo'));
+        $model->set_unidad_medida_codigo_ingreso($dto->getParameterValue('unidad_medida_codigo_ingreso'));
+        $model->set_unidad_medida_codigo_costo($dto->getParameterValue('unidad_medida_codigo_costo'));
         $model->set_insumo_merma($dto->getParameterValue('insumo_merma'));
+        $model->set_insumo_costo($dto->getParameterValue('insumo_costo'));
+        $model->set_moneda_codigo_costo($dto->getParameterValue('moneda_codigo_costo'));
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
         $model->setUsuario($dto->getSessionUser());
@@ -50,12 +54,17 @@ class InsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussinessSe
     protected function &getModelToUpdate(\TSLIDataTransferObj $dto) {
         $model = new InsumoModel();
         // Leo el id enviado en el DTO
+        $model->set_insumo_id($dto->getParameterValue('insumo_id'));
+        $model->set_insumo_tipo($dto->getParameterValue('insumo_tipo'));
         $model->set_insumo_codigo($dto->getParameterValue('insumo_codigo'));
         $model->set_insumo_descripcion($dto->getParameterValue('insumo_descripcion'));
         $model->set_tcostos_codigo($dto->getParameterValue('tcostos_codigo'));
         $model->set_tinsumo_codigo($dto->getParameterValue('tinsumo_codigo'));
-        $model->set_unidad_medida_codigo($dto->getParameterValue('unidad_medida_codigo'));
+        $model->set_unidad_medida_codigo_ingreso($dto->getParameterValue('unidad_medida_codigo_ingreso'));
+        $model->set_unidad_medida_codigo_costo($dto->getParameterValue('unidad_medida_codigo_costo'));
         $model->set_insumo_merma($dto->getParameterValue('insumo_merma'));
+        $model->set_insumo_costo($dto->getParameterValue('insumo_costo'));
+        $model->set_moneda_codigo_costo($dto->getParameterValue('moneda_codigo_costo'));
 
         $model->setVersionId($dto->getParameterValue('versionId'));
         if ($dto->getParameterValue('activo') != NULL)
@@ -80,7 +89,7 @@ class InsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussinessSe
      */
     protected function &getModelToDelete(\TSLIDataTransferObj $dto) {
         $model = new InsumoModel();
-        $model->set_insumo_codigo($dto->getParameterValue('insumo_codigo'));
+        $model->set_insumo_id($dto->getParameterValue('insumo_id'));
         $model->setVersionId($dto->getParameterValue('versionId'));
         $model->set_Usuario_mod($dto->getSessionUser());
 

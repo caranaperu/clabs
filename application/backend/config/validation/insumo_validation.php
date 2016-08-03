@@ -3,12 +3,22 @@
 $config['v_insumo'] = array(
     'getInsumo' => array(
         array(
-            'field' => 'insumo_codigo',
-            'label' => 'lang:insumo_codigo',
-            'rules' => 'required|alpha_numeric|xss_clean||max_length[15]'
+            'field' => 'insumo_id',
+            'label' => 'lang:insumo_id',
+            'rules' => 'required|integer|xss_clean'
         )
     ),
     'updInsumo' => array(
+        array(
+            'field' => 'insumo_id',
+            'label' => 'lang:insumo_id',
+            'rules' => 'required|integer|xss_clean'
+        ),
+        array(
+            'field' => 'insumo_tipo',
+            'label' => 'lang:insumo_tipo',
+            'rules' => 'required|alpha_numeric|xss_clean|max_length[2]'
+        ),
         array(
             'field' => 'insumo_codigo',
             'label' => 'lang:insumo_codigo',
@@ -30,14 +40,29 @@ $config['v_insumo'] = array(
             'rules' => 'required|alpha_numeric|xss_clean|max_length[15]'
         ),
         array(
-            'field' => 'unidad_medida_codigo',
-            'label' => 'lang:unidad_medida_codigo',
+            'field' => 'unidad_medida_codigo_ingreso',
+            'label' => 'lang:unidad_medida_codigo_ingreso',
+            'rules' => 'required|alpha|xss_clean|max_length[8]'
+        ),
+        array(
+            'field' => 'unidad_medida_codigo_costo',
+            'label' => 'lang:unidad_medida_codigo_costo',
             'rules' => 'required|alpha|xss_clean|max_length[8]'
         ),
         array(
             'field' => 'insumo_merma',
             'label' => 'lang:insumo_merma',
             'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'insumo_costo',
+            'label' => 'lang:insumo_costo',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'moneda_codigo_costo',
+            'label' => 'lang:moneda_codigo_costo',
+            'rules' => 'required|alpha_numeric|xss_clean|max_length[8]'
         ),
         array(
             'field' => 'versionId',
@@ -47,9 +72,9 @@ $config['v_insumo'] = array(
     ),
     'delInsumo' => array(
         array(
-            'field' => 'insumo_codigo',
-            'label' => 'lang:insumo_codigo',
-            'rules' => 'required|alpha_numeric|xss_clean||max_length[15]'
+            'field' => 'insumo_id',
+            'label' => 'lang:insumo_id',
+            'rules' => 'required|integer|xss_clean'
         ),
         array(
             'field' => 'versionId',
@@ -58,6 +83,11 @@ $config['v_insumo'] = array(
         )
     ),
     'addInsumo' => array(
+        array(
+            'field' => 'insumo_tipo',
+            'label' => 'lang:insumo_tipo',
+            'rules' => 'required|alpha_numeric|xss_clean|max_length[2]'
+        ),
         array(
             'field' => 'insumo_codigo',
             'label' => 'lang:insumo_codigo',
@@ -79,14 +109,29 @@ $config['v_insumo'] = array(
             'rules' => 'required|alpha_numeric|xss_clean|max_length[15]'
         ),
         array(
-            'field' => 'unidad_medida_codigo',
-            'label' => 'lang:unidad_medida_codigo',
+            'field' => 'unidad_medida_codigo_ingreso',
+            'label' => 'lang:unidad_medida_codigo_ingreso',
+            'rules' => 'required|alpha|xss_clean|max_length[8]'
+        ),
+        array(
+            'field' => 'unidad_medida_codigo_costo',
+            'label' => 'lang:unidad_medida_codigo_costo',
             'rules' => 'required|alpha|xss_clean|max_length[8]'
         ),
         array(
             'field' => 'insumo_merma',
             'label' => 'lang:insumo_merma',
             'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'insumo_costo',
+            'label' => 'lang:insumo_costo',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'moneda_codigo_costo',
+            'label' => 'lang:moneda_codigo_costo',
+            'rules' => 'required|alpha_numeric|xss_clean|max_length[8]'
         )
     )
 );

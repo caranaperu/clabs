@@ -11,21 +11,30 @@ isc.RestDataSource.create({
     dataFormat: "json",
     showPrompt: true,
     fields: [
-        {name: "insumo_codigo", title: "Codigo", primaryKey: "true", required: true},
+        {name: "insumo_id", title: "Id", primaryKey: "true", required: true},
+        {name: "insumo_codigo", title: "Codigo", required: true},
         {name: "insumo_descripcion", title: "Descripcion", required: true,
             validators: [{type: "regexp", expression: glb_RE_onlyValidText}]
         },
         {name: "tcostos_codigo", title: "Tipo Costos", foreignKey: "mdl_tcostos.tcostos_codigo", required: true},
         {name: "tinsumo_codigo", title: "Tipo Insumo", foreignKey: "mdl_tinsumo.tinsumo_codigo", required: true},
-        {name: "unidad_medida_codigo", title: 'Unidad Medida', foreignKey: "mdl_unidadmedida.unidad_medida_codigo", required: true},
+        {name: "unidad_medida_codigo_ingreso", title: 'Unidad Ingreso', foreignKey: "mdl_unidadmedida.unidad_medida_codigo", required: true},
+        {name: "unidad_medida_codigo_costo", title: 'Unidad Costo', foreignKey: "mdl_unidadmedida.unidad_medida_codigo", required: true},
         {
             name: "insumo_merma", title:'Merma',required: true,
             validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
+        {
+            name: "insumo_costo", title:'Costo',required: true,
+            validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+        },
+        {name: "moneda_codigo_costo", title:'Moneda Costo',foreignKey: "mdl_moneda.moneda_codigo", required: true},
         // campos join
-        {name: "_tcostos_descripcion", title: "Tipo Costos"},
-        {name: "_tinsumo_descripcion", title: "Tipo Insumo"},
-        {name: "_unidad_medida_descripcion", title: "Unidad Medida"}
+        {name: "tcostos_descripcion", title: "Tipo Costos"},
+        {name: "tinsumo_descripcion", title: "Tipo Insumo"},
+        {name: "unidad_medida_descripcion_ingreso", title: "Unidad Ingreso"},
+        {name: "unidad_medida_descripcion_costo", title: "Unidad Costo"},
+        {name: "moneda_descripcion", title: "Moneda Costo"}
     ],
     fetchDataURL: glb_dataUrl + 'insumoController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'insumoController?op=add&libid=SmartClient',

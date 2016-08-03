@@ -11,20 +11,25 @@ isc.defineClass("WinInsumoWindow", "WindowGridListExt");
 isc.WinInsumoWindow.addProperties({
     ID: "winInsumoWindow",
     title: "Insumos",
-    width: 600, height: 400,
+    width: 800,
+    height: 400,
     createGridList: function() {
         return isc.ListGrid.create({
             ID: "InsumoList",
             alternateRecordStyles: true,
             dataSource: mdl_insumo,
+            fetchOperation: 'fetchInsumos',
             autoFetchData: true,
             fields: [
-                {name: "insumo_codigo", width: '10%'},
-                {name: "insumo_descripcion",  width: '35%'},
-                {name: "_tcostos_descripcion",  width: '20%'},
-                {name: "_tinsumo_descripcion",  width: '20%'},
-                {name: "_unidad_medida_descripcion",  width: '20%'},
-                {name: "insumo_merma",  width: '15%'}
+                {name: "insumo_codigo",width: '10%'},
+                {name: "insumo_descripcion",width: '20%'},
+                {name: "tcostos_descripcion",width: '10%'},
+                {name: "tinsumo_descripcion",width: '12%'},
+                {name: "unidad_medida_descripcion_ingreso",width: '10%'},
+                {name: "insumo_merma",align:'right',width: '8%'},
+                {name: "unidad_medida_descripcion_costo",width: '12%' },
+                {name: "moneda_descripcion",width: '10%'},
+                {name: "insumo_costo",align:'right',width: '8%'}
             ],
             canReorderFields: false,
             showFilterEditor: true,
