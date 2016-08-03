@@ -6,13 +6,17 @@ class MY_Form_validation extends CI_Form_validation {
      * Solo permite numeros y punto decimal
      *
      * @access public
+     *
      * @param string value valor a verificar
+     *
      * @return boolean true or false
      */
     function decimal($value) {
         $regx = '/^[-+]?[0-9]*\.?[0-9]*$/';
-        if (!preg_match($regx, $value))
+        if (!preg_match($regx, $value)) {
             return FALSE;
+        }
+
         return TRUE;
     }
 
@@ -21,13 +25,17 @@ class MY_Form_validation extends CI_Form_validation {
      * pero no debe empezar en nada que no sea letra o numero.
      *
      * @access public
+     *
      * @param string value valor a verificar
+     *
      * @return boolean true or false
      */
     public function onlyValidText($value) {
         $regx = "/^[A-Za-z0-9][A-Za-z0-9 ._\/-ÁÉÍÓÚáéíóuñÑ]*[A-Za-z0-9.]$/";
-        if (!preg_match($regx, $value))
+        if (!preg_match($regx, $value)) {
             return FALSE;
+        }
+
         return TRUE;
     }
 
@@ -57,14 +65,14 @@ class MY_Form_validation extends CI_Form_validation {
         $d = date_format($date, 'd');
 
         // TODO: Verificar en 64 bits aunque sea por curiosidad
-//        $t = strtotime($date);
-//        if ($t == '0') {
-//            return false;
-//        }
+        //        $t = strtotime($date);
+        //        if ($t == '0') {
+        //            return false;
+        //        }
 
-//        $m = date('m', $t);
-//        $d = date('d', $t);
-//        $y = date('Y', $t);
+        //        $m = date('m', $t);
+        //        $d = date('d', $t);
+        //        $y = date('Y', $t);
         return checkdate($m, $d, $y);
     }
 
@@ -75,6 +83,7 @@ class MY_Form_validation extends CI_Form_validation {
      * tiene algun valor debe ser una fecha valida.
      *
      * @param string $date
+     *
      * @return boolean true o false
      */
     public function validDateOrEmpty($date) {
@@ -83,6 +92,7 @@ class MY_Form_validation extends CI_Form_validation {
         if (is_null($date) || strlen($date) == 0 || $date === 'null') {
             return true;
         }
+
         return $this->validDate($date);
     }
 
@@ -106,6 +116,7 @@ class MY_Form_validation extends CI_Form_validation {
         if (!preg_match("/^$regex$/", $url)) {
             return FALSE;
         }
+
         return TRUE;
     }
 
@@ -113,10 +124,12 @@ class MY_Form_validation extends CI_Form_validation {
      * Greather than , verifica si el campo es mayor que el campo enviado
      * en fied.
      *
-     * @access	public
-     * @param mixed $str con el valor numerico a chequear
+     * @access    public
+     *
+     * @param mixed  $str con el valor numerico a chequear
      * @param string $field con el nombre del campo con el que se va a chequear
-     * @return	bool
+     *
+     * @return    bool
      */
     public function greater_than_field($str, $field) {
         if (!isset($_POST[$field])) {
@@ -128,6 +141,7 @@ class MY_Form_validation extends CI_Form_validation {
         if (!is_numeric($str) || !is_numeric($checkValue)) {
             return FALSE;
         }
+
         return $str > $checkValue;
     }
 
@@ -151,6 +165,7 @@ class MY_Form_validation extends CI_Form_validation {
         if (!is_numeric($str) || !is_numeric($checkValue)) {
             return FALSE;
         }
+
         return $str < $checkValue;
     }
 
@@ -158,7 +173,8 @@ class MY_Form_validation extends CI_Form_validation {
      * Verifica si un campo fecha es mayor a otro.
      *
      * @param type $str la fecha contiene a fecha a cehquear si esta en el futuro.
-     * @param type El nombre del campo que contiene la fecha limite superior.
+     * @param      type El nombre del campo que contiene la fecha limite superior.
+     *
      * @return boolean
      */
     public function isFuture_date($str, $field) {
@@ -167,7 +183,7 @@ class MY_Form_validation extends CI_Form_validation {
         }
 
         $checkValue = strtotime($_POST[$field]);
-        $otherDate  = strtotime($str);
+        $otherDate = strtotime($str);
         if ($checkValue == '0' || $otherDate == '0') {
             return FALSE;
         }
@@ -179,7 +195,8 @@ class MY_Form_validation extends CI_Form_validation {
      * Verifica si un campo fecha es mayor o igual  a otro.
      *
      * @param type $str la fecha contiene a fecha a cehquear si esta en el futuro.
-     * @param type El nombre del campo que contiene la fecha limite superior.
+     * @param      type El nombre del campo que contiene la fecha limite superior.
+     *
      * @return boolean
      */
     public function isFutureOrSame_date($str, $field) {
@@ -188,7 +205,7 @@ class MY_Form_validation extends CI_Form_validation {
         }
 
         $checkValue = strtotime($_POST[$field]);
-        $otherDate  = strtotime($str);
+        $otherDate = strtotime($str);
         if ($checkValue == '0' || $otherDate == '0') {
             return FALSE;
         }
@@ -201,17 +218,36 @@ class MY_Form_validation extends CI_Form_validation {
      * representado por el parametro este en true.
      *
      * @param type $field
+     *
      * @return boolean true si es valido
      *
      */
-     public function dependsOnBoolean($field) {
-         if (isset($field)) {
-             if ($field != FALSE) {
-                 return true;
-             }
-         }
-         return false;
-     }
+    public function dependsOnBoolean($field) {
+        if (isset($field)) {
+            if ($field != FALSE) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Verifica si un campo es mayor o igual  a otro.
+     *
+     * @param double $str el numero a validar.
+     * @param double el minimo numero admisible.
+     *
+     * @return boolean
+     */
+    public function greater_than_equal($str, $min) {
+        if (!is_numeric($str)) {
+            return FALSE;
+        }
+
+        return $str >= $min;
+    }
+
 }
 
 ?>
