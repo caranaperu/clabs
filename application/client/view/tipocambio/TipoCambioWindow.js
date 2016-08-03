@@ -19,8 +19,8 @@ isc.WinTipoCambioWindow.addProperties({
             dataSource: mdl_tipocambio,
             autoFetchData: true,
             fields: [
-                {name: "_moneda_descripcion_o", width: '20%'},
-                {name: "_moneda_descripcion_d", width: '20%'},
+                {name: "moneda_descripcion_o", width: '20%'},
+                {name: "moneda_descripcion_d", width: '20%'},
                 {
                     name: "tipo_cambio_fecha_desde", width: '20%',
                     filterEditorProperties: {

@@ -19,8 +19,8 @@ isc.RestDataSource.create({
             validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
         // Campos join
-        {name: "_unidad_medida_descripcion_o",title:'U.Medida Origen'},
-        {name: "_unidad_medida_descripcion_d", title:'U.Medida Destino'}
+        {name: "unidad_medida_descripcion_o",title:'U.Medida Origen'},
+        {name: "unidad_medida_descripcion_d", title:'U.Medida Destino'}
     ],
     fetchDataURL: glb_dataUrl + 'unidadMedidaConversionController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'unidadMedidaConversionController?op=add&libid=SmartClient',

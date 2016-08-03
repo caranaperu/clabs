@@ -73,6 +73,10 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         $where = $constraints->getFilterFieldsAsString();
 
         if (strlen($where) > 0) {
+            // Mapeamos las virtuales a los campos reales
+            $where = str_replace('"moneda_descripcion_o"', 'mo_o.moneda_descripcion', $where);
+            $where = str_replace('"moneda_descripcion_d"', 'mo_d.moneda_descripcion', $where);
+            
             if ($this->activeSearchOnly == TRUE) {
                 $sql .= ' and ' . $where;
             } else {
@@ -115,7 +119,7 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getRecordQueryByCode($code, $subOperation = NULL)
     {
-        if ($subOperation == 'readAfterSaveJoined') {
+        if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();
             $sql .= ' where tipo_cambio_id = ' . $code;
         } else {
@@ -154,8 +158,8 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     }
 
     private function _getFecthNormalized() {
-        $sql = 'SELECT tipo_cambio_id,pd.moneda_codigo_origen,mo_o.moneda_descripcion as _moneda_descripcion_o,'.
-            'pd.moneda_codigo_destino,mo_d.moneda_descripcion as _moneda_descripcion_d,tipo_cambio_fecha_desde,' .
+        $sql = 'SELECT tipo_cambio_id,pd.moneda_codigo_origen,mo_o.moneda_descripcion as moneda_descripcion_o,'.
+            'pd.moneda_codigo_destino,mo_d.moneda_descripcion as moneda_descripcion_d,tipo_cambio_fecha_desde,' .
             'tipo_cambio_fecha_hasta,tipo_cambio_tasa,pd.activo,pd.xmin AS "versionId" ' .
             'FROM  tb_tipo_cambio pd '.
             'INNER JOIN tb_moneda mo_o on mo_o.moneda_codigo = pd.moneda_codigo_origen '.

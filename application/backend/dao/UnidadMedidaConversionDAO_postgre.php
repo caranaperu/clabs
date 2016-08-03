@@ -76,6 +76,10 @@ class UnidadMedidaConversionDAO_postgre extends \app\common\dao\TSLAppBasicRecor
         $where = $constraints->getFilterFieldsAsString();
 
         if (strlen($where) > 0) {
+            // Mapeamos las virtuales a los campos reales
+            $where = str_replace('"unidad_medida_descripcion_o"', 'um1.unidad_medida_descripcion', $where);
+            $where = str_replace('"unidad_medida_descripcion_d"', 'um2.unidad_medida_descripcion', $where);
+
             if ($this->activeSearchOnly == TRUE) {
                 $sql .= ' and ' . $where;
             } else {
@@ -118,7 +122,7 @@ class UnidadMedidaConversionDAO_postgre extends \app\common\dao\TSLAppBasicRecor
      */
     protected function getRecordQueryByCode($code, $subOperation = NULL)
     {
-        if ($subOperation == 'readAfterSaveJoined') {
+        if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();
             $sql .= ' WHERE unidad_medida_conversion_id = ' . $code;
         } else {
@@ -148,18 +152,17 @@ class UnidadMedidaConversionDAO_postgre extends \app\common\dao\TSLAppBasicRecor
 
     }
 
-    protected function getLastSequenceOrIdentityQuery(\TSLDataModel &$record = NULL)
-    {
-        return 'SELECT currval(\'tb_unidad_medida_conversion_unidad_medida_conversion_id_seq\')';
-    }
-
     private function _getFecthNormalized() {
-        $sql = 'SELECT unidad_medida_conversion_id,unidad_medida_origen,um1.unidad_medida_descripcion as _unidad_medida_descripcion_o,'.
-            'unidad_medida_destino,um2.unidad_medida_descripcion as _unidad_medida_descripcion_d,unidad_medida_conversion_factor,pd.activo,pd.xmin AS "versionId" ' .
+        $sql = 'SELECT unidad_medida_conversion_id,unidad_medida_origen,um1.unidad_medida_descripcion as unidad_medida_descripcion_o,'.
+            'unidad_medida_destino,um2.unidad_medida_descripcion as unidad_medida_descripcion_d,unidad_medida_conversion_factor,pd.activo,pd.xmin AS "versionId" ' .
             'FROM  tb_unidad_medida_conversion pd ' .
             'INNER JOIN tb_unidad_medida um1 on um1.unidad_medida_codigo = pd.unidad_medida_origen ' .
             'INNER JOIN tb_unidad_medida um2 on um2.unidad_medida_codigo = pd.unidad_medida_destino';
         return $sql;
     }
 
+    protected function getLastSequenceOrIdentityQuery(\TSLDataModel &$record = NULL)
+    {
+        return 'SELECT currval(\'tb_unidad_medida_conversion_unidad_medida_conversion_id_seq\')';
+    }
 }

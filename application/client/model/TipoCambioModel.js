@@ -21,8 +21,8 @@ isc.RestDataSource.create({
             validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
         // Campos join
-        {name: "_moneda_descripcion_o",title:'Moneda Origen'},
-        {name: "_moneda_descripcion_d", title:'Moneda Destino'}
+        {name: "moneda_descripcion_o",title:'Moneda Origen'},
+        {name: "moneda_descripcion_d", title:'Moneda Destino'}
     ],
     fetchDataURL: glb_dataUrl + 'tipoCambioController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'tipoCambioController?op=add&libid=SmartClient',

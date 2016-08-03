@@ -20,8 +20,8 @@ isc.WinUMConversionWindow.addProperties({
             fetchOperation: 'fetchJoined',
             autoFetchData: true,
             fields: [
-                {name: "_unidad_medida_descripcion_o",  width: '40%'},
-                {name: "_unidad_medida_descripcion_d", width: '40%'},
+                {name: "unidad_medida_descripcion_o",  width: '40%'},
+                {name: "unidad_medida_descripcion_d", width: '40%'},
                 {name: "unidad_medida_conversion_factor", width: '20%'}
             ],
             canReorderFields: false,
