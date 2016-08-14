@@ -18,7 +18,8 @@ $lang['moneda_codigo_origen'] = 'Moneda Origen';
 $lang['moneda_codigo_destino'] = 'Moneda Destino';
 $lang['tipo_cambio_fecha_desde'] = 'Fecha desde';
 $lang['tipo_cambio_fecha_hasta'] = 'Fecha hasta';
-$lang['tipo_cambio_tasa'] = 'Tasa';
+$lang['tipo_cambio_tasa_compra'] = 'Tasa Compra';
+$lang['tipo_cambio_tasa_venta'] = 'Tasa Venta';
 $lang['activo'] = 'El campo obligatorio debe ser si o no';
 $lang['versionId'] = 'Version';
 ?>

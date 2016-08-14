@@ -45,12 +45,13 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         /* @var $record  TipoCambioModel */
 
         return 'insert into tb_tipo_cambio (moneda_codigo_origen,moneda_codigo_destino,tipo_cambio_fecha_desde,' .
-        'tipo_cambio_fecha_hasta,tipo_cambio_tasa,activo,usuario) values(\'' .
+        'tipo_cambio_fecha_hasta,tipo_cambio_tasa_compra,tipo_cambio_tasa_venta,activo,usuario) values(\'' .
         $record->get_moneda_codigo_origen() . '\',\'' .
         $record->get_moneda_codigo_destino() . '\',\'' .
         $record->get_tipo_cambio_fecha_desde() . '\',\'' .
         $record->get_tipo_cambio_fecha_hasta() . '\',' .
-        $record->get_tipo_cambio_tasa() . ',\'' .
+        $record->get_tipo_cambio_tasa_compra() . ',' .
+        $record->get_tipo_cambio_tasa_venta() . ',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
 
@@ -124,7 +125,7 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
             $sql .= ' where tipo_cambio_id = ' . $code;
         } else {
             $sql =  'SELECT tipo_cambio_id,moneda_codigo_origen,moneda_codigo_destino,tipo_cambio_fecha_desde,'.
-                'tipo_cambio_fecha_hasta,tipo_cambio_tasa,activo,xmin AS "versionId" ' .
+                'tipo_cambio_fecha_hasta,tipo_cambio_tasa_compra,,tipo_cambio_tasa_venta,activo,xmin AS "versionId" ' .
                 'FROM tb_tipo_cambio WHERE tipo_cambio_id = ' . $code;
         }
         return $sql;
@@ -145,7 +146,8 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         'moneda_codigo_destino=\'' . $record->get_moneda_codigo_destino() . '\',' .
         'tipo_cambio_fecha_desde=\'' . $record->get_tipo_cambio_fecha_desde() . '\',' .
         'tipo_cambio_fecha_hasta=\'' . $record->get_tipo_cambio_fecha_hasta() . '\',' .
-        'tipo_cambio_tasa=' . $record->get_tipo_cambio_tasa() . ',' .
+        'tipo_cambio_tasa_compra=' . $record->get_tipo_cambio_tasa_compra() . ',' .
+        'tipo_cambio_tasa_venta=' . $record->get_tipo_cambio_tasa_venta() . ',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
         ' where "tipo_cambio_id" = ' . $record->get_tipo_cambio_id() . '  and xmin =' . $record->getVersionId();
@@ -160,7 +162,7 @@ class TipoCambioDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     private function _getFecthNormalized() {
         $sql = 'SELECT tipo_cambio_id,pd.moneda_codigo_origen,mo_o.moneda_descripcion as moneda_descripcion_o,'.
             'pd.moneda_codigo_destino,mo_d.moneda_descripcion as moneda_descripcion_d,tipo_cambio_fecha_desde,' .
-            'tipo_cambio_fecha_hasta,tipo_cambio_tasa,pd.activo,pd.xmin AS "versionId" ' .
+            'tipo_cambio_fecha_hasta,tipo_cambio_tasa_compra,tipo_cambio_tasa_venta,pd.activo,pd.xmin AS "versionId" ' .
             'FROM  tb_tipo_cambio pd '.
             'INNER JOIN tb_moneda mo_o on mo_o.moneda_codigo = pd.moneda_codigo_origen '.
             'INNER JOIN tb_moneda mo_d on mo_d.moneda_codigo = pd.moneda_codigo_destino ';

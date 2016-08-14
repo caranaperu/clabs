@@ -36,8 +36,13 @@ $config['v_tipocambio'] = array(
             'rules' => 'required|validDate|xss_clean|isFutureOrSame_date[tipo_cambio_fecha_desde]'
         ),
         array(
-            'field' => 'tipo_cambio_tasa',
-            'label' => 'lang:tipo_cambio_tasa',
+            'field' => 'tipo_cambio_tasa_compra',
+            'label' => 'lang:tipo_cambio_tasa_compra',
+            'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
+        ),
+        array(
+            'field' => 'tipo_cambio_tasa_venta',
+            'label' => 'lang:tipo_cambio_tasa_venta',
             'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
         ),
         array(
@@ -85,8 +90,13 @@ $config['v_tipocambio'] = array(
             'rules' => 'required|validDate|xss_clean|isFutureOrSame_date[tipo_cambio_fecha_desde]'
         ),
         array(
-            'field' => 'tipo_cambio_tasa',
-            'label' => 'lang:tipo_cambio_tasa',
+            'field' => 'tipo_cambio_tasa_compra',
+            'label' => 'lang:tipo_cambio_tasa_compra',
+            'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
+        ),
+        array(
+            'field' => 'tipo_cambio_tasa_venta',
+            'label' => 'lang:tipo_cambio_tasa_venta',
             'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
         ),
         array(

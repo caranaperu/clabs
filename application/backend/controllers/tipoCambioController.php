@@ -36,9 +36,9 @@ class tipoCambioController extends app\common\controller\TSLAppDefaultCRUDContro
             "paramsList" => [
                 "fetch" => [],
                 "read" => ['tipo_cambio_id', 'verifyExist'],
-                "add" => ['moneda_codigo_origen','moneda_codigo_destino','tipo_cambio_fecha_desde','tipo_cambio_fecha_hasta','tipo_cambio_tasa', 'activo'],
+                "add" => ['moneda_codigo_origen','moneda_codigo_destino','tipo_cambio_fecha_desde','tipo_cambio_fecha_hasta','tipo_cambio_tasa_compra','tipo_cambio_tasa_venta', 'activo'],
                 "del" => ['tipo_cambio_id', 'versionId'],
-                "upd" => ['tipo_cambio_id', 'moneda_codigo_origen','moneda_codigo_destino','tipo_cambio_fecha_desde','tipo_cambio_fecha_hasta','tipo_cambio_tasa', 'versionId', 'activo'],
+                "upd" => ['tipo_cambio_id', 'moneda_codigo_origen','moneda_codigo_destino','tipo_cambio_fecha_desde','tipo_cambio_fecha_hasta','tipo_cambio_tasa_compra','tipo_cambio_tasa_venta', 'versionId', 'activo'],
             ],
             "paramsFixableToNull" => ['tipo_cambio_', 'moneda_'],
             "paramsFixableToValue" => ["tipo_cambio_id" => ["valueToFix" => 'null', "valueToReplace" => NULL, "isID" => true]],

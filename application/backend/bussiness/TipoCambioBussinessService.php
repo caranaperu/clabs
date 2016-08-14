@@ -34,7 +34,8 @@
             $model->set_moneda_codigo_destino($dto->getParameterValue('moneda_codigo_destino'));
             $model->set_tipo_cambio_fecha_desde($dto->getParameterValue('tipo_cambio_fecha_desde'));
             $model->set_tipo_cambio_fecha_hasta($dto->getParameterValue('tipo_cambio_fecha_hasta'));
-            $model->set_tipo_cambio_tasa($dto->getParameterValue('tipo_cambio_tasa'));
+            $model->set_tipo_cambio_tasa_compra($dto->getParameterValue('tipo_cambio_tasa_compra'));
+            $model->set_tipo_cambio_tasa_venta($dto->getParameterValue('tipo_cambio_tasa_venta'));
             if ($dto->getParameterValue('activo') != NULL)
                 $model->setActivo($dto->getParameterValue('activo'));
             $model->setUsuario($dto->getSessionUser());
@@ -56,8 +57,9 @@
             $model->set_moneda_codigo_destino($dto->getParameterValue('moneda_codigo_destino'));
             $model->set_tipo_cambio_fecha_desde($dto->getParameterValue('tipo_cambio_fecha_desde'));
             $model->set_tipo_cambio_fecha_hasta($dto->getParameterValue('tipo_cambio_fecha_hasta'));
-            $model->set_tipo_cambio_tasa($dto->getParameterValue('tipo_cambio_tasa'));
-
+            $model->set_tipo_cambio_tasa_compra($dto->getParameterValue('tipo_cambio_tasa_compra'));
+            $model->set_tipo_cambio_tasa_venta($dto->getParameterValue('tipo_cambio_tasa_venta'));
+            
             $model->setVersionId($dto->getParameterValue('versionId'));
             if ($dto->getParameterValue('activo') != NULL)
                 $model->setActivo($dto->getParameterValue('activo'));

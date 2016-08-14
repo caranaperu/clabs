@@ -11,7 +11,7 @@ isc.defineClass("WinTipoCambioForm", "WindowBasicFormExt");
 isc.WinTipoCambioForm.addProperties({
     ID: "winTipoCambioForm",
     title: "Mantenimiento de Tipos De Cambio",
-    width: 400, height: 240,
+    width: 400, height: 270,
     createForm: function(formMode) {
         return isc.DynamicFormExt.create({
             ID: "formTipoCambio",
@@ -69,7 +69,8 @@ isc.WinTipoCambioForm.addProperties({
                         }
                         return true;
                     }},
-                {name: "tipo_cambio_tasa",  showPending: true,width:'80'}
+                {name: "tipo_cambio_tasa_compra",  showPending: true,width:'80'},
+                {name: "tipo_cambio_tasa_venta",  showPending: true,width:'80'}
             ]
         });
     },

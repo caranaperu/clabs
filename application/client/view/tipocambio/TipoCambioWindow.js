@@ -22,7 +22,7 @@ isc.WinTipoCambioWindow.addProperties({
                 {name: "moneda_descripcion_o", width: '20%'},
                 {name: "moneda_descripcion_d", width: '20%'},
                 {
-                    name: "tipo_cambio_fecha_desde", width: '20%',
+                    name: "tipo_cambio_fecha_desde", width: '15%',
                     filterEditorProperties: {
                         editorType: 'date',
                             useTextField: true,
@@ -30,14 +30,15 @@ isc.WinTipoCambioWindow.addProperties({
                         }
                 },
                 {
-                    name: "tipo_cambio_fecha_hasta", width: '20%',
+                    name: "tipo_cambio_fecha_hasta", width: '15%',
                     filterEditorProperties: {
                         editorType: 'date',
                         useTextField: true,
                         operator: "lessOrEqual"
                     }
                 },
-                {name: "tipo_cambio_tasa", width: '20%'}
+                {name: "tipo_cambio_tasa_compra", width: '15%'},
+                {name: "tipo_cambio_tasa_venta", width: '15%'}
             ],
             canReorderFields: false,
             showFilterEditor: true,

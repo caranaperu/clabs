@@ -14,11 +14,15 @@ isc.RestDataSource.create({
         {name: "tipo_cambio_id", primaryKey: "true", required: true},
         {name: "moneda_codigo_origen", title:'Moneda Origen',foreignKey: "mdl_moneda.moneda_codigo", required: true},
         {name: "moneda_codigo_destino", title:'Moneda Destino',foreignKey: "mdl_moneda.moneda_codigo", required: true},
-        {name: "tipo_cambio_fecha_desde", title:'Desde Fecha',type: 'date', required: true},
-        {name: "tipo_cambio_fecha_hasta", title:'Hasta Fecha',type: 'date', required: true},
+        {name: "tipo_cambio_fecha_desde", title:'Desde',type: 'date', required: true},
+        {name: "tipo_cambio_fecha_hasta", title:'Hasta',type: 'date', required: true},
         {
-            name: "tipo_cambio_tasa", title:'Tasa',required: true,type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            name: "tipo_cambio_tasa_compra", title:'Compra',required: true,type: 'double', format: "0.0000",
+            validators: [{type: 'floatRange', min: 0.0001, max: 5.00}, {type: "floatPrecision", precision: 4}]
+        },
+        {
+            name: "tipo_cambio_tasa_venta", title:'Venta',required: true,type: 'double', format: "0.0000",
+            validators: [{type: 'floatRange', min: 0.0001, max: 5.00}, {type: "floatPrecision", precision: 4}]
         },
         // Campos join
         {name: "moneda_descripcion_o",title:'Moneda Origen'},

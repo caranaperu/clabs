@@ -23,7 +23,8 @@ class TipoCambioModel extends \app\common\model\TSLAppCommonBaseModel
     protected $moneda_codigo_destino;
     protected $tipo_cambio_fecha_desde;
     protected $tipo_cambio_fecha_hasta;
-    protected $tipo_cambio_tasa;
+    protected $tipo_cambio_tasa_compra;
+    protected $tipo_cambio_tasa_venta;
 
 
     public function set_tipo_cambio_id($tipo_cambio_id)
@@ -120,26 +121,50 @@ class TipoCambioModel extends \app\common\model\TSLAppCommonBaseModel
     }
 
     /**
-     * Setea la tasa de conversion entre la moneda origen y  destino.
+     * Setea la tasa de conversion entre la moneda origen y  destino a
+     * su tasa de compra
      *
-     * @param $tipo_cambio_tasa tasa de conversion.
+     * @param $tipo_cambio_tasa_compra tasa de compra.
      */
-    public function set_tipo_cambio_tasa($tipo_cambio_tasa)
+    public function set_tipo_cambio_tasa_compra($tipo_cambio_tasa_compra)
     {
-        $this->tipo_cambio_tasa = $tipo_cambio_tasa;
+        $this->tipo_cambio_tasa_compra = $tipo_cambio_tasa_compra;
     }
 
 
     /**
      * Retorna la tasa de conversion entre la moneda origen y  destino
+     * a su tasa de compra.
      *
-     * @return double con la tasa de conversion.
+     * @return double con la tasa de compra.
      */
-    public function get_tipo_cambio_tasa()
+    public function get_tipo_cambio_tasa_compra()
     {
-        return $this->tipo_cambio_tasa;
+        return $this->tipo_cambio_tasa_compra;
     }
 
+    /**
+     * Setea la tasa de conversion entre la moneda origen y  destino a
+     * su tasa de venta
+     *
+     * @param $tipo_cambio_tasa_compra tasa de compra.
+     */
+    public function set_tipo_cambio_tasa_venta($tipo_cambio_tasa_venta)
+    {
+        $this->tipo_cambio_tasa_venta = $tipo_cambio_tasa_venta;
+    }
+
+
+    /**
+     * Retorna la tasa de conversion entre la moneda origen y  destino
+     * a su tasa de venta.
+     *
+     * @return double con la tasa de venta.
+     */
+    public function get_tipo_cambio_tasa_venta()
+    {
+        return $this->tipo_cambio_tasa_venta;
+    }
 
     public function &getPKAsArray()
     {
