@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Development Only (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Development Only (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -62,7 +62,8 @@ return false},isc.A.getInheritanceChain=function isc_ComponentEditor_getInherita
 {_3.add(_5)}}
 _3.reverse();return _3},isc.A.getMethodField=function isc_ComponentEditor_getMethodField(_1){var _2=isc.clone(this.handlerFieldBase);_2[this.fieldIdProperty]=_1;_2.type=this.canEditExpressions?"expression":"action";this.$46e.add(_2);return _2},isc.A.clearComponent=function isc_ComponentEditor_clearComponent(){var _1=this.currentComponent;if(_1==null)return;delete this.currentComponent;delete this.dataSource;this.setFields([])},isc.A.editComponent=function isc_ComponentEditor_editComponent(_1,_2){var _3=isc.DS.getNearestSchema(_1.type),_2=_2||_1.liveObject;if(_2.useCustomSchema)_3=_2.useCustomSchema;this.currentComponent=_1;if(this.logIsInfoEnabled("editing")){this.logInfo("Editing component of type: "+_3+", defaults: "+this.echo(_1.defaults)+", liveObject: "+this.echoLeaf(_2),"editing")}
 if(_1.advancedMode)this.$694=false;this.setDataSource(_3);var _4={},_5=this.$46d;if(this.$46e){_5=_5.concat(this.$46e)}
-var _6=(!_2||!_2.getEditableProperties)?_1.defaults:_2.getEditableProperties(_5);var _7=["formula","textFormula","editorFormula","editorTextFormula"];if(isc.isA.FormItem(_2)||isc.SimpleType.inheritsFrom(_3,"ListGridField")){var _8=isc.SimpleType.inheritsFrom(_3,"ListGridField"),_9=_2.type||_2.defaultType||"text";if(_9=="text"&&isc.isA.TimeItem(_2))_9="date";var _10=(_8?isc.ComponentEditor.$176s[_9]:isc.ComponentEditor.$176r[_9]);if(_10){_7.remove(_10)}}
+var _6=(!_2||!_2.getEditableProperties)?_1.defaults:_2.getEditableProperties(_5);if(_2.editingOn){_6.disabled=_2.$180e}
+var _7=["formula","textFormula","editorFormula","editorTextFormula"];if(isc.isA.FormItem(_2)||isc.SimpleType.inheritsFrom(_3,"ListGridField")){var _8=isc.SimpleType.inheritsFrom(_3,"ListGridField"),_9=_2.type||_2.defaultType||"text";if(_9=="text"&&isc.isA.TimeItem(_2))_9="date";var _10=(_8?isc.ComponentEditor.$176s[_9]:isc.ComponentEditor.$176r[_9]);if(_10){_7.remove(_10)}}
 var _11=null;for(var i=0;i<_5.length;i++){var _13=_5[i];if(_13.advanced){_13.showIf=this.$46f}
 if(!_13.name)continue;if(_7.contains(_13.name)){_13.showIf=this.$46f}
 if(this.builder&&_13.type=="AdvancedCriteria"){_13.targetRuleScope=this.builder.getTargetRuleScope();_13.createRuleCriteria=_13.isRuleCriteria;if(_13.isRuleCriteria){var _14=_13.title.replace(" When","");_13.windowProperties={title:"Define when '"+_1.name+"' is "+_14}}}else if(this.builder&&_13.useRuleScope){_13.targetRuleScope=this.builder.getTargetRuleScope()}

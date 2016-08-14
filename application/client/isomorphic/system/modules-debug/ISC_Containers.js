@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-07-01/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -167,7 +167,19 @@ isc.ImgTab.addProperties({
     initWidget : function (a,b,c,d,e,f) {
         if (this.vertical && this.titleStyle) this.titleStyle = "v" + this.titleStyle;
         return this.invokeSuper(isc.ImgTab, this._$initWidget, a,b,c,d,e,f);
+    },
+
+    setCanClose : function(canClose) {
+        var tabset = this.parentElement ? this.parentElement.parentElement : null;
+        if (tabset && isc.isA.TabSet(tabset)) {
+            tabset.setCanCloseTab(this, canClose);
+        } else {
+            // We have an orphaned tab that is not part of a tabset.  Not sure how much use
+            // such a thing would be, but set its canClose attribute for completeness
+            this.canClose = canClose;
+        }
     }
+
 });
 
 
@@ -12365,6 +12377,17 @@ isc.SimpleTabButton.addProperties({
             return imgHTML + "<span>" + this.title + "</span>";
         }
         return this.Super("getTitle", arguments);
+    },
+
+    setCanClose : function(canClose) {
+        var tabset = this.parentElement ? this.parentElement.parentElement : null;
+        if (tabset && isc.isA.TabSet(tabset)) {
+            tabset.setCanCloseTab(this, canClose);
+        } else {
+            // We have an orphaned tab that is not part of a tabset.  Not sure how much use
+            // such a thing would be, but set its canClose attribute for completeness
+            this.canClose = canClose;
+        }
     }
 
     //>EditMode
@@ -13470,7 +13493,8 @@ getTab : function (tab) {
 // @visibility external
 //<
 getTabPane : function (tab) {
-    return this.getTabObject(tab).pane;
+    var tabObject = this.getTabObject(tab);
+    return tabObject ? tabObject.pane : null;
 },
 
 //> @method tabSet.findTab()
@@ -14800,7 +14824,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

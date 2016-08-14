@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -89,9 +89,9 @@ isc._start = new Date().getTime();
 
 // versioning - values of the form ${value} are replaced with user-provided values at build time.
 // Valid values are: version, date, project (not currently used)
-isc.version = "v11.0p_2016-07-01/LGPL Deployment";
-isc.versionNumber = "v11.0p_2016-07-01";
-isc.buildDate = "2016-07-01";
+isc.version = "v11.0p_2016-08-13/LGPL Deployment";
+isc.versionNumber = "v11.0p_2016-08-13";
+isc.buildDate = "2016-08-13";
 isc.expirationDate = "";
 
 isc.scVersion = "11.0p";
@@ -1456,7 +1456,8 @@ isc.Browser.isMobileFirefox = isc.Browser.isFirefox && (navigator.userAgent.inde
                                                         navigator.userAgent.indexOf("Tablet") > -1);
 
 
-isc.Browser.isMobileWebkit = (isc.Browser.isSafari && navigator.userAgent.indexOf(" Mobile/") > -1
+isc.Browser.isMobileWebkit = (isc.Browser.isSafari &&
+        (navigator.userAgent.indexOf(" Mobile/") > -1 || navigator.userAgent.indexOf("(iPad") > -1)
     || isc.Browser.isAndroid
     || isc.Browser.isBlackBerry) && !isc.Browser.isFirefox;
 
@@ -3075,7 +3076,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

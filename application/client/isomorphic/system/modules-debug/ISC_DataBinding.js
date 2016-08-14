@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-07-01/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -7370,8 +7370,10 @@ isc.DataSource.addClassMethods({
 
         if (ds) {
             // if they've specified a callback, call the callback in addition to returning the ds
+            // Note, the ability to provide a callback is not publicly documented, so changing
+            // this from passing the DS instance to the DS ID is not a backompat issue
             if (callback) {
-                this.fireCallback(callback, "ds", [ds], ds);
+                this.fireCallback(callback, "dsID", [ds.ID], ds);
             }
 
             return ds;
@@ -7379,7 +7381,7 @@ isc.DataSource.addClassMethods({
 
         // load from server if a callback was passed
         if (callback) {
-            this.loadSchema(name, callback, context);
+            this.load(name, callback, context);
         }
 
         // let the caller know that we don't have the datasource.  if a callback was passed,
@@ -8170,7 +8172,38 @@ isc.DataSource.addClassMethods({
     // @visibility external
     //<
     load : function (dsID, callback, forceReload, loadParents) {
-        if (!isc.isAn.Array(dsID)) dsID = [dsID];
+
+        // DataSource.get() used to implicitly call loadSchema() if the requested DS is not
+        // present.  This is now deprecated, and we use the standard load() method instead for
+        // these internal dataSource loads.  However, DS.get() has an existing pattern of
+        // accepting a context object, so we'll pull the parameter values out of that
+        if (isc.isAn.Object(forceReload)) {
+            loadParents = forceReload.loadParents;
+            forceReload = forceReload.forceReload;
+        }
+
+        var singleName,
+            callbacks;
+
+        if (!isc.isAn.Array(dsID)) {
+            // If there is a single DataSource to load, we may have been called from DS.get(),
+            // and it is possible that multiple framework calls to DS.get() for the same
+            // DataSource will arrive while we are waiting for the server to respond.  In
+            // this case, we will have a callbacks registry for the named datasource and all
+            // we need to do is register our callback and wait for the server to reply.  This
+            // way we suppress multiple server requests for the same dataSource.
+            callbacks = isc.DataSource._getDataSourceCallbacks;
+            if (callbacks[dsID]) {
+                callbacks[dsID].add(callback);
+                return null;
+            } else {
+                // this is the first request for this dataSource
+                callbacks[dsID] = [];
+                callbacks[dsID].add(callback);
+            }
+            singleName = dsID;
+            dsID = [dsID];
+        }
 
         if (dsID.length <= 0) {
             this.logWarn("No DataSource IDs passed in.");
@@ -8208,7 +8241,15 @@ isc.DataSource.addClassMethods({
                                             isc.echoAll(e));
                     }
                     delete isc.DataSource._doNotClobber;
-                    if (callback) this.fireCallback(callback, ["dsID"], [_dsID]);
+                    if (singleName) {
+                        for (var i = 0; i < callbacks[singleName].length; i++) {
+                            var cb = callbacks[singleName][i];
+                            if (cb) this.fireCallback(cb, ["dsID"], [_dsID]);
+                        }
+                        delete callbacks[singleName];
+                    } else {
+                        if (callback) this.fireCallback(callback, ["dsID"], [_dsID]);
+                    }
                 },
                 {
                     actionURL: url,
@@ -8804,7 +8845,7 @@ isc.DataSource.addClassMethods({
     // helper method to return the description of a single criterion
     getCriterionDescription : function (criterion, dataSource, localComponent) {
         if (criterion == null) return "";
-        var localValuePrefix = localComponent.ID + ".values.",
+        var localValuePrefix = (localComponent != null) ? localComponent.ID + ".values." : null,
             fieldName = criterion.fieldName,
             operatorName = criterion.operator,
             start = criterion.start,
@@ -14363,7 +14404,7 @@ firstGeneratedSequenceValue: 0,
 // this will lead  to a loss of precision</i>.  If the flag is true (which is the the default),
 // the behavior is to prevent range overflow for numeric values:
 // <ul>
-// <li> Java values of type Long, BigInteger, Float, Double and BigDecimal will be delivered as
+// <li> Java values of type Long, BigInteger and BigDecimal will be delivered as
 //      String <i>only if</i> they exceed JavaScript's number range.
 // <li> Client-side validation will allow inputs that are outside of JavaScript's normal
 //      integer range, and such numbers will remain as Strings after validation, instead of being
@@ -14923,7 +14964,7 @@ firstGeneratedSequenceValue: 0,
 // <tr><td>"MMMM yyyy"</td><td>August 2006</td></tr>
 // <tr><td>"HH:mm"</td><td>11:26</td></tr>
 // <tr><td>"d MMM yyyy, H:ma"</td><td>3 Aug 2006, 11:26 am</td></tr>
-// <tr><td>"dd/mm/yyyy"</td><td>03/08/2006</td></tr>
+// <tr><td>"dd/MM/yyyy"</td><td>03/08/2006</td></tr>
 // <tr><td>"CC/LLLL"</td><td>53/2006 (assuming the fiscal year ends in the first week of August)</td></tr>
 // </table>
 // <p>
@@ -16974,7 +17015,16 @@ rawData=rpcResponse.results;
 
                 //this.logWarn("validating value: " + fieldValue +
                 //             " of field: " + this.echo(field));
-                result[fieldName] = this.validateFieldValue(field, fieldValue);
+                // field is multiple:true
+                if (isc.isAn.Array(fieldValue)) {
+                    var childValue = [];
+                    for (var j = 0; j < fieldValue.length; j++) {
+                        childValue.push(this.validateFieldValue(field, fieldValue[j]));
+                    }
+                    result[fieldName] = childValue;
+                } else {
+                    result[fieldName] = this.validateFieldValue(field, fieldValue);
+                }
             }
         }
 
@@ -21549,9 +21599,10 @@ rawData=rpcResponse.results;
     //> @method dataSource.handleError() (A)
     // If you define this method on a DataSource, it will be called whenever the server returns
     // a DSResponse with a status other than +link{RPCResponse.STATUS_SUCCESS}.  You can use
-    // this hook to do DataSource-specific error handling.  Unless you return
-    // <code>false</code> from this method, +link{RPCManager.handleError()} will be called by
-    // SmartClient right after this method completes.
+    // this hook to do DataSource-specific error handling.
+    // <smartclient> Unless you return <code>false</code> from this method, </smartclient>
+    // <smartgwt>Unless you call {@link com.smartgwt.client.data.events.ErrorEvent#cancel()}, </smartgwt>
+    // +link{RPCManager.handleError()} will be called by SmartClient right after this method completes.
     //
     // @param response (DSResponse) the DSResponse or DSResponse object returned from the server
     // @param request (DSRequest) the DSRequest or DSRequest that was sent to the server
@@ -25876,6 +25927,9 @@ rawData=rpcResponse.results;
 // <p>
 // See +link{standaloneDataSourceUsage,Standalone DataSource Usage} for information on how to use
 // declarative security in a standalone application.
+// <p>
+// Requests that fail to pass Declarative Security checks will return response with
+// +link{rpcResponse.STATUS_AUTHORIZATION_FAILURE,special status set}.
 //
 // @title Declarative Security
 // @treeLocation Concepts/Persistence Technologies
@@ -25981,6 +26035,31 @@ rawData=rpcResponse.results;
 // <code>requiresRole</code> attributes.
 // <P>
 // This property is valid only for a server-side DataSource when using the SmartClient Server.
+// <P>
+// <h3>Special rules for cache sync</h3>
+// <P>
+// After successfull "add" or "update" operation cache sync request is performed, which is using
+// "fetch" operation of the same datasource. It may happen that user is allowed to add records, but
+// is not allowed to fetch them, for example:
+// <pre>
+//     &lt;operationBinding operationType="fetch" requiresRole="admin"&gt;
+//           ... settings ...
+//     &lt;/operationBinding&gt;
+//     &lt;operationBinding operationType="add"&gt;
+//           ... settings ...
+//     &lt;/operationBinding&gt;
+// </pre>
+// User without "admin" role will be able to successfully add record, but the cache sync operation
+// will fail due to security violation. In this case the record will be saved to database, but the
+// added record will not be fetched from database, instead just +link{DSRequest.oldValues,old values}
+// overlaid with submitted values will be returned. So, any changes made to the new record during
+// request execution, including generated values for primary key fields of "sequence" type, will not
+// be returned to the client.
+// <p>
+// However, if "add" or "update" operation explicitly declares +link{operationBinding.cacheSyncOperation},
+// cache sync request will be executed even if the user does not meet the security checks for the
+// operationBinding. Note that field-level security still will be respected and disallowed fields will
+// be excluded from returned data.
 //
 // @serverDS only
 // @requiresModules SCServer
@@ -30417,8 +30496,9 @@ isc.DataSource.addClassMethods({
                 }
             }
 
-            // datasource properties act as defaults - they don't override
-            if (localField[propertyName] != null) continue;
+            // datasource properties act as defaults - they don't override - use propertyDefined
+            // to ensure that we respect explicit nulls in filterEditorProperties
+            if (isc.propertyDefined(localField, propertyName)) continue;
 
             // ignore 'name' field - the component-field may have retrieved this ds field via
             // dataPath but we don't want to write our name onto the component-level field
@@ -38153,6 +38233,18 @@ errorCodes : {
     //<
     STATUS_FAILURE: -1,
 
+    //> @classAttr rpcResponse.STATUS_AUTHORIZATION_FAILURE (int : -3 : R)
+    //
+    // Indicates a +link{group:declarativeSecurity,Declarative Security} failure on the server.
+    // See the error handling section in +link{class:RPCManager, RPCManager documentation}
+    // for more information.
+    //
+    // @see class:RPCRequest
+    // @group statusCodes, constant
+    // @visibility external
+    //<
+    STATUS_AUTHORIZATION_FAILURE: -3,
+
     //> @classAttr rpcResponse.STATUS_VALIDATION_ERROR (int : -4 : R)
     //
     // Indicates a validation failure on the server.
@@ -44156,7 +44248,7 @@ transactionsChanged : function () {
 // </smartgwt>
 // <b>Error Status Codes</b><br>
 // The error status codes used by the framework are documented as class variables of the
-// +link{class:RPCRequest,RPCRequest class}.  Status codes in the range -1 to -100 are
+// +link{class:RPCResponse,RPCResponse class}.  Status codes in the range -1 to -100 are
 // reserved for use by the framework; if you wish to introduce new custom error statuses for
 // your own use, avoid this range.
 // <p>
@@ -46591,6 +46683,7 @@ duplicate : function () {
     config.allRows = allRows;
     config.allRowsCriteria = isc.DataSource.copyCriteria(this.allRowsCriteria);
     config.criteria = isc.DataSource.copyCriteria(this.criteria);
+    config.implicitCriteria = isc.DataSource.copyCriteria(this.implicitCriteria);
 
     config._duplicatingResultSet = true;
     var duplicate = isc.ResultSet.create(config);
@@ -47142,7 +47235,8 @@ _handleNewData : function (newData, result) {
         // so we can perform a local filter on a call to 'setCriteria'.  NOTE: done within
         // fillCacheData for a paged ResultSet
         if (this.allRowsCached()) {
-            this._setAllRows(this.localData, this.criteria);
+            var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
+            this._setAllRows(this.localData, criteria);
 
         }
 
@@ -47533,8 +47627,9 @@ _willFetchData : function (newCriteria, textMatchStyle) {
     if (this.localData == null && this.allRows == null) return true;
 
     // Determine if the criteria are unchanged / more or less restrictive
-    if (newCriteria == null) newCriteria = {};
-    var oldCriteria = this.criteria || {},
+    var contextImplicitCriteria = this.context ? (this.context.implicitCriteria || {}) : {};
+    newCriteria = isc.DS.combineCriteria(contextImplicitCriteria, newCriteria || {});
+     var oldCriteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {}) ,
         oldTextMatchStyle = this._textMatchStyle,
         ds = this.getDataSource();
 
@@ -47545,7 +47640,15 @@ _willFetchData : function (newCriteria, textMatchStyle) {
 
     // are we currently viewing a subset of a larger cache of data?
     var isFilteringLocally = this.allRows && this.shouldUseClientFiltering()
-                             && (oldCriteria != this.allRowsCriteria);
+                            && ((this.criteria || {}) != this.allRowsCriteria);
+
+    // When filtering locally previous criteria could be in this.allRowsCriteria instead of this.criteria
+    if (isFilteringLocally) {
+
+        if (this.allRowsCriteria && Object.keys(this.allRowsCriteria).length > 0) {
+            oldCriteria = isc.DS.combineCriteria(this.implicitCriteria, this.allRowsCriteria)
+        }
+    }
 
     // if old criteria is empty and will be used below, ignore its text match style
     var result = isc.isAn.emptyObject(oldCriteria) && !isFilteringLocally ? 0 :
@@ -47597,7 +47700,6 @@ _willFetchData : function (newCriteria, textMatchStyle) {
                 return false;
             }
         }
-
         return null;
     } else {
         // If the criteria have changed at all, we know we'll have to hit the server if
@@ -48254,6 +48356,9 @@ updateCacheData : function (updateData, dsRequest) {
         dontDrop = this.shouldNeverDropUpdatedRows(),
         dataSource = this.getDataSource(),
         keyColumns = dataSource.getPrimaryKeyFields();
+
+    criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, criteria || {});
+
     for (var i = 0, updateDataLength = updateData.length; i < updateDataLength; ++i) {
 
         var updateRow = updateData[i],
@@ -48483,6 +48588,7 @@ removeCacheData : function (updateData) {
         var ds = this.getDataSource(),
             notifyRemove = (cache == this.localData && this._dataRemove != null),
             notifyRemoved = (cache == this.localData && this._dataRemoved != null);
+        var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
         for (var i = 0, updateDataLength = updateData.length; i < updateDataLength; ++i) {
             var index = ds.findByKeys(updateData[i], cache);
             if (index != -1) {
@@ -48492,7 +48598,7 @@ removeCacheData : function (updateData) {
                     // local (filtered) cache.
 
                     if (!filteringOnClient ||
-                        ds.recordMatchesFilter(origRecord, this.criteria, this.context))
+                        ds.recordMatchesFilter(origRecord, criteria, this.context))
                     {
                         this._lastOrigRecord = origRecord;
                         // If we're not looking at the allRows cache the filtered index may not
@@ -48525,7 +48631,7 @@ removeCacheData : function (updateData) {
                 // If we have a partial cache, use client-side filtering to determine whether
                 // this removal has reduced the number of records that match our criteria
                 // (which should affect this.totalRows)
-                if (ds.applyFilter([updateData[i]], this.criteria, this.context).length > 0) {
+                if (ds.applyFilter([updateData[i]], criteria, this.context).length > 0) {
                     if (this.logIsDebugEnabled()) {
                         this.logDebug("removed record matches filter criteria: " +
                                       this.echo(updateData[i]));
@@ -49592,7 +49698,8 @@ fillCacheData : function (newData, startRow) {
     }
 
     if (this.allRowsCached()) {
-        this._setAllRows(this.localData, this.criteria);
+        var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
+        this._setAllRows(this.localData, criteria);
     }
 },
 
@@ -54066,6 +54173,7 @@ isc.EditorActionMethods.addInterfaceMethods({
         delete this._editRecordNum;
         delete this._editList;
         var record = isc.addProperties({}, record);
+        this.__editingNewRecord = true;
         this.setData(record);
 
 
@@ -54076,6 +54184,7 @@ isc.EditorActionMethods.addInterfaceMethods({
                 fileItemForm.clearErrors(true);
             }
         }
+        delete this.__editingNewRecord;
     },
 
     //>    @method dynamicForm.editSelectedData()
@@ -58001,6 +58110,7 @@ isc.DataSource.addClassMethods({
     // dsName -> array of callbacks pending ds load from server
     _getDataSourceCallbacks : {},
 
+
     loadSchema : function (name, callback, context) {
 
         var callbacks = isc.DataSource._getDataSourceCallbacks;
@@ -59329,7 +59439,8 @@ isc.RulesEngine.addProperties({
 
             if (locator != null) {
                 // support for multiple locators
-                if (isc.isA.String(locator)) locator = locator.split(",");
+
+                if (isc.isA.String(locator)) locator = locator.split(/,(?![^\[]*\])/);
 
                 for (var j = 0; j < locator.length; j++) {
                   var currentLocator = locator[j],
@@ -63330,9 +63441,10 @@ isc.EditContext.addProperties({
             iconSize: 16,
 
             // set up deferred loading
-            loadData: function (node, callback) {
+            loadData : function (node, callback) {
                 var paletteNode = this;
-                isc.DS.get(node.ID, function (ds) {
+                isc.DS.get(node.ID, function (dsID) {
+                    var ds = isc.DS.get(dsID);
                     node.liveObject = ds;
                     // minimal information for serializing the DataSource.  See
                     // getSerializeableTree()
@@ -63340,26 +63452,9 @@ isc.EditContext.addProperties({
                         _constructor: "DataSource",
                         ID: ds.ID
                     };
-
-                    // if DS inheritsFrom another DS and it is not loaded, load it now
-                    if (ds.hasSuperDS() && !ds.superDS()) {
-                        var loadParentData = function (ds, node, callback) {
-                            isc.DS.load(ds.inheritsFrom, function () {
-                                ds = ds.superDS();
-                                if (ds.hasSuperDS() && !ds.superDS()) {
-                                    loadParentData(ds, node, callback);
-                                } else {
-                                    node.isLoaded = true;
-                                    isc.Class.fireCallback(callback, "", [node]);
-                                }
-                            }, false, true);
-                        };
-                        loadParentData(ds, node, callback);
-                    } else {
-                        node.isLoaded = true;
-                        isc.Class.fireCallback(callback, "", [node]);
-                    }
-                });
+                    node.isLoaded = true;
+                    if (callback) isc.Class.fireCallback(callback, "", [node]);
+                }, {loadParents: true});
             }
         };
 
@@ -70639,7 +70734,35 @@ isc.defineClass("TabSetEditProxy", "CanvasEditProxy").addMethods({
         var liveTab = this.creator.getTab(tab);
         if (liveTab) {
             liveTab.saveToOriginalValues(["closeClick", "icon", "iconSize",
-                                          "iconOrientation", "iconAlign", "disabled"]);
+                                          "iconOrientation", "iconAlign", "setDisabled",
+                                          "getStateSuffix"]);
+            if (liveTab.disabled) {
+                liveTab.disabled = false;
+                liveTab._saveDisabled = true;
+                liveTab._saveGetStateSuffix = liveTab.getStateSuffix;
+                liveTab.getStateSuffix = function() {
+                    return "Disabled";
+                }
+            }
+            liveTab.setDisabled = function(disabled) {
+                // Do not actually disable the tab, just give it disabled appearance
+                this.disabled = false;
+                if (disabled) {
+                    this._saveDisabled = true;
+                    if (!this._saveGetStateSuffix) {
+                        this._saveGetStateSuffix = this.getStateSuffix;
+                    }
+                    this.getStateSuffix = function() {
+                        return "Disabled";
+                    }
+                    this.setState(isc.StatefulCanvas.STATE_DISABLED);
+                } else {
+                    delete this._saveDisabled;
+                    this.getStateSuffix = this._saveGetStateSuffix;
+                    this.setState(isc.StatefulCanvas.STATE_UP);
+                }
+            }
+
         }
     },
 
@@ -70647,7 +70770,13 @@ isc.defineClass("TabSetEditProxy", "CanvasEditProxy").addMethods({
         var liveTab = this.creator.getTab(tab);
         if (liveTab) {
             liveTab.restoreFromOriginalValues(["closeClick", "icon", "iconSize",
-                                               "iconOrientation", "iconAlign", "disabled"]);
+                                               "iconOrientation", "iconAlign", "setDisabled",
+                                               "getStateSuffix"]);
+            // NOTE: We can't handle "disabled" via the original values system because doing so
+            // inhibits live updates (you only see the effect of changing anything stored in
+            // original values when you switch back to Live mode)
+            liveTab.setDisabled(liveTab._saveDisabled);
+            delete liveTab._saveDisabled;
         }
     },
 
@@ -81406,7 +81535,7 @@ setupClause : function () {
             height: 10,
             width: "100%",
             numCols: 5,
-            colWidths: [100, this.operatorPickerWidth, "*", 10, "*"]
+            colWidths: [100, this.operatorPickerWidth, "*", 25, "*"]
         });
 
         this.addMember(this.clause);
@@ -81494,6 +81623,9 @@ buildValueItemList : function (field, operator, fieldName) {
     // We're not interested in the type object, just the name of the type
     baseFieldType = baseFieldType.name;
 
+    // store this in case field.editorProperties overrides it
+    var valueItemWidth = this.valueItemWidth;
+
 
 
     if (field) {
@@ -81504,6 +81636,9 @@ buildValueItemList : function (field, operator, fieldName) {
         if (field.userFormula || field.userSummary) {
             field.canFilter = true;
             field.canEdit = true;
+        }
+        if (field.editorProperties && field.editorProperties.width != null) {
+            valueItemWidth = field.editorProperties.width;
         }
     }
 
@@ -81534,7 +81669,7 @@ buildValueItemList : function (field, operator, fieldName) {
                 name: field ? field.name : null,
                 showTitle: false,
                 title : this.valueItemTitle,
-                width: this.valueItemWidth,
+                width: valueItemWidth,
                 changed : function () {
                     this.form.creator.valueChanged(this, this.form);
                 }
@@ -81594,6 +81729,8 @@ buildValueItemList : function (field, operator, fieldName) {
                 if (props.optionDataSource != null) fieldDef.optionDataSource = props.optionDataSource;
                 if (props.valueField != null) fieldDef.valueField = props.valueField;
                 if (props.displayField != null) fieldDef.displayField = props.displayField;
+                // if there are pickListFields, shallow copy them to avoid downstream updates
+                if (props.pickListFields) fieldDef.pickListFields = isc.shallowClone(props.pickListFields);
             } else {
                 fieldDef = isc.addProperties({}, fieldDef, field.editorProperties);
             }
@@ -81649,7 +81786,7 @@ buildValueItemList : function (field, operator, fieldName) {
             addUnknownValues: false,
             editorType: this.fieldDataSource ? "ComboBoxItem" : "SelectItem",
             valueType:valueType,
-            width: this.valueItemWidth,
+            width: valueItemWidth,
             textMatchStyle: this.fieldPicker.textMatchStyle,
             changed : function () {
                 this.form.creator.valueChanged(this, this.form);
@@ -81695,7 +81832,7 @@ buildValueItemList : function (field, operator, fieldName) {
 
         props = this.combineFieldData(
             isc.addProperties({
-                type: baseFieldType, editorType:editorType, showTitle: false, width: "100%",
+                type: baseFieldType, editorType:editorType, showTitle: false, width: valueItemWidth,
                 changed : function () {
                     this.form.creator.valueChanged(this, this.form);
                 }
@@ -81937,7 +82074,8 @@ getClauseValues : function (fieldName, operator, includeEmptyValues) {
             if (valueField) {
                 // normal operator with a value
                 values = operator[this.customGetValuesFunction](fieldName, valueField, includeEmptyValues);
-                if (values && operator) {
+
+                if (values && operator && operator.condition) {
                     if (operator.ID && operator.ID != values[this.operatorAttribute]) {
 
                         values[this.operatorAttribute] = operator.ID;
@@ -86836,7 +86974,7 @@ isc.defineClass("FilePickerForm", "VLayout").addProperties({
 // terms of its ARIA support.
 // <P>
 // By default, SmartClient components will write out limited ARIA markup sufficient to navigate basic
-// menus and buttons.  Full screen reader mode is not enabled by defaut because it has a small
+// menus and buttons.  Full screen reader mode is not enabled by default because it has a small
 // performance impact and subtly changes the management of keyboard focus in a way that is slightly worse
 // for unimpaired users.
 // <P>
@@ -88124,7 +88262,7 @@ isc.DataSourceFieldPicker.addProperties({
                     ds = isc.DS.get(dsName);
                     if (!ds) self.logWarn("Loading dataSource from server was unsuccessful for " + dsName);
                     self.handleLiveDs(ds);
-                });
+                }, false, true);
             }
         }
     },
@@ -88716,6 +88854,8 @@ start : function (dataSource, callback, isNew, instructions) {
     if (this.mainEditor) this.mainEditor.clearValues();
     if (this.fieldEditor) this.fieldEditor.setData(null);
 
+    this._editingDataSource = dataSource;
+
     // to be called when editing completes
     this.saveCallback = callback;
 
@@ -88863,8 +89003,25 @@ save : function () {
 
     if (dsData.serverType == "sql" || dsData.serverType == "hibernate") {
         if (!dsData.fields.getProperty("primaryKey").or()) {
-            isc.warn("SQL / Hibernate DataSources must have a field marked as the primary key");
-            return;
+            // This DataSource might inherit its primaryKey field...
+            var inheritsPK = false;
+            if (isc.isA.DataSource(this._editingDataSource)) {
+                var allFields = this._editingDataSource.getFields(),
+                    localFields = this._editingDataSource.getLocalFields();
+                for (var key in allFields) {
+                    var fld = allFields[key];
+                    // Catch the case that the user has overridden its inherited PK
+                    // field and removed the primaryKey designation
+                    if (fld.primaryKey && !dsData.fields.find("name",key)) {
+                        inheritsPK = true;
+                        break;
+                    }
+                }
+            }
+            if (!inheritsPK) {
+                isc.warn("SQL / Hibernate DataSources must have a field marked as the primary key");
+                return;
+            }
         }
     }
 
@@ -88935,11 +89092,17 @@ doneEditing : function (dsData) {
     var xml = schema.xmlSerialize(dsData);
     this.logWarn("saving DS with XML: " + xml);
 
+    var _this = this;
     this.dsDataSource.saveFile({
         fileName: dsData.ID,
         fileType: "ds",
         fileFormat: "xml"
-    }, xml);
+    }, xml, function() {
+        // Reload the DataSource we just changed
+        if (_this._editingDataSource) {
+            isc.DataSource.load(_this._editingDataSource.ID, null, true, true);
+        }
+    });
 
     // create a live instance
     var liveDS = isc.ClassFactory.getClass(dsClass).create(dsData);
@@ -89106,7 +89269,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

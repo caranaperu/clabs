@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-07-01/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -60,6 +60,9 @@ if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.Dev
 isc.ClassFactory.defineClass("CalendarView", "ListGrid");
 
 isc.CalendarView.addProperties({
+
+    isCalendarView: true,
+
     verticalEvents: true,
 
     // needed to avoid the grid scrolling to 0,0 when clicking body children (eventCanvases)
@@ -3805,6 +3808,8 @@ isc.DaySchedule.addProperties({
             labelCol = {
                 autoFitWidth: true,
                 minWidth: this.labelColumnWidth,
+                width: this.labelColumnWidth,
+                autoFitWidth: true,
                 name: "label",
                 frozen: true,
                 isLabelField: true,
@@ -4614,7 +4619,9 @@ isc.MonthSchedule.changeDefaults("headerButtonProperties", {
 
 isc.MonthSchedule.changeDefaults("bodyProperties", {
     redrawOnResize:true,
-    overflow: "visible"
+    overflow: "visible",
+    // this is necessary because monthView shows rows of two distinct heights (dayHeader/Body)
+    fixedRowHeights: false
 });
 
 isc.MonthSchedule.addProperties({
@@ -4700,6 +4707,11 @@ isc.MonthSchedule.addProperties({
         this.Super("initWidget");
 
         this.selectChosenDateCells();
+    },
+
+    canSelectCell : function (rowNum, colNum) {
+        // disallow grid-selection of disabled dates
+        return !this.calendar.shouldDisableDate(this.calendar.getCellDate(rowNum, colNum, this));
     },
 
     getCalendar : function () {
@@ -4921,6 +4933,7 @@ isc.MonthSchedule.addProperties({
     },
 
     formatCellValue : function (value, record, rowNum, colNum) {
+        if (!record) return;
         var cal = this.calendar,
             fieldIndex = this.fields.get(colNum)._dayIndex,
             evtArr = record["event" + fieldIndex],
@@ -5077,6 +5090,7 @@ isc.MonthSchedule.addProperties({
                 cal.selectTab(0);
             }
         } else { // day body clicked
+            if (isOtherDay) return;
             if (!this.cellDisabled(rowNum, colNum) && !(!cal.showOtherDays && isOtherDay)) {
                 doDefault = cal.dayBodyClick(currDate, evtArr, cal, rowNum, colNum);
                 if (doDefault && cal.canCreateEvents) {
@@ -6383,9 +6397,10 @@ isc.TimelineView.addProperties({
                 laneFields.setProperty("frozen", true);
                 laneFields.setProperty("isLaneField", true);
                 for (var i = 0; i < laneFields.length; i++) {
-                    if (laneFields[i].width == null) laneFields[i].width = this.labelColumnWidth;
-                    if (laneFields[i].minWidth == null) laneFields[i].minWidth = this.labelColumnWidth;
-                    newFields.add(laneFields[i]);
+                    var lf = laneFields[i];
+                    if (lf.minWidth == null) lf.minWidth = this.labelColumnWidth;
+                    if (lf.width == null) lf.width = lf.minWidth || this.labelColumnWidth;
+                    newFields.add(lf);
                 }
             } else {
                 var labelCol = isc.addProperties({
@@ -9343,6 +9358,7 @@ removeLane : function (lane) {
     if (!view || !this.lanes) return;
 
     if (isc.isA.String(lane)) lane = this.lanes.find("name", lane);
+    else if (isc.isAn.Object(lane)) lane = this.lanes.find("name", lane.name);
     if (lane) {
         this.lanes.remove(lane);
         view.setLanes(this.lanes);
@@ -12556,7 +12572,8 @@ _getEventsInRange : function (start, end, view, visibleLanesOnly) {
 },
 
 getDayEnd : function (startDate) {
-    return new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(),23,59,59);
+    return isc.DateUtil.getEndOf(startDate, "d", null, this.firstDayOfWeek);
+    //return new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(),23,59,59);
 },
 
 isTimeline : function () {
@@ -12580,8 +12597,8 @@ _storeChosenDateRange : function (date) {
     if (Date.compareDates(this.chosenDate,startDate) == 1) {
         this.chosenWeekStart.setDate(this.chosenWeekStart.getDate() - 7);
     }
-    this.chosenWeekEnd = new Date(startDate.getFullYear(), startDate.getMonth(),
-       startDate.getDate() + 6, 23, 59);
+    this.chosenWeekEnd = isc.DateUtil.getEndOf(this.chosenWeekStart.duplicate(), "w", null,
+        this.firstDayOfWeek);
 
     // similarly, if chosen date is greater than chosenWeekEnd, shift week window up one week.
     if (Date.compareDates(this.chosenDate, this.chosenWeekEnd) == -1) {
@@ -13142,7 +13159,7 @@ createChildren : function () {
 
                 cal.eventDialog.event = null;
                 cal.eventDialog.isNewEvent = true;
-                cal.eventDialog.items[0].createFields(); //false);
+                cal.eventDialog.items[0].createFields();
 
                 var sDate = new Date(),
                     eDate = null,
@@ -13454,7 +13471,7 @@ createEditors : function () {
                 if (startDate.getHours() == 23
                         && startDate.getMinutes() == (60 - cal.getSelectedView().getTimePerCell())) {
                     endDate = new Date(startDate.getFullYear(), startDate.getMonth(),
-                    startDate.getDate() + 1);
+                        startDate.getDate() + 1);
                 } else {
                     endDate = new Date(startDate.getFullYear(), startDate.getMonth(),
                         startDate.getDate(), startDate.getHours() + 1, startDate.getMinutes());
@@ -17541,7 +17558,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

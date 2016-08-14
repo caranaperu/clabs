@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -89,9 +89,9 @@ isc._start = new Date().getTime();
 
 // versioning - values of the form ${value} are replaced with user-provided values at build time.
 // Valid values are: version, date, project (not currently used)
-isc.version = "v11.0p_2016-07-01/LGPL Deployment";
-isc.versionNumber = "v11.0p_2016-07-01";
-isc.buildDate = "2016-07-01";
+isc.version = "v11.0p_2016-08-13/LGPL Deployment";
+isc.versionNumber = "v11.0p_2016-08-13";
+isc.buildDate = "2016-08-13";
 isc.expirationDate = "";
 
 isc.scVersion = "11.0p";
@@ -1456,7 +1456,8 @@ isc.Browser.isMobileFirefox = isc.Browser.isFirefox && (navigator.userAgent.inde
                                                         navigator.userAgent.indexOf("Tablet") > -1);
 
 
-isc.Browser.isMobileWebkit = (isc.Browser.isSafari && navigator.userAgent.indexOf(" Mobile/") > -1
+isc.Browser.isMobileWebkit = (isc.Browser.isSafari &&
+        (navigator.userAgent.indexOf(" Mobile/") > -1 || navigator.userAgent.indexOf("(iPad") > -1)
     || isc.Browser.isAndroid
     || isc.Browser.isBlackBerry) && !isc.Browser.isFirefox;
 
@@ -4134,6 +4135,7 @@ isc.addMethods(isc.ClassFactory, {
     _$Window: "Window",
     _$Selection: "Selection",
     _$DataView: "DataView",
+    _$Animation: "Animation",
     _ignoredGlobalOverrides: {},
     _$simpleNamesWarning: "\nThis conflict would be avoided by disabling " +
                           "ISC Simple Names mode.  See documentation for " +
@@ -4147,6 +4149,7 @@ isc.addMethods(isc.ClassFactory, {
             ignored[this._$Window]    = true;
             ignored[this._$Selection] = true;
             ignored[this._$DataView]  = true;
+            ignored[this._$Animation] = true;
         }
     },
 
@@ -4204,12 +4207,13 @@ isc.addMethods(isc.ClassFactory, {
 
             && className != "IButton"
             && overwrite != true
-            // don't warn if a framework component schema is overridden ("componentSchema" flag is
-            // automatically set by LoadSystemSchemaTag).  Without this check, we get warnings at VB
-            // startup when eg the VisualBuilder class clobbers the VisualBuilder component schema.
-            // Component Schema don't really need to be globals as framework code always looks them up
-            // with DataSource.get().
-            && !(isc.isA.DataSource(existingObject) && existingObject.componentSchema)
+            // don't warn if a framework component schema is overridden ("componentSchema"
+            // flag is automatically set by LoadSystemSchemaTag).  Without this check, we
+            // get warnings at VB startup when eg the VisualBuilder class clobbers the
+            // VisualBuilder component schema.  Component Schema don't really need to be
+            // globals as framework code always looks them up with DataSource.get().
+            && !(isc.DataSource && isc.isA.DataSource(existingObject) &&
+                                                      existingObject.componentSchema)
             )
         {
 
@@ -17867,6 +17871,7 @@ createDatetime : function (year, month, date, hours, minutes, seconds, milliseco
 // Return a new date that reflects the supplied date adjusted for the display timezone.
 
 _getDisplayOffsetDate : function (datetime) {
+    if (datetime == null) return null;
     var displayDate = datetime._getTimezoneOffsetDate(
         isc.Time.getUTCHoursDisplayOffset(datetime),
         isc.Time.getUTCMinutesDisplayOffset(datetime));
@@ -18413,6 +18418,13 @@ parseSchemaDate : function (value) {
         // make it look like it has something in place of a time-value, even if it isn't
         // valid for schema-format - return null in this case, rather than a valid logicalDate
         if (value.length > 10 && value.contains(" ")) return null;
+        // result[2] should contain the month, but if this value is greater than 12 (twelve month),
+        // then result[3] should be the month and result[2] should be the day of the month.
+        if (result[2] > 12) {
+            var month = result[3];
+            result[3] = result[2];
+            result[2] = month;
+        }
         dateValue = Date.createLogicalDate(result[1], result[2] - 1, result[3]);
     } else if (!result[msIndex]) { // no ms
         dateValue = new Date(Date.UTC(result[1], result[2] - 1, result[3],
@@ -18521,7 +18533,7 @@ _splitDateString : function (string, format, zeroEmptyTime) {
         // 9999 on a JS date causes a native browser crash on IE6
         var regex =
         //          YYYY || YY/[M]M  /  YYYY || YY/[M]M  /  YYYY || YY/[M]M [(space) [H]H  :    MM    [:     SS]]
-        new RegExp(/^\s*(-?\d{1,4})[^\d](-?\d{1,4})[^\d](-?\d{1,4})([^\d](\d{1,2})[^\d](\d\d)[^\d]?(\d\d)?)?\s*$/),
+        new RegExp(/^\s*(-?\d{1,4})[^\d](-?\d{1,4})[^\d](-?\d{1,4})([^\d](\d{1,2})[^\d](\d\d)[^\d]?(\d\d)?)?\s*([ap]m?)?\s*$/),
             results = string.match(regex);
 
         if (results == null) return null;
@@ -18547,6 +18559,16 @@ _splitDateString : function (string, format, zeroEmptyTime) {
         if (zeroEmptyTime && results[6] == null) minute = 0;
         second = results[7];
         if (zeroEmptyTime && results[7] == null) second = 0;
+
+        if (results[8]) {
+            // support am/pm markers (a/p/am/pm, case insensitive)
+            hour = parseInt(hour);
+            if (results[8].toLowerCase().startsWith("a")) {
+                if (hour == 12) hour = 0;
+            } else {
+                if (hour < 12) hour += 12;
+            }
+        }
     //>Safari12
     }
     //<Safari12
@@ -18658,7 +18680,7 @@ setNormalDateDisplayFormat : function (format) {
 // @visibility external
 //<
 setNormalDatetimeDisplayFormat : function (format) {
-    // if a valid formatter was passed in, set our .formatter property
+    // if a valid formatter was passed in, set our .datetimeFormatter property
     if (isc.isA.Function(Date.prototype[format]) ||
         isc.isA.Function(format) ||
         isc.isA.String(format))
@@ -23613,24 +23635,24 @@ isc.StackTrace.getPrototype().toString = function () {
 // The native stack trace for Mozilla has changed.  For FF14 and above, the arguments are
 // no longer supplied and the native stack trace looks like:
 //
-// isc_Canvas_editSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:30870
-// isc_Canvas_addSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:30865
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:420
-// isc_Menu_selectMenuItem@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:28093
-// isc_Menu_rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:28059
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:7836
-// isc_GridRenderer__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:6199
-// isc_c_Class_invokeSuper@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:2263
-// isc_c_Class_Super@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:2198
-// isc_GridBody__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:6793
-// isc_GridRenderer_click@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:6178
-// isc_Canvas_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:25741
-// isc_c_EventHandler_bubbleEvent@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:15164
-// isc_c_EventHandler_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:14083
-// isc_c_EventHandler__handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:13973
-// isc_c_EventHandler_handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:13916
-// isc_c_EventHandler_dispatch@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:15541
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:420
+// isc_Canvas_editSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30870
+// isc_Canvas_addSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30865
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:420
+// isc_Menu_selectMenuItem@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28093
+// isc_Menu_rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28059
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:7836
+// isc_GridRenderer__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6199
+// isc_c_Class_invokeSuper@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2263
+// isc_c_Class_Super@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2198
+// isc_GridBody__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6793
+// isc_GridRenderer_click@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6178
+// isc_Canvas_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:25741
+// isc_c_EventHandler_bubbleEvent@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:15164
+// isc_c_EventHandler_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:14083
+// isc_c_EventHandler__handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:13973
+// isc_c_EventHandler_handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:13916
+// isc_c_EventHandler_dispatch@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:15541
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:420
 //
 // For FF13 and earlier, the lines from the native stack trace look something like this:
 //
@@ -23967,16 +23989,16 @@ isc.ChromeStackTrace.addClassMethods({
 // The error.stack from IE10 looks like:
 //
 // "TypeError: Unable to set property 'foo' of undefined or null reference
-//   at isc_Canvas_editSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:30842:5)
-//   at sc_Canvas_addSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:30837:5)
+//   at isc_Canvas_editSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30842:5)
+//   at sc_Canvas_addSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30837:5)
 //   at Function code (Function code:1:1)
-//   at isc_Menu_selectMenuItem (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:28093:9)
-//   at isc_Menu_rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:28059:5)
+//   at isc_Menu_selectMenuItem (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28093:9)
+//   at isc_Menu_rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28059:5)
 //   at Function code (Function code:1:142)
-//   at isc_GridRenderer__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:6199:5)
-//   at isc_c_Class_invokeSuper (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:2262:17)
-//   at isc_c_Class_Super (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-07-01.js:2198:9)
-//   at isc_GridBody__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-07-01.js:679[3:13)
+//   at isc_GridRenderer__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6199:5)
+//   at isc_c_Class_invokeSuper (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2262:17)
+//   at isc_c_Class_Super (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2198:9)
+//   at isc_GridBody__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:679[3:13)
 
 isc.defineClass("IEStackTrace", isc.StackTrace).addMethods({
     preambleLines:1,
@@ -28192,7 +28214,7 @@ sortByProperties : function () {
                         dataType = field.type;
                     }
                 } else {
-                    isDataPath = (property.indexOf("/") >= 0);
+                    if (property) isDataPath = (property.indexOf("/") >= 0);
                 }
             }
 
@@ -29445,7 +29467,7 @@ isc.Time.addClassMethods({
 
         // Sanity check - don't allow unexpected things passed in as a formatter to give us
         // odd results
-        if (!formatter && !isc.isA.String(formatter) && !isc.isA.Function(formatter)) {
+        if (!formatter || (!isc.isA.String(formatter) && !isc.isA.Function(formatter))) {
             formatter = shortFormat ? this.shortDisplayFormat : this.displayFormat;
         }
 
@@ -29455,6 +29477,11 @@ isc.Time.addClassMethods({
         if (isc.isA.String(formatter)) formatter = this.formatterMap[formatter];
 
         if (!isc.isAn.Object(formatter)) {
+            // not a built-in formatter - but it might be a valid format-string - run it
+            // through DateUtil.format(), which deals with all date and time formats
+            var result = isc.DateUtil.format(date, originalFormatter);
+            if (result) return result;
+            // not a valid format string either - log a warnign and use a default
             this.logWarn("Invalid time formatter:" + originalFormatter + " - using 'toTime'");
             formatter = this.formatterMap.toTime;
         }
@@ -30741,7 +30768,7 @@ isc.Page.addClassProperties({
     // The SmartClient framework supports all major browsers, and will always support the
     // current versions at release-time.
     // <P>
-    // The full list of SmartClient browser support (at the time of the initial v11.0p_2016-07-01/LGPL Deployment release)
+    // The full list of SmartClient browser support (at the time of the initial v11.0p_2016-08-13/LGPL Deployment release)
     // is listed below. Note that support for some framework features may be implemented using
     // different native approaches - or in rare cases, may be unavailable - in some older browser
     // versions. Such cases are covered in documentation where they occur. For example, see the
@@ -30765,7 +30792,7 @@ isc.Page.addClassProperties({
     // Every distributed SmartClient skin contains an "Unsupported Browser" page. This is an optional
     // placeholder for an application to state its browser support policies.
     // <P>
-    // <b>The following browser versions were supported as of the original v11.0p_2016-07-01/LGPL Deployment release</b>:
+    // <b>The following browser versions were supported as of the original v11.0p_2016-08-13/LGPL Deployment release</b>:
     //    <table class="normal" cellPadding=5>
     //
     //    <tr><td width=40></td><td width=200>
@@ -37742,9 +37769,9 @@ handleNativeClick : function (DOMevent) {
                 }
 
 
-                if (lastEventTarget !== event.target ||
-                    (lastEventTarget != null && lastEventTarget._differentEventCharacteristics != null &&
-                     lastEventTarget._differentEventCharacteristics(mouseDownEvent, event)))
+                if (lastEventTarget != null && (lastEventTarget !== event.target ||
+                        lastEventTarget._differentEventCharacteristics != null &&
+                        lastEventTarget._differentEventCharacteristics(mouseDownEvent, event)))
                 {
                     event.originalType = EH.CLICK;
                     event.eventType = EH.MOUSE_MOVE;
@@ -67202,7 +67229,7 @@ _handleCSSScroll : function (waited, fromFocus) {
 
 
 handleMouseWheel : function () {
-    this.mouseWheel();
+    return this.mouseWheel();
 },
 
 mouseWheel : function () {
@@ -67224,10 +67251,12 @@ mouseWheel : function () {
         this.scrollTo(scrollLeft, scrollTop, "mouseWheel");
 
         // return false to cancel further / native processing
+        //isc.logWarn("mouseWheel handled in JS for " + this.ID + ", returning false to cancel native processing");
         return false;
     }
 
     // Not a scrollable region, return true
+        //isc.logWarn("mouseWheel not handled in JS for " + this.ID + ".  overflow: " + this.overflow + ", vscrollon: " + this.vscrollon + ", hscrollon: " + this.hscrollon);
     return true;
 },
 
@@ -73940,6 +73969,8 @@ _getObjectLocatorForWhenRules : function (component) {
 
     isc.AutoTest.testRoot = null;
     var locator = isc.AutoTest.getObjectLocator(component);
+
+    if (locator) locator = locator.replace(/\[([^\]]+)\]/, "[$1,locatorMatching=restrictSuffix]");
     isc.AutoTest.testRoot = testRoot;
     return locator;
 },
@@ -81868,10 +81899,8 @@ fetchData : function (criteria, callback, requestProperties) {
 
     requestProperties = isc.DataSource.dupRequest(requestProperties);
 
-    // Push the implicitCriteria into dsRequest.data now instead of pulling it later from DS
-    if (this.implicitCriteria) {
-        requestProperties.data = isc.DS.combineCriteria(requestProperties.data, this.implicitCriteria);
-    }
+    // The ResultSet receives a copy of DBC.implicitCriteria
+    requestProperties.implicitCriteria = this.implicitCriteria || {};
 
     if (!requestProperties.textMatchStyle) requestProperties.textMatchStyle = "exact";
     this._filter("fetch", criteria, callback, requestProperties);
@@ -82248,11 +82277,15 @@ fetchRelatedData : function (record, schema, callback, requestProperties) {
 // @visibility internal
 //<
 clearCriteria : function (callback, requestProperties) {
-    // Push the implicitCriteria into requestProperties.data if it exists
-    if (this.implicitCriteria) {
-        if (requestProperties == null) requestProperties = {};
-        requestProperties.data = isc.DS.combineCriteria(requestProperties.data, this.implicitCriteria);
-    }
+    // Remove filter and implicitCriteria
+    if (!requestProperties) requestProperties = {};
+
+    requestProperties = isc.DataSource.dupRequest(requestProperties);
+
+    requestProperties.data = {};
+    // The ResultSet receives a copy of DBC.implicitCriteria
+    requestProperties.implicitCriteria = this.implicitCriteria || {};
+
     this._filter("filter", null, callback, requestProperties);
 },
 
@@ -82361,6 +82394,10 @@ filterWithCriteria : function (criteria, operation, context) {
     // we will ask the result set for the data we currently need to display,
     // which will cause data to be fetched
     this.setData(dataModel);
+
+    // Save the new implicitCriteria so we can check later if has changed
+
+    if (this.data && this.data.context) this.data.implicitCriteria = this.data.context.implicitCriteria;
 
 
     var data = this.data;
@@ -82552,12 +82589,10 @@ getDataAsList : function () {
 //<
 invalidateCache : function () {
 
-    // Remove the filter in dsRequest.data
-    if (this.data.context) delete this.data.context.data;
-
-    // Push the implicitCriteria into dsRequest.data now instead of pulling it later from DS
-    if (this.implicitCriteria) {
-        this.data.context.data = isc.DS.combineCriteria(this.data.context.data, this.implicitCriteria);
+    // Remove the filter in dsRequest.data and the implicitCriteria
+    if (this.data && this.data.context) {
+        delete this.data.context.data;
+        delete this.data.context.implicitCriteria;
     }
 
     if (this.data && this.data.invalidateCache != null) return this.data.invalidateCache();
@@ -82636,11 +82671,6 @@ refreshData : function (callback) {
 
     var oldCriteria = isc.clone(this.data.getCriteria());
     var oldSort = isc.clone(this.data.getSort());
-
-    // Push the implicitCriteria into dsRequest.data now instead of pulling it later from DS
-    if (this.implicitCriteria) {
-        request.data = isc.DS.combineCriteria(request.data, this.implicitCriteria);
-    }
 
     dataSource.fetchData(this.getCriteria(), function (dsResponse, data, dsRequest) {
         var newCriteria = this.data.getCriteria();
@@ -82722,6 +82752,7 @@ willFetchData : function (newCriteria, textMatchStyle) {
     var data = this.data;
     if (data && data.willFetchData == null && this.originalData != null) data = this.orginalData;
     if (data && data.willFetchData != null) {
+        if (data.context) data.context.implicitCriteria = this.implicitCriteria || {};
         return data.willFetchData(newCriteria, textMatchStyle);
     }
     return !this.shouldFilterLocalData();
@@ -82797,11 +82828,6 @@ removeData : function (recordKeys, callback, requestProperties) {
 
 _performDSOperation : function (operationType, data, callback, requestProperties) {
     if (isc._traceMarkers) arguments.__this = this;
-
-    // Push the implicitCriteria into dsRequest.data now instead of pulling it later from DS
-    if (this.implicitCriteria) {
-        requestProperties.data = isc.DS.combineCriteria(requestProperties.data, this.implicitCriteria);
-    }
 
     if (this.shouldSaveLocally() || this.getDataSource() == null) {
         return this._performDSOperationInner(operationType, data);
@@ -88276,6 +88302,16 @@ getFieldDependencies : function (field) {
             }
         }
 
+        // Apply any dependencies from validator definition's getDependentFields()
+
+        var validatorDef = isc.Validator.getValidatorDefinition(validator.type);
+        if (validatorDef && validatorDef.getDependentFields != null) {
+            var sourceFields = validatorDef.getDependentFields(validator);
+            if (isc.isAn.Array(sourceFields)) sourceFields.map(function (sourceField) {
+                if (sourceField) dependencies.add(sourceField);
+            });
+        }
+
         // ApplyWhen dependencies
         if (validator._derivedDependentFields &&
             validator._derivedDependentFields.length > 0)
@@ -92636,6 +92672,23 @@ _shallowCloneArray : function (object) {
 // <P>
 // <hr>
 // <P>
+// <b><u>Special scLocator usage</u></b>
+// <P>
+// <b><u>Verifying icon/image loading</u></b>
+// <P>
+// If you manually add <b>/imageLoaded</b> to the end of the locator generated for a
+// +link{Button} or +link{Img}, then +link{AutoTest.getElement()} or +link{AutoTest.getValue()}
+// can be used to verify whether the icon (in the case of a <code>Button</code>) or image (for
+// an <code>Img</code>) have been loaded succesfully.
+//
+// Examples:<ul>
+// <li><b>//Button[ID="cssButton"]/imageLoaded</b>
+// <li><b>//IButton[ID="stretchButton"]/imageLoaded</b>
+// <li><b>//ImgButton[ID="imgButton"]/imageLoaded</b>
+// <li><b>//Img[ID="photo"]/imageLoaded</b></ul>
+// <P>
+// <hr>
+// <P>
 // <b><u>Best Practices</u></b>
 // <P>
 // <ul>
@@ -93652,7 +93705,7 @@ isc.AutoTest.addClassMethods({
                 configSettings = IDMatches ? IDMatches[1] : null;
 
             // install any declared property bindings into the configuration
-            if (configSettings) this.installLocatorConfiguration(configSettings, configuration);
+            this.installLocatorConfiguration(configSettings, configuration);
 
             if (this.testRoot == null) {
                 this.logWarn("Unable to process scLocators starting with " + this._$testRoot +
@@ -93672,6 +93725,9 @@ isc.AutoTest.addClassMethods({
             var levelMatches = substring.match(/Menu\[level=(.*)(,.*)?\]/i),
                 level = levelMatches ? levelMatches[1] : null;
             if (level != null) {
+                // install any declared property bindings into the configuration
+                this.installLocatorConfiguration(levelMatches[2], configuration);
+
                 var menu = isc.Menu.getMenuAtLevel(level);
                 if (menu == null) {
                     this.setLogFailureText(true, "there is no Menu corresponding " +
@@ -93695,7 +93751,7 @@ isc.AutoTest.addClassMethods({
             }
 
             // install any declared property bindings into the configuration
-            if (IDMatches[2]) this.installLocatorConfiguration(IDMatches[2], configuration);
+            this.installLocatorConfiguration(IDMatches[2], configuration);
 
             var baseComponent = window[ID];
             if (!baseComponent) {
@@ -93738,7 +93794,6 @@ isc.AutoTest.addClassMethods({
     //<
 
     getLocatorCanvas : function (locator) {
-
 
         // Simply get the DOM element and pick up the Canvas from it.
         // XXX this will not work if the Canvas is currently undrawn.
@@ -94152,7 +94207,8 @@ isc.Canvas.addClassMethods({
             }
         case "scClass":
             if (scClassName) {
-                var innerMatches = propertyMatches.findAll("_scClass", scClassName);
+                var innerMatches = propertyMatches.findAll(isc.Class.compareScClassName,
+                                                           scClassName);
                 if (innerMatches != null) {
                     if (innerMatches.length == 1 || propertyMatch == null)
                         propertyMatch = innerMatches[0];
@@ -94226,9 +94282,11 @@ isc.Canvas.addClassMethods({
     },
 
     // substring param really just used for logging
-    getCanvasFromFallbackLocator : function
-    Canvas_getCanvasFromFallbackLocator (substring, config, candidates, strategy, typeStrategy)
+    getCanvasFromFallbackLocator : function Canvas_getCanvasFromFallbackLocator
+        (substring, config, candidates, strategy, typeStrategy, mode)
     {
+        var locatorMatching = mode && mode.locatorMatching;
+
         // Given an array of possible candidates attempt to match as follows:
 
         // - if a 'name' was recorded,
@@ -94324,7 +94382,8 @@ isc.Canvas.addClassMethods({
 
                 if (scClassName && config.scClassIndex) {
 
-                    var scClassMatches = candidates.findAll("_scClass", scClassName);
+                    var scClassMatches = candidates.findAll(isc.Class.compareScClassName,
+                                                            scClassName);
                     if (scClassMatches && scClassMatches.length > 0) {
 
                         scClassIndexMatch = scClassMatches[parseInt(config.scClassIndex)];
@@ -94374,6 +94433,9 @@ isc.Canvas.addClassMethods({
                 if ((typeStrategy != "none" && (className || scClassName || role)) ||
                     (config.length != null && (parseInt(config.length) != candidates.length)))
                 {
+
+                    if (locatorMatching == "restrictConfig") break;
+
                     isc.AutoTest.logRobustLocatorWarning();
                 }
 
@@ -94449,7 +94511,7 @@ isc.Class.addClassMethods({
 
         var scClassName;
         if (!objectClass.isFrameworkClass) {
-            scClassName = objectClass._scClassName;
+            scClassName = objectClass._scClass;
         }
         if (scClassName != null) properties.scClass = scClassName;
 
@@ -94477,7 +94539,8 @@ isc.Class.addClassMethods({
             // but the application layout stays the same, so an array of buttons becomes
             // an array of custom button subclasses
             if (scClassName != null) {
-                var matchingSCClass = sourceArray.findAll("_scClass", scClassName);
+                var matchingSCClass = sourceArray.findAll(isc.Class.compareScClassName,
+                                                          scClassName);
                 properties.scClassIndex = matchingSCClass.indexOf(canvas);
                 properties.scClassLength = matchingSCClass.length;
             }
@@ -94573,16 +94636,17 @@ isc.Class.addMethods({
         return null;
     },
 
-    getCanvasFromFallbackLocator : function
-    class_getCanvasFromFallbackLocator (substring, config, candidates, strategy, typeStrategy)
+    getCanvasFromFallbackLocator : function class_getCanvasFromFallbackLocator
+        (substring, config, candidates, strategy, typeStrategy, mode)
     {
         return isc.Canvas.getCanvasFromFallbackLocator(substring, config, candidates,
-                                                       strategy, typeStrategy);
+                                          strategy, typeStrategy, mode);
     },
 
     // substring param really just used for logging
     getChildFromFallbackLocator : function class_getChildFromFallbackLocator (substring,
-                                                                  fallbackLocatorConfig)
+                                                                  fallbackLocatorConfig,
+                                                                          configuration)
     {
         var type = fallbackLocatorConfig.name,
             config = fallbackLocatorConfig.config;
@@ -94603,7 +94667,7 @@ isc.Class.addMethods({
             if (typeStrategy == null) typeStrategy = "Class";
 
             var match = this.getCanvasFromFallbackLocator(substring, config, candidates,
-                                                          strategy, typeStrategy);
+                                                 strategy, typeStrategy, configuration);
             if (match != null) return match;
         }
 
@@ -95014,11 +95078,22 @@ isc.Canvas.addMethods({
             {
                 return result;
             }
-            if (configuration.locatorMatching != "permissive") {
+            if (configuration.locatorMatching != "permitSuffix") {
                 child.setLogFailureText(true, "the trailing locator suffix '" +
                     locatorArray.join("/") + "' does not identify any valid attribute of",
-                                        "and permissive mode is not active");
+                                        "and permitSuffix mode is not active");
                 return result;
+            }
+        } else {
+            // we don't want a prefix match if locator is marked for restrictSuffix mode
+
+            if (locatorArray[0] && !isc.isA.DynamicForm(this) &&
+                configuration.locatorMatching == "restrictSuffix")
+            {
+                this.setLogFailureText(true, "the trailing locator suffix '" +
+                    locatorArray.join("/") + "' does not identify a valid child of",
+                                        "and restrictSuffix mode is active");
+                return null;
             }
         }
 
@@ -95034,9 +95109,8 @@ isc.Canvas.addMethods({
     // If there is no matching child, return null - we'll then treat this widget as the
     // innermost child widget treat any remaining locator info as an interior locator
 
-    getChildFromLocatorSubstring : function canvas_getChildFromLocatorSubstring (substring,
-                                                                                 index,
-                                                                                 locatorArray)
+    getChildFromLocatorSubstring : function canvas_getChildFromLocatorSubstring
+                                   (substring, index, locatorArray, configuration)
     {
         if (substring == null || substring == "") return null;
 
@@ -95073,7 +95147,8 @@ isc.Canvas.addMethods({
         // - members[<fallback locator>]
         var fallbackLocatorConfig =  isc.AutoTest.parseLocatorFallbackPath(substring);
         if (fallbackLocatorConfig != null) {
-            var child = this.getChildFromFallbackLocator(substring, fallbackLocatorConfig);
+            var child = this.getChildFromFallbackLocator(substring, fallbackLocatorConfig,
+                                                        configuration);
             if (child == null) {
                 this.setLogFailureText(true, null, "has no child identifiable " +
                                        "by the fallback locator '" + substring + "'");
@@ -95234,10 +95309,10 @@ isc.Canvas.addMethods({
             }
 
 
-            if (configuration.locatorMatching != "permissive") {
+            if (configuration.locatorMatching != "permitSuffix") {
                 this.setLogFailureText(true, "the trailing locator suffix '" +
                                        locatorArray.join("/") + "' does not identify any AutoChild " +
-                                       "or Event Part of", "and permissive mode is not active");
+                                       "or Event Part of", "and permitSuffix mode is not active");
                 return null;
             }
         }
@@ -95280,6 +95355,15 @@ isc.Canvas.addMethods({
     },
 
     _getHandleAndLogFailure : function canvas__getHandleAndLogFailure() {
+        // return null for handle if this canvas lies in a widget stack queued for destruction
+        for (var canvas = this; canvas.parentElement; canvas = canvas.parentElement) {
+            if (canvas.isPendingDestroy()) {
+                this.setLogFailureText(true, "the canvas represented by", "is or has a " +
+                    "parent queued for destroy - its DOM element handle is considered invalid");
+                return null;
+            }
+        }
+
         var handle = this.getHandle();
         if (handle != null) return handle;
 
@@ -95871,10 +95955,10 @@ if (isc.DynamicForm) {
                     if (undef !== element) return element;
                 }
 
-                if (configuration.locatorMatching != "permissive") {
+                if (configuration.locatorMatching != "permitSuffix") {
                     this.setLogFailureText(true, "the trailing locator suffix '" +
                         locatorArray.join("/") + "' does not identify any FormItem in",
-                                           "and permissive mode is not active");
+                                           "and permitSuffix mode is not active");
                     return null;
                 }
             }
@@ -96100,7 +96184,7 @@ if (isc.DynamicForm) {
 
                 // Could be a named autoChild...
                 if (this._createdAutoChildren) {
-                    var autoChild = this._getNamedAutoChild(part);
+                    var autoChild = this._getNamedAutoChild(part, configuration);
                     if (autoChild) {
                         locatorArray.removeAt(0);
                         return autoChild.getAttributeFromSplitLocator(locatorArray, configuration);
@@ -96135,7 +96219,7 @@ if (isc.DynamicForm) {
             return element;
         },
 
-        _getNamedAutoChild : function (name) {
+        _getNamedAutoChild : function (name, configuration) {
             var createdAutoChildren = this._createdAutoChildren;
             if (!createdAutoChildren) return;
 
@@ -96145,7 +96229,8 @@ if (isc.DynamicForm) {
             } else {
                 var fallbackLocatorConfig = isc.AutoTest.parseLocatorFallbackPath(name);
                 if (fallbackLocatorConfig != null) {
-                    return this.getChildFromFallbackLocator(name, fallbackLocatorConfig);
+                    return this.getChildFromFallbackLocator(name, fallbackLocatorConfig,
+                                                            configuration);
                 }
             }
         },
@@ -99162,6 +99247,13 @@ isc.AutoTest.addClassMethods({
             return false;
         }
 
+        // check for widgets queued for destroy()
+        var destroyQueue = isc.Canvas._destroyQueue;
+        if (destroyQueue.length > 0) {
+            this._isSystemDoneLog = "there are " + destroyQueue.length + " pending destroys";
+            return false;
+        }
+
         // check for pending network operations if user has requested implicit waits
         if (this.implicitNetworkWait && isc.RPCManager && isc.RPCManager.requestsArePending()) {
             this._isSystemDoneLog = "RPCManager.requestsArePending() is true";
@@ -99324,7 +99416,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

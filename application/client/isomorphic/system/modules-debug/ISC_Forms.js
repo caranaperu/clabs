@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-07-01/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -1666,7 +1666,7 @@ isc.DateChooser.addProperties({
     //<
     monthChooserButtonDefaults: {
         minWidth: 30,
-        autoFit: true,
+        width: 30,
         click : function () {
             this.creator.showMonthMenu();
         },
@@ -1682,7 +1682,7 @@ isc.DateChooser.addProperties({
     //<
     yearChooserButtonDefaults: {
         minWidth: 32,
-        autoFit: true,
+        width: 32,
         click : function () {
             this.creator.showYearMenu();
         },
@@ -2274,7 +2274,8 @@ isc.DateChooser.addProperties({
     //> @attr DateChooser.showTimeItem  (Boolean : null : IRW)
     // Whether to show the +link{dateChooser.timeItem, time field} for editing the time portion
     // of the date.  When unset, the time field is shown automatically if the field type is
-    // "datetime".
+    // "datetime".  Note that the item's +link{dateChooser.showSecondItem, second chooser} is
+    // not shown by default.
     // @visibility external
     //<
     timeItemDefaults: {
@@ -2366,16 +2367,22 @@ isc.DateChooser.addMethods({
                 this.navButtonConstructor);
             }
             if (this.showMonthChooser != false) {
+                var width = this._getMonthChooserButtonWidth();
                 this.addAutoChild("monthChooserButton", {
                     baseStyle:(this.baseNavButtonStyle || this.baseButtonStyle),
-                    title: this.chosenDate.getShortMonthName()
+                    title: this.chosenDate.getShortMonthName(),
+                    width: width,
+                    minWidth: width
                 },
                 this.navButtonConstructor);
             }
             if (this.showYearChooser != false) {
+                var width = this._getYearChooserButtonWidth();
                 this.addAutoChild("yearChooserButton", {
                     baseStyle:(this.baseNavButtonStyle || this.baseButtonStyle),
-                    title: this.chosenDate.getFullYear()
+                    title: this.chosenDate.getFullYear(),
+                    width: width,
+                    minWidth: width
                 },
                 this.navButtonConstructor);
             }
@@ -2397,7 +2404,9 @@ isc.DateChooser.addMethods({
         }
 
         var item = isc.addProperties({},
-                { title: this.timeItemTitle, use24HourTime: this.use24HourTime },
+                { title: this.timeItemTitle, use24HourTime: this.use24HourTime,
+                    showSecondItem: !!this.showSecondItem
+                },
                 this.timeItemDefaults,
                 this.timeItemProperties,
                 { name: "time" }
@@ -2860,6 +2869,39 @@ isc.DateChooser.addMethods({
         var result = isc.DateUtil.format(date, this.monthMenuFormat);
         return result;
     },
+
+    _getMonthChooserTitles : function () {
+        var date = isc.Date.createLogicalDate(2001,0,1);
+        var arr = [];
+        for (var i = 0; i < 12; i++) {
+            date.setMonth(i);
+            arr.add(this.getMonthText(date));
+        }
+        return arr;
+    },
+    _getMonthChooserButtonWidth : function () {
+        var arr = this._getMonthChooserTitles(),
+            style = (this.baseNavButtonStyle || this.baseButtonStyle) + "Over",
+            extraWidth = isc.Element._getHBorderPad(style) * 2,
+            maxWidth = isc.Canvas.measureContent(arr.join("<br>"), style) + extraWidth
+        ;
+        this._monthChooserButtonWidth =  maxWidth;
+        return this._monthChooserButtonWidth;
+    },
+
+    _getYearChooserButtonWidth : function () {
+        var arr = [];
+        for (var i = this.startYear; i <= this.endYear; i++) {
+            arr.add("" + this.getYearTitle(i));
+        }
+        var style = (this.baseNavButtonStyle || this.baseButtonStyle) + "Over",
+            extraWidth = isc.Element._getHBorderPad(style) * 2,
+            maxWidth = isc.Canvas.measureContent(arr.join("<br>"), style) + extraWidth
+        ;
+        this._yearChooserButtonWidth = maxWidth;
+        return this._yearChooserButtonWidth;
+    },
+
     showMonthMenu : function () {
         if (!this.monthMenu) {
             // create the menu items using the date.getShortMonthName() for internationalization
@@ -6513,14 +6555,31 @@ isc.DynamicForm.addProperties({
     // ValuesManager
     // ----------------------------------------------------------------------------------------
     //>@attr dynamicForm.valuesManager  (ValuesManager instance or global ID : null : [IA])
-    // If set at init time, this dynamicForm will be created as a member form for the
-    // specified valuesManager.  To update the valuesManager to which a form belongs after init
-    // use <code>valuesManager.addMember(form)</code> and
-    // <code>valuesManager.removeMember(form)</code>
+    // If set at init time, this dynamicForm will be created as a member form of the
+    // specified valuesManager.  To update the form's valuesManager after init, use the
+    // +link{dynamicForm.setValuesManager, form-level setter}, or the
+    // +link{valuesManager.addMember, addMember(form)} /
+    // +link{valuesManager.removeMember, removeMember(form)} APIs on
+    // <code>ValuesManager</code>.
     // @see class:ValuesManager
+    // @setter dynamicForm.setValuesManager()
     // @visibility external
     // @group formValuesManager
     //<
+
+    //>    @method    dynamicForm.setValuesManager()
+    // Binds this dynamicForm to a +link{dynamicForm.valuesManager, valuesManager} at runtime.
+    // @param valuesManager (ValuesManager) the ValuesManager that controls this form's values
+    // @group formValuesManager
+    // @visibility external
+    //<
+    setValuesManager : function (valuesManager) {
+        // if the param is a global ID, get the instance
+        if (isc.isA.String(valuesManager)) valuesManager = window[valuesManager];
+        // if it's a valuesManager, call addMember() on it, passing this DF instance
+        if (isc.isA.ValuesManager(valuesManager)) valuesManager.addMember(this);
+        else this.valuesManager = valuesManager;
+    },
     //<ValuesManager
 
 
@@ -20243,6 +20302,11 @@ isc.FormItem.addMethods({
 
     destroy : function (a,b,c,d,e) {
 
+        // If we get called twice just return. This could have unpredictable results
+        // otherwise (for example this.form being unset below, etc)
+
+        if (this.destroyed) return;
+
 
         if (isc.FormItem._pendingEditorExitCheck == this) {
             isc.FormItem._pendingEditorExitCheck.checkForEditorExit(true, true);
@@ -21786,6 +21850,11 @@ isc.FormItem.addMethods({
                this.getHeight() != null;
     },
 
+    // When should we render the disabled eventMask out?
+    renderDisabledEventMask : function () {
+        return (this.isInactiveHTML() || this.renderAsDisabled()) && this.useDisabledEventMask();
+    },
+
 
     _eventMaskTemplate:[
         "<DIV isDisabledEventMask='true' style='overflow:hidden;position:absolute;width:",
@@ -22602,7 +22671,7 @@ isc.FormItem.addMethods({
         // to capture mouse events.
         // This is required because we don't get any mouse events (at a native level) over
         // disabled form item elements.
-        if ((this.isInactiveHTML() || this.renderAsDisabled()) && this.useDisabledEventMask()) {
+        if (this.renderDisabledEventMask()) {
             template[template.length] = this._getEventMaskHTML();
         }
 
@@ -27108,10 +27177,19 @@ isc.FormItem.addMethods({
         var form = this.form;
 
         var origPendingStatus = !!this.pendingStatus,
-            pendingStatus = this.pendingStatus = (this.fixedPendingStatus != null
+            oldValue = this._getOldValue(),
+            result = this.compareValues(oldValue, value),
+            pendingStatus = (this.fixedPendingStatus != null
                                                   ? !!this.fixedPendingStatus.valueOf()
-                                                  : !this.compareValues(this._getOldValue(),
-                                                                        value));
+                                                  : !result)
+        ;
+
+        // if the form is in mid-load, via a valuesManager, don't show the pending style
+        var vm = this.form && this.form.valuesManager;
+        if (vm && vm.__editingNewRecord) {
+            pendingStatus = false;
+        }
+        this.pendingStatus = pendingStatus;
 
 
 
@@ -27665,6 +27743,12 @@ isc.FormItem.addMethods({
         }
         // Notify the form so we can save out the display field value too.
         if (displayValueModified) this.form.itemDisplayValueModified(this, this._value);
+
+        if (this._selectAfterLoading) {
+
+            delete this._selectAfterLoading;
+            this.selectValue();
+        }
     },
 
     // Cache out the cases where we have a data value and we've attempted to find
@@ -27761,11 +27845,11 @@ isc.FormItem.addMethods({
             this.logDebug("clearLoadingDisplayValue() - " +
                           "no outstanding fetch for display value, so clearing loading marker",
                           "loadingDisplayValue");
+            this._showingLoadingDisplayValue = false;
             if (this._readOnlyFetchMissingValue) {
                 delete this._readOnlyFetchMissingValue;
                 this.setCanEdit(this._explicitCanEdit);
             }
-            this._showingLoadingDisplayValue = false;
             var displayValue = this.getDisplayValue();
             this._setElementValue(displayValue, this._value);
         } else {
@@ -30125,16 +30209,8 @@ isc.FormItem.addMethods({
         this._settingSelectionRange = true;
         var returnVal;
         if (isc.Browser.isIE) {
-            // IE proprietary API
 
-
-            isc.EH._settingTextSelection = true;
-            var range = element.createTextRange();
-            range.collapse(true);
-            range.moveStart(this._$character, start);
-            range.moveEnd(this._$character, (end-start));
-            range.select();
-            delete isc.EH._settingTextSelection;
+            this._selectIETextRange(start, end);
         } else {
             // DOM API, known to be supported by Moz and Safari (as-of circa 2.0 (2006?))
             if (!this.hasFocus) {
@@ -30151,6 +30227,45 @@ isc.FormItem.addMethods({
 
         if (end > start) this._lastSelectRange = [start, end];
         return returnVal;
+    },
+
+    _selectIETextRange : function (start, end, preventDelayCall) {
+
+
+
+
+        if (this._delayedSelectTimer) {
+
+            isc.Timer.clear(this._delayedSelectTimer);
+            delete this._delayedSelectTimer;
+        }
+        isc.EH._settingTextSelection = true;
+
+        var element = this.getDataElement();
+        if (element == null) return;
+
+        var success = true,
+            range = element.createTextRange()
+        ;
+        range.collapse(true);
+        range.moveStart(this._$character, start);
+        range.moveEnd(this._$character, (end-start));
+        try {
+            range.select();
+        }
+        catch (err) {
+            success = false;
+            this.logWarn("Text selection failure: '" + err.message + "'.  " +
+                (!preventDelayCall ? "Retrying selection in another thread." :
+                    "Retry failed - no selection will be made.")
+            );
+        }
+        delete isc.EH._settingTextSelection;
+        if (!success && !preventDelayCall) {
+            this._delayedSelectTimer = isc.Timer.setTimeout(this.getID() +
+                    "._selectIETextRange(" + start + "," + end + ",true)", 0
+            );
+        }
     },
 
     //> @method formItem.selectValue()
@@ -31734,7 +31849,8 @@ isc.FormItem.addMethods({
                 element.tabIndex = this._getElementTabIndex();
                 // If we use an 'eventMask' clear it out if we're being enabled, or write it
                 // over the native form item element if we're being disabled.
-                if (this.useDisabledEventMask()) {
+
+                if (this.useDisabledEventMask() && !this.renderDisabledEventMask()) {
                     var maskElement = this._getEventMaskElement();
                     if (maskElement && (!maskElement.getAttribute ||
                         maskElement.getAttribute("isDisabledEventMask") != "true"))
@@ -41507,10 +41623,18 @@ isc.TextItem.addMethods({
 
                 pasteEnd = selection[0] + pasteLen;
 
+            } else if (isc.Browser.isAndroid && isc.Browser.androidMinorVersion >= 4.4 &&
+                       isc.Browser.isMobileWebkit)
+            {
+
+                pasteEnd = selection[1];
+
             } else if (expectedElementValue != currentElementValue &&
                        this._lastSelectRange && this._lastSelectRange[0] < this._lastSelectRange[1])
             {
-                pasteLen += (this._lastSelectRange[1] - this._lastSelectRange[0]);
+
+                //pasteLen += (this._lastSelectRange[1] - this._lastSelectRange[0]);
+
 
                 if (isc.Browser.isSafari && !isc.Browser.isChrome && isc.Browser.minorVersion < 6.1 &&
                     this._lastSelectRange[1] == expectedElementValue.length)
@@ -41544,35 +41668,43 @@ isc.TextItem.addMethods({
 
             // Ensure that `value' is a prefix of `expectedElementValue'
             if (!expectedElementValue.startsWith(value)) {
-                for (pasteStart = 0; pasteStart < value.length && pasteStart < expectedElementValue.length; ++pasteStart) {
+                for (pasteStart = 0; pasteStart < value.length &&
+                     pasteStart < expectedElementValue.length; ++pasteStart)
+                {
                     if (value.charAt(pasteStart) != expectedElementValue.charAt(pasteStart)) {
                         break;
                     }
                 }
-                pasteLen = pasteEnd - pasteStart;
+                if (!this.mask) pasteLen = pasteEnd - pasteStart;
                 value = currentElementValue.substring(0, pasteStart);
             }
 
             this.setElementValue(value);
             this._setSelection(pasteStart);
 
-            var replayString = currentElementValue.substring(pasteStart);
             if (this.mask) {
-                var next = pasteStart,
-                    foundInvalid = false;
-                for (var i = 0; i < replayString.length; ++i) {
-                    var c = replayString.charAt(i),
-                        characterValue = replayString.charCodeAt(i);
-                    if (i == 0) this._setUpInsertCharacterValue(characterValue);
-                    var newNext = this._insertCharacterValue(characterValue, true);
-                    if (newNext === false) {
-                        foundInvalid = true;
-                    } else if (!foundInvalid) {
-                        next = newNext;
-                    }
+                var lengthOffset, next;
+                if (pasteEnd > pasteStart) {
+
+                    next = this._insertTextAtSelectionStart(
+                        currentElementValue.substring(pasteStart, pasteEnd), pasteStart);
+                    var selection = this._getSelection();
+                    lengthOffset = this._getMaskSlots(pasteEnd - pasteLen, selection.begin);
+                } else {
+
+                    next = pasteEnd;
+                    this._setSelection(pasteEnd);
+                    lengthOffset = -this._getMaskSlots(pasteEnd, pasteEnd - pasteLen);
                 }
+                // replay the remaining suffix of content against the mask filters
+
+                var replaySuffix = this._getReplaySuffixForCutPaste(expectedElementValue,
+                                                       lengthOffset, pasteEnd, pasteLen);
+                this._insertTextAtSelectionStart(replaySuffix);
+
                 this._setSelection(next);
             } else {
+                var replayString = currentElementValue.substring(pasteStart);
 
                 var numRejected = 0;
                 for (var i = 0; i < replayString.length; ++i) {
@@ -41604,6 +41736,89 @@ isc.TextItem.addMethods({
                 this._setSelection(pasteEnd - numRejected);
             }
         }
+    },
+
+    // replay specified content, inserting each character as if typed
+    _insertTextAtSelectionStart : function (replayString, pasteStart) {
+        var next = pasteStart,
+            foundInvalid = false;
+        for (var i = 0; i < replayString.length; ++i) {
+            var c = replayString.charAt(i),
+                characterValue = replayString.charCodeAt(i);
+            if (i == 0) this._setUpInsertCharacterValue(characterValue);
+            var newNext = this._insertCharacterValue(characterValue, true, false);
+            if (newNext === false) {
+                foundInvalid = true;
+            } else if (!foundInvalid) {
+                next = newNext;
+            }
+        }
+        return next;
+    },
+
+    // count the number of mask slots in specified range
+    _getMaskSlots : function (maskStart, maskEnd) {
+        var slots = 0;
+        if (maskStart < maskEnd) {
+            if (maskEnd > this._length) maskEnd = this._Length;
+            for (var i = maskStart; i < maskEnd; i++) {
+                if (this._maskFilters[i] != null) slots++;
+            }
+        } else {
+            if (maskStart > this._length) maskStart = this._Length;
+            for (var i = maskEnd; i < maskStart; i++) {
+                if (this._maskFilters[i] != null) slots--;
+            }
+        }
+        return slots;
+    },
+
+    // generate the right suffix to replay to preserve content during a cut or paste operation
+    _getReplaySuffixForCutPaste : function (elementValue, lengthOffset, pasteEnd, pasteLen) {
+        var replayBuffer = isc.StringBuffer.create(),
+            bufferArray = replayBuffer.getArray();
+
+        if (lengthOffset > 0) { // paste
+
+            for (var i = pasteEnd - pasteLen; i < elementValue.length; i++) {
+                if (this._maskFilters[i] == null) continue;
+
+                // skip each empty mask slot to attempt to align the remaining content
+                if (lengthOffset > 0 && (this.maskOverwriteMode ||
+                                         elementValue.charAt(i) == this.maskPromptChar))
+                {
+                    lengthOffset--;
+                    continue;
+                }
+                // otherwise, just copy the element value into the replay buffer
+                bufferArray[bufferArray.length] = elementValue.charAt(i);
+            }
+
+        } else { // cut
+
+            for (var i = pasteEnd - pasteLen; i < elementValue.length; i++) {
+                if (this._maskFilters[i] == null) continue;
+
+                // if an empty mask slot is found, align the remaining content
+                if (lengthOffset < 0 && !this.maskOverwriteMode &&
+                    elementValue.charAt(i) == this.maskPromptChar)
+                {
+                    for (var j = 0; j < -lengthOffset; j++) {
+                        bufferArray[bufferArray.length] = this.maskPromptChar;
+                    }
+                    lengthOffset = 0;
+                }
+                // otherwise, just copy the element value into the replay buffer
+                bufferArray[bufferArray.length] = elementValue.charAt(i);
+            }
+            // insert empty slots at the end, if we failed above
+            if (lengthOffset < 0) {
+                    for (var j = 0; j < -lengthOffset; j++) {
+                    bufferArray[bufferArray.length] = this.maskPromptChar;
+                }
+            }
+        }
+        return replayBuffer.toString();
     },
 
     // by putting 'nowrap' on the text box cell we avoid the value icon / text box appearing
@@ -42136,9 +42351,9 @@ isc.TextItem.addMethods({
     // @return  (string)   Displayed value corresponding to internal value.
     // @group   drawing
     //<
-    mapValueToDisplay : function (internalValue) {
+    mapValueToDisplay : function (internalValue, updateMask) {
         var value;
-        if (this.mask && this.hasFocus) {
+        if (this.mask && this.hasFocus && !updateMask) {
             value = this._getMaskBuffer();
         } else {
 
@@ -42302,6 +42517,11 @@ isc.TextItem.addMethods({
         // Hide in-field hint if being shown
         var wasShowingInFieldHintAsValue = this._showingInFieldHintAsValue;
         this._hideInFieldHint();
+
+
+        if (this.mask && this.mapValueToDisplay) {
+            this.mapValueToDisplay(this.getValue(), true);
+        }
 
         // If this TextItem is readonly, don't change the selection.
         if (this.isReadOnly()) return returnVal;
@@ -42633,31 +42853,27 @@ isc.TextItem.addMethods({
             if (p < this._length) {
                 var filter = this._maskFilters[p];
                 if (filter != null) {
-                    if (c === this.maskPromptChar) {
-                        if (!this.maskOverwriteMode) this._shiftMaskBufferRight(p);
+                    // Perform character case changes
+                    if (c !== this.maskPromptChar && filter.casing != null) {
+                        // The German eszett 'ß' is a special case that maps to 'SS' when
+                        // uppercased. Use charAt(0) to get a single character.
+                        // See: http://unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
+                        c = this._mapCharacterCase(c, filter.casing).charAt(0);
+                    }
+
+                    // Validate against the mask filter
+
+                    if (filter.filter.test(c) || c === this.maskPromptChar) {
+                        if (!this.maskOverwriteMode && !replayingCharacters) {
+                            this._shiftMaskBufferRight(p);
+                        }
                         this._maskBuffer[p] = c;
-                        this._saveMaskBuffer(false);
-                    } else {
-                        // Perform character case changes
-                        if (c !== this.maskPromptChar && filter.casing != null) {
-                            // The German eszett 'ß' is a special case that maps to 'SS' when
-                            // uppercased. Use charAt(0) to get a single character.
-                            // See: http://unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
-                            c = this._mapCharacterCase(c, filter.casing).charAt(0);
+                        var next = p;
+                        if (this._saveMaskBuffer(true)) {
+                            next = this._getNextEntryPosition(p);
                         }
-
-                        // Validate against the mask filter
-
-                        if (filter.filter.test(c)) {
-                            if (!this.maskOverwriteMode) this._shiftMaskBufferRight(p);
-                            this._maskBuffer[p] = c;
-                            var next = p;
-                            if (this._saveMaskBuffer(true)) {
-                                next = this._getNextEntryPosition(p);
-                            }
-                            this._setSelection(next);
-                            if (replayingCharacters) return next;
-                        }
+                        this._setSelection(next);
+                        if (replayingCharacters && c !== this.maskPromptChar) return next;
                     }
                 }
             }
@@ -43096,8 +43312,8 @@ isc.TextItem.addMethods({
                     // Map a space to maskPromptChar when focused.
                     // Or place entered character into buffer.
                     if (c == " " ) {
-                        if (!this.hasFocus)
-                            this._maskBuffer[i] = c;
+                        this._maskBuffer[i] = this.hasFocus ? this.maskPromptChar :
+                                                              this.maskPadChar;
                     } else if (this._maskFilters[i].filter.test(c)) {
                         this._maskBuffer[i] = c;
                         lastMatch = i;
@@ -43116,12 +43332,12 @@ isc.TextItem.addMethods({
                         // be entered.
                         var maskFilter = this._maskFilters[i];
                         if (c == " ") {
-                            if (!this.hasFocus) {
-                                this._maskBuffer[i] = (maskFilter.casing ? this._mapCharacterCase(c, maskFilter.casing) : c);
-                            }
+                            this._maskBuffer[i] = this.hasFocus ? this.maskPromptChar :
+                                                                  this.maskPadChar;
                             break;
                         } else if (maskFilter.filter.test(c)) {
-                            this._maskBuffer[i] = (maskFilter.casing ? this._mapCharacterCase(c, maskFilter.casing) : c);
+                            this._maskBuffer[i] = maskFilter.casing ?
+                                this._mapCharacterCase(c, maskFilter.casing) : c;
                             lastMatch = i;
                             break;
                         }
@@ -54767,7 +54983,22 @@ isc.DateItem.addMethods({
             this.textFieldDefaults.readOnlyDisplay = this.readOnlyDisplay;
         }
 
+        if (this.showTime && !this.dateFormatter && !this.timeFormatter) {
+
+            if (this._hasCustomUse24HourTimeFlag()) {
+                if (this.use24HourTime) {
+                    this.timeFormatter =  "toShort24HourTime";
+                } else {
+                    this.timeFormatter =  "toShortPaddedTime";
+                }
+            }
+        }
+
         return this.Super("init", arguments);
+    },
+
+    _hasCustomUse24HourTimeFlag : function () {
+        return this.getClass().getInstanceProperty("use24HourTime") != this.use24HourTime;
     },
 
     //> @method dateItem.pendingStatusChanged()
@@ -55027,6 +55258,7 @@ isc.DateItem.addMethods({
                     }
                     dayField.width = this._dayChooserWidth;
                     dayField.minWidth = this._dayChooserWidth;
+                    dayField.name = "daySelector";
                     item = dayField;
                     itemList.add(dayField);
                 } else if (field == "M") {
@@ -55926,8 +56158,17 @@ isc.DateItem.addMethods({
         // this.showTime - undocumented flag to use 'toShortDatetime' rather than 'toShortDate'
         // when formatting the date. Used by the DateTimeItem subclass.
 
-        return this.showTime ? date.toShortDatetime(formatter, isDatetimeField || !isDateField)
-                             : date.toShortDate(formatter, isDatetimeField || !isDateField);
+
+        if (this.showTime) {
+            if (this._hasCustomUse24HourTimeFlag() && !formatter) {
+                var tFormat = this.timeFormatter || "toShortPaddedTime";
+                var result = date.toShortDate() + " " + isc.Time.format(date, tFormat);
+                return result;
+            }
+            return date.toShortDatetime(formatter, isDatetimeField || !isDateField);
+        } else {
+            return date.toShortDate(formatter, isDatetimeField || !isDateField);
+        }
     },
 
     //>@method dateItem.parseEditorValue() (A)
@@ -56058,12 +56299,17 @@ isc.DateItem.addMethods({
         }
         var pickerProps = isc.addProperties({}, this.pickerDefaults, handsetDefaults, this.pickerProperties);
 
+        // show a TimeItem in the picker if type is datetime
+        var showTimeItem = this.shouldShowPickerTimeItem();
+
         if (!this.picker) {
             if (this.useSharedPicker) {
                 var props = isc.addProperties({}, {
                         fiscalCalendar: this.getFiscalCalendar(),
                         showFiscalYearChooser: this.showChooserFiscalYearPicker,
-                        showWeekChooser: this.showChooserWeekPicker
+                        showWeekChooser: this.showChooserWeekPicker,
+                        showTimeItem: showTimeItem,
+                        use24HourTime: this.use24HourTime
                     }, pickerProps);
                 this.picker = isc[this.pickerConstructor].getSharedDateChooser(props);
             } else {
@@ -56119,9 +56365,6 @@ isc.DateItem.addMethods({
         picker.fiscalCalendar = this.getFiscalCalendar();
         picker.showFiscalYearChooser = this.showChooserFiscalYearPicker;
         picker.showWeekChooser = this.showChooserWeekPicker;
-
-        // show a TimeItem in the picker if type is datetime
-        var showTimeItem = this.shouldShowPickerTimeItem();
 
         picker.showTimeItem = showTimeItem;
         picker.use24HourTime = this.use24HourTime;
@@ -56277,7 +56520,8 @@ isc.DateItem.addMethods({
         if (date != null) {
             // wangle the value into a date if possible
             if (!isc.isA.Date(date)) {
-                date = new Date(date);
+                if (isc.isA.String(date)) date = this.parseDate(date);
+                else date = new Date(date);
             }
             // Note that a dateItem can return an arbitrary string - in this case new Date(...)
             // will give us a Date object but with no meaningful time etc data.
@@ -56505,7 +56749,6 @@ isc.SpacerItem.addMethods({
         return false;
     }
 });
-
 
 
 
@@ -59123,6 +59366,16 @@ isc.TimeItem.addMethods({
                 item = isc.addProperties({title: this.ampmItemTitle},
                         this.ampmItemDefaults, TI.AMPM_SELECTOR,
                         this.ampmItemProperties, {name: "ampmItem"});
+
+                // make the am/pm field wide enough to fully contain any of the values
+                if (this._ampmItemWidth == null) {
+                    var valueHTML = this.getAmpmOptions().join("<br>");
+                    this._ampmItemWidth = isc.Canvas.measureContent(valueHTML,
+                        item.styleName || baseStyleName) + extraWidth;
+                }
+                item.width = this._ampmItemWidth;
+                item.minWidth = this._ampmItemWidth;
+
                 if (item.cssText == null) {
                     item.cssText = "padding-left:3px;";
                 }
@@ -60395,7 +60648,8 @@ isc.ComboBoxItem.addMethods({
 
         browserAutoCorrect:false,
         getHint:function () {
-            return this.creator.pickerSearchFieldHint;
+            return this.creator.addUnknownValues ? this.creator.pickerSearchOrNewValueFieldHint
+                                                 : this.creator.pickerSearchFieldHint;
         }
     },
 
@@ -60406,6 +60660,15 @@ isc.ComboBoxItem.addMethods({
     // @visibility external
     //<
     pickerSearchFieldHint:"Search",
+
+    //> @attr comboBoxItem.pickerSearchOrNewValueFieldHint (HTMLString : "Search or enter new value" : IR)
+    // +link{formItem.hint} for the +link{pickerSearchField} when the combobox is configured to
+    // +link{addUnknownValue,allow unknown values}
+    // @group i18nMessages
+    // @group panelPlacement
+    // @visibility external
+    //<
+    pickerSearchOrNewValueFieldHint:"Search or enter new value",
 
 
     //> @attr comboBoxItem.pickerSearchForm (AutoChild DynamicForm : null : IR)
@@ -60506,7 +60769,10 @@ isc.ComboBoxItem.addMethods({
                     // allow some dev custom keyPress handler to kill default behavior
                     // if appropriate!
                     var rv = this.Super("handleKeyPress", arguments);
-                    if (rv != false) rv = this.creator.pickerSearchFieldKeyPress(this);
+                    if (rv != false) {
+                        var rv2 = this.creator.pickerSearchFieldKeyPress(this);
+                        rv = rv2 == null ? rv : rv2;
+                    }
                     return rv;
                  },
                  handleChanged : function (newValue, oldValue) {
@@ -60577,6 +60843,25 @@ isc.ComboBoxItem.addMethods({
         this.pickList.hide();
         this.updateValue();
     },
+
+
+    //> @method comboBoxItem.setAddUnknownValues()
+    // Setter for +link{addUnknownValues,addUnknownValues}.
+    // @param newAddUnknownValues (boolean) the new value for addUnknownValues.
+    //<
+    setAddUnknownValues : function(newAddUnknownValues) {
+        this.addProperties({
+            addUnknownValues: newAddUnknownValues,
+            changeOnKeypress: !newAddUnknownValues
+        });
+        this.setValue(null);
+
+        // Show or hide the "Accept" button in case we have a popout picklist
+        if (this.pickerSaveButton) {
+            this.pickerSaveButton.setVisibility(newAddUnknownValues);
+        }
+    },
+
 
     // ---
 
@@ -60801,7 +61086,11 @@ isc.ComboBoxItem.addMethods({
             delete this._mouseUpWithPickListEvent;
             return false;
         }
-        this._refocusFromPLMouseUp(true);
+
+        // Do not refocus if we are running on a mobile device and the item has a pop-out picklist
+        if (!isc.Browser.isMobile || !this.hasPopOutPicker()) {
+            this._refocusFromPLMouseUp(true);
+        }
     },
 
     // If a mouseUp event occurs within the pickList, put focus into the text-box so
@@ -62283,9 +62572,29 @@ isc.ComboBoxItem.addMethods({
 
 
 
+            if (popOutPicker && this.pickList) {
+                this.delayCall("delayedFocusOnPickListBody", null, 0);
+            }
 
         }
 
+    },
+
+    delayedFocusOnPickListBody : function () {
+        var body = this.pickList ? this.pickList.body : null;
+        if (body != null) body.focus();
+    },
+
+    // In "pop out" mode, always cover the native text box element with the
+    // event mask div.
+    // Even though the data element is marked as read only, in IOS, and even though we
+    // have a click handler that shows and explicitly focuses on the pickList body,
+    // focus would still natively go into the text box after the tap, and a confusing
+    // blinking text-input cursor would show up and "burn through" the picklist.
+
+    renderDisabledEventMask : function () {
+        if (this.hasPopOutPicker()) return true;
+        return this.Super("renderDisabledEventMask", arguments);
     },
 
     handleClick : function () {
@@ -63281,16 +63590,13 @@ setAddUnknownValues : function (newAddUnknownValues) {
     var oldAddUnknownValues = this.addUnknownValues;
     this.addUnknownValues = newAddUnknownValues;
     if (this.comboBox != null && oldAddUnknownValues != newAddUnknownValues) {
-        this.comboBox.setProperties({
-            addUnknownValues: newAddUnknownValues,
-            changeOnKeypress: !newAddUnknownValues
-        });
-
+        this.comboBox.setAddUnknownValues(newAddUnknownValues);
         this.setValue(null);
 
         // If changing from addUnknownValues:true to false, we need to invalidate the displayField
         // cache because we may have inserted dummy records for unknown values.
         if (newAddUnknownValues) this.invalidateDisplayValueCache();
+
     }
 },
 
@@ -64151,6 +64457,12 @@ _createCanvas : function () {
     } else if (this.layoutStyle == isc.MultiComboBoxItem.VERTICAL ||
                this.layoutStyle == isc.MultiComboBoxItem.VERTICAL_REVERSE)
     {
+        var thisWidth = this.width;
+        if (thisWidth != null && !canvasProperties.width) {
+            // if the item as a whole has a width, enforce it on the canvas
+            if (isc.isA.Number(thisWidth)) thisWidth -= this._getCellHBorderPadSpacing();
+            canvasProperties.width = thisWidth;
+        }
         this._buttonsLayout = this._createVStack();
         this._buttonsLayout.reverseOrder = reverseOrder;
 
@@ -71977,6 +72289,12 @@ isc.ValuesManager.addMethods({
     // However if the member form has a value for some field, and the ValuesManager does not
     // have a specified value for the same field, we allow the valuesManager to pick up the
     // value from the member form.
+    // <p>
+    // <b>Caution:</b> If a DynamicForm without a +link{DataSource} is passed to this method,
+    // +link{DataBoundComponent.setDataSource()} will be called on that form, recreating the
+    // items from copies of the item configuration stored at the time the form was created.
+    // This means that any properties or handlers added to the items after form creation
+    // will be lost.  When in doubt, set the DataSource in the form as soon as possible.
     //
     // @param   member  (DynamicForm | String) component (or ID of component) to add to
     //                                          this valuesManager as a member.
@@ -76787,7 +77105,6 @@ isc.defineClass("DataPathItem", "TextItem").addProperties({
 });
 
 
-
 // Class will not work without the ListGrid
 if (isc.ListGrid) {
 
@@ -78019,8 +78336,15 @@ isc.RelativeDateItem.addMethods({
         if (this.compareValues(oldValue,absDateValue) &&
             this.compareValues(oldRelativeDate,this._relativeDate)) return;
 
-        this._updateValue(absDateValue);
-        this.updateEditor();
+        if (absDateValue != null) {
+            this._updateValue(absDateValue);
+            this.updateEditor();
+        } else {
+            // Note: Sometimes there are extra calls to this method from IE 11, which generate
+            // absDateValue to be null. Ignoring these calls.
+            // http://forums.smartclient.com/node/239581
+            this.logWarn("Ignoring invalid absDateValue " + absDateValue + ". " + this.getStackTrace());
+        }
     },
 
     // We always return advanced criteria if we have a value.
@@ -78040,6 +78364,11 @@ isc.RelativeDateItem.addMethods({
         var date = this.getDataValue(absolute);
 
         if (date == null) return null;
+        if (isc.isA.Date(date) && this.rangePosition == "end") {
+            // for rangePosition:"end", set seconds and ms to the end of the specified minute
+            if (date.getSeconds() == 0) date.setSeconds(59);
+            if (date.getMilliseconds() == 0) date.setMilliseconds(999);
+        }
         var field = this.getCriteriaFieldName();
         return { operator: this.operator, value: date, fieldName:field };
     },
@@ -78262,11 +78591,22 @@ isc.RelativeDateItem.addMethods({
         var type = this.getType(),
             isDate = isc.SimpleType.inheritsFrom(type, "date"),
             isDatetime = isc.SimpleType.inheritsFrom(type, "datetime");
-        if (!this.showPickerTimeItem && (!isDate || isDatetime)) {
-            this.setToZeroTime(date);
-            // Respect rangePosition on the date picked (note that zero time is the default)
-            if (this.rangePosition == "end") date = isc.DateUtil.getEndOf(date, "D");
-
+        if ((!isDate || isDatetime)) {
+            if (!this.showPickerTimeItem) {
+                this.setToZeroTime(date);
+                // Respect rangePosition on the date picked (note that zero time is the default)
+                if (this.rangePosition == "end") {
+                    date = isc.DateUtil.getEndOf(date, "D");
+                    date.rangePosition = this.rangePosition;
+                }
+            } else {
+                if (this.rangePosition == "end") {
+                    // for an "end" date from the picker, use the end of the specified minute
+                    date.rangePosition = this.rangePosition;
+                    if (date.getSeconds() == 0)  date.setSeconds(59);
+                    if (date.getMilliseconds() == 0)  date.setMilliseconds(999);
+                }
+            }
         }
 
         // avoid firing 'updateValue' while setting the values of sub items
@@ -80854,6 +81194,9 @@ isc.PresetCriteriaItem.addMethods({
                         if (prop1[i] != prop2[i]) return false;
                     }
                 }
+
+            } else if (isc.isA.Date(prop1)) {
+                if (Date.compareDates(prop1, prop2) != 0) return false;
             } else if (isc.isAn.Object(prop1)) {
                 if (!this.objectsAreEqual(prop1, prop2)) return false;
             } else {
@@ -80919,7 +81262,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

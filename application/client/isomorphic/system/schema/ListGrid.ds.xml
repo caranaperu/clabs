@@ -163,6 +163,7 @@
 				<value>both</value>
 			</valueMap>
 		</field>
+		<field name="showSortNumerals" type="boolean"/>
 		<field name="canDragRecordsOut" type="boolean" basic="true"/>
 		<field name="canAcceptDroppedRecords" type="boolean" basic="true"/>
 		<field name="canReorderRecords" type="boolean" basic="true"/>

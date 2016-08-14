@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-07-01/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-07-01/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -23248,15 +23248,17 @@ isc.ListGrid.addProperties( {
     //<
 
     //> @attr listGridField.wrap (Boolean : null : [IRW])
-    // Should the field title wrap if there is not enough space horizontally to
-    // accommodate it. (Note that this is a soft-wrap - if set the title will wrap
-    // at word boundaries).
+    // Should the field title wrap if there is not enough space horizontally to accommodate it.
+    // If unset, default behavior is derived from +link{listGrid.wrapHeaderTitles}.  (This is a
+    // soft-wrap - if set the title will wrap at word boundaries).
     // <P>
-    // If unset, default behavior is derived from +link{listGrid.wrapHeaderTitles}.
-    // <P>
-    // Note that this feature is incompatible with +link{listGrid.clipHeaderTitles}, and
-    // <code>clipHeaderTitles</code> will be disabled for wrapping fields.
+    // <b>Notes:</b><ul>
+    // <li>If autofitting is active, +link{width} and +link{minWidth} can be set to control the
+    // minimum field width - see the links for details.
+    // <li>This feature is incompatible with +link{listGrid.clipHeaderTitles}, and
+    // <code>clipHeaderTitles</code> will be disabled for wrapping fields.</ul>
     //
+    // @see attr:listGrid.minFieldWidth
     // @visibility external
     //<
 
@@ -23920,9 +23922,8 @@ isc.ListGrid.addProperties( {
     //<
 
     //> @attr listGridField.minWidth (Number : null : [IR])
-    // When +link{listGrid.showHeader} is false and a field is subject to autofitting (see
-    // +link{listGrid.autoFitFieldWidths}), sets the minimum width of the field.  The actual
-    // allowed minimum will be the maximum of:<ul>
+    // When a field is subject to autofitting (see +link{listGrid.autoFitFieldWidths}), sets the
+    // minimum width of the field.  The actual allowed minimum will be the maximum of:<ul>
     // <li> this property,
     // <li> +link{width} (if a number),
     // <li> the aufofit value determined by the widest value content in this field's column
@@ -24032,7 +24033,7 @@ isc.ListGrid.addProperties( {
     //      grid.setHeaderSpans(new HeaderSpan[] {
     //          new HeaderSpan("Field 1 and 2", new String[] {"field1", "field2"})
     //      });
-    // <pre>
+    // </pre>
     // </smartgwt>
     // Header spans can be nested, allowing fields to be grouped by multiple levels of
     // granularity. See +link{headerSpan.spans} for further information on nesting spans.
@@ -24788,6 +24789,19 @@ isc.ListGrid.addProperties( {
     // (+link{listGrid.showFilterEditor,showFilterEditor}:true), this property
     // can be used to specify properties for the appropriate filter form item.
     // @group filterEditor
+    // @visibility external
+    //<
+
+    //> @attr listGridField.operator (String : null : [R])
+    // This value is managed by the menu item titled +link{listGrid.filterUsingText, "Filter using"}
+    // in the +link{listGrid.showHeaderContextMenu, headerContextMenu} that appears when
+    // +link{listGrid.allowFilterOperators, allowFilterOperators} has been set to true.
+    // <p>
+    // If you need to reset this filter operator you should call +link{listGrid.setFieldProperties, listGrid.setFieldProperties}, as in this example:
+    // <pre>
+    //    listGrid.setFieldProperties(fieldName, {operator: null});
+    // </pre>
+    //
     // @visibility external
     //<
 
@@ -29635,8 +29649,11 @@ defaultFilterOperatorSuffix: "(default)",
                        isc.Browser.version >= 10),
 
     //> @attr listGrid.wrapHeaderTitles (Boolean : null : IR)
-    // If +link{listGridField.wrap} is not explicitly set, should fields wrap?
+    // If +link{listGridField.wrap} is not explicitly set, should fields wrap?  If autofitting,
+    // see the docs on that property for the details of how the minimum width for a field is
+    // determined.
     //
+    // @see minFieldWidth
     // @visibility external
     //<
 
@@ -30586,6 +30603,7 @@ defaultFilterOperatorSuffix: "(default)",
         canDragResize: false,
         // make this special field canHilite false so we don't see it in HiliteEditors by default
         canHilite: false,
+        canAutoFitWidth: false,
         showAlternateStyle: false,
         _isRowNumberField: true,
         showDefaultContextMenu: false,
@@ -32911,7 +32929,7 @@ setAutoFitMaxWidth : function (width) {
 // Note that unlike the ongoing autoFit set up by +link{listGrid.autoFitFieldWidths} or
 // +link{listGridField.autoFitWidth}, any specified +link{listGridField.width} will not be
 // taken as a minimum width - the field may shrink below the current specified width when
-// this method is run.
+// this method is run.  However, +link{listGridField.minWidth} will be respected.
 // <P>
 // As with +link{listGrid.autoFitFieldWidths}, the auto-fit sizing is determined via the
 // +link{listGrid.autoFitWidthApproach}.
@@ -32986,7 +33004,7 @@ autoFitField : function (fieldName, scrollIntoView) {
 // Note that unlike the ongoing autoFit set up by +link{listGrid.autoFitFieldWidths} or
 // +link{listGridField.autoFitWidth}, any specified +link{listGridField.width} will not be
 // taken as a minimum width - the field(s) may shrink below the current specified width when
-// this method is run.
+// this method is run.  However, +link{listGridField.minWidth} will be respected.
 //
 // @param [fields] (Array of ListGridField) Array of fields to auto fit. If this parameter
 //  is not passed, autoFitting will occur on all visible fields.
@@ -34736,6 +34754,17 @@ setFieldProperties : function (fieldNum, properties) {
         fieldNum = this.getFieldNum(field);
     }
     if (!field) return;
+
+    // If we find "operator" among the properties, consider it a special case and handle it
+    // with setFieldProperty()
+    for (var propName in properties) {
+        if (propName == "operator") {
+            this.setFieldProperty(field, propName, properties[propName]);
+            // Remove "operator" from the properties list, so it is not handled twice
+            delete properties[propName];
+        }
+    }
+
     isc.addProperties(field, properties);
 
     if (this.header != null && this.header.isDrawn()) {
@@ -34744,6 +34773,20 @@ setFieldProperties : function (fieldNum, properties) {
             headerButton = header.getMember(this.getLocalFieldNum(fieldNum));
         if (headerButton) headerButton.setProperties(properties);
     }
+},
+
+//> @method listGrid.setMinFieldWidth()
+// Updates +link{listGrid.minFieldWidth} and redraws any columns as needed.
+//
+// @param width (Number)
+// @see listGrid.minFieldWidth
+// @visibility external
+//<
+setMinFieldWidth : function (width) {
+    this.minFieldWidth = width;
+    if (this.body)             this.body._fieldWidthsDirty = true;
+    if (this.frozenBody) this.frozenBody._fieldWidthsDirty = true;
+
 },
 
 //> @method listGrid.setFieldTitle()
@@ -39193,7 +39236,6 @@ _getRawCellValue : function (
     if (this._editRowMap != null && this._editRowMap[recordNum] != null) {
         editValue = this._getEditValue(recordNum, fieldNum);
     }
-//this.logWarn("GRCV is running - row/col:" + [recordNum, fieldNum], editVal:" + editValue);
 
     if (editValue !== undef) {
         // This ensures that the value for the cell as it is currently stored for local editing
@@ -39231,7 +39273,12 @@ _getRawCellValue : function (
 
             value = isc.xml.getFieldValue(record, fieldName, field);
         } else {
-            value = isc.Canvas._getFieldValue(dataPath, field, record, this, true, "getRawValue");
+            // If this is a group header or group summary node, no need to worry about
+            // dataPaths/complex types. Just rely on the record[fieldName] check below.
+
+            if (!record._isGroup && !record[this.groupSummaryRecordProperty]) {
+                value = isc.Canvas._getFieldValue(dataPath, field, record, this, true, "getRawValue");
+            }
             if (value == null) value = record[fieldName];
         }
     }
@@ -45979,8 +46026,8 @@ _recalculateSummaries : function (records, fields, calculateGroupRows, calculate
                 this.summaryRow.show();
             }
         } else {
-            if (!this.summaryRow.isVisible()) {
-                this.summaryRow.show();
+            if (this.summaryRow.isVisible()) {
+                this.summaryRow.hide();
             }
         }
     }
@@ -48470,7 +48517,12 @@ _updateEditorSelection : function (item) {
         // the first 'focus()' on the item the user typed in, so clear out the flag here
         delete this._editorCursorAtEnd;
     } else {
-        inputItem.selectValue();
+        if (inputItem._showingLoadingDisplayValue) {
+
+            inputItem._selectAfterLoading = true;
+        } else {
+            inputItem.selectValue();
+        }
     }
 },
 
@@ -55820,6 +55872,25 @@ validateRecord : function (cell, suppressRefresh) {
     return (errorBlock == null)
 },
 
+hasFieldDependencies : function (field, newValues) {
+    if (newValues == null) return false;
+
+    // call propertyDefined() if there are no extra field dependencies
+    var fields = this.getFieldDependencies(field);
+    if (fields == null) return isc.propertyDefined(newValues, field.name);
+
+    // include field itself
+    fields.add(field.name);
+
+    // check fields for overlap with changes (newValues)
+    var undef;
+    for (var i = 0; i < fields.length; i++) {
+        if (newValues[fields[i]] !== undef || newValues.hasOwnProperty(fields[i])) {
+            return true;
+        }
+    }
+    return false;
+},
 
 //> @method listGrid.validateRowValues()
 //  Helper method to perform validation on a row.
@@ -55878,7 +55949,7 @@ validateRowValues : function (newValues, oldValues, rowNum, fields) {
         // required validator), or if the field has been edited.
         var shouldValidateCell = (
             (isNewRecord && this.canEditCell(rowNum, colNum)) ||
-            isc.propertyDefined(newValues, fieldName)
+            this.hasFieldDependencies(this.getField(colNum), newValues)
 
         );
         var newValue, oldValue;
@@ -55892,15 +55963,18 @@ validateRowValues : function (newValues, oldValues, rowNum, fields) {
             dataPath = field.name;
         }
 
-        newValue = isc.Canvas._getFieldValue(dataPath, field, newValues,
-                                                        this, true, "validate");
-        oldValue = isc.Canvas._getFieldValue(dataPath, field, oldValues,
-                                                            this, true, "validate");
+        newValue = isc.Canvas._getFieldValue(dataPath, field, newValues, this, true,
+                                             "validate");
+        oldValue = isc.Canvas._getFieldValue(dataPath, field, oldValues, this, true,
+                                             "validate");
 
         if (!shouldValidateCell) {
             shouldValidateCell = (newValue !== undef || oldValue === undef || oldValue == null);
         }
         if (!shouldValidateCell) continue;
+
+
+        if (newValue === undef) newValue = oldValue;
 
 
         var validationErrors = this.validateCellValue(rowNum, colNum, newValue, oldValue);
@@ -55944,16 +56018,23 @@ validateCell : function (rowNum, fieldName, suppressDisplay, processDependencies
     }
 
     var editVals = this.getEditValues(rowNum, colNum),
-        hadErrors = this.cellHasErrors(rowNum, fieldName),
-        newValue = editVals ? editVals[fieldName] : null,
-        record = this.getCellRecord(rowNum, colNum),
-        oldValue = record ? record[fieldName] : null;
+        record = this.getCellRecord(rowNum, colNum)
+    ;
 
     // don't validate if the cell has not been edited (unless this is a new record in which
     // case it will be saved as a null value.
-    if (record != null && (!editVals || !isc.propertyDefined(editVals, fieldName))) {
+    if (record != null &&
+        (!editVals || !this.hasFieldDependencies(this.getField(colNum), editVals)))
+    {
         return true;
     }
+
+    var undef, hadErrors = this.cellHasErrors(rowNum, fieldName),
+        newValue = editVals ? editVals[fieldName] : undef,
+        oldValue = record   ?   record[fieldName] : null
+    ;
+
+    if (newValue === undef) newValue = oldValue;
 
     var errors = this.validateCellValue(rowNum, colNum, newValue, oldValue, processDependencies);
     if (errors != null) {
@@ -57821,7 +57902,8 @@ getField : function (id) {
 
     if (this._noNumericFields) {
         field = this.fields[id];
-        if (field != null) return field;
+
+        if (field != null && this._$emptyArr[id] == null) return field;
     } else {
         // Number: assume index.
         if (isc.isA.Number(id)) return this.fields[id];
@@ -62631,11 +62713,20 @@ displayHeaderContextMenu : function (headerButton, position) {
         cornerMenu = cornerMenu._navStackContainer || cornerMenu._navStack || cornerMenu;
         cornerMenu.setVisibility("hidden");
         if (cornerMenu !== this._cornerMenu) {
-            if (!cornerMenu.isDrawn()) cornerMenu.draw();
+            if (!cornerMenu.isDrawn()) {
+
+                cornerMenu._showOffscreen()
+                // _drawOffscreen() calls draw(), of course, so this next line seems
+                // unnecessary - stick it in a condition for now, to avoid console warnings
+                if (!cornerMenu.isDrawn()) cornerMenu.draw();
+            }
         } else {
             cornerMenu.moveTo(0, 0);
             if (!cornerMenu.isDrawn()) {
-                cornerMenu.draw();
+                cornerMenu._showOffscreen();
+                // _showOffscreen() calls draw(), of course, so this next line seems
+                // unnecessary - stick it in a condition for now, to avoid console warnings
+                if (!cornerMenu.isDrawn()) cornerMenu.draw();
             } else {
                 cornerMenu.redraw();
             }
@@ -63258,6 +63349,22 @@ setFieldSearchOperator : function (field, operator) {
         this.focusInFilterEditor(field.name);
     }
 
+},
+
+
+
+setFieldProperty : function(field, property, value) {
+    if (property == "operator") {
+        var editor = this.getFilterEditor(),
+            form = editor.getEditForm(),
+            item = form.getItem(field.name);
+        if (value) {
+            item.setValue(value);
+        } else {
+            item.resetValue();
+            this.updateOperatorIcon(field, item, value);
+        }
+    }
 },
 
 clearFieldSearchOperator : function (field) {
@@ -64547,11 +64654,11 @@ _getSortNormalizerForField : function (field) {
         return grid.getSummaryFieldValue(field, record);
     };
 
-    if (field.valueMap
-        && (field.sortByMappedValue == null || field.sortByMappedValue == true)) {
-
+    if (field.valueMap && !isc.isAn.Array(field.valueMap) &&
+        (field.sortByMappedValue == null || field.sortByMappedValue == true)) {
         // if there's a valueMap, use it as the normalizer, so that with eg enums
         // we sort by the text name rather than the numeric order.
+
         return isc.isA.String(field.valueMap) ?
                 this.getGlobalReference(field.valueMap) : field.valueMap;
     }
@@ -64559,9 +64666,14 @@ _getSortNormalizerForField : function (field) {
     if ((this._isGrouped || this.isGrouped) && field.groupingMode) {
         var groupSpec = this.getGroupSpecifiers();
         if (groupSpec.find("property", field.name)) {
-            return function (record, field) {
-                if (record._isGroup) return record.groupValue;
-                return record[field.name];
+            return function (record, lField) {
+                var fieldName = field.name,
+                    value;
+                if (record._isGroup) value = record.groupValue;
+                else value = record[fieldName];
+                //isc.logWarn("groupValue: " + record.groupValue + " :: " +
+                //    "recordValue: " + record[fieldName] + " --- returning " + value);
+                return value;
             };
         }
     }
@@ -64642,6 +64754,16 @@ setSort : function (sortSpecifiers) {
 
     // if we get passed something that isn't an array, wrap it in one
     if (sortSpecifiers && !isc.isAn.Array(sortSpecifiers)) sortSpecifiers = [sortSpecifiers];
+
+    var ds = this.getDataSource();
+    if (!ds && this.formItem && this.formItem.optionDataSource) {
+        this.initialSort = sortSpecifiers;
+        if (this.logIsInfoEnabled("sorting")) {
+            this.logInfo("setSort() not performing sort - this is a pickList who's DS is " +
+                "not yet present", "sorting");
+        }
+        return false;
+    }
 
     // if there are no fields arrays bail
 
@@ -78691,8 +78813,6 @@ isc.Menu.addProperties({
 
     //> @attr menu.showIcons (Boolean : true : IRW)
     // A boolean, indicating whether the checkmark/custom icon column should be displayed.
-    // If showIcons is not set, the menu will show the icon column only if one of its items
-    // specifies an icon, checked, checkIf, or dynamicIcon property.
     // @setter menu.setShowIcons()
     // @visibility external
     //<
@@ -79428,6 +79548,7 @@ setTreeData : function (treeData, setParentNode) {
 
 hasFlatDataSource : function () {
     var ds = isc.DataSource.get(this.dataSource);
+    var flatDS = ds.childrenField != null || (this.dataProperties && this.dataProperties.modelType == "children");
     var names = ds.getFieldNames();
     var hasPK = false, hasFK = false;
     for (var i=0; i < names.length; i++) {
@@ -79435,7 +79556,7 @@ hasFlatDataSource : function () {
         if (fld.primaryKey) hasPK = true;
         if (fld.foreignKey) hasFK = true;
     }
-    return !(hasPK && hasFK);
+    return !(flatDS || (hasPK && hasFK));
 },
 
 
@@ -81584,6 +81705,18 @@ isc._commonMenuButtonProperties = {
     // @include menuButton.height
     //<
     height:22,
+
+    //> @attr menuButton.icon
+    // This property corresponds to the inherited +link{Button.icon} property,
+    // which is used to display the menuButtonImage, so anything you attempt
+    // to set there would be clobbered by the internal usage.
+    // <P>
+    // You could add an icon via the +link{MenuButton.title} property,
+    // by using +link{Canvas.imgHTML()} to generate an appropriate
+    // &lt;img&gt; tag and pre-pending it to your title.
+    // @include button.icon
+    // @visibility external
+    //<
 
     //> @attr menuButton.showMenuButtonImage (Boolean : true : IR)
     // Show menu button image (up / down arrowhead) for this menu button.
@@ -96197,7 +96330,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-07-01/LGPL Deployment (2016-07-01)
+  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
