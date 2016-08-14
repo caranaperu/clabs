@@ -732,7 +732,7 @@ isc.DefaultController.addProperties({
                     obj.setJoinKeyFieldValue(i, this._mantForm.getValue(joinKeyFields[i].fieldName));
                 } else if (type === "gridForm") {
                     // Aqui el field name es de la forma ,
-                    obj.getField(fieldName).setValue(this._mantForm.getValue(fieldName));
+                    obj.getField(fieldName).setValue(this._mantForm.getValue(joinKeyFields[i].fieldName));
                     obj.rememberValues();
 
                 } else if (type === 'clearForm') {
