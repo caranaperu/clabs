@@ -30,8 +30,9 @@ isc.WinUnidadMedidaForm.addProperties({
                 {name: "unidad_medida_siglas",  showPending: true, length: 6, width: "260"},
                 {name: "unidad_medida_descripcion",  showPending: true, length: 120, width: "260"},
                 {name: "unidad_medida_tipo", showPending: true, length: 1, width: "85"},
+                {name: "unidad_medida_protected", hidden: true,defaultValue: false}
             ],
-            isAllowedToSave: function(values,oldValues) {
+            isAllowedToSave2: function(values,oldValues) {
                 // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
                 if (values.unidad_medida_protected == true) {
                     isc.say('No puede actualizarse el registro  debido a que es un registro del sistema y esta protegido');

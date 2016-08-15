@@ -33,13 +33,11 @@ isc.WinUnidadMedidaWindow.addProperties({
             AutoFitWidthApproach: 'both',
             sortField: 'unidad_medida_descripcion',
             getCellCSSText: function(record, rowNum, colNum) {
-                if (this.getFieldName(colNum) === "unidad_medida_codigo") {
-                    if (record.unidad_medida_protected === true) {
-                        return "font-weight:bold; color:red;";
-                    }
+                if (record.unidad_medida_protected === true) {
+                    return "font-weight:bold; color:red;";
                 }
             },
-            isAllowedToDelete: function() {
+            isAllowedToDelete2: function() {
                 if (this.anySelected() === true) {
                     var record = this.getSelectedRecord();
                     // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.

@@ -30,6 +30,11 @@ $config['v_unidadmedida'] = array(
             'rules' => 'required|xss_clean|max_length[1]'
         ),
         array(
+            'field' => 'unidad_medida_protected',
+            'label' => 'lang:unidad_medida_protected',
+            'rules' => 'required|is_bool|xss_clean'
+        ),
+        array(
             'field' => 'versionId',
             'label' => 'lang:versionId',
             'rules' => 'required|integer|xss_clean'
@@ -67,6 +72,11 @@ $config['v_unidadmedida'] = array(
             'field' => 'unidad_medida_tipo',
             'label' => 'lang:unidad_medida_tipo',
             'rules' => 'required|xss_clean|max_length[1]'
+        ),
+        array(
+            'field' => 'unidad_medida_protected',
+            'label' => 'lang:unidad_medida_protected',
+            'rules' => 'required|is_bool|xss_clean'
         )
     )
 );

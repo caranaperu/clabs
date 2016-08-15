@@ -34,6 +34,7 @@ class UnidadMedidaBussinessService extends \app\common\bussiness\TSLAppCRUDBussi
         $model->set_unidad_medida_descripcion($dto->getParameterValue('unidad_medida_descripcion'));
         $model->set_unidad_medida_siglas($dto->getParameterValue('unidad_medida_siglas'));
         $model->set_unidad_medida_tipo($dto->getParameterValue('unidad_medida_tipo'));
+        $model->set_unidad_medida_protected($dto->getParameterValue('unidad_medida_protected'));
 
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
@@ -53,6 +54,8 @@ class UnidadMedidaBussinessService extends \app\common\bussiness\TSLAppCRUDBussi
         $model->set_unidad_medida_descripcion($dto->getParameterValue('unidad_medida_descripcion'));
         $model->set_unidad_medida_siglas($dto->getParameterValue('unidad_medida_siglas'));
         $model->set_unidad_medida_tipo($dto->getParameterValue('unidad_medida_tipo'));
+        $model->set_unidad_medida_protected($dto->getParameterValue('unidad_medida_protected'));
+
         $model->setVersionId($dto->getParameterValue('versionId'));
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
