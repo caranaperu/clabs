@@ -27,7 +27,8 @@ isc.WinTipoInsumoForm.addProperties({
             focusInEditFld: 'tinsumo_descripcion',
             fields: [
                 {name: "tinsumo_codigo",  type: "text", showPending: true, width: "75", mask: ">LLLLLLLLLL"},
-                {name: "tinsumo_descripcion",  showPending: true, length: 60, width: "260"}
+                {name: "tinsumo_descripcion",  showPending: true, length: 60, width: "260"},
+                {name: "tinsumo_protected", hidden:true,defaultValue: false}
             ],
             isAllowedToSave: function(values,oldValues) {
                 // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
