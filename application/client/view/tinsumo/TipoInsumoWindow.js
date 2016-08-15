@@ -29,7 +29,24 @@ isc.WinTipoInsumoWindow.addProperties({
             canMultiSort: false,
             autoSize: true,
             AutoFitWidthApproach: 'both',
-            sortField: 'tinsumo_descripcion'
+            sortField: 'tinsumo_descripcion',
+            getCellCSSText: function(record, rowNum, colNum) {
+                if (record.tinsumo_protected === true) {
+                        return "font-weight:bold; color:red;";
+                }
+            },
+            isAllowedToDelete: function() {
+                if (this.anySelected() === true) {
+                    var record = this.getSelectedRecord();
+                    // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
+                    if (record.tinsumo_protected == true) {
+                        isc.say('No puede eliminarse el registro debido a que es un registro del sistema y esta protegido');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
         });
     },
     initWidget: function() {

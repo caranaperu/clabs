@@ -36,9 +36,9 @@ class tipoInsumoController extends app\common\controller\TSLAppDefaultCRUDContro
             "paramsList" => [
                 "fetch" => [],
                 "read" => ['tinsumo_codigo', 'verifyExist'],
-                "add" => ['tinsumo_codigo', 'tinsumo_descripcion','activo'],
+                "add" => ['tinsumo_codigo','tinsumo_descripcion','tinsumo_protected','activo'],
                 "del" => ['tinsumo_codigo', 'versionId'],
-                "upd" => ['tinsumo_codigo', 'tinsumo_descripcion', 'versionId', 'activo'],
+                "upd" => ['tinsumo_codigo', 'tinsumo_descripcion','tinsumo_protected','versionId', 'activo'],
             ],
             "paramsFixableToNull" => ['tinsumo_'],
             "paramsFixableToValue" => ["tinsumo_codigo" => ["valueToFix" => 'null', "valueToReplace" => NULL, "isID" => true]],

@@ -32,6 +32,7 @@ class TipoInsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         // Leo el id enviado en el DTO
         $model->set_tinsumo_codigo($dto->getParameterValue('tinsumo_codigo'));
         $model->set_tinsumo_descripcion($dto->getParameterValue('tinsumo_descripcion'));
+        $model->set_tinsumo_protected($dto->getParameterValue('tinsumo_protected'));
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
         $model->setUsuario($dto->getSessionUser());
@@ -49,6 +50,8 @@ class TipoInsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         // Leo el id enviado en el DTO
         $model->set_tinsumo_codigo($dto->getParameterValue('tinsumo_codigo'));
         $model->set_tinsumo_descripcion($dto->getParameterValue('tinsumo_descripcion'));
+        $model->set_tinsumo_protected($dto->getParameterValue('tinsumo_protected'));
+
         $model->setVersionId($dto->getParameterValue('versionId'));
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));

@@ -11,5 +11,6 @@ $lang['msg_tipoinsumo_rec_inactivo'] = 'El tipo de insumo ya existe , pero esta 
 
 $lang['tinsumo_codigo'] = 'Codigo de Tipo de Insumo';
 $lang['tinsumo_descripcion'] = 'Descripcion';
+$lang['tinsumo_protected'] = 'Flag de Proteccion';
 $lang['versionId'] = 'Version';
 ?>

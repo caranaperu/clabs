@@ -19,6 +19,7 @@ class TipoInsumoModel extends \app\common\model\TSLAppCommonBaseModel {
 
     protected $tinsumo_codigo;
     protected $tinsumo_descripcion;
+    protected $tinsumo_protected;
 
     /**
      * Setea el codigo unico del tipo de insumo.
@@ -44,6 +45,23 @@ class TipoInsumoModel extends \app\common\model\TSLAppCommonBaseModel {
      */
     public function set_tinsumo_descripcion($tinsumo_descripcion) {
         $this->tinsumo_descripcion = $tinsumo_descripcion;
+    }
+
+    /**
+     * Setea si el tipo de insumo es protegido
+     * o de sistema, este flag indicara si ùede eliminarse o no.
+     *
+     * @param boolean $tinsumo_protected TRUE si el tipo de insumo es protegido
+     */
+    public function set_tinsumo_protected($tinsumo_protected) {
+        $this->tinsumo_protected = $tinsumo_protected;
+    }
+
+    /**
+     * @return boolean retorna si el tipo de insumo es protegido
+     */
+    public function get_tinsumo_protected() {
+        return $this->tinsumo_protected;
     }
 
     /**

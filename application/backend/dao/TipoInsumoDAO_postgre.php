@@ -41,6 +41,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         . 'activo,usuario) values(\'' .
         $record->get_tinsumo_codigo() . '\',\'' .
         $record->get_tinsumo_descripcion() . '\',\'' .
+        $record->get_tinsumo_protected() . '\',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
 
@@ -53,7 +54,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select tinsumo_codigo,tinsumo_descripcion,activo,xmin as "versionId" from  tb_tinsumo ';
+        $sql = 'select tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,activo,xmin as "versionId" from  tb_tinsumo ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
@@ -97,7 +98,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      * @see TSLBasicRecordDAO::getRecordQueryByCode()
      */
     protected function getRecordQueryByCode($code, $subOperation = NULL) {
-        return 'select tinsumo_codigo,tinsumo_descripcion,activo,' .
+        return 'select tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,activo,' .
                 'xmin as "versionId" from tb_tinsumo where tinsumo_codigo =  \'' . $code . '\'';
     }
 
@@ -110,6 +111,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
 
         return 'update tb_tinsumo set tinsumo_codigo=\'' . $record->get_tinsumo_codigo() . '\','.
         'tinsumo_descripcion=\'' . $record->get_tinsumo_descripcion() . '\',' .
+        'tinsumo_protected=\'' . $record->get_tinsumo_protected() . '\',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
         ' where "tinsumo_codigo" = \'' . $record->get_tinsumo_codigo() . '\'  and xmin =' . $record->getVersionId();

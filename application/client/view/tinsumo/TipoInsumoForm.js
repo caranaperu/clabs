@@ -28,7 +28,16 @@ isc.WinTipoInsumoForm.addProperties({
             fields: [
                 {name: "tinsumo_codigo",  type: "text", showPending: true, width: "75", mask: ">LLLLLLLLLL"},
                 {name: "tinsumo_descripcion",  showPending: true, length: 60, width: "260"}
-            ]
+            ],
+            isAllowedToSave: function(values,oldValues) {
+                // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
+                if (values.tinsumo_protected == true) {
+                    isc.say('No puede actualizarse el registro  debido a que es un registro del sistema y esta protegido');
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         });
     },
     initWidget: function() {

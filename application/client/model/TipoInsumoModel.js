@@ -14,8 +14,24 @@ isc.RestDataSource.create({
         {name: "tinsumo_codigo", title: "Codigo", primaryKey: "true", required: true},
         {name: "tinsumo_descripcion", title: "Descripcion", required: true,
             validators: [{type: "regexp", expression: glb_RE_onlyValidText}]
-        }
+        },
+        {name: "tinsumo_protected", title: '', type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_tinsumo._getBooleanFieldValue(v);
+        }, required: true}
     ],
+    /**
+     * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
+     * segun la base de datos.
+     */
+    _getBooleanFieldValue: function(value) {
+        //  console.log(value);
+        if (value !== 't' && value !== 'T' && value !== 'Y' && value !== 'y' && value !== 'TRUE' && value !== 'true' && value !== true) {
+            return false;
+        } else {
+            return true;
+        }
+
+    },
     fetchDataURL: glb_dataUrl + 'tipoInsumoController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'tipoInsumoController?op=add&libid=SmartClient',
     updateDataURL: glb_dataUrl + 'tipoInsumoController?op=upd&libid=SmartClient',
