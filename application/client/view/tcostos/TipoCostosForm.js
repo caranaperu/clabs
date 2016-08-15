@@ -27,8 +27,19 @@ isc.WinTipoCostosForm.addProperties({
             focusInEditFld: 'tcostos_descripcion',
             fields: [
                 {name: "tcostos_codigo",  type: "text", showPending: true, width: "75", mask: ">LLLL"},
-                {name: "tcostos_descripcion",  showPending: true, length: 60, width: "260"}
-            ]
+                {name: "tcostos_descripcion",  showPending: true, length: 60, width: "260"},
+                {name: "tcostos_protected", hidden:true,defaultValue: false}
+            ],
+
+            isAllowedToSave: function(values,oldValues) {
+                // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
+                if (values.tcostos_protected == true) {
+                    isc.say('No puede actualizarse el registro  debido a que es un registro del sistema y esta protegido');
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         });
     },
     initWidget: function() {

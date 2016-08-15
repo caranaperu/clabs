@@ -36,11 +36,12 @@ class TipoCostosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      * @see TSLBasicRecordDAO::getAddRecordQuery()
      */
     protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
-        /* @var $record  TipoInsumoModel  */
-        return 'insert into tb_tcostos (tcostos_codigo,tcostos_descripcion,'
+        /* @var $record  TipoCostosModel  */
+        return 'insert into tb_tcostos (tcostos_codigo,tcostos_descripcion,tcostos_protected,'
         . 'activo,usuario) values(\'' .
         $record->get_tcostos_codigo() . '\',\'' .
         $record->get_tcostos_descripcion() . '\',\'' .
+        $record->get_tcostos_protected() . '\',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
 
@@ -53,7 +54,7 @@ class TipoCostosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select tcostos_codigo,tcostos_descripcion,activo,xmin as "versionId" from  tb_tcostos ';
+        $sql = 'select tcostos_codigo,tcostos_descripcion,tcostos_protected,activo,xmin as "versionId" from  tb_tcostos ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
@@ -97,7 +98,7 @@ class TipoCostosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      * @see TSLBasicRecordDAO::getRecordQueryByCode()
      */
     protected function getRecordQueryByCode($code, $subOperation = NULL) {
-        return 'select tcostos_codigo,tcostos_descripcion,activo,' .
+        return 'select tcostos_codigo,tcostos_descripcion,tcostos_protected,activo,' .
                 'xmin as "versionId" from tb_tcostos where tcostos_codigo =  \'' . $code . '\'';
     }
 
@@ -106,10 +107,11 @@ class TipoCostosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      * @see TSLBasicRecordDAO::getUpdateRecordQuery()
      */
     protected function getUpdateRecordQuery(\TSLDataModel &$record) {
-        /* @var $record  TipoInsumoModel  */
+        /* @var $record  TipoCostosModel  */
 
         return 'update tb_tcostos set tcostos_codigo=\'' . $record->get_tcostos_codigo() . '\','.
         'tcostos_descripcion=\'' . $record->get_tcostos_descripcion() . '\',' .
+        'tcostos_protected=\'' . $record->get_tcostos_protected() . '\',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
         ' where "tcostos_codigo" = \'' . $record->get_tcostos_codigo() . '\'  and xmin =' . $record->getVersionId();

@@ -18,6 +18,7 @@ class TipoCostosModel extends \app\common\model\TSLAppCommonBaseModel {
 
     protected $tcostos_codigo;
     protected $tcostos_descripcion;
+    protected $tcostos_protected;
 
     /**
      * Setea el codigo unico del tipo de insumo.
@@ -53,6 +54,22 @@ class TipoCostosModel extends \app\common\model\TSLAppCommonBaseModel {
         return $this->tcostos_descripcion;
     }
 
+    /**
+     * Setea si el tipo de costos es protegido
+     * o de sistema, este flag indicara si puede eliminarse o no.
+     *
+     * @param boolean $tcostos_protected TRUE si el tipo de costos es protegido
+     */
+    public function set_tcostos_protected($tcostos_protected) {
+        $this->tcostos_protected = $tcostos_protected;
+    }
+
+    /**
+     * @return boolean retorna si el tipo de costos es protegido
+     */
+    public function get_tcostos_protected() {
+        return $this->tcostos_protected;
+    }
 
     public function &getPKAsArray() {
         $pk['tcostos_codigo'] = $this->getId();

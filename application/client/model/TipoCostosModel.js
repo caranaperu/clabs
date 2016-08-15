@@ -14,8 +14,23 @@ isc.RestDataSource.create({
         {name: "tcostos_codigo", title: "Codigo", primaryKey: "true", required: true},
         {name: "tcostos_descripcion", title: "Descripcion", required: true,
             validators: [{type: "regexp", expression: glb_RE_onlyValidText}]
-        }
+        },
+        {name: "tcostos_protected", title: '', type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_tcostos._getBooleanFieldValue(v);
+        }, required: true}
     ],
+    /**
+     * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
+     * segun la base de datos.
+     */
+    _getBooleanFieldValue: function(value) {
+        if (value !== 't' && value !== 'T' && value !== 'Y' && value !== 'y' && value !== 'TRUE' && value !== 'true' && value !== true) {
+            return false;
+        } else {
+            return true;
+        }
+
+    },
     fetchDataURL: glb_dataUrl + 'tipoCostosController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'tipoCostosController?op=add&libid=SmartClient',
     updateDataURL: glb_dataUrl + 'tipoCostosController?op=upd&libid=SmartClient',

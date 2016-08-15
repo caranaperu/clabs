@@ -29,7 +29,24 @@ isc.WinTipoCostosWindow.addProperties({
             canMultiSort: false,
             autoSize: true,
             AutoFitWidthApproach: 'both',
-            sortField: 'tcostos_descripcion'
+            sortField: 'tcostos_descripcion',
+            getCellCSSText: function(record, rowNum, colNum) {
+                if (record.tcostos_protected === true) {
+                    return "font-weight:bold; color:red;";
+                }
+            },
+            isAllowedToDelete: function() {
+                if (this.anySelected() === true) {
+                    var record = this.getSelectedRecord();
+                    // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI.
+                    if (record.tcostos_protected == true) {
+                        isc.say('No puede eliminarse el registro debido a que es un registro del sistema y esta protegido');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
         });
     },
     initWidget: function() {

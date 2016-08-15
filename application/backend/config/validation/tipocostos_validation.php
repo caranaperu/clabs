@@ -20,6 +20,11 @@ $config['v_tcostos'] = array(
             'rules' => 'required|xss_clean|max_length[60]'
         ),
         array(
+            'field' => 'tcostos_protected',
+            'label' => 'lang:tcostos_protected',
+            'rules' => 'required|is_bool|xss_clean'
+        ),
+        array(
             'field' => 'versionId',
             'label' => 'lang:versionId',
             'rules' => 'required|integer|xss_clean'
@@ -47,6 +52,11 @@ $config['v_tcostos'] = array(
             'field' => 'tcostos_descripcion',
             'label' => 'lang:tcostos_descripcion',
             'rules' => 'required|xss_clean|max_length[60]'
+        ),
+        array(
+            'field' => 'tcostos_protected',
+            'label' => 'lang:tcostos_protected',
+            'rules' => 'required|is_bool|xss_clean'
         )
     )
 );
