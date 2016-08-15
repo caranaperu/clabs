@@ -37,7 +37,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
         /* @var $record  TipoInsumoModel  */
-        return 'insert into tb_tinsumo (tinsumo_codigo,tinsumo_descripcion,'
+        return 'insert into tb_tinsumo (tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,'
         . 'activo,usuario) values(\'' .
         $record->get_tinsumo_codigo() . '\',\'' .
         $record->get_tinsumo_descripcion() . '\',\'' .
