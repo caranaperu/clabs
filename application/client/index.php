@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Atletismo - Administrador</title>
+    <title>CLABS - Administrador</title>
     <SCRIPT>var isomorphicDir = "./isomorphic/";</SCRIPT>
     <SCRIPT SRC=./isomorphic/system/modules-debug/ISC_Core.js></SCRIPT>
     <SCRIPT SRC=./isomorphic/system/modules-debug/ISC_Foundation.js></SCRIPT>
@@ -75,10 +75,12 @@
     <SCRIPT SRC=./view/insumos/InsumoWindow.js></SCRIPT>
     <SCRIPT SRC=./view/insumos/InsumoForm.js></SCRIPT>
 
-    <SCRIPT SRC=./model/AppCategoriasModel.js></SCRIPT>
-    <SCRIPT SRC=./model/CategoriasModel.js></SCRIPT>
-    <SCRIPT SRC=./view/categorias/CategoriasWindow.js></SCRIPT>
-    <SCRIPT SRC=./view/categorias/CategoriasForm.js></SCRIPT>
+    <SCRIPT SRC=./model/ProductoModel.js></SCRIPT>
+    <SCRIPT SRC=./model/ProductoDetalleModel.js></SCRIPT>
+    <SCRIPT SRC=./view/productos/ProductoWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/productos/ProductoForm.js></SCRIPT>
+
+
 
 
 </head>

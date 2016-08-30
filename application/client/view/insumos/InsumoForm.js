@@ -1,6 +1,6 @@
 /**
  * Clase especifica para la definicion de la ventana para
- * la edicion de los registros de las regiones atleticas.
+ * la edicion de los registros de los insumos.
  *
  * @version 1.00
  * @since 1.00

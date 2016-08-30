@@ -106,7 +106,7 @@
          * @{inheritdoc}
          * @see \TSLBasicRecordDAO::getRecordQuery()
          */
-        protected function getRecordQuery($id) {
+        protected function getRecordQuery($id, $subOperation = NULL) {
             // en este caso el codigo es la llave primaria
             return $this->getRecordQueryByCode($id);
         }

@@ -44,8 +44,6 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         $record->get_tinsumo_protected() . '\',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
-
-        return $sql;
     }
 
     /**
@@ -54,11 +52,11 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,activo,xmin as "versionId" from  tb_tinsumo ';
+        $sql = 'select tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,activo,xmin as "versionId" from  tb_tinsumo where tinsumo_protected = FALSE ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
-            $sql .= ' where "activo"=TRUE ';
+            $sql .= ' and "activo"=TRUE ';
         }
 
         $where = $constraints->getFilterFieldsAsString();

@@ -18,10 +18,9 @@ isc.WinInsumoWindow.addProperties({
             ID: "InsumoList",
             alternateRecordStyles: true,
             dataSource: mdl_insumo,
-            fetchOperation: 'fetchInsumos',
             autoFetchData: true,
             fields: [
-                {name: "insumo_codigo",width: '10%'},
+                //{name: "insumo_codigo",width: '10%'},
                 {name: "insumo_descripcion",width: '20%'},
                 {name: "tcostos_descripcion",width: '10%'},
                 {name: "tinsumo_descripcion",width: '12%'},
@@ -31,6 +30,7 @@ isc.WinInsumoWindow.addProperties({
                 {name: "moneda_descripcion",width: '10%'},
                 {name: "insumo_costo",align:'right',width: '8%'}
             ],
+            initialCriteria: {insumo_tipo: 'IN'},
             canReorderFields: false,
             showFilterEditor: true,
             autoDraw: false,

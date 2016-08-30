@@ -54,11 +54,11 @@ class TipoCostosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select tcostos_codigo,tcostos_descripcion,tcostos_protected,activo,xmin as "versionId" from  tb_tcostos ';
+        $sql = 'select tcostos_codigo,tcostos_descripcion,tcostos_protected,activo,xmin as "versionId" from  tb_tcostos where tcostos_protected = FALSE ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
-            $sql .= ' where "activo"=TRUE ';
+            $sql .= ' and "activo"=TRUE ';
         }
 
         $where = $constraints->getFilterFieldsAsString();

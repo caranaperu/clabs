@@ -62,6 +62,11 @@ isc.SystemTreeMenu.addProperties({
                 mainWindowClass: 'WinInsumoWindow',
                 formWindowClass: 'WinInsumoForm'
             });
+        } else if (menuId === 'smn_producto') {
+            controller = isc.DefaultController.create({
+                mainWindowClass: 'WinProductoWindow',
+                formWindowClass: 'WinProductoForm'
+            });
         } else if (menuId === 'smn_tipocambio') {
             controller = isc.DefaultController.create({
                 mainWindowClass: 'WinTipoCambioWindow',

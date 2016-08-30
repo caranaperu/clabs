@@ -4,7 +4,8 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 /**
- * Este DAO es especifico el mantenimiento de los insumos.
+ * Este DAO es especifico el mantenimiento de los productos que no es mas
+ * que un registro de insumos pero con menos datos requeridos..
  *
  * @author  Carlos Arana Reategui <aranape@gmail.com>
  * @version 0.2
@@ -13,7 +14,7 @@ if (!defined('BASEPATH'))
  * @license GPL
  *
  */
-class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
+class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
 
     /**
      * Constructor se puede indicar si las busquedas solo seran en registros activos.
@@ -36,18 +37,14 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      * @see TSLBasicRecordDAO::getAddRecordQuery()
      */
     protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
-        /* @var $record  InsumoModel  */
-        return 'insert into tb_insumo (insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,unidad_medida_codigo_ingreso,'.
-                'unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,usuario) values(\'' .
+        /* @var $record  ProductoModel  */
+        return 'insert into tb_insumo (insumo_tipo,insumo_codigo,insumo_descripcion,'.
+                'unidad_medida_codigo_costo,insumo_merma,moneda_codigo_costo,activo,usuario) values(\'' .
         $record->get_insumo_tipo() . '\',\'' .
         $record->get_insumo_codigo() . '\',\'' .
         $record->get_insumo_descripcion() . '\',\'' .
-        $record->get_tinsumo_codigo() . '\',\'' .
-        $record->get_tcostos_codigo() . '\',\'' .
-        $record->get_unidad_medida_codigo_ingreso() . '\',\'' .
         $record->get_unidad_medida_codigo_costo() . '\',' .
-        $record->get_insumo_merma() . ',' .
-        $record->get_insumo_costo() . ',\'' .
+        $record->get_insumo_merma() . ',\'' .
         $record->get_moneda_codigo_costo() . '\',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
@@ -137,8 +134,8 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             $sql = $this->_getFecthNormalized();
             $sql .= ' where insumo_id =  \'' . $code . '\'';
         } else {
-            $sql =  'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,'.
-                'unidad_medida_codigo_ingreso,unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,' .
+            $sql =  'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,'.
+                'unidad_medida_codigo_costo,insumo_merma,moneda_codigo_costo,activo,' .
                 'xmin as "versionId" from tb_insumo where insumo_id =  \'' . $code . '\'';
         }
         return $sql;
@@ -149,17 +146,12 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      * @see TSLBasicRecordDAO::getUpdateRecordQuery()
      */
     protected function getUpdateRecordQuery(\TSLDataModel &$record) {
-        /* @var $record  InsumoModel  */
+        /* @var $record  ProductoModel  */
 
         return 'update tb_insumo set insumo_tipo=\''.$record->get_insumo_tipo().'\','.
         'insumo_codigo=\'' . $record->get_insumo_codigo() . '\','.
         'insumo_descripcion=\'' . $record->get_insumo_descripcion() . '\',' .
-        'tinsumo_codigo=\'' . $record->get_tinsumo_codigo() . '\',' .
-        'tcostos_codigo=\'' . $record->get_tcostos_codigo() . '\',' .
-        'unidad_medida_codigo_ingreso=\'' . $record->get_unidad_medida_codigo_ingreso() . '\',' .
-        'unidad_medida_codigo_costo=\'' . $record->get_unidad_medida_codigo_costo() . '\',' .
         'insumo_merma=' . $record->get_insumo_merma() . ',' .
-        'insumo_costo=' . $record->get_insumo_costo() . ',' .
         'moneda_codigo_costo=\'' . $record->get_moneda_codigo_costo() . '\',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
@@ -168,16 +160,13 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     }
 
     private function _getFecthNormalized() {
-        $sql = 'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.tinsumo_codigo,ti.tinsumo_descripcion,ins.unidad_medida_codigo_ingreso,ins.unidad_medida_codigo_costo,'.
-                'umi.unidad_medida_descripcion as unidad_medida_descripcion_ingreso,umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,ins.tcostos_codigo,tcostos_descripcion ,'.
+        $sql = 'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.unidad_medida_codigo_costo,'.
+                'umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,'.
                 'insumo_merma,'.
-                 'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else insumo_costo end as insumo_costo,'.
+                 'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else -1.00 end as insumo_costo,'.
                 'moneda_codigo_costo,mn.moneda_descripcion,mn.moneda_simbolo,ins.activo,ins.xmin as "versionId" '.
             'from  tb_insumo ins '.
-            'inner join tb_unidad_medida umi on umi.unidad_medida_codigo = ins.unidad_medida_codigo_ingreso '.
             'inner join tb_unidad_medida umc on umc.unidad_medida_codigo = ins.unidad_medida_codigo_costo '.
-            'inner join tb_tcostos tc on tc.tcostos_codigo = ins.tcostos_codigo '.
-            'inner join tb_tinsumo ti on ti.tinsumo_codigo = ins.tinsumo_codigo '.
             'inner join tb_moneda mn on mn.moneda_codigo = ins.moneda_codigo_costo ';
         return $sql;
     }
