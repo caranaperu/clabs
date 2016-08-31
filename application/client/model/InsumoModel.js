@@ -23,7 +23,7 @@ isc.RestDataSource.create({
         {name: "unidad_medida_codigo_costo", title: 'Unidad Costo', foreignKey: "mdl_unidadmedida.unidad_medida_codigo", required: true},
         {
             name: "insumo_merma", title:'Merma',required: true,
-            validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
         {
             name: "insumo_costo", title:'Costo',required: true,
