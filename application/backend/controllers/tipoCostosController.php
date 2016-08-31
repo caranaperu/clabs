@@ -36,9 +36,9 @@ class tipoCostosController extends app\common\controller\TSLAppDefaultCRUDContro
             "paramsList" => [
                 "fetch" => [],
                 "read" => ['tcostos_codigo', 'verifyExist'],
-                "add" => ['tcostos_codigo', 'tcostos_descripcion','tcostos_protected','activo'],
+                "add" => ['tcostos_codigo', 'tcostos_descripcion','tcostos_indirecto','tcostos_protected','activo'],
                 "del" => ['tcostos_codigo', 'versionId'],
-                "upd" => ['tcostos_codigo', 'tcostos_descripcion','tcostos_protected', 'versionId', 'activo'],
+                "upd" => ['tcostos_codigo', 'tcostos_descripcion','tcostos_indirecto','tcostos_protected', 'versionId', 'activo'],
             ],
             "paramsFixableToNull" => ['tcostos_'],
             "paramsFixableToValue" => ["tcostos_codigo" => ["valueToFix" => 'null', "valueToReplace" => NULL, "isID" => true]],

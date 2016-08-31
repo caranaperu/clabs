@@ -19,6 +19,7 @@ class TipoCostosModel extends \app\common\model\TSLAppCommonBaseModel {
     protected $tcostos_codigo;
     protected $tcostos_descripcion;
     protected $tcostos_protected;
+    protected $tcostos_indirecto;
 
     /**
      * Setea el codigo unico del tipo de insumo.
@@ -69,6 +70,23 @@ class TipoCostosModel extends \app\common\model\TSLAppCommonBaseModel {
      */
     public function get_tcostos_protected() {
         return $this->tcostos_protected;
+    }
+
+    /**
+     * Setea si el tipo de costo es indirecto.
+     *
+     * @param boolean $tinsumo_indirecto TRUE O FALSE.
+     */
+    public function set_tcostos_indirecto($tinsumo_indirecto) {
+        $this->tinsumo_indirecto = $tinsumo_indirecto;
+    }
+
+    /**
+     *
+     * @return boolean indicando si el tipo de costo es indirecto o no.
+     */
+    public function get_tcostos_indirecto() {
+        return $this->tinsumo_indirecto;
     }
 
     public function &getPKAsArray() {

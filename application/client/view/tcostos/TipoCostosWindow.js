@@ -19,8 +19,9 @@ isc.WinTipoCostosWindow.addProperties({
             dataSource: mdl_tcostos,
             autoFetchData: true,
             fields: [
-                {name: "tcostos_codigo", title: "Codigo", width: '25%'},
-                {name: "tcostos_descripcion", title: "Nombre", width: '75%'}
+                {name: "tcostos_codigo",  width: '25%'},
+                {name: "tcostos_descripcion",  width: '50%'},
+                {name: "tcostos_indirecto",  width: '25%'}
             ],
             canReorderFields: false,
             showFilterEditor: true,

@@ -25,6 +25,11 @@ $config['v_tcostos'] = array(
             'rules' => 'required|is_bool|xss_clean'
         ),
         array(
+            'field' => 'tcostos_indirecto',
+            'label' => 'lang:tinsumo_indirecto',
+            'rules' => 'required|is_bool|xss_clean'
+        ),
+        array(
             'field' => 'versionId',
             'label' => 'lang:versionId',
             'rules' => 'required|integer|xss_clean'
@@ -56,6 +61,11 @@ $config['v_tcostos'] = array(
         array(
             'field' => 'tcostos_protected',
             'label' => 'lang:tcostos_protected',
+            'rules' => 'required|is_bool|xss_clean'
+        ),
+        array(
+            'field' => 'tcostos_indirecto',
+            'label' => 'lang:tinsumo_indirecto',
             'rules' => 'required|is_bool|xss_clean'
         )
     )

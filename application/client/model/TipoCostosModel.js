@@ -17,6 +17,9 @@ isc.RestDataSource.create({
         },
         {name: "tcostos_protected", title: '', type: 'boolean', getFieldValue: function(r, v, f, fn) {
             return mdl_tcostos._getBooleanFieldValue(v);
+        }, required: true},
+        {name: "tcostos_indirecto", title: 'Indirecto', type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_tcostos._getBooleanFieldValue(v);
         }, required: true}
     ],
     /**

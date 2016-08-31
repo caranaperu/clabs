@@ -12,5 +12,6 @@ $lang['msg_tipocostos_rec_inactivo'] = 'El tipo de costo ya existe , pero esta i
 $lang['tcostos_codigo'] = 'Codigo de Tipo de Costos';
 $lang['tcostos_descripcion'] = 'Descripcion';
 $lang['tcostos_protected'] = 'Flag de Protegido';
+$lang['tcostos_indirecto'] = 'Insumo Indirecto?';
 $lang['versionId'] = 'Version';
 ?>

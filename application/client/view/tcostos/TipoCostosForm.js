@@ -12,7 +12,7 @@ isc.defineClass("WinTipoCostosForm", "WindowBasicFormExt");
 isc.WinTipoCostosForm.addProperties({
     ID: "winTipoCostosForm",
     title: "Mantenimiento de Tipo De Costos",
-    width: 470, height: 175,
+    width: 470, height: 200,
     createForm: function(formMode) {
         return isc.DynamicFormExt.create({
             ID: "formTipoCostos",
@@ -28,6 +28,7 @@ isc.WinTipoCostosForm.addProperties({
             fields: [
                 {name: "tcostos_codigo",  type: "text", showPending: true, width: "75", mask: ">LLLL"},
                 {name: "tcostos_descripcion",  showPending: true, length: 60, width: "260"},
+                {name: "tcostos_indirecto",showPending: true,defaultValue: false},
                 {name: "tcostos_protected", hidden:true,defaultValue: false}
             ],
 

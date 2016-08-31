@@ -33,6 +33,7 @@ class TipoCostosBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         $model->set_tcostos_codigo($dto->getParameterValue('tcostos_codigo'));
         $model->set_tcostos_descripcion($dto->getParameterValue('tcostos_descripcion'));
         $model->set_tcostos_protected($dto->getParameterValue('tcostos_protected'));
+        $model->set_tcostos_indirecto($dto->getParameterValue('tcostos_indirecto'));
 
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
@@ -52,6 +53,7 @@ class TipoCostosBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         $model->set_tcostos_codigo($dto->getParameterValue('tcostos_codigo'));
         $model->set_tcostos_descripcion($dto->getParameterValue('tcostos_descripcion'));
         $model->set_tcostos_protected($dto->getParameterValue('tcostos_protected'));
+        $model->set_tcostos_indirecto($dto->getParameterValue('tcostos_indirecto'));
 
         $model->setVersionId($dto->getParameterValue('versionId'));
         if ($dto->getParameterValue('activo') != NULL)
