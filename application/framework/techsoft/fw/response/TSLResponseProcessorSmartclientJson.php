@@ -124,8 +124,10 @@ class TSLResponseProcessorSmartclientJson implements TSLIResponseProcessor {
                     }
 
                     $out .= ',data:';
-                    $this->_processExtraData($outMessage->getResultData());
-                    $dataResults = TSLUtilsHelper::array_ut8_encode_recursive($outMessage->getResultData());
+
+                    $dataResults = $outMessage->getResultData();
+                        $this->_processExtraData($outMessage->getResultData());
+               //     $dataResults = TSLUtilsHelper::array_ut8_encode_recursive($outMessage->getResultData());
                     $out .= json_encode($dataResults);
 
                     // Numero de registros = al numero de registros leidos + la posicion inicial en el set

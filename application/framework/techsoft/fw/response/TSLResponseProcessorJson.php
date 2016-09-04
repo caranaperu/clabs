@@ -97,6 +97,7 @@ class TSLResponseProcessorJson implements TSLIResponseProcessor {
             if (isset($data)) {
                 $out .= ',"data":';
                 $this->_processExtraData($outMessage->getResultData());
+                // TODO: Revisar el uso  array_ut8_encode_recursive creo debe retirarse
                 $out .= json_encode(TSLUtilsHelper::array_ut8_encode_recursive($outMessage->getResultData()));
             }
             $out = '{' . $out . '}';
