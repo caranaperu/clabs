@@ -219,7 +219,7 @@ isc.DetailGridContainer.addProperties({
         });
 
         // Agregamos la seccion
-        this.addSection({title: this.sectionTitle, expanded: true, controls: [abtn, rbtn]});
+        this.addSection({title: this.sectionTitle, expanded: true,canCollapse: false, controls: [abtn, rbtn]});
 
         var grid = this._createGrid(arguments[0].gridProperties);
 
