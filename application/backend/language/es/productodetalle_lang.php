@@ -19,6 +19,7 @@ $lang['insumo_id_origen'] = 'Producto Origen';
 $lang['insumo_id'] = 'Componente';
 $lang['unidad_medida_codigo'] = 'Unidad de Medida';
 $lang['producto_detalle_cantidad'] = 'Cantidad';
+$lang['producto_detalle_valor'] = 'Valor';
 $lang['producto_detalle_merma'] = 'Merma';
 $lang['activo'] = 'El campo obligatorio debe ser si o no';
 $lang['versionId'] = 'Version';

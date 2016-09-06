@@ -170,7 +170,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     private function _getFecthNormalized() {
         $sql = 'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.tinsumo_codigo,ti.tinsumo_descripcion,ins.unidad_medida_codigo_ingreso,ins.unidad_medida_codigo_costo,'.
                 'umi.unidad_medida_descripcion as unidad_medida_descripcion_ingreso,umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,ins.tcostos_codigo,tcostos_descripcion ,'.
-                'insumo_merma,'.
+                'tcostos_indirecto,insumo_merma,'.
                  'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else insumo_costo end as insumo_costo,'.
                 'moneda_codigo_costo,mn.moneda_descripcion,mn.moneda_simbolo,ins.activo,ins.xmin as "versionId" '.
             'from  tb_insumo ins '.

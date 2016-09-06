@@ -23,6 +23,7 @@ class ProductoDetalleModel extends \app\common\model\TSLAppCommonBaseModel
     protected $insumo_id;
     protected $unidad_medida_codigo;
     protected $producto_detalle_cantidad;
+    protected $producto_detalle_valor;
     protected $producto_detalle_merma;
 
 
@@ -112,7 +113,7 @@ class ProductoDetalleModel extends \app\common\model\TSLAppCommonBaseModel
      * Setea la cantidad en las unidades de medida en que se costeara este elemento dentro
      * del producto al que aporta.
      *
-     * @param $producto_detalle_cantidad cantidad en las unidades de medida en que se costeara.
+     * @param double $producto_detalle_cantidad cantidad en las unidades de medida en que se costeara.
      */
     public function set_producto_detalle_cantidad($producto_detalle_cantidad)
     {
@@ -130,7 +131,29 @@ class ProductoDetalleModel extends \app\common\model\TSLAppCommonBaseModel
     {
         return $this->producto_detalle_cantidad;
     }
-    
+
+    /**
+     * Setea el valor de base que sirve para calcular el costo , este debe estar en la
+     * moneda original del insumo / producto siempre.
+     *
+     * @param double $producto_detalle_valor valor de base que sirve para calcular el costo.
+     */
+    public function set_producto_detalle_valor($producto_detalle_valor)
+    {
+        $this->producto_detalle_valor = $producto_detalle_valor;
+    }
+
+
+    /**
+     * Retorna el valor de base que sirve para calcular el costo , este estara en la
+     * moneda original del insumo / producto padre siempre.
+     *
+     * @return double con el valor
+     */
+    public function get_producto_detalle_valor()
+    {
+        return $this->producto_detalle_valor;
+    }
 
     /**
      * Retorna la merma del producto o insumo al aplicarse al principal.

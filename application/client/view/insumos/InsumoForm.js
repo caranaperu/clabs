@@ -59,7 +59,20 @@ isc.WinInsumoForm.addProperties({
                     // de lo contrario el sort se hace en el lado cliente.
                     initialSort: [{property: 'insumo_descripcion'}],
                     startRow: true,
-                    endRow: true
+                    endRow: true,
+                    changed: function (form, item, value) {
+                        var record = item.getSelectedRecord();
+                        if (record) {
+                            form.getItem('tcostos_indirecto').setValue(record.tcostos_indirecto);
+                        } else {
+                            form.getItem('tcostos_indirecto').setValue(false);
+                        }
+
+                        if (!record || record.tcostos_indirecto == true) {
+                            form.getItem('unidad_medida_codigo_ingreso').setValue('NING');
+                            form.getItem('insumo_merma').setValue(0);
+                        }
+                    }
                 },
                 {
                     name: "unidad_medida_codigo_ingreso", editorType: "comboBoxExt", showPending: true, width: "120",
@@ -73,9 +86,12 @@ isc.WinInsumoForm.addProperties({
                     completeOnTab: true,
                     // Solo es pasado al servidor si no existe cache data all en el modelo
                     // de lo contrario el sort se hace en el lado cliente.
-                    initialSort: [{property: 'unidad_medida_descripcion'}]
+                    initialSort: [{property: 'unidad_medida_descripcion'}],
+                    visibleWhen: {tcostos_indirecto: false}
                 },
-                {name: "insumo_merma", showPending: true, width: '80'},
+                {name: "insumo_merma", showPending: true, width: '80',
+                    visibleWhen: {tcostos_indirecto: false}
+                },
                 {
                     name: "insumos_separator_01",
                     defaultValue: "Costo",
@@ -112,7 +128,8 @@ isc.WinInsumoForm.addProperties({
                     // de lo contrario el sort se hace en el lado cliente.
                     initialSort: [{property: 'moneda_descripcion'}]
                 },
-                {name: "insumo_costo", showPending: true, width: '80'}
+                {name: "insumo_costo", showPending: true, width: '80'},
+                {name: "tcostos_indirecto", hidden:true}
             ]//, cellBorder: 1
         });
     },

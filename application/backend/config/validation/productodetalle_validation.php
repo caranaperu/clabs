@@ -36,6 +36,11 @@ $config['v_productodetalle'] = array(
             'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
         ),
         array(
+            'field' => 'producto_detalle_valor',
+            'label' => 'lang:producto_detalle_valor',
+            'rules' => 'required|decimal|greater_than_equal[0.00] | xss_clean'
+        ),
+        array(
             'field' => 'producto_detalle_merma',
             'label' => 'lang:producto_detalle_merma',
             'rules' => 'required|decimal|greater_than_equal[0.00] | xss_clean'
@@ -83,6 +88,11 @@ $config['v_productodetalle'] = array(
             'field' => 'producto_detalle_cantidad',
             'label' => 'lang:producto_detalle_cantidad',
             'rules' => 'required|decimal|greater_than[0.00] | xss_clean'
+        ),
+        array(
+            'field' => 'producto_detalle_valor',
+            'label' => 'lang:producto_detalle_valor',
+            'rules' => 'required|decimal|greater_than_equal[0.00] | xss_clean'
         ),
         array(
             'field' => 'producto_detalle_merma',

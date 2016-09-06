@@ -32,6 +32,9 @@ isc.RestDataSource.create({
         {name: "moneda_codigo_costo", title:'Moneda Costo',foreignKey: "mdl_moneda.moneda_codigo", required: true},
         // campos join
         {name: "tcostos_descripcion", title: "Tipo Costos"},
+        {name: "tcostos_indirecto", title: "Indirecto",type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_insumo._getBooleanFieldValue(v);
+        }, required: true},
         {name: "tinsumo_descripcion", title: "Tipo Insumo"},
         {name: "unidad_medida_descripcion_ingreso", title: "Unidad Ingreso"},
         {name: "unidad_medida_descripcion_costo", title: "Unidad Costo"},
@@ -39,6 +42,18 @@ isc.RestDataSource.create({
         {name: "moneda_simbolo"}
 
     ],
+    /**
+     * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
+     * segun la base de datos.
+     */
+    _getBooleanFieldValue: function(value) {
+        if (value !== 't' && value !== 'T' && value !== 'Y' && value !== 'y' && value !== 'TRUE' && value !== 'true' && value !== true) {
+            return false;
+        } else {
+            return true;
+        }
+
+    },
     fetchDataURL: glb_dataUrl + 'insumoController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'insumoController?op=add&libid=SmartClient',
     updateDataURL: glb_dataUrl + 'insumoController?op=upd&libid=SmartClient',

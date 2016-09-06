@@ -45,11 +45,12 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
         /* @var $record  ProductoDetalleModel */
 
         return 'insert into tb_producto_detalle (insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'
-        . 'producto_detalle_merma,activo,usuario) values(' .
+        . 'producto_detalle_valor,producto_detalle_merma,activo,usuario) values(' .
         $record->get_insumo_id_origen() . ',' .
         $record->get_insumo_id() . ',\'' .
         $record->get_unidad_medida_codigo() . '\',' .
         $record->get_producto_detalle_cantidad() . ',' .
+        $record->get_producto_detalle_valor() . ',' .
         $record->get_producto_detalle_merma() . ',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
@@ -67,7 +68,7 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
             $sql = $this->_getFecthNormalized();
         } else {
             $sql = 'SELECT producto_detalle_id,insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'.
-                   'producto_detalle_merma,activo,xmin AS "versionId" ' .
+                   'producto_detalle_valor,producto_detalle_merma,activo,xmin AS "versionId" ' .
                    'FROM  tb_producto_detalle pd ';
         }
 
@@ -130,7 +131,7 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
             $sql .= ' WHERE producto_detalle_id = ' . $code;
         } else {
             $sql =  'SELECT producto_detalle_id,insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'.
-                    'producto_detalle_merma,activo,xmin AS "versionId" ' .
+                    'producto_detalle_valor,producto_detalle_merma,activo,xmin AS "versionId" ' .
                     'FROM tb_producto_detalle WHERE producto_detalle_id = ' . $code;
         }
         return $sql;
@@ -150,6 +151,7 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
         'insumo_id_origen=' . $record->get_insumo_id_origen() . ',' .
         'unidad_medida_codigo=\'' . $record->get_unidad_medida_codigo() . '\',' .
         'producto_detalle_cantidad=' . $record->get_producto_detalle_cantidad() . ',' .
+        'producto_detalle_valor=' . $record->get_producto_detalle_valor() . ',' .
         'producto_detalle_merma=' . $record->get_producto_detalle_merma() . ',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
@@ -159,10 +161,20 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
 
     private function _getFecthNormalized() {
         $sql = 'SELECT producto_detalle_id,insumo_id_origen,pd.insumo_id,insumo_descripcion,pd.unidad_medida_codigo,unidad_medida_descripcion,'.
-            'producto_detalle_cantidad,(select fn_get_producto_detalle_costo(producto_detalle_id, now()::date)) as producto_detalle_costo,producto_detalle_merma,moneda_simbolo,pd.activo,pd.xmin AS "versionId" ' .
+            'producto_detalle_cantidad,'.
+            '(case when 
+                ins.insumo_tipo = \'PR\' then (select fn_get_producto_costo(pd.insumo_id, now()::date))
+              else 
+                  case when tcostos_indirecto = TRUE then producto_detalle_valor
+                    else ins.insumo_costo 
+                  end
+               end) as producto_detalle_valor,'.
+            '(select fn_get_producto_detalle_costo(producto_detalle_id, now()::date)) as producto_detalle_costo,'.
+            'producto_detalle_merma,moneda_simbolo,tcostos_indirecto,pd.activo,pd.xmin AS "versionId" ' .
             'FROM  tb_producto_detalle pd ' .
             'INNER JOIN tb_unidad_medida um1 on um1.unidad_medida_codigo = pd.unidad_medida_codigo ' .
             'INNER JOIN tb_insumo ins on ins.insumo_id = pd.insumo_id '.
+            'inner join tb_tcostos tc on tc.tcostos_codigo = ins.tcostos_codigo '.
             'INNER JOIN tb_moneda mon on mon.moneda_codigo = ins.moneda_codigo_costo ';
         return $sql;
     }

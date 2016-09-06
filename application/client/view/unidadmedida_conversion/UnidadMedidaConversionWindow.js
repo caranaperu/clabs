@@ -31,12 +31,7 @@ isc.WinUMConversionWindow.addProperties({
             canMultiSort: false,
             autoSize: true,
             AutoFitWidthApproach: 'both',
-            sortField: 'unidad_medida_origen',
-            applyRecordData: function(record) {
-                console.log('applyRecordData....')
-                console.log(record)
-                this.Super('applyRecordData',arguments);
-            }
+            sortField: 'unidad_medida_origen'
         });
     },
     initWidget: function() {

@@ -25,18 +25,37 @@ isc.RestDataSource.create({
             validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
         {
+            name: "producto_detalle_valor", title: 'Valor', required: true, type: 'double', format: "0.0000",
+            validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+        },
+        {
             name: "producto_detalle_merma", title: 'Merma', required: true, type: 'double', format: "0.0000",
             validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+        },
+        {
+            name: "producto_detalle_costo", title: 'Costo', required: false, type: 'double', format: "0.0000",
+            validators: [{type: 'floatRange', min: -3, max: 100000.00}, {type: "floatPrecision", precision: 4}]
         },
         // Campos join
         {name: "insumo_descripcion", title: 'Insumo'},
         {name: "unidad_medida_descripcion", title: 'U.Medida'},
         {name: "moneda_simbolo"},
-        {
-            name: "producto_detalle_costo", title: 'Costo', required: true, type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: -3, max: 100000.00}, {type: "floatPrecision", precision: 4}]
-        }
+        {name: "tcostos_indirecto", title: "Indirecto",type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_productodetalle._getBooleanFieldValue(v);
+        }, required: true},
     ],
+    /**
+     * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
+     * segun la base de datos.
+     */
+    _getBooleanFieldValue: function(value) {
+        if (value !== 't' && value !== 'T' && value !== 'Y' && value !== 'y' && value !== 'TRUE' && value !== 'true' && value !== true) {
+            return false;
+        } else {
+            return true;
+        }
+
+    },
     fetchDataURL: glb_dataUrl + 'productoDetalleController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'productoDetalleController?op=add&libid=SmartClient',
     updateDataURL: glb_dataUrl + 'productoDetalleController?op=upd&libid=SmartClient',

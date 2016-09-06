@@ -37,6 +37,7 @@ class ProductoDetalleBussinessService extends \app\common\bussiness\TSLAppCRUDBu
         $model->set_insumo_id($dto->getParameterValue('insumo_id'));
         $model->set_unidad_medida_codigo($dto->getParameterValue('unidad_medida_codigo'));
         $model->set_producto_detalle_cantidad($dto->getParameterValue('producto_detalle_cantidad'));
+        $model->set_producto_detalle_valor($dto->getParameterValue('producto_detalle_valor'));
         $model->set_producto_detalle_merma($dto->getParameterValue('producto_detalle_merma'));
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
@@ -60,6 +61,7 @@ class ProductoDetalleBussinessService extends \app\common\bussiness\TSLAppCRUDBu
         $model->set_insumo_id($dto->getParameterValue('insumo_id'));
         $model->set_unidad_medida_codigo($dto->getParameterValue('unidad_medida_codigo'));
         $model->set_producto_detalle_cantidad($dto->getParameterValue('producto_detalle_cantidad'));
+        $model->set_producto_detalle_valor($dto->getParameterValue('producto_detalle_valor'));
         $model->set_producto_detalle_merma($dto->getParameterValue('producto_detalle_merma'));
 
         $model->setVersionId($dto->getParameterValue('versionId'));

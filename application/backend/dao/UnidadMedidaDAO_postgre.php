@@ -52,17 +52,20 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_protected,activo,xmin as "versionId" from  tb_unidad_medida '.
-            'where unidad_medida_protected=FALSE ';
+        $sql = 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_protected,activo,xmin as "versionId" from  tb_unidad_medida ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
-            $sql .= ' and "activo"=TRUE ';
+            $sql .= ' where "activo"=TRUE ';
         }
 
         $where = $constraints->getFilterFieldsAsString();
         if (strlen($where) > 0) {
-            $sql .= ' and ' . $where;
+            if ($this->activeSearchOnly == TRUE) {
+                $sql .= ' and ' . $where;
+            } else {
+                $sql .= ' where ' . $where;
+            }
         }
 
         if (isset($constraints)) {

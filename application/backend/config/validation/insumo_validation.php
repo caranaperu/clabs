@@ -52,7 +52,7 @@ $config['v_insumo'] = array(
         array(
             'field' => 'insumo_merma',
             'label' => 'lang:insumo_merma',
-            'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
         ),
         array(
             'field' => 'insumo_costo',
@@ -121,7 +121,7 @@ $config['v_insumo'] = array(
         array(
             'field' => 'insumo_merma',
             'label' => 'lang:insumo_merma',
-            'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
         ),
         array(
             'field' => 'insumo_costo',

@@ -1,6 +1,6 @@
 /**
  * Clase especifica para la definicion de la ventana para
- * la edicion de los registros de los productos.
+ * la edicion de los registros de los productos y aua items.
  *
  * @version 1.00
  * @since 1.00
@@ -12,7 +12,7 @@ isc.defineClass("WinProductoForm", "WindowBasicFormExt");
 isc.WinProductoForm.addProperties({
     ID: "winProductoForm",
     title: "Mantenimiento de Productos",
-    width: 575, height: 225,
+    width: 650, height: 225,
     efficientDetailGrid: false,
     joinKeyFields: [{
         fieldName: 'insumo_id',
@@ -23,7 +23,7 @@ isc.WinProductoForm.addProperties({
         return isc.DynamicFormExt.create({
             ID: "formProducto",
             numCols: 4,
-            colWidths: ["100", "120", "100", "220"],
+            colWidths: ["100", "120", "100", "*"],
             fixedColWidths: false,
             padding: 5,
             dataSource: mdl_producto,
@@ -40,14 +40,14 @@ isc.WinProductoForm.addProperties({
                 {name: "insumo_descripcion", showPending: true, length: 60, width: "220"},
                 {name: "insumo_merma", showPending: true, width: '80'},
                 {
-                    name: "insumos_separator_01",
+                    name: "producto_separator_01",
                     defaultValue: "Costo",
                     type: "section",
                     colSpan: 4,
                     width: "*",
                     canCollapse: false,
                     align: 'center',
-                    itemIds: ["unidad_medida_codigo_costo", "insumo_costo"]
+                    itemIds: ["unidad_medida_codigo_costo", "moneda_codigo_costo"]
                 },
                 {
                     name: "unidad_medida_codigo_costo", editorType: "comboBoxExt", showPending: true, width: "120",
@@ -95,23 +95,53 @@ isc.WinProductoForm.addProperties({
                 canRemoveRecords: true,
                 canAdd: true,
                 canSort: false,
+                showHeaderMenuButton: false,
                 showGridSummary: true,
+                groupByField:"tcostos_indirecto", groupStartOpen:"all",
+                showGroupSummary:true,
+                showGroupSummaryInHeader:true,
+                width: 615,
                 fields: [
                     {
                         name: "insumo_descripcion",
-                        width: '35%'
+                        width: '25%'
                     }, {
-                        name: "unidad_medida_descripcion"
+                        name: "unidad_medida_descripcion",
+                        showGridSummary: false,
+                        showGroupSummary:false
                     }, {
                         name: "producto_detalle_cantidad", align: 'right',
-                        showGridSummary: false
+                        width: '10%',
+                        showGridSummary: false,
+                        showGroupSummary:false
+                    }, {
+                        name: "producto_detalle_valor", align: 'right',
+                        showGridSummary: false,
+                        showGroupSummary:false,
+                        formatCellValue: function (value,record) {
+                            if (record) {
+                                value = record.moneda_simbolo+' '+value;
+                            }
+                            return value;
+                        }
                     }, {
                         name: "producto_detalle_merma", align: 'right',
-                        showGridSummary: false
+                        width: '10%',
+                        showGridSummary: false,
+                        showGroupSummary:false
                     }, {
                         name: "producto_detalle_costo", align: 'right',
                         showGridSummary: true,
                         summaryFunction: 'sum'
+                    },
+                    {name: "tcostos_indirecto", hidden: true,
+                        getGroupTitle : function (groupValue, groupNode, field, fieldName, grid) {
+                            if (groupValue == true) {
+                                return 'Indirectos';
+                            } else {
+                                return 'Directos';
+                            }
+                        }
                     }],
                 getCellCSSText: function (record, rowNum, colNum) {
                     if (record.producto_detalle_costo < 0) {
@@ -153,7 +183,7 @@ isc.WinProductoForm.addProperties({
                         _canFetchInsumos: true, // para forzar o no la relectura del combo de insumo_id de esta forma.
                         fields: [
                             {name: "insumo_id_origen", hidden: true},
-                            //   {name: "moneda_simbolo", hidden: true},
+                            {name: "moneda_simbolo", hidden: true},
                             {
                                 name: "insumo_id", editorType: "comboBoxExt", showPending: true,
                                 width: 200,
@@ -203,15 +233,28 @@ isc.WinProductoForm.addProperties({
                                 changed: function (form, item, value) {
                                     var record = item.getSelectedRecord();
                                     if (record) {
-                                        form.getItem('unidad_medida_codigo').setValue(record.unidad_medida_codigo_costo);
-                                        // form.getItem('moneda_simbolo').setValue(record.moneda_simbolo);
-                                        form.getItem('producto_detalle_costo').setValue(record.insumo_costo);
-                                        form.getItem('producto_detalle_merma').setValue(record.insumo_merma);
+                                        form.getItem('tcostos_indirecto').setValue(record.tcostos_indirecto);
+                                        if (record.tcostos_indirecto == true) {
+                                            form.getItem('unidad_medida_codigo').setValue('NING');
+                                            form.getItem('producto_detalle_merma').setValue(0.00);
+                                            form.getItem('producto_detalle_valor').setCanEdit(true);
+
+                                        } else {
+                                            form.getItem('unidad_medida_codigo').setValue(record.unidad_medida_codigo_costo);
+                                            form.getItem('producto_detalle_merma').setValue(record.insumo_merma);
+                                            form.getItem('producto_detalle_valor').setCanEdit(false);
+
+                                        }
+                                        form.getItem('moneda_simbolo').setValue(record.moneda_simbolo);
+                                        form.getItem('producto_detalle_valor').setValue(record.insumo_costo);
                                     } else {
-                                        form.getItem('unidad_medida_codigo').setValue(undefined);
-                                        //  form.getItem('moneda_simbolo').setValue(undefined);
-                                        form.getItem('producto_detalle_costo').setValue(undefined);
-                                        form.getItem('producto_detalle_merma').setValue(undefined);
+                                        form.getItem('unidad_medida_codigo').setValue('NING');
+                                        form.getItem('producto_detalle_merma').setValue(0.00);
+                                        form.getItem('tcostos_indirecto').setValue(false);
+                                        form.getItem('moneda_simbolo').setValue(undefined);
+                                        form.getItem('producto_detalle_valor').setValue(undefined);
+                                        form.getItem('producto_detalle_valor').setCanEdit(false);
+
                                     }
                                 }
                             }, {
@@ -230,28 +273,46 @@ isc.WinProductoForm.addProperties({
                                 completeOnTab: true,
                                 // Solo es pasado al servidor si no existe cache data all en el modelo
                                 // de lo contrario el sort se hace en el lado cliente.
-                                initialSort: [{property: 'unidad_medida_descripcion'}]
+                                initialSort: [{property: 'unidad_medida_descripcion'}],
+                                visibleWhen: {tcostos_indirecto: false}
                             },
-                            {name: "producto_detalle_cantidad", showPending: true, width: '80'},
-                            {
-                                name: "producto_detalle_costo",
-                                showPending: true,
-                                width: '80',
-                                disabled: true,
-                                showDisabled: false,
+                            {name: "producto_detalle_cantidad", showPending: true, width: '80',startRow:true},
+                            {name: "producto_detalle_valor", showPending: true, width: '80',
+                                canEdit: false,
                                 // Override para cambiar el tipo de moneda al titulo del campo
                                 // de acuerdo a la moneda de costo del insumo.
-                                /*     setValue: function(value) {
-                                 var ntitle = 'Costo Unitario';
-                                 if (value) {
-                                 ntitle += ' ('+gform_productos_detalle.getItem('moneda_simbolo').getValue()+')';
+                                 setValue: function(value) {
+                                     var ntitle = 'Valor';
+                                     if (value) {
+                                        ntitle += ' ('+gform_productos_detalle.getItem('moneda_simbolo').getValue()+')';
+                                     }
+                                     this.title = ntitle;
+                                     this.Super('setValue',arguments);
                                  }
-                                 this.title = ntitle;
-                                 this.Super('setValue',arguments);
-                                 }*/
                             },
-                            {name: "producto_detalle_merma", showPending: true, width: '80'}
+                            {name: "producto_detalle_merma", showPending: true, width: '80',
+                                visibleWhen: {tcostos_indirecto: false}
+                            },
+                            {name: "tcostos_indirecto", hidden: true}
                         ],
+                        /**
+                         * Override para aprovecha que solo en modo add se blanqueen todas las variables de cache y el estado
+                         * de los campos a su modo inicial o default.
+                         *
+                         * @param {string} mode 'add' o 'edit'
+                         */
+                        setEditMode: function (mode) {
+                            this.Super("setEditMode", arguments);
+                            if (mode == 'add') {
+                                this.getItem('producto_detalle_valor').setCanEdit(false );
+                            }
+                        },
+                        editSelectedData: function(component) {
+                            this.Super("editSelectedData", arguments);
+                            var record = component.getSelectedRecord();
+                            this.getItem('producto_detalle_valor').setCanEdit(record.tcostos_indirecto );
+
+                        },
                         // Luego de agregarse un item debemos encender el flag _canFetchInsumos a true ya que la siguiente
                         // vez que se pique un insumoproducto a agregarse como item hay que releer ya que no queremos que
                         // se muestre el recien agregado, Recordar que en modo add esta forma no se cierra en el modo
