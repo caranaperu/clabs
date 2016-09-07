@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-09-07/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-09-07/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -5086,192 +5086,180 @@ isc.defineClass("DataSource");
 
 
 
+//> @groupDef mavenSupport
+// <smartclient>SmartClient</smartclient><smartgwt>SmartGWT</smartgwt> artifacts are not published to any public repository, but a
+// POM for each is included in the SDK, and can be used to install them to your own private Maven repository.  The official
+// +externalLink{http://github.smartclient.com/isc-maven-plugin/,Isomorphic plugin for Maven} contains a handful of targets intended
+// to simplify / automate that process.  Please refer to the plugin's documentation for usage and examples.
+//
+// @treeLocation Concepts/Deploying SmartClient
+// @title Maven Support
+// @visibility external
+//<
+
 //> @groupDef javaModuleDependencies
-// The following is a short description of what functionality is contained in each SmartClient server JAR
-// , and a link to the documentation listing its dependencies.
+// +link{group:mavenSupport,Maven} users should generally refer to the POMs bundled with the SDK, and installed for them by the official
+// +externalLink{http://github.smartclient.com/isc-maven-plugin/,Isomorphic plugin for Maven}. For others,
+// the following is a short description of the functionality contained in each SmartClient server JAR,
+// and a link to the documentation listing its dependencies.  Please refer to that documentation for more detail on the dependency
+// graph, including version numbers, transitive dependencies, and licensing.
 // <P>
-// If you are using GWT, GWT itself also has an Apache 2.0 license, however tools and
+// Note that if you are using GWT, GWT itself also has an Apache 2.0 license, however tools and
 // test environments that you may use during development have different license (such as
 // Eclipse - Eclipse Public License).  Also, specific GWT widgets, not required by Smart GWT,
 // have licenses different from core GWT (such as JFreeChart's LGPL license).  See
 // +externalLink{http://code.google.com/webtoolkit/terms.html,Google's summary of terms} for
 // details.
-// <ul>
-// <li><b>isomorphic_core_rpc</b>: This is the core SmartClient module.  It provides the RPC, DMI,
-// and DataSource support.<br>
-// &nbsp;&nbsp;<u>Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-cli<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-lang<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-collections<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-pool<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-codec<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isc-jakarta-oro<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;slf4j-api<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-jxpath<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;httpcore<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;httpclient<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;velocity<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-fileupload<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;joda-time<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-io<br>
-// &nbsp;&nbsp;<u>Optionally Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_js_parser - if you're using the built-in support for REST via the RESTHandler servlet with JSON payloads<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;xercesImpl - if you're using JDK &lt; 1.5<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;xml-apis - if you're using JDK &lt; 1.5<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;mail - if you plan to use the Mail messaging feature<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;activation - if you plan to use the Mail messaging feature and you
-// are using a JDK &lt; 1.6<br><br>
-// &nbsp;&nbsp;&nbsp;&nbsp;javax.persistence - if you plan to use the metadata-from-annotations
-// feature.  Note that if you are using JPA, or a recent version of Hibernate, then you are
-// probably already using this library.<br><br>
-// &nbsp;&nbsp;&nbsp;&nbsp;poi - if you plan to export datasets in Microsoft Excel 97 (xls)
-// or 2007 (xlsx) formats.  Additionally, if you plan to export data in Excel 2007 (xlsx)
-// format, you will need the following libraries:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;poi-ooxml, poi-ooxml-schemas, dom4j, xmlbeans<br><br>
-// &nbsp;&nbsp;&nbsp;&nbsp;PDF Export - Additional .jars are required if PDF Export is to be used. These .jars are:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;core-renderer, iText-2.0.8, jtidy-r938<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;Image Export and IE6-8 DrawPane PDF Export - These libraries are required to use
-// +link{RPCManager.exportImage()}, or when using +link{RPCManager.exportContent()} to export a DrawPane or FacetChart
-// only in IE8 or earlier:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batik-anim, batik-awt-util, batik-bridge, batik-css,
-// batik-dom, batik-ext, batik-gvt, batik-parser, batik-script, batik-svg-dom, batik-util, batik-xml,
-// xml-apis-ext<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;The above libraries are also required if a DrawPane
-// has a DrawImage which loads a cross-domain image.<br><br>
 //
-// &nbsp;&nbsp;&nbsp;&nbsp;<b>NOTE:</b> Between iText 2.0.x and iText 2.1.x there is a binary
-// (but not source) incompatibility that causes a server-side <code>NoSuchMethodError</code> when exporting,
-// e.g., charts in Internet Explorer. This is a +externalLink{http://code.google.com/p/flying-saucer/issues/detail?id=126,known issue}
-// with the Flying Saucer product that is fixed by using core-renderer-R8-isomorphic.jar and iText-2.1.7.jar in the
-// lib-iTextAlternate/ directory instead of core-renderer.jar and iText-2.0.8.jar in the lib/ directory.
-// To use iText 2.1.7 with the Server Framework, exclude lib/core-renderer.jar and lib/iText-2.0.8.jar
-// from the application's classpath and instead add lib-iTextAlternate/core-renderer-R8-isomorphic.jar and
-// lib-iTextAlternate/iText-2.1.7.jar.<br><br>
+// <style>
+//   .jmd-module  {
+//     width: 140px;
+//     text-align: right;
+//     vertical-align: top;
+//     padding-right: 10px;
+//   }
+//   .jmd-optional  {
+//     text-decoration: underline;
+//     margin-top: 10px; margin-bottom: 8px;
+//   }
+// </style>
 //
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_jpa and its dependencies - if you plan to use BatchDS Generator even if you are
-// not using JPA, although the generated DataSources will not require JPA at runtime if you are not using JPA.<br><br>
-//
-// &nbsp;&nbsp;&nbsp;&nbsp;log4j - if you plan to use log4j logging (used by default).<br><br>
-//
-// &nbsp;&nbsp;&nbsp;&nbsp;slf4j-log4j12 - if you plan to use slf4j with log4j (for example), or any other slf4j bridge library
-// depending on which logging framework will be used, see +link{group:serverLogging} for information on server-side
-// logging and how to configure it.<br><br>
-//
-// &nbsp;&nbsp;&nbsp;&nbsp;groovy - if you plan to use Groovy with the +link{group:serverScript} feature.  Note,
-// we also recommend that you use Groovy as the evaluation engine if you intend to use Java as an inline
-// scripting language - see the "Server Scripting" documentation.<br><br>
-//
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-digester and commons-beanutils - if you plan to use Velocity Tools.
-// </li>
-// <p>
-// <li><b>isomorphic_contentexport.jar</b>: Optional support for PDF Export requires Flying Saucer, iText and jTidy, introducing:<br>
-// &nbsp;&nbsp;- Flying Saucer: core-renderer.jar: +externalLink{http://www.gnu.org/licenses/lgpl-2.1.html,LGPL license}<br>
-// &nbsp;&nbsp;- iText: iText-2.0.8.jar: +externalLink{http://www.mozilla.org/MPL/1.1/,Mozilla Public License Version 1.1}<br>
-// &nbsp;&nbsp;- jTidy: jtidy-r938.jar: +externalLink{http://jtidy.sourceforge.net/license.html,MIT license}<br><br>
-// Additionally, to be able to export DrawPanes and FacetCharts in IE6-8,
-// or to export FacetChart zoom charts (see +link{FacetChart.printZoomChart}),
-// the following libraries are needed:<br>
-// &nbsp;&nbsp;- Batik: batik-anim, batik-awt-util, batik-bridge, batik-css, batik-dom, batik-ext,
-// batik-gvt, batik-parser, batik-script, batik-svg-dom, batik-util, batik-xml:
-// +externalLink{http://xmlgraphics.apache.org/batik/license.html,Apache License&#44; Version 2.0}<br>
-// &nbsp;&nbsp;- xml-commons External Components: xml-apis-ext:
-// +externalLink{http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231,W3C Software Notice and License}
-// </li>
-// <p>
-// <li><b>isomorphic_web_services</b>: Web services examples only.  Contains code backing the
-// SmartClientOperations.wsdl example.  Do not deploy in production.<br>
-// &nbsp;&nbsp;<u>Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_core_rpc<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;axis<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;axis-schema<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-discovery<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-logging<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;jaxrpc<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;saaj<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;wsdl4j<br>
-// </li>
-// <li><a href="./dependencies/isomorphic-tools.html" target="_blank">isomorphic-tools</a>: Contains back-end logic for the "Admin Console" tool visible in
-// the Developer Console, and also standalone from the SDK home page.  Also contains the the
-// various data importers and exporters, and the server-side components of the BatchUploader.<br>
-// &nbsp;&nbsp;<u>Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_core_rpc<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_sql<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_hibernate<br>
-// </li>
-// <li><b>isomorphic_embedded_tomcat</b>: This contains the bootstrap class for the Embedded
-// Tomcat engine shipped with the SmartClient SDK.  It is not intended to be used in any way
-// other than via the start_embedded_tomcat.bat|sh|command scripts in the webRoot of the
-// SDK.<br>
-// &nbsp;&nbsp;<u>Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_core_rpc<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;All JARs under WEB-INF/embeddedTomcat/lib<br>
-// </li>
-// <li><a href="./dependencies/isomorphic-spring.html" target="_blank">isomorphic-spring</a>: Required for +link{group:dmiOverview,DMI} dispatches to Spring beans (via
-// +link{serverObject.lookupStyle} : "spring").
-// </li>
-// <li><a href="./dependencies/isomorphic-messaging.html" target="_blank">isomorphic-realtime_messaging</a>: Server support required for the SmartClient
-// Realtime Messaging Module.  Install this if you're using this 'push' technology.  For more
-// information, see +link{group:messaging,Messaging}.
-// </li>
-// <li><a href="./dependencies/isomorphic-hibernate.html" target="_blank">isomorphic-hibernate</a>: Contains support for Hibernate DataSources as described
-// here: +link{group:hibernateIntegration}.
-// </li>
-// <li><a href="./dependencies/isomorphic-jpa.html" target="_blank">isomorphic-jpa</a>: Contains support for JPA DataSources as described +link{group:jpaIntegration,here}.
-// </li>
-// <li><a href="./dependencies/isomorphic-sql.html" target="_blank">isomorphic-sql</a>: The SmartClient SQLDataSource.
-// </li>
-// <li><b>isomorphic_autotest</b>: Support for
-// +link{group:automatedTesting,automated testing and Continuous Integration}<br>
-// &nbsp;&nbsp;<u>Requires</u>:<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;isomorphic_core_rpc<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;selenium-server<br>
-// &nbsp;&nbsp;<em>The <code>selenium-server.jar</code> file provided with SmartClient is a
-// trimmed version that does not include all of the libraries used by Selenium itself.
-// Therefore the following libraries are also needed:</em><br>
-// &nbsp;&nbsp;&nbsp;&nbsp;backport-util-concurrent<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-configuration<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-exec<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;commons-io<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;guava<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;htmlunit<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;htmlunit-core<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;operadriver<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;phantomjsdriver<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;jna (if testing with IE on Windows environments)<br>
-// &nbsp;&nbsp;&nbsp;&nbsp;jna-platform (if testing with IE on Windows environments)<br>
-// &nbsp;&nbsp;<em><u>NOTE:</u> <code>servlet-api.jar</code> is also required if you intend to
-// run Selenium RC from a standalone process (ie, from a normal Java program, not a webapp).
-// However, it should <u>not</u> be deployed to a servlet container such as Tomcat or Jetty.
-// The best case is that the file will be unused and a source of confusion for anybody looking
-// at the webapp's library usage; the worst case is that it will conflict with the container's
-// own implementation of the Servlets API.</em>
-// </li>
-// <li><a href="./dependencies/isomorphic-js-parser.html" target="_blank">isomorphic-js-parser</a>: A parser capable of reading a JSON byte stream and creating
-// an in-memory Java object structure to match.  Used by any mechanism that relies on
-// JSON-style configuration.  Examples include FileAssembly definitions in JSON format, any use
-// of the rulesFile with a URIRegexFilter (Java Servlet) or subclass.
-// </li>
-// <li><a href="./dependencies/isomorphic-compression.html" target="_blank">isomorphic-compression</a>: This is a part of the Network Performance Module.  The
-// isomorphic_compression module is required for dynamic and static compression of various
-// assets delivered to the browser.  For more information, see:
-// +link{group:compression}.
-// </li>
-// <li><a href="./dependencies/isomorphic-assembly.html" target="_blank">isomorphic-assembly</a>: This is part of the Network Performance Module.  The
-// isomorphic_assembly module is required for file assembly and stripping.  For more
-// information, see: +link{group:fileAssembly}.
-// </li>
-// <li><a href="./dependencies/isomorphic-struts.html" target="_blank">isomorphic-struts</a>: Contains the ValidationAction and ValidationFailureAction
-// classes that implement RPC-based validation of DynamicForms using the Struts
-// ValidatorPlugIn.  If you're not using Struts or if you don't need this particular feature of
-// SmartClient, you do not need this module or its dependencies (also see the important note
-// below).  An example of this style of validation is available here:
-// +externalLink{/examples/struts/forms/welcome.do} - read the info on this page, and follow
-// the "Dynamic Form (With RPC-based Validation)" Link for the actual example.<br><br>
-// <b>NOTE:</b> This support is for Struts 1.0 only, and is only intended to be used in certain
-// edge cases of incremental migration to SmartClient.  You should only use it if directed to
-// do so by Isomorphic Support.
-// </li>
-// </ul>
+// <table width="100%" >
+//   <tr>
+//     <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-core-rpc.html">isomorphic_core_rpc<a></td>
+//     <td>
+//       This is the core SmartClient module.  It provides the RPC, DMI, and DataSource support.
+//       <div class="jmd-optional">
+//       Optional Dependencies
+//       </div>
+//       <ul>
+//         <li><i>isomorphic_js_parser</i> - if you're using the built-in support for REST via the RESTHandler servlet with JSON payloads
+//         <li><i>xercesImpl</i> - if you're using JDK &lt; 1.5
+//         <li><i>mail</i> - if you plan to use the Mail messaging feature
+//         <li><i>javax.persistence</i> - if you plan to use the metadata-from-annotations feature.  Note that if you are using JPA, or a recent version of Hibernate, then you are probably already using this library.
+//         <li><i>poi </i> -if you plan to export datasets in Microsoft Excel 97 (xls) or 2007 (xlsx) formats.
+//         <li><i>poi-ooxml</i> - also needed if you plan to export data in Excel 2007 (xlsx) format
+//         <li><i>isomorphic_contentexport</i> - if you plan to export to PDF format
+//         <li><i>isomorphic_jpa</i> - if you plan to use BatchDS Generator (even if you are not using JPA, although the generated DataSources will not require JPA at runtime if you are not using JPA).
+//         <li><i>log4j</i> - if you plan to use log4j logging (used by default)
+//         <li><i>slf4j-log4j12</i> - if you plan to use slf4j with log4j (for example), or any other slf4j bridge library depending on which logging framework will be used.  See +link{group:serverLogging} for information on server-side logging and how to configure it.
+//         <li><i>groovy</i> -if you plan to use Groovy with the +link{group:serverScript} feature.  Note, we also recommend that you use Groovy as the evaluation engine if you intend to use Java as an inline scripting language.  See the "Server Scripting" documentation.
+//         <li><i>commons-digester and commons-beanutils</i> - if you plan to use Velocity Tools.
+//        </ul>
+//      </td>
+//   </tr>
+//   <tr>
+//     <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-contentexport.html">isomorphic_contentexport</a></td>
+//     <td>
+//       Provides support for PDF Export.
+//       <div class="jmd-optional">
+//       Optional Dependencies
+//       </div>
+//       <ul>
+//         <li><i>batik-anim, batik-awt-util, batik-bridge, batik-css, batik-dom, batik-ext, batik-gvt, batik-parser, batik-script, batik-svg-dom, batik-util, batik-xml</i> -
+//             <p/>
+//             These are all required to use +link{RPCManager.exportImage()}, or when using +link{RPCManager.exportContent()} to export a DrawPane or FacetChart only
+//             in IE8 or earlier, or if a DrawPane has a DrawImage which loads a cross-domain image.
+//             <p/>
+//             <b>NOTE:</b>
+//               Between iText 2.0.x and iText 2.1.x there is a binary (but not source) incompatibility that causes a server-side <code>NoSuchMethodError</code> when exporting, e.g., charts in Internet Explorer.
+//               This is a +externalLink{http://code.google.com/p/flying-saucer/issues/detail?id=126,known issue} with the Flying Saucer product that is fixed by using core-renderer-R8-isomorphic.jar and iText-2.1.7.jar in the
+//               lib-iTextAlternate/ directory instead of core-renderer.jar and iText-2.0.8.jar in the lib/ directory.
+//               To use iText 2.1.7 with the Server Framework, exclude lib/core-renderer.jar and lib/iText-2.0.x.jar from the application's classpath and instead add lib-iTextAlternate/core-renderer-R8-isomorphic.jar and lib-iTextAlternate/iText-2.1.7.jar.
+//       </ul>
+//     </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-tools.html">isomorphic_tools</a></td>
+//   <td>
+//     Contains back-end logic for the "Admin Console" tool visible in the Developer Console, and also standalone from the SDK home page.
+//     Also contains the various data importers and exporters, and the server-side components of the BatchUploader.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-cdi.html">isomorphic_cdi</a></td>
+//   <td>
+//     Support for +link{group:dmiOverview,DMI} dispatches to Spring beans (via +link{serverObject.lookupStyle} : "cdi").
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-spring.html">isomorphic_spring</a></td>
+//   <td>
+//     Support for +link{group:dmiOverview,DMI} dispatches to Spring beans (via +link{serverObject.lookupStyle} : "spring").
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-messaging.html">isomorphic_realtime_messaging</a></td>
+//   <td>
+//     Server support required for the SmartClient Realtime Messaging Module.  Install this if you're using this 'push' technology.  For more information, see +link{group:messaging,Messaging}.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-hibernate.html">isomorphic_hibernate</a></td>
+//   <td>
+//     Contains support for Hibernate DataSources as described here: +link{group:hibernateIntegration}.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-jpa.html">isomorphic_jpa</a></td>
+//   <td>
+//     Contains support for JPA DataSources as described +link{group:jpaIntegration,here}
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-sql.html">isomorphic_sql</a></td>
+//   <td>
+//     The SmartClient SQLDataSource.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-autotest.html">isomorphic_autotest</a></td>
+//   <td>
+//     Support for +link{group:automatedTesting,automated testing and Continuous Integration}
+//     <div class="jmd-optional">
+//     Optional Dependencies
+//     </div>
+//     <ul>
+//       <li><i>jna</i> - if testing with IE on Windows environments
+//       <li><i>servlet-api</i> - needed only if you intend to run Selenium RC from a standalone process (ie, from a normal Java program, not a webapp).
+//         <p/>
+//         However, it should <u>not</u> be deployed to a servlet container such as Tomcat or Jetty.
+//         The best case is that the file will be unused and a source of confusion for anybody looking at the webapp's library usage;
+//         the worst case is that it will conflict with the container's own implementation of the Servlets API.
+//     </ul>
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-js-parser.html">isomorphic_js_parser</a></td>
+//   <td>
+//     A parser capable of reading a JSON byte stream and creating an in-memory Java object structure to match.  Used by any mechanism that relies on JSON-style configuration.
+//     Examples include FileAssembly definitions in JSON format, any use of the rulesFile with a URIRegexFilter (Java Servlet) or subclass.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-compression.html">isomorphic_compression</a></td>
+//   <td>
+//     This is a part of the Network Performance Module.  The isomorphic_compression module is required for dynamic and static compression of various assets delivered to the browser.
+//     For more information, see: +link{group:compression}.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-assembly.html">isomorphic_assembly</a></td>
+//   <td>
+//     This is part of the Network Performance Module.  The isomorphic_assembly module is required for file assembly and stripping.  For more information, see: +link{group:fileAssembly}.
+//   </td>
+// </tr>
+// <tr>
+//   <td class="jmd-module"><a target="_blank" href="./dependencies/isomorphic-struts.html">isomorphic_struts</a></td>
+//   <td>
+//     Contains the ValidationAction and ValidationFailureAction classes that implement RPC-based validation of DynamicForms using the Struts ValidatorPlugIn.
+//     If you're not using Struts or if you don't need this particular feature of SmartClient, you do not need this module or its dependencies (also see the important note  below).
+//     An example of this style of validation is available here:  +externalLink{/examples/struts/forms/welcome.do} - read the info on this page, and follow  the "Dynamic Form (With RPC-based Validation)" Link for the actual example.
+//     <br><br>
+//     <b>NOTE:</b> This support is for Struts 1.0 only, and is only intended to be used in certain edge cases of incremental migration to SmartClient.  You should only use it if directed to do so by Isomorphic Support.
+//   </td>
+// </tr>
+// </table>
 //
 // @treeLocation Concepts/Deploying SmartClient
 // @title Java Module Dependencies
@@ -16521,16 +16509,27 @@ isc.DataSource.addMethods({
     // @visibility external
     //<
 
+    _getCombinedImplicitCriteria : function (request) {
+        // combine any implicitCriteria specified on the DBC and the RS
+        var rs = request.resultSet || request.resultTree,
+            implicitCriteria = request.dbcImplicitCriteria
+        ;
+        if (!implicitCriteria && rs && rs.getImplicitCriteria) {
+            implicitCriteria = rs.getImplicitCriteria();
+        }
+        if (this.implicitCriteria) {
+            // combine the implicitCriteria from DBC/RS with that from the DS
+            implicitCriteria = isc.DS.combineCriteria(implicitCriteria, this.implicitCriteria);
+        }
+        if (implicitCriteria) implicitCriteria = isc.DS.compressNestedCriteria(implicitCriteria);
+        return implicitCriteria;
+    },
+
     addImplicitCriteria : function (dsRequest) {
         // no request or not a "fetch" request - bail
         if (!dsRequest || dsRequest.operationType != "fetch") return;
-        var rs = dsRequest && (dsRequest.resultSet || dsRequest.resultTree),
-            // take criteria from the RS if it's there, or the DBC otherwise
-            implicitCriteria = rs && rs.implicitCriteria;
-        if (this.implicitCriteria) {
-            // DS can have implicitCriteria in addition to resultSet/Tree
-            implicitCriteria = isc.DS.combineCriteria(implicitCriteria, this.implicitCriteria);
-        }
+
+        var implicitCriteria = this._getCombinedImplicitCriteria(dsRequest);
 
         var doLogs = false;
         if (implicitCriteria) {
@@ -20807,11 +20806,6 @@ rawData=rpcResponse.results;
         //<DEBUG
 
         requestProperties = isc.DataSource.dupRequest(requestProperties);
-
-        // merge the implicit criteria in requestProperties.data with explicit criteria in data
-        if (requestProperties != null && requestProperties.data != null) {
-            requestProperties.data = isc.DS.combineCriteria(data, requestProperties.data);
-        }
 
         // form a dsRequest
         var dsRequest = isc.addProperties({
@@ -45793,6 +45787,13 @@ isc.ResultSet.addProperties({
     // @visibility external
     //<
 
+    getImplicitCriteria : function () {
+        if (!this.implicitCriteria && !this.dbcImplicitCriteria) return null;
+        return isc.DS.compressNestedCriteria(
+            isc.DS.combineCriteria(this.dbcImplicitCriteria, this.implicitCriteria)
+        );
+    },
+
     //> @attr resultSet.criteria (Criteria : null : IRW)
     // Filter criteria used whenever records are retrieved.
     // <P>
@@ -46683,7 +46684,11 @@ duplicate : function () {
     config.allRows = allRows;
     config.allRowsCriteria = isc.DataSource.copyCriteria(this.allRowsCriteria);
     config.criteria = isc.DataSource.copyCriteria(this.criteria);
-    config.implicitCriteria = isc.DataSource.copyCriteria(this.implicitCriteria);
+    // copy implicitCriteria from the RS and the DBC
+    if (this.implicitCriteria)
+        config.implicitCriteria = isc.DataSource.copyCriteria(this.implicitCriteria);
+    //if (this.dbcImplicitCriteria)
+    //    config.dbcImplicitCriteria = isc.DataSource.copyCriteria(this.dbcImplicitCriteria);
 
     config._duplicatingResultSet = true;
     var duplicate = isc.ResultSet.create(config);
@@ -46930,6 +46935,12 @@ fillRangeLoading : function (arr, length) {
         }
     }
     return arr;
+},
+
+getCombinedCriteria : function () {
+    return isc.DS.compressNestedCriteria(
+        isc.DS.combineCriteria(this.getImplicitCriteria(), this.criteria)
+    );
 },
 
 getServerFilter : function () {
@@ -47235,8 +47246,7 @@ _handleNewData : function (newData, result) {
         // so we can perform a local filter on a call to 'setCriteria'.  NOTE: done within
         // fillCacheData for a paged ResultSet
         if (this.allRowsCached()) {
-            var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
-            this._setAllRows(this.localData, criteria);
+            this._setAllRows(this.localData, this.criteria);
 
         }
 
@@ -47499,6 +47509,11 @@ setCriteria : function (newCriteria) {
 // criteria are more restrictive than this cache
 _setAllRows : function (data, criteria) {
     this.allRows = data;
+    // if implicitCriteria is in effect, include it in allRowsCriteria
+    var iCrit = this.getImplicitCriteria();
+    if (iCrit && !isc.isAn.emptyObject(iCrit)) {
+        criteria = isc.DS.compressNestedCriteria(isc.DS.combineCriteria(criteria, iCrit));
+    }
     this.allRowsCriteria = criteria || {};
     this._emptyAllRowsCriteria = (isc.getKeys(this.allRowsCriteria).length == 0);
 },
@@ -47624,14 +47639,23 @@ willFetchData : function (newCriteria, textMatchStyle) {
 _willFetchData : function (newCriteria, textMatchStyle) {
     // if we have *no* local data we know we have to hit the server
     // regardless of the new criteria (we've never fetched and weren't seeded with this.allRows)
-    if (this.localData == null && this.allRows == null) return true;
+    if (this.localData == null && this.allRows == null) {
+        return true;
+    }
 
     // Determine if the criteria are unchanged / more or less restrictive
-    var contextImplicitCriteria = this.context ? (this.context.implicitCriteria || {}) : {};
-    newCriteria = isc.DS.combineCriteria(contextImplicitCriteria, newCriteria || {});
-     var oldCriteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {}) ,
+    if (newCriteria == null) newCriteria = {};
+    var oldCriteria = isc.shallowClone(this.criteria || {}),
         oldTextMatchStyle = this._textMatchStyle,
-        ds = this.getDataSource();
+        ds = this.getDataSource()
+    ;
+
+    var iCrit = this.getImplicitCriteria();
+    if (iCrit) {
+        oldCriteria = isc.DS.compressNestedCriteria(isc.DS.combineCriteria(oldCriteria, iCrit));
+        newCriteria = isc.DS.compressNestedCriteria(isc.DS.combineCriteria(newCriteria, iCrit));
+        //alert(isc.echoFull(oldCriteria));
+    }
 
     if (textMatchStyle == null) {
         textMatchStyle = (this.context && this.context.textMatchStyle) ?
@@ -47640,15 +47664,7 @@ _willFetchData : function (newCriteria, textMatchStyle) {
 
     // are we currently viewing a subset of a larger cache of data?
     var isFilteringLocally = this.allRows && this.shouldUseClientFiltering()
-                            && ((this.criteria || {}) != this.allRowsCriteria);
-
-    // When filtering locally previous criteria could be in this.allRowsCriteria instead of this.criteria
-    if (isFilteringLocally) {
-
-        if (this.allRowsCriteria && Object.keys(this.allRowsCriteria).length > 0) {
-            oldCriteria = isc.DS.combineCriteria(this.implicitCriteria, this.allRowsCriteria)
-        }
-    }
+                             && (oldCriteria != this.allRowsCriteria);
 
     // if old criteria is empty and will be used below, ignore its text match style
     var result = isc.isAn.emptyObject(oldCriteria) && !isFilteringLocally ? 0 :
@@ -47719,6 +47735,11 @@ _willFetchData : function (newCriteria, textMatchStyle) {
         // And we know this isn't a local resultset
         // Have to fetch.
         if (result == -1) {
+            // if the textMatchStyle is less restrictive, return false if there was no criteria
+            // beforehand, or true otherwise
+            var emptyCrit = !oldCriteria || isc.isAn.emptyObject(oldCriteria);
+            //this.logWarn("textMatchStyle result == " + result + ", returning " + (emptyCrit ? "false, no crit beforehand" : "true"), "criteria");
+            if (emptyCrit) return false;
             return true;
 
         } else if (result == 1) {
@@ -48355,9 +48376,11 @@ updateCacheData : function (updateData, dsRequest) {
         // Don't drop the updated row if neverDropUpdatedRows
         dontDrop = this.shouldNeverDropUpdatedRows(),
         dataSource = this.getDataSource(),
-        keyColumns = dataSource.getPrimaryKeyFields();
+        keyColumns = dataSource.getPrimaryKeyFields()
+    ;
 
-    criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, criteria || {});
+    var iCrit = this.getImplicitCriteria();
+    if (iCrit) criteria = isc.DS.combineCriteria(criteria, iCrit);
 
     for (var i = 0, updateDataLength = updateData.length; i < updateDataLength; ++i) {
 
@@ -48588,7 +48611,7 @@ removeCacheData : function (updateData) {
         var ds = this.getDataSource(),
             notifyRemove = (cache == this.localData && this._dataRemove != null),
             notifyRemoved = (cache == this.localData && this._dataRemoved != null);
-        var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
+        var criteria = isc.DS.combineCriteria(this.getImplicitCriteria(), this.criteria);
         for (var i = 0, updateDataLength = updateData.length; i < updateDataLength; ++i) {
             var index = ds.findByKeys(updateData[i], cache);
             if (index != -1) {
@@ -49698,8 +49721,7 @@ fillCacheData : function (newData, startRow) {
     }
 
     if (this.allRowsCached()) {
-        var criteria = isc.DS.combineCriteria(this.implicitCriteria || {}, this.criteria || {});
-        this._setAllRows(this.localData, criteria);
+        this._setAllRows(this.localData, this.criteria);
     }
 },
 
@@ -50744,6 +50766,7 @@ isc.ResultTree.addProperties({
     // are present in the criteria.
     // @visibility external
     //<
+
 });
 
 isc.ResultTree.addMethods({
@@ -53975,6 +53998,10 @@ isc.Canvas.addMethods({
             }
         }
         context.operation = operation || this.operation;
+
+        if (this.implicitCriteria) {
+            context.dbcImplicitCriteria = isc.shallowClone(this.implicitCriteria);
+        }
 
         // If we picked up the operation from component.fetchOperation et al,
         // update the dsRequest operationId as well. This causes it to be displayed in the
@@ -81731,6 +81758,17 @@ buildValueItemList : function (field, operator, fieldName) {
                 if (props.displayField != null) fieldDef.displayField = props.displayField;
                 // if there are pickListFields, shallow copy them to avoid downstream updates
                 if (props.pickListFields) fieldDef.pickListFields = isc.shallowClone(props.pickListFields);
+                if (props.valueMap) fieldDef.valueMap = isc.shallowClone(props.valueMap);
+                if (props.imageURLPrefix) fieldDef.imageURLPrefix = isc.shallowClone(props.imageURLPrefix);
+                if (props.imageURLSuffix) fieldDef.imageURLSuffix = isc.shallowClone(props.imageURLSuffix);
+                if (props.valueIcons) fieldDef.valueIcons = isc.shallowClone(props.valueIcons);
+                if (props.valueIconField) fieldDef.valueIconField = isc.shallowClone(props.valueIconField);
+                if (props.valueIconHeight) fieldDef.valueIconHeight = isc.shallowClone(props.valueIconHeight);
+                if (props.valueIconLeftPadding) fieldDef.valueIconLeftPadding = isc.shallowClone(props.valueIconLeftPadding);
+                if (props.valueIconMapper) fieldDef.valueIconMapper = isc.shallowClone(props.valueIconMapper);
+                if (props.valueIconRightPadding) fieldDef.valueIconRightPadding = isc.shallowClone(props.valueIconRightPadding);
+                if (props.valueIconSize) fieldDef.valueIconSize = isc.shallowClone(props.valueIconSize);
+                if (props.valueIconWidth) fieldDef.valueIconWidth = isc.shallowClone(props.valueIconWidth);
             } else {
                 fieldDef = isc.addProperties({}, fieldDef, field.editorProperties);
             }
@@ -82289,7 +82327,13 @@ updateFields : function () {
     if (form.getItem("value")) {
         var currentType = form.getItem("value").type,
             newType = field.type || "text";
-        typeChanged = (currentType != newType);
+
+        var isEnumNewField = newType == "intEnum" ||
+                            newType == "enum" ||
+                            isc.SimpleType.inheritsFrom(newType, "enum") ||
+                            isc.SimpleType.inheritsFrom(newType, "intEnum");
+
+        typeChanged = isEnumNewField || currentType != newType;
     }
 
     // otherwise rebuild the value fields
@@ -89269,7 +89313,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

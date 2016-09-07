@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Development Only (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Development Only (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -75,7 +75,7 @@ _8=_5.isXML?this.xmlSourceTitle:this.jsSourceTitle;if(_8==null){_8=_5.url||_5.da
 if(_5.exampleSource)this.currentExampleSourceFile=_5;_7.add({title:_8,paneMargin:_5.canEdit?4:6,iconSize:16,icon:"[ISO_DOCS_SKIN]/images/icon_code.png",exampleFile:_5})}
 this.addTabs(_7)},isc.A.tabSelected=function isc_ExampleViewer_tabSelected(_1,_2,_3,_4){if(_4.pane)return;if(!isc.SyntaxHiliter){isc.showPrompt("Hang on - loading code preview modules");isc.FileLoader.loadModules("SyntaxHiliter,RichTextEditor",this.getID()+".sourcePaneModulesLoaded("+_1+")");return}
 this.sourcePaneModulesLoaded(_1)},isc.A.sourcePaneModulesLoaded=function isc_ExampleViewer_sourcePaneModulesLoaded(_1){var _2=this.getTabObject(_1);var _3=_2.exampleFile;isc.clearPrompt();var _4=isc.StringBuffer.create();_4.append(_3.forceJS?this.getJSSource(_3):_3.fileContents);var _5=this.createAutoChild("exampleSourcePane",{rpcURL:this.rpcURL,canEdit:_3.canEdit,source:_4.release(false),exampleFile:_3});this.updateTab(_1,_5)},isc.A.showExample=function isc_ExampleViewer_showExample(_1){if(this.fullScreenBlurb!=null){this.fullScreenBlurb.destroy();this.fullScreenBlurb=null}
-this.exampleClearResult();this.viewPane=this.standardViewPane;if(!this.viewPane.isDrawn())this.viewPane.draw();if(!isc.AutoTest.testRoot)isc.AutoTest.setTestRoot(this.viewPane.viewContainer);if(!_1)_1=this.currentExampleFiles;var _2=isc.StringBuffer.create();var _3,_4,_5,_6;var _7;for(var i=0;i<_1.length;i++){var _9=_1[i];if(_9.external){_7=_9;break}
+this.exampleClearResult();if(this.parentElement&&!this.parentElement.isDrawn())this.parentElement.draw();this.viewPane=this.standardViewPane;if(!this.viewPane.isDrawn())this.viewPane.draw();if(!isc.AutoTest.testRoot)isc.AutoTest.setTestRoot(this.viewPane.viewContainer);if(!_1)_1=this.currentExampleFiles;var _2=isc.StringBuffer.create();var _3,_4,_5,_6;var _7;for(var i=0;i<_1.length;i++){var _9=_1[i];if(_9.external){_7=_9;break}
 if(_9.iframe){_4=_9;break}
 if(_9.fullScreen){_5=true}
 if(_9.error){isc.clearPrompt();this.exampleReportError(_9.error);return false}

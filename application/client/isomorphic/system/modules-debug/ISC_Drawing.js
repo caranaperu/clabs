@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-09-07/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-09-07/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -206,12 +206,15 @@ isc.VMLRenderer.addClassProperties({
             shapeConfig.endArrow = isc.VMLRenderer._$none;
         }
         shapeConfig.stroked = drawItem._hasStroke();
-        if (!drawItem.vmlLineEventsOnly) {
+
+        var hasFill = drawItem._hasFill();
+        if (!drawItem.vmlLineEventsOnly && !hasFill) {
             shapeConfig.filled = true;
             shapeConfig.fillOpacity = 0;
         } else {
-            shapeConfig.filled = drawItem._hasFill();
+            shapeConfig.filled = hasFill;
         }
+
         shapeConfig.transform = drawItem._getLocalTransform();
         shapeConfig._drawItem = drawItem;
         shapeConfig.getBoundingBox = function (includeStroke, outputBox) {
@@ -8834,7 +8837,8 @@ isPointInPath : function (x, y, pageX, pageY) {
             // of an unfilled shape and the browser not supporting isPointInStroke(), then the
             // item would be effectively invisible for the purposes of event handling).
 
-            if ((this._hasFill() || !isc.Browser._supportsCanvasIsPointInStroke) &&
+            var supportsIsPointInStroke = isc.Browser._supportsCanvasIsPointInStroke;
+            if ((this._hasFill() || this.eventOpaque || !supportsIsPointInStroke) &&
                 context.isPointInPath(normalized[0], normalized[1]))
             {
                 return true;
@@ -8843,7 +8847,7 @@ isPointInPath : function (x, y, pageX, pageY) {
                     context, lineWidth, normalized[0], normalized[1]))
             {
                 return true;
-            } else if (isc.Browser._supportsCanvasIsPointInStroke) {
+            } else if (supportsIsPointInStroke) {
                 context.lineWidth = lineWidth;
                 context.lineCap = this.lineCap;
                 context.lineJoin = "round";
@@ -9413,6 +9417,9 @@ init : function () {
     }
     this.drawItemID = isc.DrawItem._IDCounter++;
 
+    // default vmlLineEventsOnly from eventOpaque unless it's been specifically set
+    if (this.vmlLineEventsOnly == null) this.vmlLineEventsOnly = !this.eventOpaque;
+
 
     if (this.shapeData) {
         var shapeData = this.shapeData,
@@ -9602,6 +9609,18 @@ _completeDraw : function () {
 
     this._drawn = true;
 },
+
+//> @attr drawItem.eventOpaque (boolean : varies : IRA)
+// Should events inside this DrawItem be attributed to it regardless of which pixels are
+// actually set, if no fill is specified?  If set for DrawItems that aren't closed, will
+// capture events occurring in the region that would filled if a fill were specified.
+// This property is true by default for closed shapes, and false for paths, lines, etc.
+//
+// @see fillColor
+// @see fillOpacity
+// @visibility drawing
+//<
+eventOpaque: true,
 
 _getQuadTreeItem : function () {
     var bboxPrime = this._getTransformedBoundingBox(true, true, true, this._tempBoundingBox);
@@ -10026,7 +10045,7 @@ _resized : function () {
 _showKnobs : function (knobType) {
 
     var functionName = isc.DrawItem._getShowKnobsFunctionName(knobType)
-    if (!this[functionName]) {
+    if (this[functionName] == null || this[functionName] == isc.Class.NO_OP) {
         this.logWarn("DrawItem specfied with knobType:"+ knobType +
                     " but no " +  functionName + " function exists to show the knobs. Ignoring");
         return false;
@@ -10038,7 +10057,7 @@ _showKnobs : function (knobType) {
 _hideKnobs : function (knobType) {
 
     var functionName = isc.DrawItem._getShowKnobsFunctionName(knobType, true)
-    if (!this[functionName]) {
+    if (this[functionName] == null || this[functionName] == isc.Class.NO_OP) {
         this.logWarn("DrawItem specfied with knobType:"+ knobType +
                     " but no " +  functionName + " function exists to hide the knobs.");
         return false;
@@ -11753,7 +11772,6 @@ destroy : function (destroyingAll) {
 _$eventProxy: isc.Canvas._instancePrototype._$eventProxy,
 
 
-vmlLineEventsOnly: true,
 
 _$solid: "solid",
 _$strokedFalse: " stroked='false'",
@@ -13628,8 +13646,8 @@ hideMoveKnobs : function () {
     }
 },
 
-showResizeKnobs : null,
-hideResizeKnobs : null,
+showResizeKnobs : isc.Class.NO_OP,
+hideResizeKnobs : isc.Class.NO_OP,
 
 // drawGroup.updateControlKnobs()
 updateControlKnobs : function () {
@@ -14161,6 +14179,8 @@ isc.defineClass("DrawLine", "DrawItem").addProperties({
 
     svgElementName: isc.Browser.isOpera ? "polyline" : "line",
 
+    eventOpaque: false,
+
 init : function () {
     this.startPoint = this.startPoint.duplicate();
     this.endPoint = this.endPoint.duplicate();
@@ -14625,8 +14645,8 @@ showKnobs : function (knobType) {
     }
 },
 
-showResizeKnobs : null,
-hideResizeKnobs : null,
+showResizeKnobs : isc.Class.NO_OP,
+hideResizeKnobs : isc.Class.NO_OP,
 
 _getKnobPosition : function (position) {
     var point = (position.contains("R") ? this.endPoint : this.startPoint);
@@ -15143,10 +15163,8 @@ isPointInPath : function (x, y, pageX, pageY) {
         return false;
     }
 
-    // If this DrawRect is unfilled, we need to verify that the point is not in the whitespace.
-    // This is roughly modeled after _adjustBoundingBox(), but instead of expanding the box
-    // by half the lineWidth plus the hitTolerance, the box is shrunken by that amount.
-    if (!this._hasFill()) {
+
+    if (!this._hasFill() && !this.eventOpaque) {
         var halfLineWidth = this._hasStroke() ? this.lineWidth / 2 : 0,
             offset = halfLineWidth + hitTolerance;
 
@@ -16169,8 +16187,8 @@ _getBoundingBoxOfTransformedShape : function (
     return box;
 },
 
-showResizeKnobs : null,
-hideResizeKnobs : null,
+showResizeKnobs : isc.Class.NO_OP,
+hideResizeKnobs : isc.Class.NO_OP,
 
 
 _normalizeLinearGradient : function (def) {
@@ -16497,6 +16515,7 @@ fontStyle:"normal",
 // @include DrawItem.rotation
 //<
 
+eventOpaque: false,
 
 init : function () {
     this._setContentLines();
@@ -16535,8 +16554,8 @@ setDragRepositionCursor : function (dragRepositionCursor) {
 
 isPointInPath : isc.DrawItem.getInstanceProperty("isInBounds"),
 
-showResizeKnobs : null,
-hideResizeKnobs : null,
+showResizeKnobs : isc.Class.NO_OP,
+hideResizeKnobs : isc.Class.NO_OP,
 
 //----------------------------------------
 //  DrawLabel renderers
@@ -17967,6 +17986,8 @@ isc.defineClass("DrawCurve", "DrawItem").addProperties({
     controlPoint2: [0,100],
 
     svgElementName: "path",
+
+    eventOpaque: false,
 
     //> @attr drawCurve.lineCap     (LineCap : "butt" : IRW)
     // Style of drawing the endpoints of a line.
@@ -19496,11 +19517,11 @@ _getBoundingBoxOfTransformedShape : function (
 // Support control knobs for start point, end point and control points.
 // (Documented under DrawKnobs type definition)
 
-showResizeKnobs : null,
-hideResizeKnobs : null,
+showResizeKnobs : isc.Class.NO_OP,
+hideResizeKnobs : isc.Class.NO_OP,
 
-showMoveKnobs : null,
-hideMoveKnobs : null,
+showMoveKnobs : isc.Class.NO_OP,
+hideMoveKnobs : isc.Class.NO_OP,
 
 // Note: can't borrow from drawLine - we have startPoint (two element array) rather than
 // startLeft / endLeft
@@ -20443,6 +20464,8 @@ isc.DrawPath.addProperties({
 
     svgElementName: isc.Browser.isMoz ? "path" : "polyline",
 
+    eventOpaque: false,
+
 init : function () {
     this.points = isc.clone(this.points);
     this._initBoundingParams();
@@ -20666,7 +20689,10 @@ getCenter : function () {
 },
 
 isPointInPath : function (x, y) {
-    if (this._hasFill()) return this.Super("isPointInPath", arguments);
+
+    if (this._hasFill() || this.eventOpaque) {
+        return this.Super("isPointInPath", arguments);
+    }
 
     var tolerance = Math.max(this.lineWidth / 2, 2) + this.hitTolerance;
     var normalized = this._normalize(x, y);
@@ -21204,7 +21230,9 @@ isc.defineClass("DrawPolygon", "DrawPath").addProperties({
     //<
     titleRotationMode: "withItemAlwaysUp",
 
-    svgElementName: "path"
+    svgElementName: "path",
+
+    eventOpaque: true
 });
 isc.DrawPolygon.addMethods({
 
@@ -21448,12 +21476,6 @@ _setRect : function (left, top, width, height) {
 }
 
 });
-
-
-
-
-
-
 
 
 //------------------------------------------------------------------------------------------
@@ -21822,11 +21844,11 @@ isc.defineClass("DrawLinePath", "DrawPath").addProperties({
         return includeStroke != true ? bbox : this._adjustBoundingBox(true, false, bbox);
     },
 
-    showResizeKnobs : null,
-    hideResizeKnobs : null,
+    showResizeKnobs : isc.Class.NO_OP,
+    hideResizeKnobs : isc.Class.NO_OP,
 
-    showMoveKnobs : null,
-    hideMoveKnobs : null,
+    showMoveKnobs : isc.Class.NO_OP,
+    hideMoveKnobs : isc.Class.NO_OP,
 
     // steal start/endpoint knobs functions from drawLine
     showStartPointKnobs : isc.DrawLine.getPrototype().showStartPointKnobs,
@@ -22169,6 +22191,8 @@ isc.DrawShape.addProperties({
     titleRotationMode: "withItemAlwaysUp",
 
     svgElementName: "path",
+
+    eventOpaque: false,
 
     //> @attr drawShape.commands (Array of DrawShapeCommand : null : IRW)
     // The drawing commands that will be executed to render the shape.
@@ -24710,7 +24734,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

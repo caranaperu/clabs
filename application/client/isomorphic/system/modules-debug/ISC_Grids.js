@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-09-07/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-09-07/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -12233,7 +12233,7 @@ getTableHTML : function (colNum, startRow, endRow, discreteCols, asyncCallback, 
         }
         output.append(
 
-            "<TABLE", (isc.Browser.isIE && isc.screenReader ? " unselectable='on'" : null), " role='presentation' BORDER=0",
+            "<TABLE", (isc.Browser.isIE ? " unselectable='on'" : null), " role='presentation' BORDER=0",
             widthHTML,
             ((!fragment && !this.isPrinting) ? " ID=" + this.getTableElementId() : null),
             (this.tableStyle && isc.Browser.isDOM ?
@@ -12326,9 +12326,9 @@ getTableHTML : function (colNum, startRow, endRow, discreteCols, asyncCallback, 
             valignAttrSlot = 6, valignSlot = 7, widthSlot = 8,
             minHeightCSSSlot = 10, cssStartSlot = 11, styleSlot = 18,
             cellIDSlot, cellIDs, divStartSlot = 21, cellValueSlot = 24;
-        cellHTML[0] = "<TD";
+        cellHTML[0] = "<TD ";
 
-        if (isc.Browser.isIE && isc.screenReader) cellHTML[0] += " unselectable='on'";
+        if (isc.Browser.isIE) cellHTML[0] += " unselectable='on'";
         // [1] ARIA attributes if enabled
         // [2] height attribute, if set (per row)
         // [3] height value, if set (per row)
@@ -13070,7 +13070,22 @@ setFocus : function (focus, reason) {
         }
         delete this._preFocusScrollPosition;
     }
+
+    if (isc.Browser.isIE && focus) {
+        this.delayCall("_checkNativeFocus", null, 0);
+    }
+
     return rv;
+},
+
+_checkNativeFocus : function () {
+    // called on a zero delay from setFocus(), specifically for IE - if the current
+    // activeElement is a TD, refocus in the grid body
+    var ae = this.getActiveElement();
+    if (ae && ae.nodeName == "TD") {
+        //this.logWarn("Catching native focus issue");
+        this.focus()
+    }
 },
 
 // Helper to put native focus into a row if we're in screenReader mode.
@@ -23250,7 +23265,7 @@ isc.ListGrid.addProperties( {
     //> @attr listGridField.wrap (Boolean : null : [IRW])
     // Should the field title wrap if there is not enough space horizontally to accommodate it.
     // If unset, default behavior is derived from +link{listGrid.wrapHeaderTitles}.  (This is a
-    // soft-wrap - if set the title will wrap at word boundaries).
+    // soft-wrap - if set the title will wrap at word boundaries.)
     // <P>
     // <b>Notes:</b><ul>
     // <li>If autofitting is active, +link{width} and +link{minWidth} can be set to control the
@@ -24250,6 +24265,15 @@ isc.ListGrid.addProperties( {
     // Horizontal alignment of the title of this headerSpan.
     //
     // @group headerSpan
+    // @visibility external
+    //<
+
+    //> @attr headerSpan.wrap (Boolean : null : [IR])
+    // Should the span title wrap if there is not enough space horizontally to accommodate it.
+    // If unset, default behavior is derived from +link{listGrid.wrapHeaderSpanTitles}.  (This
+    // is a soft-wrap - if set the title will wrap at word boundaries.)
+    //
+    // @see listGridField.wrap
     // @visibility external
     //<
 
@@ -29658,6 +29682,16 @@ defaultFilterOperatorSuffix: "(default)",
     //<
 
 
+    //> @attr listGrid.wrapHeaderSpanTitles (Boolean : null : IR)
+    // If +link{headerSpan.wrap} is not explicitly set, should fields wrap?  If autofitting,
+    // see the docs on that property for the details of how the minimum width for a field is
+    // determined.
+    //
+    // @see minFieldWidth
+    // @visibility external
+    //<
+
+
     //> @attr listGrid.sorterConstructor (Class : Button : IR)
     // Widget class for the corner sort button, if showing.  This button displays the current
     // sort direction of the primary sort field (either the only sorted field or the first in a
@@ -32178,15 +32212,12 @@ initWidget : function () {
 
     if(!this.canResizeFields) this.canAutoFitFields=false;
 
-    // For back-compat, if headerButtonProperties.wrap is set, and wrapHeaderTitles is
-    // null, respect headerButtonProperties.wrap.
+
     if (this.wrapHeaderTitles == null) {
-        var wrap = this.headerButtonProperties != null ? this.headerButtonProperties.wrap : null;
-        if (wrap == null) {
-            wrap = this.headerButtonDefaults != null ? this.headerButtonDefaults.wrap : null;
-        }
-        if (wrap == null) wrap = false;
-        this.wrapHeaderTitles = wrap;
+        this.wrapHeaderTitles = this._getHeaderButtonAutoChildConfig("wrap") || false;
+    }
+    if (this.wrapHeaderSpanTitles == null) {
+        this.wrapHeaderSpanTitles = this._getHeaderButtonAutoChildConfig("wrap", true) || false;
     }
 
     // Remember the initial groupState.
@@ -32194,9 +32225,33 @@ initWidget : function () {
     // regroup runs, but the groupBy fields are unaltered
     this.currentGroupState = this.getGroupState();
 
-
     // clear out the flag that prevents sortChanged() from firing during initialization
     delete this._initializing;
+},
+
+_getHeaderButtonAutoChildConfig : function (property, isSpan) {
+    var value;
+
+    // give the autochild properties priority, using the button properties as fallback for span
+    if (isSpan) {
+        value = this.headerSpanProperties ? this.headerSpanProperties[property] : null;
+    }
+    if (value == null) {
+        value = this.headerButtonProperties ? this.headerButtonProperties[property] : null;
+    }
+
+    // bail if we've found a value
+    if (value != null) return value;
+
+    // now check the autochild defaults, using the button defaults as fallback for span
+    if (isSpan) {
+        value = this.headerSpanDefaults ? this.headerSpanDefaults[property] : null;
+    }
+    if (value == null) {
+        value = this.headerButtonDefaults ? this.headerButtonDefaults[property] : null;
+    }
+
+    return value;
 },
 
 _storeDragProperties : function () {
@@ -38114,15 +38169,21 @@ _updateFieldWidths : function (reason, mustRefresh,c) {
         if (this.autoFitHeaderHeights) {
             var headerHeight = this.getHeaderHeight();
             this.dropCachedHeaderButtonHeights();
-            var newHeaderHeight = this.getHeaderHeight();
-            if (headerHeight != newHeaderHeight ||
-                this.header.getHeight() != newHeaderHeight)
+
+            var newHeaderHeight = this.getHeaderHeight(),
+                headerLayout = this.headerLayout || this.header;
+
+            // only do a full update if the header height has changed
+            if (headerHeight             != newHeaderHeight ||
+                headerLayout.getHeight() != newHeaderHeight)
             {
-                this.header.setHeight(newHeaderHeight);
+                headerLayout.setHeight(newHeaderHeight);
                 this._updateHeaderHeight();
             } else {
                 if (this.headerSpans) {
+                    // update spans on both standard and frozen headers
                     this.header._adjustSpans(true);
+                    if (this.frozenHeader) this.frozenHeader._adjustSpans(true);
                 }
             }
         }
@@ -38200,14 +38261,16 @@ _updateFieldWidths : function (reason, mustRefresh,c) {
 },
 
 //> @attr listGrid.autoFitHeaderHeights (boolean : null : IR)
-// If this property is set to true, header buttons for either
-// +link{listGrid.fields,fields} or +link{listGrid.headerSpans,header spans} will
-// automatically expand to accommodate their titles vertically.
-// This means if you have a "tall" title - typically a long string where
-// +link{listGridField.wrap} is set to true such that you end up with several lines of
-// text - the button will render large enough to accommodate it.
-// If necessary this will cause the header for the grid as a whole to expand beyond the
-// specified +link{listGrid.headerHeight}.
+// If this property is set to true, header buttons for either +link{listGrid.fields,fields} or
+// +link{listGrid.headerSpans,header spans} will automatically expand to accommodate their
+// titles vertically.  This means if you have a "tall" title - typically a long string where
+// +link{listGridField.wrap} is set to true such that you end up with several lines of text -
+// the button will render large enough to accommodate it.  If necessary this will cause the
+// header for the grid as a whole to expand beyond the specified +link{listGrid.headerHeight}.
+// <P>
+// Note that you need not set +link{headerSpan.height} or +link{headerSpanHeight} if you set
+// this property, but if you do, they will be used as minimum values.
+//
 // @visibility external
 //<
 
@@ -38256,7 +38319,7 @@ _calculateDefaultSpanHeight : function (span, availableSpace, fieldNames, isFiel
         if (!this._headerSpanVisible(fieldNames, span)) return;
 
         var defaultHeight;
-        if (!span._spanAutoSizeHeight) {
+        if (span._spanAutoSizeHeight !== true) {
             defaultHeight = span.height || this.headerSpanHeight;
         }
         if (defaultHeight == null) {
@@ -38290,6 +38353,11 @@ _calculateDefaultSpanHeight : function (span, availableSpace, fieldNames, isFiel
     }
 },
 
+_getHeaderButtonWrap : function (config, isSpan) {
+    if (config.wrap != null) return config.wrap;
+    return isSpan ? this.wrapHeaderSpanTitles : this.wrapHeaderTitles;
+},
+
 getHeaderButtonMinHeight : function (field, recalculate) {
     if (!recalculate && field._calculatedMinHeight != null) {
         return field._calculatedMinHeight;
@@ -38305,13 +38373,13 @@ getHeaderButtonMinHeights :function (fields, recalculate) {
     var heights = [];
     var testHTML = "";
     for (var i = 0; i < fields.length; i++) {
-        var field = fields[i];
+        var isSpan, field = fields[i];
         if (!recalculate && field._calculatedMinHeight != null) {
             heights[i] = field._calculatedMinHeight;
         } else {
-            var isSpan = !this.fields.contains(field);
-            var width;
+            isSpan = !this.fields.contains(field);
 
+            var width;
             if (isSpan) {
                 var spannedFields = this.getSpannedFields(field),
                     width = 0;
@@ -38400,8 +38468,9 @@ getHeaderButtonMinHeights :function (fields, recalculate) {
             config:config
         });
 
-        var buttonWrap = config.wrap;
-        if (buttonWrap == null) buttonWrap = this.wrapHeaderTitles;
+        if (isSpan == null) isSpan = !this.fields.contains(field);
+        var buttonWrap = this._getHeaderButtonWrap(config, isSpan);
+
         testHTML += "<div style='position:absolute;width:" + width + "px;'><div class=" +
              (config.titleStyle || config.baseStyle) +
              (buttonWrap ? ">" : " style='white-space:nowrap;'>") +
@@ -44691,7 +44760,7 @@ focusInCell : function (row, col) {
 //<
 focusInRow : function (row) {
     this._hiliteRecord(row);
-    if (!this.body.isFocused()) this.body.focus();
+    if (this.body && !this.body.isFocused()) this.body.focus();
 },
 
 _hiliteCell : function (row, col) {
@@ -49708,6 +49777,17 @@ setEditorValueMap : function (fieldID, map) {
 //  @visibility external
 //<
 getEditorType : function (field, values) {
+    var isNewRecord = values == null || isc.isAn.emptyObject(values);
+    if (!isNewRecord && this.getDataSource() != null) {
+        var keyFieldNames = this.getDataSource().getPrimaryKeyFieldNames();
+        for (var i = 0; i < keyFieldNames.length; i++) {
+            if (values[keyFieldNames[i]] == null) {
+                isNewRecord = true;
+                break;
+            }
+        }
+    }
+    var idx = isNewRecord ? -1 : this.getRecordIndex(values);
 
     // determining type: editorProperties, being most specific, wins.  Otherwise
     // field.editorType, otherwise, you get the default editor picked
@@ -49715,7 +49795,7 @@ getEditorType : function (field, values) {
     // NOTE: editorProps.type will always refer to the form item type, not the data type.
     // NOTE: "formItemType" is a legacy synonym of "editorType"
 
-    var props = this.getEditorProperties(field, values, this.getRecordIndex(values));
+    var props = this.getEditorProperties(field, values, idx);
     var editorProperties = isc.addProperties({}, field, field.editorProperties, props);
 
     // Use the static method on DynamicForm to get the editorType for this field.
@@ -60950,10 +61030,11 @@ createHeaderSpan : function (header, headerSpanConfig) {
         // auto-size span height unless an explicit height is set somewhere
         var height = config.height ||
                      (this.headerSpanProperties ? this.headerSpanProperties.height : null) ||
-                     (this.headerSpanDefaults ? this.headerSpanDefaults.height : null) ||
+                     (this.headerSpanDefaults   ? this.headerSpanDefaults.height   : null) ||
                      this.headerSpanHeight;
 
-        span._spanAutoSizeHeight = (height == null);
+
+        span._spanAutoSizeHeight = this.autoFitHeaderHeights ? height || true : height == null;
     }
 
 
@@ -61454,8 +61535,7 @@ _shouldClipHeaderTitle : function (fieldNum) {
     if (this.autoFitHeaderHeights) return false;
 
 
-    if (field.wrap == true) return false;
-    if (field.wrap == null && this.wrapHeaderTitles) return false;
+    if (this._getHeaderButtonWrap(field)) return false;
 
     var shouldAutoFit = this.shouldAutoFitField(field);
     if (shouldAutoFit) {
@@ -61546,12 +61626,8 @@ getHeaderButtonTitle : function (button, clipTitle) {
 
     if (clipTitle == null) clipTitle = this._shouldClipHeaderTitle(fieldNum);
 
-    // If the button is wrapped, then we want to float the sort arrow and sort numeral. The
-    // sort numeral should be placed first, then the sort arrow, then the title so that (in text order)
-    // the title will be visible, then the sort arrow, and then the sort numeral.
-    // Floating the sort arrow fixes the issue that the arrow would wrap with the title text.
 
-    if (field.wrap || (field.wrap == null && this.wrapHeaderTitles)) {
+    if (this._getHeaderButtonWrap(field)) {
         if (showSortNumeral) {
             fullTitle.append("<a style='display:inline-block;",
                              (isRTL ? "float:left;margin-right:" : "float:right;margin-left:"),
@@ -61968,8 +62044,7 @@ fieldDragResizeStart : function () {
     if (field) {
         field.autoFitWidth = false;
 
-        var wrap = field.wrap;
-        if (wrap == null) wrap = this.wrapHeaderTitles;
+        var wrap = this._getHeaderButtonWrap(field);
         if (wrap != dt.wrap) {
             dt.setWrap(wrap);
         }
@@ -63302,9 +63377,12 @@ setFieldSearchOperator : function (field, operator) {
     }
 
     var editor = this.getFilterEditor(),
-        form = editor.getEditForm(),
-        item = form.getItem(field.name)
+        form = editor && editor.getEditForm(),
+        item = form && form.getItem(field.name)
     ;
+
+    // bail if there's no item (there may be no form at this point)
+    if (!item) return;
 
     if (isc.isA.String(operator)) operator = ds.getSearchOperator(operator);
     if (!isc.isAn.Object(operator)) {
@@ -65066,8 +65144,9 @@ displaySort : function(sortSpecifiers) {
                 if (fieldNum>=0 && hasHeader) {
                     // select the appropriate button
                     var sortButton = this.getFieldHeaderButton(fieldNum);
-
                     if (sortButton && sortButton.setTitle) sortButton.setTitle(sortButton.getTitle());
+                    // height of button must be recalculated
+                    delete localField._calculatedMinHeight
                 }
             }
         }
@@ -65210,7 +65289,7 @@ applySortToData : function (sortSpecifiers) {
                     this.logInfo("In applySortToData -  Calling data.setSort with specifiers:\n"
                         +isc.echoAll(allSpecifiers), "sorting");
                 }
-                    data.setSort(allSpecifiers);
+                data.setSort(allSpecifiers);
             } else if (data.sortByProperty) {
                 if (this.logIsInfoEnabled("sorting")) {
                     this.logInfo("In applySortToData - Calling data.sortByProperty with specifier:\n"+
@@ -82683,7 +82762,7 @@ orientation : "horizontal",
 // @visibility external
 //<
 
-//> @attr tileLayout.overflow   (Overflow : "auto" : IR)
+//> @attr tileLayout.overflow   (Overflow : "auto" : IRW)
 // Normal +link{type:Overflow} settings can be used on TileLayouts, for example, an
 // overflow:auto TileLayout will scroll if members exceed its specified size, whereas an
 // overflow:visible TileLayout will grow to accommodate members.
@@ -96330,7 +96409,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

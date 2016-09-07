@@ -11,9 +11,23 @@ isc.RestDataSource.create({
     showPrompt: true,
     dataFormat: "json",
     fields: [
-        {name: "producto_detalle_id", primaryKey: "true", required: true},
-        {name: "insumo_id_origen", title: 'Producto Origen', foreignKey: "mdl_insumo.insumo_id", required: true},
-        {name: "insumo_id", title: 'Insumo', foreignKey: "mdl_insumo.insumo_id", required: true},
+        {
+            name: "producto_detalle_id",
+            primaryKey: "true",
+            required: true
+        },
+        {
+            name: "insumo_id_origen",
+            title: 'Producto Origen',
+            foreignKey: "mdl_insumo.insumo_id",
+            required: true
+        },
+        {
+            name: "insumo_id",
+            title: 'Insumo',
+            foreignKey: "mdl_insumo.insumo_id",
+            required: true
+        },
         {
             name: "unidad_medida_codigo",
             title: 'U.Medida',
@@ -21,28 +35,84 @@ isc.RestDataSource.create({
             required: true
         },
         {
-            name: "producto_detalle_cantidad", title: 'Cantidad', required: true, type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: 0.0001, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            name: "producto_detalle_cantidad",
+            title: 'Cantidad',
+            required: true,
+            type: 'double',
+            format: "0.0000",
+            validators: [{
+                type: 'floatRange',
+                min: 0.0001,
+                max: 100000.00
+            }, {
+                type: "floatPrecision",
+                precision: 4
+            }]
         },
         {
-            name: "producto_detalle_valor", title: 'Valor', required: true, type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            name: "producto_detalle_valor",
+            title: 'Valor',
+            required: true,
+            type: 'double',
+            format: "0.0000",
+            validators: [{
+                type: 'floatRange',
+                min: 0.0000,
+                max: 100000.00
+            }, {
+                type: "floatPrecision",
+                precision: 4
+            }]
         },
         {
-            name: "producto_detalle_merma", title: 'Merma', required: true, type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: 0.0000, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            name: "producto_detalle_merma",
+            title: 'Merma',
+            required: true,
+            type: 'double',
+            format: "0.0000",
+            validators: [{
+                type: 'floatRange',
+                min: 0.0000,
+                max: 100000.00
+            }, {
+                type: "floatPrecision",
+                precision: 4
+            }]
         },
         {
-            name: "producto_detalle_costo", title: 'Costo', required: false, type: 'double', format: "0.0000",
-            validators: [{type: 'floatRange', min: -3, max: 100000.00}, {type: "floatPrecision", precision: 4}]
+            name: "producto_detalle_costo",
+            title: 'Costo',
+            required: false,
+            type: 'double',
+            format: "0.0000",
+            validators: [{
+                type: 'floatRange',
+                min: -3,
+                max: 100000.00
+            }, {
+                type: "floatPrecision",
+                precision: 4
+            }]
         },
         // Campos join
-        {name: "insumo_descripcion", title: 'Insumo'},
-        {name: "unidad_medida_descripcion", title: 'U.Medida'},
+        {
+            name: "insumo_descripcion",
+            title: 'Insumo'
+        },
+        {
+            name: "unidad_medida_descripcion",
+            title: 'U.Medida'
+        },
         {name: "moneda_simbolo"},
-        {name: "tcostos_indirecto", title: "Indirecto",type: 'boolean', getFieldValue: function(r, v, f, fn) {
-            return mdl_productodetalle._getBooleanFieldValue(v);
-        }, required: true},
+        {
+            name: "tcostos_indirecto",
+            title: "Indirecto",
+            type: 'boolean',
+            getFieldValue: function(r, v, f, fn) {
+                return mdl_productodetalle._getBooleanFieldValue(v);
+            },
+            required: true
+        },
     ],
     /**
      * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
@@ -61,9 +131,21 @@ isc.RestDataSource.create({
     updateDataURL: glb_dataUrl + 'productoDetalleController?op=upd&libid=SmartClient',
     removeDataURL: glb_dataUrl + 'productoDetalleController?op=del&libid=SmartClient',
     operationBindings: [
-        {operationType: "fetch", dataProtocol: "postParams"},
-        {operationType: "add", dataProtocol: "postParams"},
-        {operationType: "update", dataProtocol: "postParams"},
-        {operationType: "remove", dataProtocol: "postParams"}
+        {
+            operationType: "fetch",
+            dataProtocol: "postParams"
+        },
+        {
+            operationType: "add",
+            dataProtocol: "postParams"
+        },
+        {
+            operationType: "update",
+            dataProtocol: "postParams"
+        },
+        {
+            operationType: "remove",
+            dataProtocol: "postParams"
+        }
     ]
 });

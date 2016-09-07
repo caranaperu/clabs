@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -39,9 +39,9 @@ else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;
 else isc._preLog=[isc._pTM]}isc.definingFramework=true;
 
 
-if (window.isc && isc.version != "v11.0p_2016-08-13/LGPL Deployment" && !isc.DevUtil) {
+if (window.isc && isc.version != "v11.0p_2016-09-07/LGPL Deployment" && !isc.DevUtil) {
     isc.logWarn("SmartClient module version mismatch detected: This application is loading the core module from "
-        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-08-13/LGPL Deployment'. Mixing resources from different "
+        + "SmartClient version '" + isc.version + "' and additional modules from 'v11.0p_2016-09-07/LGPL Deployment'. Mixing resources from different "
         + "SmartClient packages is not supported and may lead to unpredictable behavior. If you are deploying resources "
         + "from a single package you may need to clear your browser cache, or restart your browser."
         + (isc.Browser.isSGWT ? " SmartGWT developers may also need to clear the gwt-unitCache and run a GWT Compile." : ""));
@@ -7112,6 +7112,15 @@ isc.DynamicForm.addProperties({
     // Inherited from DBC
 //    unknownErrorMessage : "Invalid value",
 
+    //> @attr dynamicForm.noErrorDetailsMessage (String : "Error during validation; no error details were provided" : IRW)
+    // A message to display to the user if server-side validation fails with an error but the
+    // server did not provide an error message
+    // @group validation, i18nMessages
+    // @visibility external
+    //<
+    // Inherited from DBC
+//  noErrorDetailsMessage: "Error during validation; no error details were provided",
+
     //> @attr dynamicForm.validateOnExit (Boolean : false : IRW)
     // If true, form items will be validated when each item's "editorExit" handler is fired
     // as well as when the entire form is submitted or validated.
@@ -9077,13 +9086,7 @@ rememberValues : function () {
     // [still store the current val for valuesHaveChanged() checks]
     this._rememberedDefault = rememberedDefault;
 
-    var items = this.items;
-    for (var i = 0, numItems = (items == null ? 0 : items.length); i < numItems; ++i) {
-        var item = items[i];
-        if (!isc.isA.FormItem(item)) continue;
-        item.updatePendingStatus(item._value);
-    }
-
+    this.updatePendingStyles();
 
     if (this.ruleScope || this.isRuleScope) {
         var ds = this.getDataSource(),
@@ -9096,6 +9099,15 @@ rememberValues : function () {
     }
 
     return this._oldValues;
+},
+
+updatePendingStyles : function () {
+    var items = this.items;
+    for (var i = 0, numItems = (items == null ? 0 : items.length); i < numItems; ++i) {
+        var item = items[i];
+        if (!isc.isA.FormItem(item)) continue;
+        item.updatePendingStatus(item._value);
+    }
 },
 
 //>    @method    dynamicForm.resetValues()   ([])
@@ -9276,7 +9288,7 @@ updateFocusItemValue : function () {
                 // was already handled on key press, so first it is not needed and second it leads to
                 // an issue when formatting was applied to item when focus has left the form and getting
                 // value here reads formatted value instead of actual value, which leads to validation failure
-                // although real value enetered into the item was correct, such issue example:
+                // although real value entered into the item was correct, such issue example:
                 // - editing item with format: ",##0.00 €"
                 // - enter 900.01
                 // - make focus leave the form, formatting applies when focus is lost
@@ -13452,23 +13464,12 @@ validate : function (validateHiddenFields, ignoreDSFields, typeValidationsOnly,
     var errors = {},
         hiddenErrors = {},
         values = this.getValues(),
-        record = values,
+        record = this._getRecordForValidation(true, values),
         // fields are returned from ds in {fieldName:fieldObject} format
         dsFields = (validateHiddenFields && !ignoreDSFields && this.dataSource)
                         ? isc.addProperties({}, this.getDataSource().getFields())
                         : null
     ;
-
-    // If we are embedded in a valuesManager, the record being edited may be split over
-    // several forms. Pick up the "record" via a getValues() call on the valuesManager
-    // so we can refer to other fields, primary key, etc.
-    if (this.valuesManager != null) {
-        record = this.valuesManager.getValues();
-        if (this.dataPath != null) {
-            record = isc.DynamicForm._getFieldValue(this.dataPath, null, record, this, true);
-        }
-    }
-
     // Validate each form item
     // Note that when validating ContainerItem (e.g. DateItem) form items, only the
     // ContainerItem itself is validated, and not any of its sub-items.
@@ -13639,6 +13640,25 @@ validate : function (validateHiddenFields, ignoreDSFields, typeValidationsOnly,
     }
 
     return !errorsFound;
+},
+
+_getRecordForValidation : function (updateFocusItemValue, defaultValues) {
+
+    var manager = this.valuesManager;
+    if (manager != null) {
+        var record = updateFocusItemValue ? manager.getValues() :
+                         isc.addProperties({}, manager.values);
+        if (this.dataPath != null) {
+            record = isc.DynamicForm._getFieldValue(this.dataPath, null, record, this, true);
+        }
+        return record;
+    }
+
+    var undef;
+    if (defaultValues !== undef) return defaultValues;
+
+
+    return isc.addProperties({}, updateFocusItemValue ? this.getValues() : this.values);
 },
 
 //> @method DynamicForm.valuesAreValid()
@@ -22804,12 +22824,18 @@ isc.FormItem.addMethods({
                 if (isc.isA.emptyString(hint)) hint = null;
             }
             if (hint || showRightError) {
-                var hintString = (hint || "") + (showRightError ? errorHTML || "" : "");
-                if (hintString && !isc.isAn.emptyString(hintString)) {
+                var hasHint = (hint != null && !isc.isAn.emptyString(hint)),
+                    hasError = showRightError && errorHTML != null && !isc.isAn.emptyString(errorHTML);
+
+                if (hasHint) {
                     template.add("</TD>");
-                    var hintCellTemplate = this._fillHintCellTemplate(hintString, hint ? this.getHintStyle() : null);
-                    // Add all entries of the hintCellTemplate to the template array.
+                    var hintCellTemplate = this._fillHintCellTemplate(hint, this.getHintStyle());
                     template.push.apply(template, hintCellTemplate);
+                }
+                if (hasError) {
+                    template.add(isc.StringBuffer.concat("<TD STYLE='",
+                                                         isc.Canvas._$noStyleDoublingCSS, "' CLASS='",
+                                                         this.getCellStyle(), "'>", errorHTML));
                 }
             }
             // close the table
@@ -27186,7 +27212,7 @@ isc.FormItem.addMethods({
 
         // if the form is in mid-load, via a valuesManager, don't show the pending style
         var vm = this.form && this.form.valuesManager;
-        if (vm && vm.__editingNewRecord) {
+        if (vm && (vm.__editingNewRecord || vm.__saveDataReply)) {
             pendingStatus = false;
         }
         this.pendingStatus = pendingStatus;
@@ -28940,16 +28966,18 @@ isc.FormItem.addMethods({
     //> @attr formItem.implicitSave (Boolean : false : IRW)
     // When true, indicates that changes to this item will cause an automatic save on a
     // +link{dynamicForm.implicitSaveDelay, delay}, as well as when the entire form is
-    // submitted.  Unless implicitSaveOnBlur is set to false on either this
+    // submitted.  If implicitSaveOnBlur is set to true on either this
     // +link{formItem.implicitSaveOnBlur, formItem} or it's
-    // +link{dynamicForm.implicitSaveOnBlur, form} changes will also be automatically saved on
-    // editorExit.
+    // +link{dynamicForm.implicitSaveOnBlur, form}, changes will also be automatically saved
+    // immediately on editorExit.
     // @visibility external
     //<
 
     //> @attr formItem.implicitSaveOnBlur (Boolean : false : IRW)
-    // If not set to false, form item values will be saved immediately, when this item's
-    // "editorExit" handler is fired, as well as +link{dynamicForm.implicitSaveDelay, on a delay},
+    // If set to true, this item's value will be saved immediately when its
+    // "editorExit" handler is fired.  This attribute works separately from
+    // +link{formItem.implicitSave, implicitSave}, which causes saves during editing, after a
+    // +link{dynamicForm.implicitSaveDelay, short delay},
     // and when the entire form is submitted.
     // @visibility external
     //<
@@ -29766,7 +29794,7 @@ isc.FormItem.addMethods({
         // Note that validateFieldAndDependencies may modify the record so we pass
         // a copy of our current values.
         var value = this.getValue(),
-            record = isc.addProperties({}, this.form.getValues()),
+            record = this.form._getRecordForValidation(true),
             validationOptions = {unknownErrorMessage: this.form.unknownErrorMessage,
                                 typeValidationsOnly:this.form.validateTypeOnly}
         ;
@@ -30604,12 +30632,12 @@ isc.FormItem.addMethods({
             // did not change. In that case, _updateValue() does not see the redundant update
             // and stop an infinite recursion via: DF.getValues() -> DF.updateFocusItemValue
             // -> FI.updateValue -> FI._updateValue -> FI.mapDisplayToValue -> FI.handleChange.
-            var record = isc.addProperties({}, this.form.values),
+            var record = this.form._getRecordForValidation(),
                 validationOptions = {unknownErrorMessage: this.form.unknownErrorMessage,
-                                         changing: true};
-
-                fieldResult = this.form.validateFieldAndDependencies (this, this.validators, value,
-                                                                       record, validationOptions)
+                                     changing: true}
+            ;
+            fieldResult = this.form.validateFieldAndDependencies (this, this.validators, value,
+                                                                  record, validationOptions);
 
             // Submit server validation requests queue
             if (!wasAlreadyQueuing) isc.rpc.sendQueue();
@@ -32656,10 +32684,7 @@ isc.FormItem.addMethods({
         if (!this._suppressValidateOnEditorExit) this._performValidateOnEditorExit(value);
 
         // If implicitSaving and value in editor changed, call the parent form to save
-        if (this.getImplicitSave() && this.form && this.form.awaitingImplicitSave
-                && !this.form.implicitSaveInProgress
-                && this.getImplicitSaveOnBlur() != false)
-        {
+        if (!this.form.implicitSaveInProgress && this.getImplicitSaveOnBlur()) {
             this.form.performImplicitSave(this, false);
         }
 
@@ -32670,12 +32695,12 @@ isc.FormItem.addMethods({
         // Just bail if we've already been removed from our form
 
         if (this.form == null) return false;
-        return (this.implicitSave != null ? this.implicitSave : this.form.implicitSave);
+        return !!(this.implicitSave != null ? this.implicitSave : this.form.implicitSave);
     },
 
     getImplicitSaveOnBlur : function () {
-        if (this.getImplicitSave() == false) return false;
-        return (this.implicitSaveOnBlur != null ?
+        if (this.form == null) return false;
+        return !!(this.implicitSaveOnBlur != null ?
             this.implicitSaveOnBlur : this.form.implicitSaveOnBlur);
     },
 
@@ -56812,7 +56837,6 @@ isc.RowSpacerItem.addProperties({
 
 
 
-
 //>    @class    SubmitItem
 // Button that saves the data in the form, by calling +link{DynamicForm.submit()} when clicked.
 // +link{DynamicForm.submit()} for details on how to control what happens when a form is
@@ -70310,14 +70334,14 @@ isc.ValuesManager.addMethods({
     // values in those flat structures are derived from arbitrary places in a complex nested
     // structure), whereas ValuesManagers have to cope with any kind of data structure
     _saveDataReply : function (request, response, data) {
+        var members = this.getMembers();
         if (!this.suppressServerDataSync && response && response.status >= 0 && data != null) {
             if (isc.isAn.Array(data)) data = data[0];
             if (request.data) request.data = isc.shallowClone(request.data);
             // Determine if we have a nested data structure - this makes targetted updates
             // of item values (as opposed to a blunt call to 'setValues(...)' trickier.
-            var nestedDataStructure = false,
+            var nestedDataStructure = false;
 
-                members = this.getMembers();
             for (var i = 0; i < members.length; i++) {
                 var widgetDP = members[i].dataPath;
                 if (widgetDP != null && widgetDP != "/") {
@@ -70453,9 +70477,16 @@ isc.ValuesManager.addMethods({
         // Reset the internal property used to handle calling 'formSaved' on each member
         // in turn
         this._formSavedIndex = 0;
+
+        // since this is a successful save, clear the pendingStyles - __saveDataReply is checked
+        // in FormItem.updatePendingState()
+        this.__saveDataReply = true;
+        for (var i = 0; i < members.length; i++) {
+            if (members[i] && members[i].updatePendingStyles) members[i].updatePendingStyles();
+        }
+        delete this.__saveDataReply;
+
         this.formSavedComplete();
-
-
     },
 
     // given a member with dataArity:"multiple",
@@ -71802,6 +71833,7 @@ isc.ValuesManager.addMethods({
     // @visibility external
     //<
     handleAsyncValidationReply : function (success, errors) {
+//!DONTOBFUSCATE  (obfuscation breaks observation)
     },
 
 
@@ -77573,6 +77605,7 @@ isc.RelativeDateItem.addProperties({
         selectOnFocus: true,
         keyPress : function (item, form, keyName, characterValue) {
             if (keyName == "Enter") {
+                item.updateValue();
                 var parentItem = form.canvasItem;
                 if (parentItem && parentItem.form) {
                     parentItem.updateValue();
@@ -78336,14 +78369,12 @@ isc.RelativeDateItem.addMethods({
         if (this.compareValues(oldValue,absDateValue) &&
             this.compareValues(oldRelativeDate,this._relativeDate)) return;
 
+        // Note: Sometimes there are extra calls to this method from IE 11, which generate
+        // absDateValue to be null. Ignoring these calls.
+        // http://forums.smartclient.com/node/239581
         if (absDateValue != null) {
             this._updateValue(absDateValue);
             this.updateEditor();
-        } else {
-            // Note: Sometimes there are extra calls to this method from IE 11, which generate
-            // absDateValue to be null. Ignoring these calls.
-            // http://forums.smartclient.com/node/239581
-            this.logWarn("Ignoring invalid absDateValue " + absDateValue + ". " + this.getStackTrace());
         }
     },
 
@@ -81262,7 +81293,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -89,9 +89,9 @@ isc._start = new Date().getTime();
 
 // versioning - values of the form ${value} are replaced with user-provided values at build time.
 // Valid values are: version, date, project (not currently used)
-isc.version = "v11.0p_2016-08-13/LGPL Deployment";
-isc.versionNumber = "v11.0p_2016-08-13";
-isc.buildDate = "2016-08-13";
+isc.version = "v11.0p_2016-09-07/LGPL Deployment";
+isc.versionNumber = "v11.0p_2016-09-07";
+isc.buildDate = "2016-09-07";
 isc.expirationDate = "";
 
 isc.scVersion = "11.0p";
@@ -10040,13 +10040,27 @@ isc.Class.addMethods({
     //
     //    })
     // </pre>
-    // Note that Super is always called with the name of the current method.  You cannot call
+    // Note that Super() is always called with the name of the current method.  You cannot call
     // the Super class implementation of another method directly.
     // <P>
-    // It is <b>required</b> to always pass the native 'arguments' object to Super.  Arguments
+    // It is <b>required</b> to always pass the native 'arguments' object to Super().  Arguments
     // is a JavaScript builtin that is available within any JavaScript function - see any
     // JavaScript Reference for details.
     // <P>
+    // If you override a method in an instance, and then call Super(), the prototype
+    // implementation will be called.  This is similar to how anonymous classes in Java handle
+    // super().  For example:
+    // <pre>
+    //    isc.Button.create({
+    //        // this will set the title to indicate the runtime button class
+    //        initWidget : function () {
+    //            this.Super("initWidget", arguments);
+    //            this.title = "Parent Class: " + this.getSuperClass().getClassName();
+    //        },
+    //        width: 1,
+    //        overflow: "visible"
+    //    });
+    // </pre>
     // See also +link{ClassFactory.defineClass,defineClass()} and
     // +link{classMethod:class.addProperties,addProperties} for the basics of creating classes
     // and overriding methods.
@@ -23635,24 +23649,24 @@ isc.StackTrace.getPrototype().toString = function () {
 // The native stack trace for Mozilla has changed.  For FF14 and above, the arguments are
 // no longer supplied and the native stack trace looks like:
 //
-// isc_Canvas_editSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30870
-// isc_Canvas_addSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30865
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:420
-// isc_Menu_selectMenuItem@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28093
-// isc_Menu_rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28059
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:7836
-// isc_GridRenderer__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6199
-// isc_c_Class_invokeSuper@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2263
-// isc_c_Class_Super@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2198
-// isc_GridBody__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6793
-// isc_GridRenderer_click@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6178
-// isc_Canvas_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:25741
-// isc_c_EventHandler_bubbleEvent@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:15164
-// isc_c_EventHandler_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:14083
-// isc_c_EventHandler__handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:13973
-// isc_c_EventHandler_handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:13916
-// isc_c_EventHandler_dispatch@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:15541
-// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:420
+// isc_Canvas_editSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:30870
+// isc_Canvas_addSummaryField@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:30865
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:420
+// isc_Menu_selectMenuItem@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:28093
+// isc_Menu_rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:28059
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:7836
+// isc_GridRenderer__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:6199
+// isc_c_Class_invokeSuper@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:2263
+// isc_c_Class_Super@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:2198
+// isc_GridBody__rowClick@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:6793
+// isc_GridRenderer_click@http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:6178
+// isc_Canvas_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:25741
+// isc_c_EventHandler_bubbleEvent@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:15164
+// isc_c_EventHandler_handleClick@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:14083
+// isc_c_EventHandler__handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:13973
+// isc_c_EventHandler_handleMouseUp@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:13916
+// isc_c_EventHandler_dispatch@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:15541
+// anonymous@http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:420
 //
 // For FF13 and earlier, the lines from the native stack trace look something like this:
 //
@@ -23989,16 +24003,16 @@ isc.ChromeStackTrace.addClassMethods({
 // The error.stack from IE10 looks like:
 //
 // "TypeError: Unable to set property 'foo' of undefined or null reference
-//   at isc_Canvas_editSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30842:5)
-//   at sc_Canvas_addSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:30837:5)
+//   at isc_Canvas_editSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:30842:5)
+//   at sc_Canvas_addSummaryField (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:30837:5)
 //   at Function code (Function code:1:1)
-//   at isc_Menu_selectMenuItem (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28093:9)
-//   at isc_Menu_rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:28059:5)
+//   at isc_Menu_selectMenuItem (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:28093:9)
+//   at isc_Menu_rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:28059:5)
 //   at Function code (Function code:1:142)
-//   at isc_GridRenderer__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:6199:5)
-//   at isc_c_Class_invokeSuper (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2262:17)
-//   at isc_c_Class_Super (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-08-13.js:2198:9)
-//   at isc_GridBody__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-08-13.js:679[3:13)
+//   at isc_GridRenderer__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:6199:5)
+//   at isc_c_Class_invokeSuper (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:2262:17)
+//   at isc_c_Class_Super (http://localhost:49011/isomorphic/system/modules/ISC_Core.js?isc_version=v11.0p_2016-09-07.js:2198:9)
+//   at isc_GridBody__rowClick (http://localhost:49011/isomorphic/system/modules/ISC_Grids.js?isc_version=v11.0p_2016-09-07.js:679[3:13)
 
 isc.defineClass("IEStackTrace", isc.StackTrace).addMethods({
     preambleLines:1,
@@ -24455,7 +24469,10 @@ isc.addProperties(isc._debug, {
         // Do an in-browser transform of the native stack to make it more readable.
         if (error.stack) {
             message += "\nStack from error.stack:\n";
-            if (isc.Class.useChromeAPIToPrepareStackTrace && isc.Browser.isChrome) {
+
+            if (isc.Class.useChromeAPIToPrepareStackTrace &&
+                isc.Browser.isChrome && error instanceof Error)
+            {
                 message += isc.ChromeStackTrace._getLastErrorCallSitesParsedStack(this);
             } else {
                 message += isc.StackTrace.fromNativeStack(error.stack).toString();
@@ -30768,7 +30785,7 @@ isc.Page.addClassProperties({
     // The SmartClient framework supports all major browsers, and will always support the
     // current versions at release-time.
     // <P>
-    // The full list of SmartClient browser support (at the time of the initial v11.0p_2016-08-13/LGPL Deployment release)
+    // The full list of SmartClient browser support (at the time of the initial v11.0p_2016-09-07/LGPL Deployment release)
     // is listed below. Note that support for some framework features may be implemented using
     // different native approaches - or in rare cases, may be unavailable - in some older browser
     // versions. Such cases are covered in documentation where they occur. For example, see the
@@ -30792,7 +30809,7 @@ isc.Page.addClassProperties({
     // Every distributed SmartClient skin contains an "Unsupported Browser" page. This is an optional
     // placeholder for an application to state its browser support policies.
     // <P>
-    // <b>The following browser versions were supported as of the original v11.0p_2016-08-13/LGPL Deployment release</b>:
+    // <b>The following browser versions were supported as of the original v11.0p_2016-09-07/LGPL Deployment release</b>:
     //    <table class="normal" cellPadding=5>
     //
     //    <tr><td width=40></td><td width=200>
@@ -32645,55 +32662,6 @@ goBack : function () {
     }
 },
 
-//>    @classMethod    Page.print()
-//        Print the window.  This brings up the print dialog and the user actually
-//        starts printing.
-//
-//        Note: In IE4, you have to have already created a BODY tag in the window for this to work.
-//
-//        @param    wd    (window)    pointer to a window or frame to print
-//                                default is the current window
-//<
-print : function (wd) {
-    // default to the current window
-    if (!wd) wd = window;
-    if (wd.print) {
-        wd.print();
-    } else {
-        // get a pointer to the document of the window
-        var doc = wd.document;
-        // if not found, bail
-        if (!doc || !doc.body) {
-            //>DEBUG
-            this.logError("isc.Page.print() called on a window that doesn't have a document.body defined.  Exiting.");
-            //<DEBUG
-            return;
-        }
-        // The following works in Windows IE only
-        // insert a built-in active-x control that will do the printing for us
-        if (isc.Browser.isWin) {
-            doc.body.insertAdjacentHTML('beforeEnd',
-                '<OBJECT ID="printControl" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>'
-            );
-            // get a pointer to the printControl
-            var control = doc.all.printControl;
-            if (!control) {
-                //>DEBUG
-                this.logError("isc.Page.print() couldn't create or find print control.  Exiting.");
-                //<DEBUG
-                return;
-            }
-
-            // call the print command
-            //    -- pass '2' below to skip the dialog box
-            control.ExecWB(6, 1);
-            // remove the control, since we don't need it anymore
-            control.outerHTML = "";
-        } else {
-            alert("Choose 'Print...' from the File menu to print this page.");
-        }
-    }
-},
 
 // --------------------------------------------------------------------------------------------
 
@@ -59778,6 +59746,28 @@ stopEnforcingScrollSize : function () {
 
 
 
+_adjustScrollSizeForFFBorderBoxIssue : function (isWidth) {
+    if (isc.Canvas.__adjustScrollWidthForFFBorderBoxIssue == null) {
+        var html = "<div style=" +
+                    "'position:absolute;left:0px;top:-200px;width:100px;height:100px;" +
+                     "overflow:hidden;border:5px solid black;box-sizing:border-box;display:inline-block;'" +
+
+                     ">&nbsp;</div>";
+
+        var element = isc.Element.createAbsoluteElement(html);
+
+        var scrollWidth = element.scrollWidth,
+            scrollHeight = element.scrollHeight;
+
+        isc.Canvas.__adjustScrollWidthForFFBorderBoxIssue = (parseInt(scrollWidth) > 90);
+        isc.Canvas.__adjustScrollHeightForFFBorderBoxIssue = (parseInt(scrollHeight) > 90);
+
+        isc.Element.clear(element);
+    }
+    return isWidth ? isc.Canvas.__adjustScrollWidthForFFBorderBoxIssue :
+                isc.Canvas.__adjustScrollHeightForFFBorderBoxIssue;
+
+},
 
 //> @method canvas.getScrollWidth() ([A])
 // Returns the scrollable width of the widget's contents, including children, ignoring
@@ -59835,6 +59825,7 @@ getScrollWidth : function (calculateNewValue) {
         delete this._retrievingScrollWidth;
 
     } else {
+
         // simple content - worry only about explicitly specified ISC children, and the
         // reported scrollHeight / width
 
@@ -59843,7 +59834,8 @@ getScrollWidth : function (calculateNewValue) {
             handleScrollWidth = 0;
 
         // If we have content, look at the clip handle's reported scroll size.
-        if (!hasChildren || this.allowContentAndChildren) {
+        if (!hasChildren || this.allowContentAndChildren)
+        {
 
             if ((isc.Browser.isSafari ||
                  (isc.Browser.isMoz && isc.Browser.version >= 21) ||
@@ -59921,10 +59913,21 @@ getScrollWidth : function (calculateNewValue) {
                     }
                     */
                 }
-
             }
 
-        } // end of check for native handle scrollWidth
+
+            var hBorderSize = this.getHBorderSize();
+            if (this.isBorderBox && this._adjustScrollSizeForFFBorderBoxIssue(true) &&
+                hBorderSize != 0)
+            {
+                var innerWidth = (this.overflow != isc.Canvas.VISIBLE) ? this.getInnerWidth()
+                                : (parseInt(this.getStyleHandle().width) - hBorderSize)
+                if (width == innerWidth+1) {
+                    width -= 1;
+                }
+            }
+
+         } // end of check for native handle scrollWidth
 
 
         if (hasChildren) {
@@ -60088,6 +60091,17 @@ getScrollHeight : function (calculateNewValue) {
                     }
                 }
 
+            }
+
+            var vBorderSize = this.getVBorderSize();
+            if (this.isBorderBox && this._adjustScrollSizeForFFBorderBoxIssue(false) &&
+                vBorderSize != 0)
+            {
+                var innerHeight = (this.overflow != isc.Canvas.VISIBLE) ? this.getInnerHeight()
+                                : (parseInt(this.getStyleHandle().height) - vBorderSize)
+                if (height == innerHeight+1) {
+                    height -= 1;
+                }
             }
         }
 
@@ -76107,8 +76121,6 @@ _placeRect : function (width, height, adjacentRect, side, canOcclude, otherAxisA
 
 
 
-
-
 // clean up on unload
 _handleUnload : function () {
     //>IE
@@ -81899,9 +81911,6 @@ fetchData : function (criteria, callback, requestProperties) {
 
     requestProperties = isc.DataSource.dupRequest(requestProperties);
 
-    // The ResultSet receives a copy of DBC.implicitCriteria
-    requestProperties.implicitCriteria = this.implicitCriteria || {};
-
     if (!requestProperties.textMatchStyle) requestProperties.textMatchStyle = "exact";
     this._filter("fetch", criteria, callback, requestProperties);
 },
@@ -82223,6 +82232,43 @@ getImplicitCriteria : function () {
     return isc.shallowClone(this.implicitCriteria);
 },
 
+//
+// if a DBC enforces
+//
+//
+
+setImplicitCriteria : function (crit, invalidate) {
+    invalidate = !!invalidate;
+    var d = this.data,
+        isRS = isc.isA.ResultSet(d) || isc.isA.ResultTree(d)
+    ;
+    if (!crit) {
+        if (this.implicitCriteria) {
+            // no crit passed - if there was previously implicitCriteria, scrap it now
+            delete this.implicitCriteria;
+            if (isRS) {
+                delete d.dbcImplicitCriteria;
+                if (d.context) delete d.context.dbcImplicitCriteria;
+            }
+            invalidate = true;
+        }
+    } else {
+        if (isRS) {
+            var result = d.compareCriteria && d.compareCriteria(crit, this.implicitCriteria);
+            // new crit is less restrictive - invalidate
+            if (result < 0) invalidate = true;
+            if (result != 0) {
+                this.implicitCriteria = isc.shallowClone(crit);
+                d.dbcImplicitCriteria = isc.shallowClone(crit);
+                if (d.context) d.context.dbcImplicitCriteria = d.dbcImplicitCriteria;
+            }
+        } else {
+            this.implicitCriteria = isc.shallowClone(crit);
+        }
+    }
+    if (invalidate) this.invalidateCache();
+},
+
 //> @method dataBoundComponent.fetchRelatedData()
 // Based on the relationship between the DataSource this component is bound to and the
 // DataSource specified as the "schema" argument, call fetchData() to retrieve records in this
@@ -82277,15 +82323,6 @@ fetchRelatedData : function (record, schema, callback, requestProperties) {
 // @visibility internal
 //<
 clearCriteria : function (callback, requestProperties) {
-    // Remove filter and implicitCriteria
-    if (!requestProperties) requestProperties = {};
-
-    requestProperties = isc.DataSource.dupRequest(requestProperties);
-
-    requestProperties.data = {};
-    // The ResultSet receives a copy of DBC.implicitCriteria
-    requestProperties.implicitCriteria = this.implicitCriteria || {};
-
     this._filter("filter", null, callback, requestProperties);
 },
 
@@ -82293,6 +82330,11 @@ _filter : function (type, criteria, callback, requestProperties) {
     if (isc._traceMarkers) arguments.__this = this;
 
     requestProperties = isc.DataSource.dupRequest(requestProperties);
+
+    if (this.implicitCriteria) {
+        if (!requestProperties) requestProperties = {};
+        requestProperties.dbcImplicitCriteria = isc.shallowClone(this.implicitCriteria);
+    }
 
     requestProperties = this.buildRequest(requestProperties, type, callback);
 
@@ -82367,6 +82409,9 @@ _filter : function (type, criteria, callback, requestProperties) {
 filterWithCriteria : function (criteria, operation, context) {
     context.prompt = (context.prompt || isc.RPCManager.fetchDataPrompt);
 
+    // push the DBC's local implicitCriteria to the dataModel, so it and DS can use it later
+    //if (this.implicitCriteria) context.dbcImplicitCriteria = this.implicitCriteria;
+
     // get rid of empty criteria that come from raw form values
     var filterCriteria = criteria;
     if ( this.ignoreEmptyCriteria ) {
@@ -82391,13 +82436,13 @@ filterWithCriteria : function (criteria, operation, context) {
     } else {
         dataModel = this.createDataModel(filterCriteria, operation, context);
     }
+
+    // push the DBC's local implicitCriteria to the dataModel, so it and DS can use it later
+    if (this.implicitCriteria) dataModel.dbcImplicitCriteria = this.implicitCriteria;
+
     // we will ask the result set for the data we currently need to display,
     // which will cause data to be fetched
     this.setData(dataModel);
-
-    // Save the new implicitCriteria so we can check later if has changed
-
-    if (this.data && this.data.context) this.data.implicitCriteria = this.data.context.implicitCriteria;
 
 
     var data = this.data;
@@ -82588,13 +82633,6 @@ getDataAsList : function () {
 // @see listGrid.refreshData
 //<
 invalidateCache : function () {
-
-    // Remove the filter in dsRequest.data and the implicitCriteria
-    if (this.data && this.data.context) {
-        delete this.data.context.data;
-        delete this.data.context.implicitCriteria;
-    }
-
     if (this.data && this.data.invalidateCache != null) return this.data.invalidateCache();
     else if (this.isGrouped && isc.isA.ResultSet(this.originalData)) {
         // currently only valid for ListGrid: data is currently a Tree and has no
@@ -82669,11 +82707,22 @@ refreshData : function (callback) {
     if (context && context.textMatchStyle) request.textMatchStyle = context.textMatchStyle;
     if (context && context.operationId) request.operationId = context.operationId;
 
+    if (this.implicitCriteria) {
+        request.dbcImplicitCriteria = isc.shallowClone(this.implicitCriteria);
+    }
+
+
     var oldCriteria = isc.clone(this.data.getCriteria());
+    oldCriteria = isc.DS.compressNestedCriteria(
+        isc.DS.combineCriteria(oldCriteria, isc.shallowClone(this.implicitCriteria))
+    );
     var oldSort = isc.clone(this.data.getSort());
 
     dataSource.fetchData(this.getCriteria(), function (dsResponse, data, dsRequest) {
-        var newCriteria = this.data.getCriteria();
+        var d = this.data;
+        var newCriteria = isc.DS.compressNestedCriteria(
+            isc.DS.combineCriteria(d.getCriteria(), d.getImplicitCriteria())
+        );
         var newSort = this.data.getSort();
         var criteriaOrSortChanged = this.data.compareCriteria(newCriteria, oldCriteria) === 0 || this.data.compareSort(newSort, oldSort);
 
@@ -82752,7 +82801,6 @@ willFetchData : function (newCriteria, textMatchStyle) {
     var data = this.data;
     if (data && data.willFetchData == null && this.originalData != null) data = this.orginalData;
     if (data && data.willFetchData != null) {
-        if (data.context) data.context.implicitCriteria = this.implicitCriteria || {};
         return data.willFetchData(newCriteria, textMatchStyle);
     }
     return !this.shouldFilterLocalData();
@@ -82834,6 +82882,9 @@ _performDSOperation : function (operationType, data, callback, requestProperties
     }
 
     requestProperties = isc.DataSource.dupRequest(requestProperties);
+
+    // push the DBC's local implicitCriteria to the request, so DS can use it later
+    if (this.implicitCriteria) requestProperties.dbcImplicitCriteria = this.implicitCriteria;
 
     // Call buildRequest - this will hang the default operationID (as well as various other
     // properties) onto the request.
@@ -88419,6 +88470,15 @@ validateFieldAndDependencies : function (field, validators, newValue, record, op
 //<
 unknownErrorMessage : "Invalid value",
 
+//> @attr dataBoundComponent.noErrorDetailsMessage (String : "Error during validation; no error details were provided" : IRW)
+// A message to display to the user if server-side validation fails with an error but the
+// server did not provide an error message
+// @group validation, i18nMessages
+// @visibility external
+//<
+noErrorDetailsMessage: "Error during validation; no error details were provided",
+
+
 _$typeValidators: ["isInteger", "isFloat", "isBoolean", "isString"],
 
 //> @method dataBoundComponent.validateField() (A)
@@ -88697,13 +88757,13 @@ fireServerValidation : function (field, record, validationMode, showPrompt, rowN
 },
 
 _handleServerValidationReply : function (dsResponse, data, dsRequest) {
+    var context = dsResponse.internalClientContext,
+        component = context.component;
     if (dsResponse.status == isc.DSResponse.STATUS_FAILURE) {
         isc.logWarn("Server-side validation failed: " + dsResponse.data);
-        isc.say(dsResponse.data);
+        isc.say(dsResponse.data ? dsResponse.data : component.noErrorDetailsMessage);
     }
-    var context = dsResponse.internalClientContext,
-        component = context.component,
-        pendingFields = context.pendingFields,
+    var pendingFields = context.pendingFields,
         errors = dsResponse.errors == null ? null : isc.DynamicForm.getSimpleErrors(dsResponse.errors);
 
     if (dsResponse.errors) {
@@ -88738,7 +88798,6 @@ _handleServerValidationReply : function (dsResponse, data, dsRequest) {
             }
         }
     }
-
     // If request marked pending fields, clear them now.
     if (pendingFields) {
         component._clearAsyncValidation(pendingFields);
@@ -88750,6 +88809,7 @@ _handleServerValidationReply : function (dsResponse, data, dsRequest) {
         if (errors != null) {
             errors = isc.DynamicForm.formatValidationErrors(errors);
         }
+
         component.handleAsyncValidationReply(errors == null, errors, context.callerContext);
     }
 },
@@ -88762,6 +88822,7 @@ _handleServerValidationReply : function (dsResponse, data, dsRequest) {
 //<
 
 handleAsyncValidationReply : function (success, errors, context) {
+//!DONTOBFUSCATE  (obfuscation breaks observation)
 },
 
 //> @method dynamicForm.isPendingAsyncValidation()
@@ -98270,7 +98331,7 @@ isc.AutoTest.customizeCalendar = function () {
                 config = fallbackLocatorConfig.config;
 
             if (type == "eventWindow" || type == "eventCanvas") {
-                var viewName = this.mainView.getSelectedTab().viewName;
+                var viewName = this.getCurrentViewName();
                 if (viewName == "day") {
                     var children = this.dayView.body.children;
                 } else if (viewName == "week") {
@@ -99416,7 +99477,7 @@ isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._de
 /*
 
   SmartClient Ajax RIA system
-  Version v11.0p_2016-08-13/LGPL Deployment (2016-08-13)
+  Version v11.0p_2016-09-07/LGPL Deployment (2016-09-07)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
