@@ -26,7 +26,7 @@ isc.WinUMConversionForm.addProperties({
             saveButton: this.getFormButton('save'),
             focusInEditFld: 'unidad_medida_origen',
             addOperation:'readAfterSaveJoined',
-            updateOperation:'readAfterSaveJoined',
+            updateOperation:'readAfterUpdateJoined',
             fields: [
                 {name: "unidad_medida_origen",  editorType: "comboBoxExt",showPending: true, width: "120",
                     valueField: "unidad_medida_codigo", displayField: "unidad_medida_descripcion",

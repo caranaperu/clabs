@@ -19,9 +19,11 @@ isc.WinUsuariosWindow.addProperties({
             alternateRecordStyles: true,
             dataSource: mdl_usuarios,
             autoFetchData: true,
+            fetchOperation: 'fetchJoined',
             fields: [
-                {name: "usuarios_code", width: 100},
-                {name: "usuarios_nombre_completo", width: 250},
+                {name: "usuarios_code", width: '15%'},
+                {name: "usuarios_nombre_completo", width: '30%'},
+                {name: "empresa_razon_social", width: '30%'},
                 {name: "usuarios_admin", width: '*'},
                 {name: "activo",  width: '*'},
             ],

@@ -37,10 +37,11 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      */
     protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
         /* @var $record  UsuariosModel  */
-        return 'insert into tb_usuarios (usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,activo,usuario) values(\''.
+        return 'insert into tb_usuarios (usuarios_code,usuarios_password,usuarios_nombre_completo,empresa_id,usuarios_admin,activo,usuario) values(\''.
                 $record->get_usuarios_code() . '\',\'' .
                 $record->get_usuarios_password() . '\',\'' .
-                $record->get_usuarios_nombre_completo() . '\',\'' .
+                $record->get_usuarios_nombre_completo() . '\',' .
+                $record->get_empresa_id() . ',\'' .
                 ($record->get_usuarios_admin() != TRUE ? '0' : '1') .  '\',\'' .
                 ($record->getActivo() != TRUE ? '0' : '1') . '\',\'' .
                 $record->getUsuario() . '\')';
@@ -50,11 +51,16 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      * @see \TSLBasicRecordDAO::getFetchQuery()
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
-        $sql = 'select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,activo,xmin as "versionId" from  tb_usuarios c';
+        if ($subOperation == 'fetchJoined') {
+            $sql = $this->_getFecthNormalized();
+        } else {
+            $sql = 'select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,empresa_id,activo,xmin as "versionId" from  tb_usuarios u';
+        }
+
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
-            $sql .= ' where c.activo=TRUE ';
+            $sql .= ' where u.activo=TRUE ';
         }
 
         $where = $constraints->getFilterFieldsAsString();
@@ -86,8 +92,15 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
     protected function getRecordQueryByCode($code, $subOperation = NULL) {
-        return 'select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,activo,xmin as "versionId" from tb_usuarios '
+        if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
+            $sql = $this->_getFecthNormalized();
+            $sql .= ' WHERE usuarios_id = ' . $code;
+        } else {
+            $sql ='select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,empresa_id,activo,xmin as "versionId" from tb_usuarios '
                 . 'where usuarios_id =  ' . $code;
+        }
+
+        return $sql;
     }
 
     /**
@@ -100,9 +113,17 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
                 'usuarios_password=\''.$record->get_usuarios_password(). '\',' .
                 'usuarios_nombre_completo=\''.$record->get_usuarios_nombre_completo(). '\',' .
                 'usuarios_admin=\''.($record->get_usuarios_admin() != TRUE ? '0' : '1') . '\',' .
+                'empresa_id='.$record->get_empresa_id() . ',' .
                 'activo=\'' . ($record->getActivo() != TRUE ? '0' : '1') . '\',' .
                 'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
                 ' where "usuarios_id" = ' . $record->get_usuarios_id() . '  and xmin =' . $record->getVersionId();
+    }
+
+    private function _getFecthNormalized() {
+        $sql = 'select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,'.
+                'u.empresa_id,empresa_razon_social,u.activo,u.xmin as "versionId" from tb_usuarios u '.
+                'inner join tb_empresa e on e.empresa_id=u.empresa_id ';
+        return $sql;
     }
 
     protected function getLastSequenceOrIdentityQuery(\TSLDataModel &$record = NULL) {

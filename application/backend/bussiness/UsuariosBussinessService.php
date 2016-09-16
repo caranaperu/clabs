@@ -32,6 +32,7 @@ class UsuariosBussinessService extends \app\common\bussiness\TSLAppCRUDBussiness
         $model->set_usuarios_code($dto->getParameterValue('usuarios_code'));
         $model->set_usuarios_password($dto->getParameterValue('usuarios_password'));
         $model->set_usuarios_nombre_completo($dto->getParameterValue('usuarios_nombre_completo'));
+        $model->set_empresa_id($dto->getParameterValue('empresa_id'));
         $model->set_usuarios_admin($dto->getParameterValue('usuarios_admin'));
 
         if ($dto->getParameterValue('activo') != NULL) {
@@ -56,6 +57,7 @@ class UsuariosBussinessService extends \app\common\bussiness\TSLAppCRUDBussiness
         $model->set_usuarios_password($dto->getParameterValue('usuarios_password'));
         $model->set_usuarios_nombre_completo($dto->getParameterValue('usuarios_nombre_completo'));
         $model->set_usuarios_admin($dto->getParameterValue('usuarios_admin'));
+        $model->set_empresa_id($dto->getParameterValue('empresa_id'));
 
         $model->setVersionId($dto->getParameterValue('versionId'));
         if ($dto->getParameterValue('activo') != NULL) {

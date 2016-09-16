@@ -17,7 +17,7 @@ isc.RestDataSource.create({
         },
         {name: "entidad_ruc", title: "R.U.C", mask: '###########', required: true,validators: [{type: "lengthRange", min: 11, max : 11}]},
         {name: "entidad_direccion", title: "Direccion", required: true,
-            validators: [{type: "lengthRange", max: 300}]
+            validators: [{type: "lengthRange", max: 200}]
         },
         {name: "entidad_correo", title: "Correo", validators: [{type: "regexp", expression: glb_RE_email},{type: "lengthRange", max: 100}]},
         {name: "entidad_telefonos", title: "Telefonos",validators: [{type: "lengthRange", max: 60}]},

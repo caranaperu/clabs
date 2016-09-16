@@ -165,9 +165,10 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
             '(case when 
                 ins.insumo_tipo = \'PR\' then (select fn_get_producto_costo(pd.insumo_id, now()::date))
               else 
-                  case when tcostos_indirecto = TRUE then producto_detalle_valor
-                    else ins.insumo_costo 
-                  end
+                  --case when tcostos_indirecto = TRUE then producto_detalle_valor
+                   -- else 
+                    ins.insumo_costo 
+                  --end
                end) as producto_detalle_valor,'.
             '(select fn_get_producto_detalle_costo(producto_detalle_id, now()::date)) as producto_detalle_costo,'.
             'producto_detalle_merma,moneda_simbolo,tcostos_indirecto,pd.activo,pd.xmin AS "versionId" ' .

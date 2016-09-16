@@ -46,6 +46,10 @@
     <SCRIPT SRC=./view/usuarios/UsuariosWindow.js></SCRIPT>
     <SCRIPT SRC=./view/usuarios/UsuariosForm.js></SCRIPT>
 
+    <SCRIPT SRC=./model/TipoEmpresaModel.js></SCRIPT>
+    <SCRIPT SRC=./model/EmpresaModel.js></SCRIPT>
+    <SCRIPT SRC=./view/empresas/EmpresaWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/empresas/EmpresaForm.js>
 
     <SCRIPT SRC=./model/UnidadMedidaModel.js></SCRIPT>
     <SCRIPT SRC=./view/unidadmedida/UnidadMedidaWindow.js></SCRIPT>

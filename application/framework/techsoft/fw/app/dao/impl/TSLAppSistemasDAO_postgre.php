@@ -88,14 +88,14 @@ class TSLAppSistemasDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_pos
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id) {
+    protected function getRecordQuery($id, $subOperation = NULL) {
         return NULL;
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code) {
+    protected function getRecordQueryByCode($code, $subOperation = NULL) {
         return NULL;
     }
 

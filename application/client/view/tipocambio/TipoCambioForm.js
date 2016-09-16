@@ -25,7 +25,7 @@ isc.WinTipoCambioForm.addProperties({
             saveButton: this.getFormButton('save'),
             focusInEditFld: 'moneda_codigo_origen',
             addOperation:'readAfterSaveJoined',
-            updateOperation:'readAfterSaveJoined',
+            updateOperation:'readAfterUpdateJoined',
             fields: [
                 {name: "moneda_codigo_origen",  editorType: "comboBoxExt",showPending: true, width: "140",
                     valueField: "moneda_codigo", displayField: "moneda_descripcion",

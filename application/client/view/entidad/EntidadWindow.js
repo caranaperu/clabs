@@ -12,13 +12,13 @@ isc.defineClass("WinEntidadForm", "WindowBasicFormExt");
 isc.WinEntidadForm.addProperties({
     ID: "winEntidadForm",
     title: "Mantenimiento de Datos de la Entidad",
-    width: 670, height: 260,
+    width: 565, height: 260,
     canDragResize: true,
     createForm: function(formMode) {
         return isc.DynamicFormExt.create({
             ID: "formEntidadDocumento",
             numCols: 4,
-            colWidths: ["90", "*"],
+            //colWidths: ["90", "*"],
             fixedColWidths: false,
             padding: 5,
             errorOrientation: "right",
@@ -31,8 +31,8 @@ isc.WinEntidadForm.addProperties({
             focusInEditFld: 'entidad_razon_social',
             //disableValidation: true,
             fields: [
-                {name: "entidad_razon_social", showPending: true, width: "450", length: 200, type: 'text', colSpan: 4},
-                {name: "entidad_direccion", showPending: true, width: "450", length: 200, colSpan: 4},
+                {name: "entidad_razon_social", showPending: true, width: "300", length: 200, type: 'text', colSpan: 4},
+                {name: "entidad_direccion", showPending: true, width: "300", length: 200, colSpan: 4},
                 {name: "entidad_ruc", showPending: true, width: "120", endRow: true, colSpan: 4},
                 {name: "entidad_correo", showPending: true, width: "220", length: 100, colSpan: 4},
                 {name: "entidad_telefonos", showPending: true, width: "240", length: 60},
