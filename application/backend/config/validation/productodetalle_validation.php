@@ -26,6 +26,11 @@ $config['v_productodetalle'] = array(
             'rules' => 'required|integer|xss_clean'
         ),
         array(
+            'field' => 'empresa_id',
+            'label' => 'lang:empresa_id',
+            'rules' => 'required|integer|xss_clean'
+        ),
+        array(
             'field' => 'unidad_medida_codigo',
             'label' => 'lang:unidad_medida_codigo',
             'rules' => 'required|alpha_numeric|xss_clean|max_length[8]'
@@ -77,6 +82,11 @@ $config['v_productodetalle'] = array(
         array(
             'field' => 'insumo_id',
             'label' => 'lang:insumo_id',
+            'rules' => 'required|integer|xss_clean'
+        ),
+        array(
+            'field' => 'empresa_id',
+            'label' => 'lang:empresa_id',
             'rules' => 'required|integer|xss_clean'
         ),
         array(

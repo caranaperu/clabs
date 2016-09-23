@@ -40,7 +40,7 @@ class UnidadMedidaConversionDAO_postgre extends \app\common\dao\TSLAppBasicRecor
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL)
+    protected function getAddRecordQuery(\TSLDataModel &$record)
     {
         /* @var $record  UnidadMedidaConversionModel */
 
@@ -110,17 +110,17 @@ class UnidadMedidaConversionDAO_postgre extends \app\common\dao\TSLAppBasicRecor
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL)
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL)
     {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation);
     }
 
     /**
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL)
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL,$subOperation = NULL)
     {
         if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();

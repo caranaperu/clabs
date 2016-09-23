@@ -3,6 +3,7 @@ isc.defineClass("SystemTreeMenu", "TreeGrid");
 isc.SystemTreeMenu.addProperties({
     ID: "mainMenuTree",
     dataSource: mdl_system_menu,
+    fetchOperation: 'fetchForUser',
     autoFetchData: true,
     loadDataOnDemand: false,
     width: 520,
@@ -12,16 +13,12 @@ isc.SystemTreeMenu.addProperties({
     showDropIcons: true,
     showHeader: false,
     fields: [{name: "menu_descripcion"}], // El campo a pintar en el arbol
-    atletasResultadosGraph: null,
-    recordsGraph: null,
-    recordsNacReport: null,
-    atletasResultadosReport: null,
     _controllersList: {},
     leafClick: function (viewer, leaf, recordNum) {
         if (!this._controllersList[leaf.menu_codigo]) {
             this._controllersList[leaf.menu_codigo] = this._getController(leaf.menu_codigo);
         }
-        if (leaf.menu_codigo === 'smn_entidad') {
+        if (leaf.menu_codigo === 'smn_entidad' ) {
             this._controllersList[leaf.menu_codigo].doSetup(true, null);
         } else {
             this._controllersList[leaf.menu_codigo].doSetup(false, null);
@@ -32,7 +29,7 @@ isc.SystemTreeMenu.addProperties({
 
         if (menuId === 'smn_entidad') {
             controller = isc.DefaultController.create({mainWindowClass: undefined, formWindowClass: 'WinEntidadForm'});
-        } else if (menuId === 'smn_unidadmedida') {
+        }  else if (menuId === 'smn_unidadmedida') {
             controller = isc.DefaultController.create({
                 mainWindowClass: 'WinUnidadMedidaWindow',
                 formWindowClass: 'WinUnidadMedidaForm'

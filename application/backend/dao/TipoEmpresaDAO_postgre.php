@@ -74,15 +74,15 @@ class TipoEmpresaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgr
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation);
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select tipo_empresa_codigo,tipo_empresa_descripcion,activo,' .
                 'xmin as "versionId" from tb_tipo_empresa where "tipo_empresa_codigo" =  \'' . $code . '\'';
     }

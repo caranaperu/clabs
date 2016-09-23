@@ -21,6 +21,7 @@ class ProductoDetalleModel extends \app\common\model\TSLAppCommonBaseModel
     protected $producto_detalle_id;
     protected $insumo_id_origen;
     protected $insumo_id;
+    protected $empresa_id;
     protected $unidad_medida_codigo;
     protected $producto_detalle_cantidad;
     protected $producto_detalle_valor;
@@ -85,6 +86,25 @@ class ProductoDetalleModel extends \app\common\model\TSLAppCommonBaseModel
         return $this->insumo_id;
     }
 
+    /**
+     * Retorna a que empresa pertenece la creacion de este item.
+     *
+     * @return int empresa_id con el id de la empresa asociada a este item.
+     */
+    public function get_empresa_id() {
+        return $this->empresa_id;
+    }
+
+    /**
+     * Setea a que empresa esta asociado este item , hay que indicar
+     * que para un solo producto puede haber diferentes definiciones , segun
+     * sea la empresa por ejemplo importadora , fabrica , distribuidora.
+     *
+     * @param int $empresa_id con el id de la empresa asociada a este item
+     */
+    public function set_empresa_id($empresa_id) {
+        $this->empresa_id = $empresa_id;
+    }
 
     /**
      * Setea el codigo de la unidad de medida en la que se costeara este

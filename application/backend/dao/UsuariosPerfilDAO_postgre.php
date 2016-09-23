@@ -35,7 +35,7 @@ class UsuariosPerfilDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_pos
     /**
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record UsuariosPerfilModel */
         $sql = 'insert into tb_sys_usuario_perfiles (usuarios_id,perfil_id,activo,usuario) values(' .
                 $record->get_usuarios_id() . ',' .
@@ -92,15 +92,15 @@ class UsuariosPerfilDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_pos
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select usuario_perfil_id,usuarios_id,perfil_id,activo,xmin as "versionId" from tb_sys_usuario_perfiles where usuario_perfil_id = ' . $id;
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
-        return $this->getRecordQuery($code, $subOperation);
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL,$subOperation = NULL) {
+        return $this->getRecordQuery($code,$constraints, $subOperation);
     }
 
     /**

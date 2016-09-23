@@ -35,7 +35,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  InsumoModel  */
         return 'insert into tb_insumo (insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,unidad_medida_codigo_ingreso,'.
                 'unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,usuario) values(\'' .
@@ -124,15 +124,15 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints , $subOperation);
     }
 
     /**
      * @see TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();
             $sql .= ' where insumo_id =  \'' . $code . '\'';

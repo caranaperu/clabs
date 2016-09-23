@@ -10,7 +10,7 @@ $lang['msg_usuarios_rec_foreignkey_del'] = 'El Usuario se encuentra usada debera
 $lang['msg_usuarios_rec_inactivo'] = 'El Usuario ya existe , pero esta inactiva';
 $lang['msg_usuarios_rec_duplicatekey'] = 'El usuario ya existe';
 
-$lang['usuarios_-id'] = 'Id del Usuario';
+$lang['usuarios_id'] = 'Id del Usuario';
 $lang['usuarios_code'] = 'Codigo de Usuario';
 $lang['usuarios_password'] = 'Password de Usuario';
 $lang['usuarios_nombre_completo'] = 'Nombres del Usuario';

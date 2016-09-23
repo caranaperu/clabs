@@ -29,6 +29,11 @@ isc.RestDataSource.create({
             required: true
         },
         {
+            name: "empresa_id",
+            foreignKey: "mdl_empresa.empresa_id",
+            required: true
+        },
+        {
             name: "unidad_medida_codigo",
             title: 'U.Medida',
             foreignKey: "mdl_unidadmedida.unidad_medida_codigo",

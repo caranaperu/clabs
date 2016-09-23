@@ -34,7 +34,7 @@ class MonedaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  MonedaModel  */
         return 'insert into tb_moneda (moneda_codigo,moneda_descripcion,moneda_simbolo,'
         . 'activo,usuario) values(\'' .
@@ -75,15 +75,15 @@ class MonedaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints,$subOperation);
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select moneda_codigo,moneda_simbolo,moneda_descripcion,moneda_protected,activo,' .
                 'xmin as "versionId" from tb_moneda where "moneda_codigo" =  \'' . $code . '\'';
     }

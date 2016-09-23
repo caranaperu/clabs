@@ -40,14 +40,15 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL)
+    protected function getAddRecordQuery(\TSLDataModel &$record)
     {
         /* @var $record  ProductoDetalleModel */
 
-        return 'insert into tb_producto_detalle (insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'
+        return 'insert into tb_producto_detalle (insumo_id_origen,insumo_id,empresa_id,unidad_medida_codigo,producto_detalle_cantidad,'
         . 'producto_detalle_valor,producto_detalle_merma,activo,usuario) values(' .
         $record->get_insumo_id_origen() . ',' .
-        $record->get_insumo_id() . ',\'' .
+        $record->get_insumo_id() . ',' .
+        $record->get_empresa_id() . ',\'' .
         $record->get_unidad_medida_codigo() . '\',' .
         $record->get_producto_detalle_cantidad() . ',' .
         $record->get_producto_detalle_valor() . ',' .
@@ -67,7 +68,7 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
         if ($subOperation == 'fetchJoined') {
             $sql = $this->_getFecthNormalized();
         } else {
-            $sql = 'SELECT producto_detalle_id,insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'.
+            $sql = 'SELECT producto_detalle_id,insumo_id_origen,insumo_id,empresa_id,unidad_medida_codigo,producto_detalle_cantidad,'.
                    'producto_detalle_valor,producto_detalle_merma,activo,xmin AS "versionId" ' .
                    'FROM  tb_producto_detalle pd ';
         }
@@ -114,23 +115,23 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL)
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL,$subOperation = NULL)
     {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation);
     }
 
     /**
      * @{inheritdoc}
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL)
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL)
     {
         if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();
             $sql .= ' WHERE producto_detalle_id = ' . $code;
         } else {
-            $sql =  'SELECT producto_detalle_id,insumo_id_origen,insumo_id,unidad_medida_codigo,producto_detalle_cantidad,'.
+            $sql =  'SELECT producto_detalle_id,insumo_id_origen,insumo_id,empresa_id,unidad_medida_codigo,producto_detalle_cantidad,'.
                     'producto_detalle_valor,producto_detalle_merma,activo,xmin AS "versionId" ' .
                     'FROM tb_producto_detalle WHERE producto_detalle_id = ' . $code;
         }
@@ -149,6 +150,7 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
 
         return 'update tb_producto_detalle set insumo_id=' . $record->get_insumo_id() . ',' .
         'insumo_id_origen=' . $record->get_insumo_id_origen() . ',' .
+        'empresa_id=' . $record->get_empresa_id() . ',' .
         'unidad_medida_codigo=\'' . $record->get_unidad_medida_codigo() . '\',' .
         'producto_detalle_cantidad=' . $record->get_producto_detalle_cantidad() . ',' .
         'producto_detalle_valor=' . $record->get_producto_detalle_valor() . ',' .
@@ -160,15 +162,12 @@ class ProductoDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_po
     }
 
     private function _getFecthNormalized() {
-        $sql = 'SELECT producto_detalle_id,insumo_id_origen,pd.insumo_id,insumo_descripcion,pd.unidad_medida_codigo,unidad_medida_descripcion,'.
+        $sql = 'SELECT producto_detalle_id,insumo_id_origen,pd.empresa_id,pd.insumo_id,insumo_descripcion,pd.unidad_medida_codigo,unidad_medida_descripcion,'.
             'producto_detalle_cantidad,'.
             '(case when 
                 ins.insumo_tipo = \'PR\' then (select fn_get_producto_costo(pd.insumo_id, now()::date))
               else 
-                  --case when tcostos_indirecto = TRUE then producto_detalle_valor
-                   -- else 
                     ins.insumo_costo 
-                  --end
                end) as producto_detalle_valor,'.
             '(select fn_get_producto_detalle_costo(producto_detalle_id, now()::date)) as producto_detalle_costo,'.
             'producto_detalle_merma,moneda_simbolo,tcostos_indirecto,pd.activo,pd.xmin AS "versionId" ' .

@@ -46,7 +46,7 @@
 */
 
 $active_group = 'default';
-$active_record = FALSE;
+$active_record = TRUE;
 
 $db['default']['hostname'] = '192.168.1.54';
 $db['default']['username'] = 'clabsuser';

@@ -19,6 +19,10 @@ isc.WinProductoForm.addProperties({
         fieldName: 'insumo_id',
         fieldValue: '',
         mapTo: 'insumo_id_origen'
+    }, {
+        fieldName: 'empresa_id',
+        fieldValue: glb_empresaId,
+        valueInForm: false
     }],
     createForm: function(formMode) {
         return isc.DynamicFormExt.create({
@@ -238,6 +242,11 @@ isc.WinProductoForm.addProperties({
                                 hidden: true
                             },
                             {
+                                name: "empresa_id",
+                                hidden: true,
+                                defaultValue: glb_empresaId
+                            },
+                            {
                                 name: "insumo_id",
                                 editorType: "comboBoxExt",
                                 showPending: true,
@@ -296,12 +305,12 @@ isc.WinProductoForm.addProperties({
                                         if (record.tcostos_indirecto == true) {
                                             form.getItem('unidad_medida_codigo').setValue('NING');
                                             form.getItem('producto_detalle_merma').setValue(0.00);
-                                           // form.getItem('producto_detalle_valor').setCanEdit(true);
+                                            // form.getItem('producto_detalle_valor').setCanEdit(true);
 
                                         } else {
                                             form.getItem('unidad_medida_codigo').setValue(record.unidad_medida_codigo_costo);
                                             form.getItem('producto_detalle_merma').setValue(record.insumo_merma);
-                                           // form.getItem('producto_detalle_valor').setCanEdit(false);
+                                            // form.getItem('producto_detalle_valor').setCanEdit(false);
 
                                         }
                                         form.getItem('moneda_simbolo').setValue(record.moneda_simbolo);
@@ -380,13 +389,13 @@ isc.WinProductoForm.addProperties({
                         setEditMode: function(mode) {
                             this.Super("setEditMode", arguments);
                             if (mode == 'add') {
-                              //  this.getItem('producto_detalle_valor').setCanEdit(false);
+                                //  this.getItem('producto_detalle_valor').setCanEdit(false);
                             }
                         },
                         editSelectedData: function(component) {
                             this.Super("editSelectedData", arguments);
-                          //  var record = component.getSelectedRecord();
-                          //  this.getItem('producto_detalle_valor').setCanEdit(record.tcostos_indirecto);
+                            //  var record = component.getSelectedRecord();
+                            //  this.getItem('producto_detalle_valor').setCanEdit(record.tcostos_indirecto);
 
                         },
                         // Luego de agregarse un item debemos encender el flag _canFetchInsumos a true ya que la siguiente

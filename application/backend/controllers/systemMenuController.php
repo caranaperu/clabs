@@ -26,6 +26,13 @@ class systemMenuController extends app\common\controller\TSLAppDefaultController
             $operationId = $this->input->get_post('_operationId');
             if (isset($operationId) && is_string($operationId)) {
                 $this->DTO->setSubOperationId($operationId);
+
+                // Para el caso de la operacion de menu por usuario pondremos en el filtor
+                // campos de la sesion.
+                if ($operationId == 'fetchForUser') {
+                    $this->DTO->getConstraints()->addFilterField('usuario_id', $this->getUserId());
+                    $this->DTO->getConstraints()->addFilterField('empresa_id', $this->getSessionData('empresa_id'));
+                }
             }
 
             // Ir al Bussiness Object
@@ -51,7 +58,7 @@ class systemMenuController extends app\common\controller\TSLAppDefaultController
      */
     public function index() {
         // Se setea el usuario
-        $this->DTO->setSessionUser($this->getUser());
+        $this->DTO->setSessionUser($this->getUserCode());
 
         // Leera los datos del tipo de contribuyentes por default si no se envia
         // una operacion especifica.

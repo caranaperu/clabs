@@ -35,7 +35,7 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  UsuariosModel  */
         return 'insert into tb_usuarios (usuarios_code,usuarios_password,usuarios_nombre_completo,empresa_id,usuarios_admin,activo,usuario) values(\''.
                 $record->get_usuarios_code() . '\',\'' .
@@ -83,18 +83,25 @@ class UsuariosDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL,$subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation);
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation);
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         if ($subOperation == 'readAfterSaveJoined' || $subOperation == 'readAfterUpdateJoined') {
             $sql = $this->_getFecthNormalized();
             $sql .= ' WHERE usuarios_id = ' . $code;
+        } else if ($subOperation == 'checkLogin') {
+
+            $usuarios_code = $constraints->getFilterField('usuarios_code');
+            $usuarios_password = $constraints->getFilterField('usuarios_password');
+
+            $sql ='select usuarios_id,usuarios_code,usuarios_nombre_completo,usuarios_admin,empresa_id from tb_usuarios '
+                . 'where usuarios_code =  \'' . $usuarios_code . '\' and usuarios_password = \''.$usuarios_password.'\' and activo=true ';
         } else {
             $sql ='select usuarios_id,usuarios_code,usuarios_password,usuarios_nombre_completo,usuarios_admin,empresa_id,activo,xmin as "versionId" from tb_usuarios '
                 . 'where usuarios_id =  ' . $code;

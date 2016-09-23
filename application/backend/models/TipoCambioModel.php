@@ -168,7 +168,7 @@ class TipoCambioModel extends \app\common\model\TSLAppCommonBaseModel
 
     public function &getPKAsArray()
     {
-        $pk['$tipo_cambio_id'] = $this->getId();
+        $pk['tipo_cambio_id'] = $this->getId();
         return $pk;
     }
 

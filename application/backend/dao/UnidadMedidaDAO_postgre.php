@@ -34,7 +34,7 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
     /**
      * @see \TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  UnidadMedidaModel  */
         return 'insert into tb_unidad_medida (unidad_medida_codigo,unidad_medida_descripcion,unidad_medida_siglas,'
         . 'unidad_medida_tipo,unidad_medida_protected,activo,usuario) values(\'' .
@@ -81,15 +81,15 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL,$subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation );
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation );
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_protected,activo,' .
                 'xmin as "versionId" from tb_unidad_medida where "unidad_medida_codigo" =  \'' . $code . '\'';
     }

@@ -16,6 +16,19 @@
 var glb_dataUrl = '/clabs/index.php/';
 
 /**
+ * @cfg {String} glb_mainUrl
+ * Define el directorio base de la aplicacion
+ */
+var glb_mainUrl = '/clabs/'
+
+/**
+ * @cfg {int} glb_empresaId
+ * Define la empresa sobre la que esta logeado el usuario
+ * debe ser seteada al iniciarse el sistema luego del login.
+ */
+var glb_empresaId;
+
+/**
  * @cfg {String} glb_photoUrl
  * Define el directorio base donde se colocan las fotos de los atletas
  */

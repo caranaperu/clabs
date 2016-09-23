@@ -51,7 +51,7 @@ class sistemasController extends app\common\controller\TSLAppDefaultController {
      */
     public function index() {
         // Se setea el usuario
-        $this->DTO->setSessionUser($this->getUser());
+        $this->DTO->setSessionUser($this->getUserCode());
 
         // Leera los datos del tipo de contribuyentes por default si no se envia
         // una operacion especifica.

@@ -35,7 +35,7 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     /**
      * @see TSLBasicRecordDAO::getAddRecordQuery()
      */
-    protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL) {
+    protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  TipoInsumoModel  */
         return 'insert into tb_tinsumo (tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,'
         . 'activo,usuario) values(\'' .
@@ -87,15 +87,15 @@ class TipoInsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     /**
      * @see TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // en este caso el codigo es la llave primaria
-        return $this->getRecordQueryByCode($id, $subOperation );
+        return $this->getRecordQueryByCode($id,$constraints, $subOperation );
     }
 
     /**
      * @see TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select tinsumo_codigo,tinsumo_descripcion,tinsumo_protected,activo,' .
                 'xmin as "versionId" from tb_tinsumo where tinsumo_codigo =  \'' . $code . '\'';
     }
