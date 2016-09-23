@@ -72,14 +72,6 @@ class TSLAppDefaultController extends \TSLBaseController implements \TSLISession
         }
     }
 
-    /**
-     * Por ahora no se implementa nada especial.
-     * @return string con el usuario.
-     */
-    public function getUser() {
-        return 'TESTUSER';
-    }
-
     public function getView() {
         return 'TSLDefaultDataResponseView';
     }
@@ -113,5 +105,85 @@ class TSLAppDefaultController extends \TSLBaseController implements \TSLISession
         $constraintProcessor = \TSLConstraintProcessorLoaderHelper::loadConstraintProcessor($this->getFilterProcessor(), isset($_REQUEST['filterformat']) ? $_REQUEST['filterformat'] : $this->getDefaultFilterType(), isset($_REQUEST['libid']) ? $_REQUEST['libid'] : NULL);
         return $constraintProcessor;
     }
+
+    // De la interface de session \TSLISessionController
+    //
+    //
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserCode() {
+        if ($this->session->userdata('usuario_code') !== FALSE) {
+            return $this->session->userdata('usuario_code');
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserId() {
+        if ($this->session->userdata('usuario_id') !== FALSE) {
+            return $this->session->userdata('usuario_id');
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isLoggedIn() {
+        if ($this->session->userdata('isLoggedIn') !== FALSE) {
+            return $this->session->userdata('isLoggedIn');
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSessionData($name) {
+        return $this->session->userdata($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUserCode($userCode) {
+        $this->session->set_userdata('usuario_code',$userCode);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUserId($userId) {
+        $this->session->set_userdata('usuario_id',$userId);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setLoggedIn($isLoggedIn) {
+        $this->session->set_userdata('isLoggedIn',$isLoggedIn);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSessionData($name, $data) {
+        $this->session->set_userdata($name,$data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unsetSessionData($name) {
+        $this->session->unset_userdata($name);
+    }
+
 
 }

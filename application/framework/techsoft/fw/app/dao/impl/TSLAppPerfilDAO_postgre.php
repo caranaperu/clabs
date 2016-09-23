@@ -145,14 +145,14 @@ class TSLAppPerfilDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select perfil_id,sys_systemcode,perfil_codigo,perfil_descripcion,activo,xmin as "versionId" from tb_sys_perfil where perfil_id =' . $id;
     }
 
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return $this->getRecordQuery($code);
     }
 

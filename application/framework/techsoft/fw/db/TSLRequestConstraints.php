@@ -390,7 +390,7 @@ class TSLRequestConstraints {
      * estos valores son para el SmartClient otras librerias pudieran
      * usar otros casos para lo mismo.
      */
-    public function addFilterField($filterField, $filterValue, $typeFilter) {
+    public function addFilterField($filterField, $filterValue, $typeFilter='exact') {
         if ($this->filterFields == null) {
             $this->filterFields = array();
         }

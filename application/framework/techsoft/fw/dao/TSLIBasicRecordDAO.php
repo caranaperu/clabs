@@ -30,6 +30,8 @@ interface TSLIBasicRecordDAO {
      *
      * @param int $id con el unique id del registro
      * @param \TSLDataModel  $model, repositorio de la respuesta.
+     * @param \TSLRequestConstraints $constraints conteniendo el numero de registros
+     * elementos para el order by , filtro etc de la lista.
      * @param string $subOperation ya que no siempre solo se requerira la lectura del modelo
      * fisico en un get, aqui se puede indicar que sub operacion de lectura deberemos
      * hacer , por ejemplo leer haciendo un join para normalizar datos al cliente.
@@ -42,7 +44,7 @@ interface TSLIBasicRecordDAO {
      *
      * @expectedException \TSLDbException si existe un error no recuperable
      */
-    public function get($id, \TSLDataModel &$model, $subOperation = NULL);
+    public function get($id, \TSLDataModel &$model, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL);
 
     /**
      * Busca basado en un codigo para el caso exista codigo
@@ -50,6 +52,8 @@ interface TSLIBasicRecordDAO {
      * unico y se requiere verificar si el registro existe , en ese caso el id no nos es util.
      *
      * @param mixed $code con el unique id del registro
+     * @param \TSLRequestConstraints $constraints conteniendo el numero de registros
+     * elementos para el order by , filtro etc de la lista.
      * @param \TSLDataModel  $model, repositorio de la respuesta.
      * @param string $subOperation ya que no siempre solo se requerira la lectura del modelo
      * fisico en un get, aqui se puede indicar que sub operacion de lectura deberemos
@@ -63,7 +67,7 @@ interface TSLIBasicRecordDAO {
      *
      * @expectedException \TSLDbException si existe un error no recuperable
      */
-    public function getByCode($code, \TSLDataModel &$model, $subOperation = NULL);
+    public function getByCode($code,\TSLDataModel &$model,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL);
 
     /**
      * Funcion que lee la lista de todos los registros del modelo

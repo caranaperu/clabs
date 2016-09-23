@@ -168,65 +168,78 @@ abstract class TSLAppDefaultCRUDController extends TSLAppDefaultController {
      * etc.
      */
     public function index() {
-        // Algunas librerias envia el texto null en casos de campos sin datos lo ponemos a NULL
-        $paramsFixableToNull = $this->setupOpts["paramsFixableToNull"];
-        if (isset($paramsFixableToNull) && count($paramsFixableToNull) > 0) {
-            foreach ($paramsFixableToNull as $paramFixable) {
-                $this->parseParameters($paramFixable);
-            }
-        }
-        // Si deberian existir parametros o algunos de sus valores deben ser mapeados a otros
-        // procedemos a efectuar dicha accion
-        $paramsFixableToValue = $this->setupOpts["paramsFixableToValue"];
-        if (isset($paramsFixableToValue) && count($paramsFixableToValue) > 0) {
-            foreach ($paramsFixableToValue as $paramToFix=>$paramFixableToValue) {
-                if (isset($paramFixableToValue["isID"]) and $paramFixableToValue["isID"] == TRUE) {
-                    $Id = $this->fixParameter($paramToFix, $paramFixableToValue["valueToFix"], $paramFixableToValue["valueToReplace"]);
-                } else {
-                    $this->fixParameter($paramToFix, $paramFixableToValue["valueToFix"], $paramFixableToValue["valueToReplace"]);
+        if ($this->isLoggedIn() == TRUE) {
+            // Algunas librerias envia el texto null en casos de campos sin datos lo ponemos a NULL
+            $paramsFixableToNull = $this->setupOpts["paramsFixableToNull"];
+            if (isset($paramsFixableToNull) && count($paramsFixableToNull) > 0) {
+                foreach ($paramsFixableToNull as $paramFixable) {
+                    $this->parseParameters($paramFixable);
                 }
             }
-        }
-
-        // Vemos si esta definido el tipo de suboperacion
-        $operationId = $this->input->get_post('_operationId');
-        if (isset($operationId) && is_string($operationId)) {
-            $this->DTO->setSubOperationId($operationId);
-        }
-
-
-        // Se setea el usuario
-        $this->DTO->setSessionUser($this->getUser());
-
-        // Leera los datos del tipo de contribuyentes por default si no se envia
-        // una operacion especifica.
-        $op = $_REQUEST['op'];
-        if (!isset($op) || $op == 'fetch') {
-            // Si la suboperacion es read o no esta definida y se ha definido la pk se busca un registro unico
-            // de lo contrario se busca en forma de resultset
-            if (isset($Id) && ($operationId == 'read' || !isset($operationId) || $operationId === FALSE)) {
-                $this->DTO->setOperation(\TSLIDataTransferObj::OP_READ);
-                $this->executeCrudOperation('read');
-            } else {
-                $this->DTO->setOperation(\TSLIDataTransferObj::OP_FETCH);
-                $this->executeCrudOperation('fetch');
+            // Si deberian existir parametros o algunos de sus valores deben ser mapeados a otros
+            // procedemos a efectuar dicha accion
+            $paramsFixableToValue = $this->setupOpts["paramsFixableToValue"];
+            if (isset($paramsFixableToValue) && count($paramsFixableToValue) > 0) {
+                foreach ($paramsFixableToValue as $paramToFix => $paramFixableToValue) {
+                    if (isset($paramFixableToValue["isID"]) and $paramFixableToValue["isID"] == TRUE) {
+                        $Id = $this->fixParameter($paramToFix, $paramFixableToValue["valueToFix"], $paramFixableToValue["valueToReplace"]);
+                    } else {
+                        $this->fixParameter($paramToFix, $paramFixableToValue["valueToFix"], $paramFixableToValue["valueToReplace"]);
+                    }
+                }
             }
-        } else if ($op == 'upd') {
-            $this->DTO->setOperation(\TSLIDataTransferObj::OP_UPDATE);
-            $this->executeCrudOperation($op);
-        } else if ($op == 'del') {
-            $this->DTO->setOperation(\TSLIDataTransferObj::OP_DELETE);
-            $this->executeCrudOperation($op);
-        } else if ($op == 'add') {
-            $this->DTO->setOperation(\ TSLIDataTransferObj::OP_ADD);
-            $this->executeCrudOperation($op);
+
+            // Vemos si esta definido el tipo de suboperacion
+            $operationId = $this->input->get_post('_operationId');
+            if (isset($operationId) && is_string($operationId)) {
+                $this->DTO->setSubOperationId($operationId);
+            }
+
+
+            // Se setea el usuario
+            $this->DTO->setSessionUser($this->getUserCode());
+
+            // Leera los datos del tipo de contribuyentes por default si no se envia
+            // una operacion especifica.
+            $op = $_REQUEST['op'];
+            if (!isset($op) || $op == 'fetch') {
+                // Si la suboperacion es read o no esta definida y se ha definido la pk se busca un registro unico
+                // de lo contrario se busca en forma de resultset
+                if (isset($Id) && ($operationId == 'read' || !isset($operationId) || $operationId === FALSE)) {
+                    $this->DTO->setOperation(\TSLIDataTransferObj::OP_READ);
+                    $this->executeCrudOperation('read');
+                } else {
+                    $this->DTO->setOperation(\TSLIDataTransferObj::OP_FETCH);
+                    $this->executeCrudOperation('fetch');
+                }
+            } else {
+                if ($op == 'upd') {
+                    $this->DTO->setOperation(\TSLIDataTransferObj::OP_UPDATE);
+                    $this->executeCrudOperation($op);
+                } else {
+                    if ($op == 'del') {
+                        $this->DTO->setOperation(\TSLIDataTransferObj::OP_DELETE);
+                        $this->executeCrudOperation($op);
+                    } else {
+                        if ($op == 'add') {
+                            $this->DTO->setOperation(\ TSLIDataTransferObj::OP_ADD);
+                            $this->executeCrudOperation($op);
+                        } else {
+                            $outMessage = &$this->DTO->getOutMessage();
+                            // TODO: Internacionalizar.
+                            $processError = new \TSLProcessErrorMessage(70000, 'Operacion No Conocida', null);
+                            $outMessage->addProcessError($processError);
+                        }
+                    }
+                }
+            }
         } else {
             $outMessage = &$this->DTO->getOutMessage();
             // TODO: Internacionalizar.
-            $processError = new \TSLProcessErrorMessage(70000, 'Operacion No Conocida', null);
+            $processError = new \TSLProcessErrorMessage(70010, 'No se encuentra logeado al sistema', null);
             $outMessage->addProcessError($processError);
         }
-
+        
         // Envia los resultados a traves del DTO
         //$this->responseProcessor->process($this->DTO);
         $data['data'] = &$this->responseProcessor->process($this->DTO);

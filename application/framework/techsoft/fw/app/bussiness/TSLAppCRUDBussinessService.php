@@ -145,6 +145,9 @@ abstract class TSLAppCRUDBussinessService extends \TSLStandardBussinessService {
     private function read(\TSLIDataTransferObj $dto) {
         $model = &$this->getEmptyModel();
 
+        // Obtengo referencia a los constraints
+        $constraints = &$dto->getConstraints();
+        
         // Leo el id enviado en el DTO
         $id = $dto->getParameterValue('id');
         $verifyExist = $dto->getParameterValue('verifyExist');
@@ -164,7 +167,7 @@ abstract class TSLAppCRUDBussinessService extends \TSLStandardBussinessService {
             $dao = \TSLDAOLoaderHelper::loadDAO($this->IdDAOName);
 
             /* @var $ret CommonBaseModel */
-            $ret = $dao->get($id, $model,$subOperation);
+            $ret = $dao->get($id,$model, $constraints,$subOperation);
 
             if ($ret === DB_ERR_ALLOK) {
                 $outMessage->setSuccess(true);
@@ -371,6 +374,7 @@ abstract class TSLAppCRUDBussinessService extends \TSLStandardBussinessService {
     private function add(\TSLIDataTransferObj $dto) {
         // Obtengo referencia a los constraints
         $constraints = &$dto->getConstraints();
+
         // el modelo
         $model = &$this->getModelToAdd($dto);
 
@@ -389,7 +393,7 @@ abstract class TSLAppCRUDBussinessService extends \TSLStandardBussinessService {
             $dao = \TSLDAOLoaderHelper::loadDAO($this->IdDAOName);
 
             /* @var $ret string */
-            $ret = $dao->add($model, $constraints,$subOperation);
+            $ret = $dao->add($model,$constraints,$subOperation);
 
             $CI = & get_instance();
             if ($ret === DB_ERR_ALLOK) {

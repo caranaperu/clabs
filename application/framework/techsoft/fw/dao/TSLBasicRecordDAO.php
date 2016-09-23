@@ -54,7 +54,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      *
      * @see \shared\dao\defs\ITipoContribuyenteDAO::get()
      */
-    public function get($id, \TSLDataModel &$model, $subOperation = NULL) {
+    public function get($id,\TSLDataModel &$model, \TSLRequestConstraints &$constraints = NULL,$subOperation = NULL) {
         $localTrans = FALSE;
         $ret = DB_ERR_ALLOK;
 
@@ -71,7 +71,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
         if ($ret == DB_ERR_ALLOK) {
             $DB = $tmg->getDB();
 
-            $query = $DB->query($this->getRecordQuery($id, $subOperation));
+            $query = $DB->query($this->getRecordQuery($id,$constraints, $subOperation));
 
             if (!$query) {
                 $ret = DB_ERR_CANTEXECUTE;
@@ -108,7 +108,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      *
      * @see \TSLIBasicRecordDAO::getByCode()
      */
-    public function getByCode($code, \TSLDataModel &$model, $subOperation = NULL) {
+    public function getByCode($code,\TSLDataModel &$model,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         $localTrans = FALSE;
         $ret = DB_ERR_ALLOK;
 
@@ -125,7 +125,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
         if ($ret == DB_ERR_ALLOK) {
             $DB = $tmg->getDB();
 
-            $query = $DB->query($this->getRecordQueryByCode($code, $subOperation));
+            $query = $DB->query($this->getRecordQueryByCode($code,$constraints, $subOperation));
 
             if (!$query) {
                 $ret = DB_ERR_CANTEXECUTE;
@@ -312,7 +312,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                     try {
                         // Aqui leemos de no exister recibiremos DB_ERR_RECORDNOTFOUND
                         // de lo contrario DB_ERR_ALLOK
-                        $ret = $this->get($record->getId(), $record);
+                        $ret = $this->get($record->getId(),$record,$constraints );
                         if ($ret == DB_ERR_ALLOK) {
                             $ret = DB_ERR_RECORD_MODIFIED;
                         }
@@ -328,7 +328,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                     try {
                         // Aqui leemos de no exister recibiremos DB_ERR_RECORDNOTFOUND
                         // de lo contrario DB_ERR_ALLOK
-                        $ret = $this->get($record->getId(), $record, $subOperation );
+                        $ret = $this->get($record->getId(), $record, $constraints,$subOperation );
                     } catch (Exception $ex) {
                         $ret = $ex->getCode();
                     }
@@ -381,7 +381,8 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                 // leyo y el momento que se graba. Aqui se necesita lectura del modelo fisico
                 // por ende no enviamos la sub operacion.
                 if ($uniqueId != NULL) {
-                    $ret = $this->getByCode($uniqueId, $record);
+                    //$constraints = NULL;
+                    $ret = $this->getByCode($uniqueId,$record,$constraints,$subOperation);
                     if ($ret == DB_ERR_ALLOK) {
                         $ret = DB_ERR_RECORDEXIST;
                     }
@@ -401,7 +402,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
 
                 try {
                     // Trata de hacer update.
-                    $query = $DB->query($this->getAddRecordQuery($record, $constraints));
+                    $query = $DB->query($this->getAddRecordQuery($record,$constraints));
                     if (!$query) {
                         if ($this->isDuplicateKeyError($DB->_error_number(), $DB->_error_message()) == TRUE) {
                             $ret = DB_ERR_RECORDEXIST;
@@ -443,7 +444,8 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                         }
                         // Aqui leemos de no exister recibiremos DB_ERR_RECORDNOTFOUND
                         // de lo contrario DB_ERR_ALLOK
-                        $ret = $this->getByCode($uniqueId, $record, $subOperation );
+                        $constaints = NULL;
+                        $ret = $this->getByCode($uniqueId, $record,$constaints, $subOperation );
                     } catch (Exception $ex) {
                         $ret = $ex->getCode();
                     }
@@ -467,6 +469,8 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      * identificado por su id unico.
      *
      * @param mixed $id El identificador unico del registro.
+     * @param \TSLRequestConstraints $constraints conteniendo el numero de registros
+     * elementos para el order by , filtro etc de la lista.
      * @param string $subOperation para el caso que no se requiera la lectura directa del modelo
      * fisico y se requiera por ejemplo joins para normalizar la data a retornar, por default
      * leera el modelo fisico,
@@ -474,7 +478,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      * @return String con el query requerido,
      * @abstract
      */
-    abstract protected function getRecordQuery($id, $subOperation = NULL);
+    abstract protected function getRecordQuery($id, \TSLRequestConstraints &$constraints = NULL,$subOperation = NULL);
 
     /**
      * Debe retornar el string con el query para leer el registro
@@ -482,6 +486,8 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      * que el id no sea la llave de busqueda.
      *
      * @param mixed $id El identificador unico del registro.
+     * @param \TSLRequestConstraints $constraints conteniendo el numero de registros
+     * elementos para el order by , filtro etc de la lista.
      * @param string $subOperation para el caso que no se requiera la lectura directa del modelo
      * fisico y se requiera por ejemplo joins para normalizar la data a retornar, por default
      * leera el modelo fisico,
@@ -489,7 +495,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      * @return String con el query requerido,
      * @abstract
      */
-    abstract protected function getRecordQueryByCode($code, $subOperation = NULL);
+    abstract protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL);
 
     /**
      * Debe retornar el query para recibir todos los registros, si el miembor
@@ -537,13 +543,11 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
      *
      * @param \TSLDataModel $record El modelo de datos que representa al registro
      *  a agregar
-     * @param \TSLRequestConstraints $constraints conteniendo data adicional para agregar
-     * un registro , por ejemplo agregar un registro basado en los datos de otro codigo o cosas asi.
      *
      * @return string Un string con el query requerido.
      * @abstract
      */
-    abstract protected function getAddRecordQuery(\TSLDataModel &$record, \TSLRequestConstraints &$constraints = NULL);
+    abstract protected function getAddRecordQuery(\TSLDataModel &$record);
 
     /**
      * Si el modelo usara una pk o id que es secuencia o identidad

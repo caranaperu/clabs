@@ -141,7 +141,7 @@ class TSLAppPerfilDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDA
     /**
      * @see \TSLBasicRecordDAO::getRecordQuery()
      */
-    protected function getRecordQuery($id, $subOperation = NULL) {
+    protected function getRecordQuery($id,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return 'select perfdet_id,perfil_id,perfdet_accessdef,perfdet_accleer,perfdet_accagregar,perfdet_accactualizar,perfdet_acceliminar,' .
                 'perfdet_accimprimir,activo,xmin as "versionId" from tb_sys_perfil_detalle where perfdet_id =' . $id;
     }
@@ -149,7 +149,7 @@ class TSLAppPerfilDetalleDAO_postgre extends \app\common\dao\TSLAppBasicRecordDA
     /**
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
-    protected function getRecordQueryByCode($code, $subOperation = NULL) {
+    protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         return $this->getRecordQuery($code);
     }
 

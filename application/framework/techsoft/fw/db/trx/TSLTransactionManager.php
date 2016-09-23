@@ -67,10 +67,21 @@ class TSLTransactionManager implements TSLITransactionManager {
     public function init($enableAutoTransactions = TRUE) {
         if ($this->isAlreadyOpened == FALSE) {
             $CI = & get_instance();
-            if (isset($CI->db) and (is_resource($CI->db->conn_id) OR is_object($CI->db->conn_id))) {
+            
+            // Modificacion : 17-09-2016
+            // Dado que la base de datos puede ser abierta por otras librerias ahora se chequea tambien el estado
+            // $this->DB el cual de ser null , asi este abierta la base de datos obligara a cargar la libreria
+            // de base de datos o usar la ya existente.
+            if ($this->DB and isset($CI->db) and (is_resource($CI->db->conn_id) OR is_object($CI->db->conn_id))) {
                 $this->isAlreadyOpened = TRUE;
             } else {
-                $this->DB = $CI->load->database($this->m_idDb, TRUE);
+                if (!$this->DB) {
+                    if (isset($CI->db)) {
+                        $this->DB = $CI->db;
+                    } else {
+                        $this->DB = $CI->load->database($this->m_idDb, TRUE);
+                    }
+                }
                 // Por default modo estricto
                 $this->DB->trans_strict(FALSE);
                 // Conecto ?
