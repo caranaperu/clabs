@@ -728,8 +728,18 @@ isc.DefaultController.addProperties({
                 } else if (type === 'grid') {
                     obj.setEditValue(objId, fieldName, joinKeyFields[i].fieldValue);
                 } else if (type === "form") {
-                    // Aqui el field name es de la forma ,
-                    obj.setJoinKeyFieldValue(i, this._mantForm.getValue(joinKeyFields[i].fieldName));
+                    // Cambio 22/09/2016
+                    // Existen casos en que el valor no puede ser obtenido de la forma ya que es un valor global , de ser
+                    // ese el caso el valor sera tomado directamente del elemento joinKeyField correspondiente.
+                    // Para esto debe estar definido valueInForm en la entrada a joinKeyFields.
+                    // Importante de no estar definido de todas maneras se sacara el valor del campo desde la forma y dicho campo
+                    // debe ser parte de la misma.
+                    if (typeof joinKeyFields[i].valueInForm !== 'undefined' && joinKeyFields[i].valueInForm == false) {
+                        obj.setJoinKeyFieldValue(i, joinKeyFields[i].fieldValue);
+                    } else {
+                        // Aqui el field name es de la forma ,
+                        obj.setJoinKeyFieldValue(i, this._mantForm.getValue(joinKeyFields[i].fieldName));
+                    }
                 } else if (type === "gridForm") {
                     // Aqui el field name es de la forma ,
                     obj.getField(fieldName).setValue(this._mantForm.getValue(joinKeyFields[i].fieldName));
