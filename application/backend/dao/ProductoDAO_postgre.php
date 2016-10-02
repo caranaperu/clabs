@@ -38,8 +38,9 @@ class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      */
     protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  ProductoModel  */
-        return 'insert into tb_insumo (insumo_tipo,insumo_codigo,insumo_descripcion,'.
-                'unidad_medida_codigo_costo,insumo_merma,moneda_codigo_costo,activo,usuario) values(\'' .
+        return 'insert into tb_insumo (empresa_id,insumo_tipo,insumo_codigo,insumo_descripcion,'.
+                'unidad_medida_codigo_costo,insumo_merma,moneda_codigo_costo,activo,usuario) values(' .
+        $record->get_empresa_id() . ',\'' .
         $record->get_insumo_tipo() . '\',\'' .
         $record->get_insumo_codigo() . '\',\'' .
         $record->get_insumo_descripcion() . '\',\'' .
@@ -134,7 +135,7 @@ class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             $sql = $this->_getFecthNormalized();
             $sql .= ' where insumo_id =  \'' . $code . '\'';
         } else {
-            $sql =  'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,'.
+            $sql =  'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,'.
                 'unidad_medida_codigo_costo,insumo_merma,moneda_codigo_costo,activo,' .
                 'xmin as "versionId" from tb_insumo where insumo_id =  \'' . $code . '\'';
         }
@@ -148,7 +149,8 @@ class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     protected function getUpdateRecordQuery(\TSLDataModel &$record) {
         /* @var $record  ProductoModel  */
 
-        return 'update tb_insumo set insumo_tipo=\''.$record->get_insumo_tipo().'\','.
+        return 'update tb_insumo set empresa_id='.$record->get_empresa_id() .',' .
+        'insumo_tipo=\''.$record->get_insumo_tipo().'\','.
         'insumo_codigo=\'' . $record->get_insumo_codigo() . '\','.
         'insumo_descripcion=\'' . $record->get_insumo_descripcion() . '\',' .
         'insumo_merma=' . $record->get_insumo_merma() . ',' .
@@ -160,7 +162,7 @@ class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     }
 
     private function _getFecthNormalized() {
-        $sql = 'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.unidad_medida_codigo_costo,'.
+        $sql = 'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.unidad_medida_codigo_costo,'.
                 'umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,'.
                 'insumo_merma,'.
                  'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else -1.00 end as insumo_costo,'.

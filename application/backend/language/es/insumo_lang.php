@@ -9,6 +9,7 @@ $lang['msg_insumo_rec_foreignkey_add'] = 'Debe existir el tipo de insumo,tipo de
 $lang['msg_insumo_rec_foreignkey_del'] = 'El insumo se encuentra usada';
 $lang['msg_insumo_rec_inactivo'] = 'El insumo ya existe , pero esta inactiva';
 
+$lang['empresa_id'] = 'Id de la empresa';
 $lang['insumo_id'] = 'Id de Insumo';
 $lang['insumo_tipo'] = 'Tipo de Insumo';
 $lang['insumo_codigo'] = 'Codigo de Insumo';

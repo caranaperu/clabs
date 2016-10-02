@@ -12,17 +12,13 @@ isc.defineClass("WinProductoForm", "WindowBasicFormExt");
 isc.WinProductoForm.addProperties({
     ID: "winProductoForm",
     title: "Mantenimiento de Productos",
-    width: 650,
+    width: 700,
     height: 225,
     efficientDetailGrid: false,
     joinKeyFields: [{
         fieldName: 'insumo_id',
         fieldValue: '',
         mapTo: 'insumo_id_origen'
-    }, {
-        fieldName: 'empresa_id',
-        fieldValue: glb_empresaId,
-        valueInForm: false
     }],
     createForm: function(formMode) {
         return isc.DynamicFormExt.create({
@@ -42,6 +38,11 @@ isc.WinProductoForm.addProperties({
                 {
                     name: "insumo_id",
                     hidden: true
+                },
+                {
+                    name: "empresa_id",
+                    hidden: true,
+                    defaultValue: glb_empresaId
                 },
                 {
                     name: "insumo_tipo",
@@ -145,11 +146,15 @@ isc.WinProductoForm.addProperties({
                 groupStartOpen: "all",
                 showGroupSummary: true,
                 showGroupSummaryInHeader: true,
-                width: 615,
+                width: 700,
                 fields: [
                     {
+                        name: "empresa_razon_social",
+                        width: '20%'
+                    },
+                    {
                         name: "insumo_descripcion",
-                        width: '25%'
+                        width: '20%'
                     }, {
                         name: "unidad_medida_descripcion",
                         showGridSummary: false,
@@ -188,9 +193,9 @@ isc.WinProductoForm.addProperties({
                         hidden: true,
                         getGroupTitle: function(groupValue, groupNode, field, fieldName, grid) {
                             if (groupValue == true) {
-                                return 'Indirectos';
+                                return 'Ind';
                             } else {
-                                return 'Directos';
+                                return 'Dir';
                             }
                         }
                     }],
@@ -243,29 +248,32 @@ isc.WinProductoForm.addProperties({
                             },
                             {
                                 name: "empresa_id",
-                                hidden: true,
-                                defaultValue: glb_empresaId
+                                hidden: true
                             },
                             {
                                 name: "insumo_id",
                                 editorType: "comboBoxExt",
                                 showPending: true,
-                                width: 200,
+                                width: 180,
                                 valueField: "insumo_id",
                                 displayField: "insumo_descripcion",
-                                optionDataSource: mdl_insumo,
+                                optionDataSource: mdl_insumo_producto_detalle,
                                 optionOperationId: 'fetchForProductoDetalle',
-                                pickListFields: [{
-                                    name: "insumo_codigo",
-                                    width: '30%'
-                                }, {
-                                    name: "insumo_descripcion",
-                                    width: '70%'
-                                }],
+                                pickListFields: [
+                                    {
+                                        name: "insumo_codigo",
+                                        width: '20%'
+                                    }, {
+                                        name: "insumo_descripcion",
+                                        width: '40%'
+                                    }, {
+                                        name: 'empresa_razon_social',
+                                        width: '40%'
+                                    }],
                                 useClientFiltering: false,
                                 cachePickListResults: false,
                                 filterLocally: false,
-                                pickListWidth: 260,
+                                pickListWidth: 350,
                                 completeOnTab: true,
                                 // Solo es pasado al servidor si no existe cache data all en el modelo
                                 // de lo contrario el sort se hace en el lado cliente.
@@ -302,6 +310,7 @@ isc.WinProductoForm.addProperties({
                                     var record = item.getSelectedRecord();
                                     if (record) {
                                         form.getItem('tcostos_indirecto').setValue(record.tcostos_indirecto);
+                                        form.getItem('empresa_id').setValue(record.empresa_id);
                                         if (record.tcostos_indirecto == true) {
                                             form.getItem('unidad_medida_codigo').setValue('NING');
                                             form.getItem('producto_detalle_merma').setValue(0.00);
@@ -316,6 +325,7 @@ isc.WinProductoForm.addProperties({
                                         form.getItem('moneda_simbolo').setValue(record.moneda_simbolo);
                                         form.getItem('producto_detalle_valor').setValue(record.insumo_costo);
                                     } else {
+                                        form.getItem('empresa_id').setValue(-1);
                                         form.getItem('unidad_medida_codigo').setValue('NING');
                                         form.getItem('producto_detalle_merma').setValue(0.00);
                                         form.getItem('tcostos_indirecto').setValue(false);
@@ -412,21 +422,21 @@ isc.WinProductoForm.addProperties({
                             // y asi mismo pueden introducir observaciones , leemos el registro principal en edicion
                             // para actualizar los datos en la grilla principal y se reflejen los cambios infdirectos
                             // que pueden ocasionarse en las pruebas individuales.
-                            var searchCriteria = {
-                                insumo_id: formProducto.getValue('insumo_id')
-                            };
-                            formProducto.filterData(searchCriteria, function(dsResponse, data, dsRequest) {
-                                if (dsResponse.status === 0) {
-                                    // aprovechamos el mismo ds response pero le cambiamos el tipo de operacion
-                                    // este update caches actualiza tanto la forma como la grilla (ambos comparten
-                                    // el mismo modelo).
-                                    dsResponse.operationType = 'update';
-                                    DataSource.get(mdl_producto).updateCaches(dsResponse);
-                                }
-                            }, {
-                                operationId: 'fetchJoined',
-                                textMatchStyle: 'exact'
-                            });
+                            /*    var searchCriteria = {
+                             insumo_id: formProducto.getValue('insumo_id')
+                             };
+                             formProducto.filterData(searchCriteria, function(dsResponse, data, dsRequest) {
+                             if (dsResponse.status === 0) {
+                             // aprovechamos el mismo ds response pero le cambiamos el tipo de operacion
+                             // este update caches actualiza tanto la forma como la grilla (ambos comparten
+                             // el mismo modelo).
+                             dsResponse.operationType = 'update';
+                             DataSource.get(mdl_producto).updateCaches(dsResponse);
+                             }
+                             }, {
+                             operationId: 'fetchJoined',
+                             textMatchStyle: 'exact'
+                             });*/
 
                         }
                         // , cellBorder: 1

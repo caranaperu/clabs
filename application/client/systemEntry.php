@@ -26,6 +26,7 @@
     <SCRIPT SRC=./isomorphic_lib/controls/ComboBoxExtItem.js></SCRIPT>
     <SCRIPT SRC=./isomorphic_lib/controls/SelectExtItem.js></SCRIPT>
     <SCRIPT SRC=./isomorphic_lib/controls/DetailGridContainer.js></SCRIPT>
+    <SCRIPT SRC=./isomorphic_lib/ds/RestDataSourceExt.js></SCRIPT>
 
 
     <SCRIPT SRC=./app/model/SystemMenuModel.js></SCRIPT>
@@ -79,6 +80,7 @@
     <SCRIPT SRC=./view/tcostos/TipoCostosForm.js></SCRIPT>
 
     <SCRIPT SRC=./model/InsumoModel.js></SCRIPT>
+    <SCRIPT SRC=./model/InsumoProductoDetalleModel.js></SCRIPT>
     <SCRIPT SRC=./view/insumos/InsumoWindow.js></SCRIPT>
     <SCRIPT SRC=./view/insumos/InsumoForm.js></SCRIPT>
 
@@ -87,6 +89,9 @@
     <SCRIPT SRC=./view/productos/ProductoWindow.js></SCRIPT>
     <SCRIPT SRC=./view/productos/ProductoForm.js></SCRIPT>
 
+    <SCRIPT SRC=./model/ReglasModel.js></SCRIPT>
+    <SCRIPT SRC=./view/reglas/ReglasWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/reglas/ReglasForm.js></SCRIPT>
 
 </head>
 <body></body>

@@ -10,6 +10,7 @@
 isc.RestDataSource.create({
     ID: "mdl_empresa",
     dataFormat: "json",
+    disableQueuing: true,
     fields: [
         {name: "empresa_id", title: "id", canEdit: "false", primaryKey: true,required: false},
         {name: "empresa_razon_social", title: "Razon Social", required: true,

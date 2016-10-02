@@ -129,7 +129,12 @@ isc.WinInsumoForm.addProperties({
                     initialSort: [{property: 'moneda_descripcion'}]
                 },
                 {name: "insumo_costo", showPending: true, width: '80'},
-                {name: "tcostos_indirecto", hidden:true}
+                {name: "tcostos_indirecto", hidden:true},
+                {
+                    name: "empresa_id",
+                    hidden: true,
+                    defaultValue: glb_empresaId
+                }
             ]//, cellBorder: 1
         });
     },

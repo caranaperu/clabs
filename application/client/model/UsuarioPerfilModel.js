@@ -44,30 +44,5 @@ isc.RestDataSource.create({
             return true;
         }
 
-    },
-    /**
-     * Dado que cuando se esita en grilla no se pasan todos los valores
-     * y estos se conservan en _oldValues , copiamos todos los
-     * de oldValues a la data a transmitir siempre que oldvalues este
-     * este definida , lo cual sucede solo para el update.
-     */
-    transformRequest: function(dsRequest) {
-        var data = this.Super("transformRequest", arguments);
-        if (dsRequest.operationType == 'add' || dsRequest.operationType == 'update') {
-            //  var data = isc.addProperties({}, dsRequest.data);
-            // Solo para los valores que se encuentran en oldValues de no existir
-            // se deja como esta.
-            for (var fieldName in dsRequest.oldValues) {
-                if (data[fieldName] === undefined) {
-                    data[fieldName] = dsRequest.oldValues[fieldName];
-                }
-                else if (data[fieldName] === null) {
-                    data[fieldName] = '';
-                }
-            }
-            return data;
-        } else {
-            return data;
-        }
     }
 });

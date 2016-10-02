@@ -6,7 +6,9 @@
  * $Author: aranape@gmail.com $
  * $Date: 2015-08-23 18:01:21 -0500 (dom, 23 ago 2015) $
  */
-isc.RestDataSource.create({
+isc.defineClass("RestDataSourceUsuarios", "RestDataSourceExt");
+
+isc.RestDataSourceUsuarios.create({
     ID: "mdl_usuarios",
     dataFormat: "json",
     showPrompt: true,
@@ -30,24 +32,5 @@ isc.RestDataSource.create({
     fetchDataURL: glb_dataUrl + 'usuariosController?op=fetch&libid=SmartClient',
     addDataURL: glb_dataUrl + 'usuariosController?op=add&libid=SmartClient',
     updateDataURL: glb_dataUrl + 'usuariosController?op=upd&libid=SmartClient',
-    removeDataURL: glb_dataUrl + 'usuariosController?op=del&libid=SmartClient',
-    operationBindings: [
-        {operationType: "fetch", dataProtocol: "postParams"},
-        {operationType: "add", dataProtocol: "postParams"},
-        {operationType: "update", dataProtocol: "postParams"},
-        {operationType: "remove", dataProtocol: "postParams"}
-    ],
-    /**
-     * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas
-     * segun la base de datos.
-     */
-    _getBooleanFieldValue: function (value) {
-        //  console.log(value);
-        if (value !== 't' && value !== 'T' && value !== 'Y' && value !== 'y' && value !== 'TRUE' && value !== 'true' && value !== true) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
+    removeDataURL: glb_dataUrl + 'usuariosController?op=del&libid=SmartClient'
 });

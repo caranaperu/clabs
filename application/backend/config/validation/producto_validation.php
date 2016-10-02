@@ -10,6 +10,11 @@ $config['v_producto'] = array(
     ),
     'updProducto' => array(
         array(
+            'field' => 'empresa_id',
+            'label' => 'lang:id',
+            'rules' => 'required|integer|xss_clean'
+        ),
+        array(
             'field' => 'insumo_id',
             'label' => 'lang:insumo_id',
             'rules' => 'required|integer|xss_clean'
@@ -59,6 +64,11 @@ $config['v_producto'] = array(
         )
     ),
     'addProducto' => array(
+        array(
+            'field' => 'empresa_id',
+            'label' => 'lang:id',
+            'rules' => 'required|integer|xss_clean'
+        ),
         array(
             'field' => 'insumo_tipo',
             'label' => 'lang:insumo_tipo',

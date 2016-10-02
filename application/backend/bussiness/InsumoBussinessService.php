@@ -29,6 +29,7 @@ class InsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussinessSe
     protected function &getModelToAdd(\TSLIDataTransferObj $dto) {
         $model = new InsumoModel();
         // Leo el id enviado en el DTO
+        $model->set_empresa_id($dto->getParameterValue('empresa_id'));
         $model->set_insumo_tipo($dto->getParameterValue('insumo_tipo'));
         $model->set_insumo_codigo($dto->getParameterValue('insumo_codigo'));
         $model->set_insumo_descripcion($dto->getParameterValue('insumo_descripcion'));
@@ -54,6 +55,7 @@ class InsumoBussinessService extends \app\common\bussiness\TSLAppCRUDBussinessSe
     protected function &getModelToUpdate(\TSLIDataTransferObj $dto) {
         $model = new InsumoModel();
         // Leo el id enviado en el DTO
+        $model->set_empresa_id($dto->getParameterValue('empresa_id'));
         $model->set_insumo_id($dto->getParameterValue('insumo_id'));
         $model->set_insumo_tipo($dto->getParameterValue('insumo_tipo'));
         $model->set_insumo_codigo($dto->getParameterValue('insumo_codigo'));

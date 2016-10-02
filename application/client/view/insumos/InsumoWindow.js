@@ -21,16 +21,40 @@ isc.WinInsumoWindow.addProperties({
             autoFetchData: true,
             fields: [
                 //{name: "insumo_codigo",width: '10%'},
-                {name: "insumo_descripcion",width: '20%'},
-                {name: "tcostos_descripcion",width: '10%'},
-                {name: "tinsumo_descripcion",width: '12%'},
-                {name: "unidad_medida_descripcion_ingreso",width: '10%'},
-                {name: "insumo_merma",align:'right',width: '8%'},
-                {name: "unidad_medida_descripcion_costo",width: '12%' },
-                {name: "moneda_descripcion",width: '10%'},
-                {name: "insumo_costo",align:'right',width: '8%'}
+                {name: "insumo_descripcion", width: '20%'},
+                {name: "tcostos_descripcion", width: '10%'},
+                {name: "tinsumo_descripcion", width: '12%'},
+                {name: "unidad_medida_descripcion_ingreso", width: '10%'},
+                {
+                    name: "insumo_merma", align: 'right', width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals",
+                        type: 'float'
+                    }
+                },
+                {name: "unidad_medida_descripcion_costo", width: '12%'},
+                {name: "moneda_descripcion", width: '10%'},
+                {
+                    name: "insumo_costo", align: 'right', width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals",
+                        type: 'float'
+                    }
+                }
             ],
-            initialCriteria: {insumo_tipo: 'IN'},
+            initialCriteria: {
+                _constructor: "AdvancedCriteria",
+                operator: "and",
+                criteria: [{
+                    fieldName: 'insumo_tipo',
+                    value: 'IN',
+                    operator: 'equals'
+                }, {
+                    fieldName: 'empresa_id',
+                    value: glb_empresaId,
+                    operator: 'equals'
+                }]
+            },
             canReorderFields: false,
             showFilterEditor: true,
             autoDraw: false,

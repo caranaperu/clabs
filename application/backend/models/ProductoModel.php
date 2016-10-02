@@ -19,6 +19,7 @@ if (!defined('BASEPATH')) {
  *
  */
 class ProductoModel extends \app\common\model\TSLAppCommonBaseModel {
+    protected $empresa_id;
     protected $insumo_id;
     protected $insumo_tipo;
     protected $insumo_codigo;
@@ -28,6 +29,27 @@ class ProductoModel extends \app\common\model\TSLAppCommonBaseModel {
     protected $moneda_codigo_costo;
 
     private static $_INSUMO_TIPO = ['IN', 'PR'];
+
+    /**
+     * Retorna a que empresa pertenece la creacion de este producto.
+     *
+     * @return int empresa_id con el id de la empresa asociada a este producto.
+     */
+    public function get_empresa_id() {
+        return $this->empresa_id;
+    }
+
+    /**
+     * Setea a que empresa esta asociado este producto , hay que indicar
+     * que para un solo producto puede haber diferentes definiciones , segun
+     * sea la empresa por ejemplo importadora , fabrica , distribuidora.
+     *
+     * @param int $empresa_id con el id de la empresa asociada a este producto
+     */
+    public function set_empresa_id($empresa_id) {
+        $this->empresa_id = $empresa_id;
+    }
+
 
     public function set_insumo_id($insumo_id) {
         $this->insumo_id = $insumo_id;

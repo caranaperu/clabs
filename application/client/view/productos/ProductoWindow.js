@@ -20,8 +20,6 @@ isc.WinProductoWindow.addProperties({
             dataSource: mdl_producto,
             autoFetchData: true,
             fields: [
-                //{name: "insumo_tipo",width: '10%',defaultFilterValue: 'PR',filterOperator: 'equals'},
-                //      {name: "insumo_tipo",width: '0'/*,hidden: true*/},
                 {
                     name: "insumo_codigo",
                     width: '10%'
@@ -33,7 +31,10 @@ isc.WinProductoWindow.addProperties({
                 {
                     name: "insumo_merma",
                     align: 'right',
-                    width: '8%'
+                    width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals"
+                    }
                 },
                 {
                     name: "unidad_medida_descripcion_costo",
@@ -46,7 +47,10 @@ isc.WinProductoWindow.addProperties({
                 {
                     name: "insumo_costo",
                     align: 'right',
-                    width: '8%'
+                    width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals"
+                    }
                 }
             ],
             getCellCSSText: function(record, rowNum, colNum) {
@@ -54,9 +58,19 @@ isc.WinProductoWindow.addProperties({
                     return "font-weight:bold; color:red;";
                 }
             },
-            // no usar initialCriteria genera problemas en el filter editor.
-            //  implicitCriteria: {insumo_tipo: 'PR'},
-            initialCriteria: {insumo_tipo: 'PR'},
+            initialCriteria: {
+                _constructor: "AdvancedCriteria",
+                operator: "and",
+                criteria: [{
+                    fieldName: 'insumo_tipo',
+                    value: 'PR',
+                    operator: 'equals'
+                }, {
+                    fieldName: 'empresa_id',
+                    value: glb_empresaId,
+                    operator: 'equals'
+                }]
+            },
             canReorderFields: false,
             showFilterEditor: true,
             autoDraw: false,

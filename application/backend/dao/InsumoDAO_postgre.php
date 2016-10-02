@@ -37,8 +37,9 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
      */
     protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  InsumoModel  */
-        return 'insert into tb_insumo (insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,unidad_medida_codigo_ingreso,'.
-                'unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,usuario) values(\'' .
+        return 'insert into tb_insumo (empresa_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,unidad_medida_codigo_ingreso,'.
+                'unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,usuario) values(' .
+        $record->get_empresa_id() . ',\'' .
         $record->get_insumo_tipo() . '\',\'' .
         $record->get_insumo_codigo() . '\',\'' .
         $record->get_insumo_descripcion() . '\',\'' .
@@ -63,60 +64,86 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
         // Si se esta solicitando la lista de insumos/productos para los posibles valores a
         // seleccionar para un nuevo item extraemos a que producto principal pertenece.
         // Si este valor existe sera usado para filtrar.
+
         if ($subOperation == 'fetchForProductoDetalle') {
             $insumo_id_origen = $constraints->getFilterField('insumo_id_origen');
-            $constraints->removeFilterField('insumo_id_origen');
-        }
+            $insumo_id = $constraints->getFilterField('insumo_id');
 
+            // Chequeamos paginacion
+            $startRow = $constraints->getStartRow();
+            $endRow = $constraints->getEndRow();
 
-        // Si la busqueda permite buscar solo activos e inactivos
-        $sql = $this->_getFecthNormalized();
+            // Si no se indica el id del producto principal se busca el item-insumo basado en el
+            // insumo_id del item.
+            // De lo contrario se buscara todos los insumos/productos posibles segun el tipo de empresa.
+            if (!isset($insumo_id_origen)) {
+                $sql = 'select ins.empresa_id,empresa_razon_social,insumo_id,insumo_tipo,insumo_codigo,'.
+                            'insumo_descripcion,unidad_medida_codigo_costo,insumo_merma,insumo_costo,'.
+                            'moneda_simbolo ,tcostos_indirecto '.
+                        'from  tb_insumo ins '.
+                        'inner join tb_moneda mn on mn.moneda_codigo = ins.moneda_codigo_costo '.
+                        'inner join tb_empresa e on e.empresa_id = ins.empresa_id '.
+                        'inner join tb_tcostos tc on tc.tcostos_codigo = ins.tcostos_codigo '.
+                        'where insumo_id='.$insumo_id;
 
-        if ($this->activeSearchOnly == TRUE) {
-            // Solo activos
-            $sql .= ' where ins."activo"=TRUE ';
-        }
+                if ($endRow > $startRow) {
+                    $sql .= ' LIMIT '.($endRow - $startRow).' OFFSET '.$startRow;
+                }
+            } else {
+                $sql = 'select empresa_id,empresa_razon_social,insumo_id,insumo_tipo,insumo_codigo,'.
+                    'insumo_descripcion,unidad_medida_codigo_costo,insumo_merma,insumo_costo,'.
+                    'moneda_simbolo,tcostos_indirecto ';
 
-        $where = $constraints->getFilterFieldsAsString();
-        if (strlen($where) > 0) {
-            // Mapeamos las virtuales a los campos reales
-            $where = str_replace('"unidad_medida_descripcion_ingreso"', 'umi.unidad_medida_descripcion', $where);
-            $where = str_replace('"unidad_medida_descripcion_costo"', 'umc.unidad_medida_descripcion', $where);
-
-            $sql .= ' and ' . $where;
-        }
-
-        // Para buscar insumos/productos para items se excluyen los que ya estan en otro item del mismo producto
-        // y se excluye el principal.
-        if ($subOperation == 'fetchForProductoDetalle') {
-            if (isset($insumo_id_origen) && strlen($insumo_id_origen) > 0) {
-                $sql .= ' and  ins.insumo_id !=' . $insumo_id_origen;
-                $insumo_id = $constraints->getFilterField('insumo_id');
-                if (!isset($insumo_id)) {
-                    $sql .= ' and  ins.insumo_id not in (select insumo_id from tb_producto_detalle  where insumo_id_origen = '.$insumo_id_origen.')';
+                if ($endRow > $startRow) {
+                    $sql .= 'from sp_get_insumos_for_producto_detalle('.$insumo_id_origen.','.($endRow - $startRow).', '.$startRow.')';
+                } else {
+                    $sql .= 'from sp_get_insumos_for_producto_detalle('.$insumo_id_origen.', null, null)';
                 }
             }
-        }
 
-        if (isset($constraints)) {
-            $orderby = $constraints->getSortFieldsAsString();
-            if ($orderby !== NULL) {
-                $sql .= ' order by ' . $orderby;
+            if (isset($constraints)) {
+                $orderby = $constraints->getSortFieldsAsString();
+                if ($orderby !== NULL) {
+                    $sql .= ' order by ' . $orderby;
+                }
             }
+
+        } else {
+            // Si la busqueda permite buscar solo activos e inactivos
+            $sql = $this->_getFecthNormalized();
+
+            if ($this->activeSearchOnly == TRUE) {
+                // Solo activos
+                $sql .= ' where ins."activo"=TRUE ';
+            }
+
+            $where = $constraints->getFilterFieldsAsString();
+            if (strlen($where) > 0) {
+                // Mapeamos las virtuales a los campos reales
+                $where = str_replace('"unidad_medida_descripcion_ingreso"', 'umi.unidad_medida_descripcion', $where);
+                $where = str_replace('"unidad_medida_descripcion_costo"', 'umc.unidad_medida_descripcion', $where);
+
+                $sql .= ' and '.$where;
+            }
+
+            if (isset($constraints)) {
+                $orderby = $constraints->getSortFieldsAsString();
+                if ($orderby !== NULL) {
+                    $sql .= ' order by '.$orderby;
+                }
+            }
+
+            // Chequeamos paginacion
+            $startRow = $constraints->getStartRow();
+            $endRow = $constraints->getEndRow();
+
+            if ($endRow > $startRow) {
+                $sql .= ' LIMIT '.($endRow - $startRow).' OFFSET '.$startRow;
+            }
+
+
+            $sql = str_replace('like', 'ilike', $sql);
         }
-
-
-
-        // Chequeamos paginacion
-        $startRow = $constraints->getStartRow();
-        $endRow = $constraints->getEndRow();
-
-        if ($endRow > $startRow) {
-            $sql .= ' LIMIT ' . ($endRow - $startRow) . ' OFFSET ' . $startRow;
-        }
-
-
-        $sql = str_replace('like', 'ilike', $sql);
      //   echo $sql;
         return $sql;
     }
@@ -137,7 +164,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             $sql = $this->_getFecthNormalized();
             $sql .= ' where insumo_id =  \'' . $code . '\'';
         } else {
-            $sql =  'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,'.
+            $sql =  'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,'.
                 'unidad_medida_codigo_ingreso,unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,' .
                 'xmin as "versionId" from tb_insumo where insumo_id =  \'' . $code . '\'';
         }
@@ -151,7 +178,8 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     protected function getUpdateRecordQuery(\TSLDataModel &$record) {
         /* @var $record  InsumoModel  */
 
-        return 'update tb_insumo set insumo_tipo=\''.$record->get_insumo_tipo().'\','.
+        return 'update tb_insumo set empresa_id='.$record->get_empresa_id().','.
+        'insumo_tipo=\''.$record->get_insumo_tipo().'\','.
         'insumo_codigo=\'' . $record->get_insumo_codigo() . '\','.
         'insumo_descripcion=\'' . $record->get_insumo_descripcion() . '\',' .
         'tinsumo_codigo=\'' . $record->get_tinsumo_codigo() . '\',' .
@@ -168,7 +196,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     }
 
     private function _getFecthNormalized() {
-        $sql = 'select insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.tinsumo_codigo,ti.tinsumo_descripcion,ins.unidad_medida_codigo_ingreso,ins.unidad_medida_codigo_costo,'.
+        $sql = 'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,ins.tinsumo_codigo,ti.tinsumo_descripcion,ins.unidad_medida_codigo_ingreso,ins.unidad_medida_codigo_costo,'.
                 'umi.unidad_medida_descripcion as unidad_medida_descripcion_ingreso,umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,ins.tcostos_codigo,tcostos_descripcion ,'.
                 'tcostos_indirecto,insumo_merma,'.
                  'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else insumo_costo end as insumo_costo,'.

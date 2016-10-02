@@ -99,6 +99,11 @@ isc.RestDataSource.create({
                 precision: 4
             }]
         },
+        {
+            name: "versionId",
+            type: 'integer',
+            nullReplacementValue: null
+        },
         // Campos join
         {
             name: "insumo_descripcion",
@@ -117,6 +122,10 @@ isc.RestDataSource.create({
                 return mdl_productodetalle._getBooleanFieldValue(v);
             },
             required: true
+        },
+        {
+            name: "empresa_razon_social",
+            title: 'Origen'
         },
     ],
     /**

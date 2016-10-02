@@ -84,6 +84,11 @@ isc.SystemTreeMenu.addProperties({
                 mainWindowClass: 'WinEmpresaWindow',
                 formWindowClass: 'WinEmpresaForm'
             });
+        } else if (menuId === 'smn_reglas') {
+            controller = isc.DefaultController.create({
+                mainWindowClass: 'WinReglasWindow',
+                formWindowClass: 'WinReglasForm'
+            });
         }
 
         return controller;

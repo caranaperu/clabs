@@ -10,6 +10,11 @@ $config['v_insumo'] = array(
     ),
     'updInsumo' => array(
         array(
+            'field' => 'empresa_id',
+            'label' => 'lang:id',
+            'rules' => 'required|integer|xss_clean'
+        ),
+        array(
             'field' => 'insumo_id',
             'label' => 'lang:insumo_id',
             'rules' => 'required|integer|xss_clean'
@@ -83,6 +88,11 @@ $config['v_insumo'] = array(
         )
     ),
     'addInsumo' => array(
+        array(
+            'field' => 'empresa_id',
+            'label' => 'lang:id',
+            'rules' => 'required|integer|xss_clean'
+        ),
         array(
             'field' => 'insumo_tipo',
             'label' => 'lang:insumo_tipo',

@@ -12,7 +12,7 @@ isc.WinTipoCambioWindow.addProperties({
     ID: "winTipoCambioWindow",
     title: "Tipo De Cambio",
     width: 500, height: 400,
-    createGridList: function () {
+    createGridList: function() {
         return isc.ListGrid.create({
             ID: "TipoCambioList",
             alternateRecordStyles: true,
@@ -25,9 +25,9 @@ isc.WinTipoCambioWindow.addProperties({
                     name: "tipo_cambio_fecha_desde", width: '15%',
                     filterEditorProperties: {
                         editorType: 'date',
-                            useTextField: true,
-                            operator: "greaterOrEqual"
-                        }
+                        useTextField: true,
+                        operator: "greaterOrEqual"
+                    }
                 },
                 {
                     name: "tipo_cambio_fecha_hasta", width: '15%',
@@ -37,8 +37,18 @@ isc.WinTipoCambioWindow.addProperties({
                         operator: "lessOrEqual"
                     }
                 },
-                {name: "tipo_cambio_tasa_compra", width: '15%'},
-                {name: "tipo_cambio_tasa_venta", width: '15%'}
+                {
+                    name: "tipo_cambio_tasa_compra", width: '15%',
+                    filterEditorProperties: {
+                        operator: "equals"
+                    }
+                },
+                {
+                    name: "tipo_cambio_tasa_venta", width: '15%',
+                    filterEditorProperties: {
+                        operator: "equals"
+                    }
+                }
             ],
             canReorderFields: false,
             showFilterEditor: true,
@@ -50,7 +60,7 @@ isc.WinTipoCambioWindow.addProperties({
             sortField: 'tipo_cambio_fecha_desde'
         });
     },
-    initWidget: function () {
+    initWidget: function() {
         this.Super("initWidget", arguments);
     }
 });
