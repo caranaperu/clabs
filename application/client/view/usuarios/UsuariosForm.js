@@ -12,7 +12,7 @@ isc.defineClass("WinUsuariosForm", "WindowBasicFormExt");
 isc.WinUsuariosForm.addProperties({
     ID: "winUsuariosForm",
     title: "Mantenimiento de Usuarios",
-    width: 550, height: 245,
+    width: 525, height: 260,
     joinKeyFields: [{fieldName: 'usuarios_id', fieldValue: ''}],
     createForm: function (formMode) {
         return isc.DynamicFormExt.create({
