@@ -20,6 +20,7 @@ $lang['unidad_medida_codigo_ingreso'] = 'Unidad de Ingreso';
 $lang['unidad_medida_codigo_costo'] = 'Unidad de Costo';
 $lang['insumo_merma'] = 'Merma';
 $lang['insumo_costo'] = 'Costo';
+$lang['insumo_precio_mercado'] = 'Precio Mercado';
 $lang['moneda_codigo_costo'] = 'Moneda de Costo';
 $lang['versionId'] = 'Version';
 ?>

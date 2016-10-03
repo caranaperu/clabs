@@ -38,7 +38,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
     protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  InsumoModel  */
         return 'insert into tb_insumo (empresa_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,unidad_medida_codigo_ingreso,'.
-                'unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,usuario) values(' .
+                'unidad_medida_codigo_costo,insumo_merma,insumo_costo,insumo_precio_mercado,moneda_codigo_costo,activo,usuario) values(' .
         $record->get_empresa_id() . ',\'' .
         $record->get_insumo_tipo() . '\',\'' .
         $record->get_insumo_codigo() . '\',\'' .
@@ -48,7 +48,8 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
         $record->get_unidad_medida_codigo_ingreso() . '\',\'' .
         $record->get_unidad_medida_codigo_costo() . '\',' .
         $record->get_insumo_merma() . ',' .
-        $record->get_insumo_costo() . ',\'' .
+        $record->get_insumo_costo() . ',' .
+        $record->get_insumo_precio_mercado() . ',\'' .
         $record->get_moneda_codigo_costo() . '\',\'' .
         $record->getActivo() . '\',\'' .
         $record->getUsuario() . '\')';
@@ -79,7 +80,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             if (!isset($insumo_id_origen)) {
                 $sql = 'select ins.empresa_id,empresa_razon_social,insumo_id,insumo_tipo,insumo_codigo,'.
                             'insumo_descripcion,unidad_medida_codigo_costo,insumo_merma,insumo_costo,'.
-                            'moneda_simbolo ,tcostos_indirecto '.
+                            'insumo_precio_mercado,moneda_simbolo ,tcostos_indirecto '.
                         'from  tb_insumo ins '.
                         'inner join tb_moneda mn on mn.moneda_codigo = ins.moneda_codigo_costo '.
                         'inner join tb_empresa e on e.empresa_id = ins.empresa_id '.
@@ -92,7 +93,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             } else {
                 $sql = 'select empresa_id,empresa_razon_social,insumo_id,insumo_tipo,insumo_codigo,'.
                     'insumo_descripcion,unidad_medida_codigo_costo,insumo_merma,insumo_costo,'.
-                    'moneda_simbolo,tcostos_indirecto ';
+                    'insumo_precio_mercado,moneda_simbolo,tcostos_indirecto ';
 
                 if ($endRow > $startRow) {
                     $sql .= 'from sp_get_insumos_for_producto_detalle('.$insumo_id_origen.','.($endRow - $startRow).', '.$startRow.')';
@@ -165,7 +166,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             $sql .= ' where insumo_id =  \'' . $code . '\'';
         } else {
             $sql =  'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,'.
-                'unidad_medida_codigo_ingreso,unidad_medida_codigo_costo,insumo_merma,insumo_costo,moneda_codigo_costo,activo,' .
+                'unidad_medida_codigo_ingreso,unidad_medida_codigo_costo,insumo_merma,insumo_costo,insumo_precio_mercado,moneda_codigo_costo,activo,' .
                 'xmin as "versionId" from tb_insumo where insumo_id =  \'' . $code . '\'';
         }
         return $sql;
@@ -188,6 +189,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
         'unidad_medida_codigo_costo=\'' . $record->get_unidad_medida_codigo_costo() . '\',' .
         'insumo_merma=' . $record->get_insumo_merma() . ',' .
         'insumo_costo=' . $record->get_insumo_costo() . ',' .
+        'insumo_precio_mercado=' . $record->get_insumo_precio_mercado() . ',' .
         'moneda_codigo_costo=\'' . $record->get_moneda_codigo_costo() . '\',' .
         'activo=\'' . $record->getActivo() . '\',' .
         'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .
@@ -200,7 +202,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
                 'umi.unidad_medida_descripcion as unidad_medida_descripcion_ingreso,umc.unidad_medida_descripcion as unidad_medida_descripcion_costo,ins.tcostos_codigo,tcostos_descripcion ,'.
                 'tcostos_indirecto,insumo_merma,'.
                  'case when insumo_tipo = \'PR\' then (select fn_get_producto_costo(insumo_id, now()::date)) else insumo_costo end as insumo_costo,'.
-                'moneda_codigo_costo,mn.moneda_descripcion,mn.moneda_simbolo,ins.activo,ins.xmin as "versionId" '.
+                'insumo_precio_mercado,moneda_codigo_costo,mn.moneda_descripcion,mn.moneda_simbolo,ins.activo,ins.xmin as "versionId" '.
             'from  tb_insumo ins '.
             'inner join tb_unidad_medida umi on umi.unidad_medida_codigo = ins.unidad_medida_codigo_ingreso '.
             'inner join tb_unidad_medida umc on umc.unidad_medida_codigo = ins.unidad_medida_codigo_costo '.

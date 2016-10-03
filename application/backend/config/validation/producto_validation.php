@@ -39,7 +39,11 @@ $config['v_producto'] = array(
             'label' => 'lang:insumo_merma',
             'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
         ),
-
+        array(
+            'field' => 'insumo_precio_mercado',
+            'label' => 'lang:insumo_precio_mercado',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
+        ),
         array(
             'field' => 'moneda_codigo_costo',
             'label' => 'lang:moneda_codigo_costo',
@@ -93,6 +97,11 @@ $config['v_producto'] = array(
             'field' => 'insumo_merma',
             'label' => 'lang:insumo_merma',
             'rules' => 'required|decimal|greater_than[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'insumo_precio_mercado',
+            'label' => 'lang:insumo_precio_mercado',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
         ),
         array(
             'field' => 'moneda_codigo_costo',

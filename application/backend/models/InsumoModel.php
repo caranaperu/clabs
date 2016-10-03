@@ -22,6 +22,7 @@ class InsumoModel extends ProductoModel {
     protected $tcostos_codigo;
     protected $unidad_medida_codigo_ingreso;
     protected $insumo_costo;
+    protected $insumo_precio_mercado;
 
 
     /**
@@ -95,8 +96,6 @@ class InsumoModel extends ProductoModel {
     public function get_insumo_costo() {
         return $this->insumo_costo;
     }
-    
-
 }
 
 ?>

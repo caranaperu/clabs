@@ -65,6 +65,11 @@ $config['v_insumo'] = array(
             'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
         ),
         array(
+            'field' => 'insumo_precio_mercado',
+            'label' => 'lang:insumo_precio_mercado',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
+        ),
+        array(
             'field' => 'moneda_codigo_costo',
             'label' => 'lang:moneda_codigo_costo',
             'rules' => 'required|alpha_numeric|xss_clean|max_length[8]'
@@ -136,6 +141,11 @@ $config['v_insumo'] = array(
         array(
             'field' => 'insumo_costo',
             'label' => 'lang:insumo_costo',
+            'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
+        ),
+        array(
+            'field' => 'insumo_precio_mercado',
+            'label' => 'lang:insumo_precio_mercado',
             'rules' => 'required|decimal|greater_than_equal[0.00] |xss_clean'
         ),
         array(

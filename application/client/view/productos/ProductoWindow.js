@@ -26,7 +26,7 @@ isc.WinProductoWindow.addProperties({
                 },
                 {
                     name: "insumo_descripcion",
-                    width: '20%'
+                    width: '18%'
                 },
                 {
                     name: "insumo_merma",
@@ -38,7 +38,7 @@ isc.WinProductoWindow.addProperties({
                 },
                 {
                     name: "unidad_medida_descripcion_costo",
-                    width: '12%'
+                    width: '10%'
                 },
                 {
                     name: "moneda_descripcion",
@@ -50,6 +50,13 @@ isc.WinProductoWindow.addProperties({
                     width: '8%',
                     filterEditorProperties: {
                         operator: "equals"
+                    }
+                },
+                {
+                    name: "insumo_precio_mercado", align: 'right', width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals",
+                        type: 'float'
                     }
                 }
             ],

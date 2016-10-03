@@ -13,7 +13,7 @@ isc.WinProductoForm.addProperties({
     ID: "winProductoForm",
     title: "Mantenimiento de Productos",
     width: 700,
-    height: 225,
+    height: 245,
     efficientDetailGrid: false,
     joinKeyFields: [{
         fieldName: 'insumo_id',
@@ -119,6 +119,9 @@ isc.WinProductoForm.addProperties({
                     // Solo es pasado al servidor si no existe cache data all en el modelo
                     // de lo contrario el sort se hace en el lado cliente.
                     initialSort: [{property: 'moneda_descripcion'}]
+                },
+                {name: "insumo_precio_mercado", showPending: true, width: '80',
+                 //   visibleWhen: {tcostos_indirecto: false}
                 }
             ],
             //, cellBorder: 1

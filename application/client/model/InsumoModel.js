@@ -93,6 +93,19 @@ isc.RestDataSourceInsumo.create({
             }]
         },
         {
+            name: "insumo_precio_mercado",
+            title: 'Precio Mercado',
+            required: true,
+            validators: [{
+                type: 'floatRange',
+                min: 0.0000,
+                max: 100000.00
+            }, {
+                type: "floatPrecision",
+                precision: 2
+            }]
+        },
+        {
             name: "moneda_codigo_costo",
             title: 'Moneda Costo',
             foreignKey: "mdl_moneda.moneda_codigo",

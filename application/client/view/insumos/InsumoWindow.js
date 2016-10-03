@@ -11,7 +11,7 @@ isc.defineClass("WinInsumoWindow", "WindowGridListExt");
 isc.WinInsumoWindow.addProperties({
     ID: "winInsumoWindow",
     title: "Insumos",
-    width: 800,
+    width: 840,
     height: 400,
     createGridList: function() {
         return isc.ListGrid.create({
@@ -36,6 +36,13 @@ isc.WinInsumoWindow.addProperties({
                 {name: "moneda_descripcion", width: '10%'},
                 {
                     name: "insumo_costo", align: 'right', width: '8%',
+                    filterEditorProperties: {
+                        operator: "equals",
+                        type: 'float'
+                    }
+                },
+                {
+                    name: "insumo_precio_mercado", align: 'right', width: '8%',
                     filterEditorProperties: {
                         operator: "equals",
                         type: 'float'

@@ -27,6 +27,8 @@ class ProductoModel extends \app\common\model\TSLAppCommonBaseModel {
     protected $unidad_medida_codigo_costo;
     protected $insumo_merma;
     protected $moneda_codigo_costo;
+    protected $insumo_precio_mercado;
+
 
     private static $_INSUMO_TIPO = ['IN', 'PR'];
 
@@ -181,6 +183,25 @@ class ProductoModel extends \app\common\model\TSLAppCommonBaseModel {
      */
     public function get_moneda_codigo_costo() {
         return $this->moneda_codigo_costo;
+    }
+    
+    /**
+     * Retrona el precio de mercado.
+     *
+     * @return double con el precio del mercado.
+     */
+    public function get_insumo_precio_mercado() {
+        return $this->insumo_precio_mercado;
+    }
+
+    /**
+     * Setea el precio de mercado del insumo, esto es basicamente valido
+     * si el insumo es de costo directo.
+     *
+     * @param double $insumo_precio_mercado con el precio de mercado.
+     */
+    public function set_insumo_precio_mercado($insumo_precio_mercado) {
+        $this->insumo_precio_mercado = $insumo_precio_mercado;
     }
 
     public function &getPKAsArray() {

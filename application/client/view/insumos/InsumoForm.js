@@ -71,6 +71,7 @@ isc.WinInsumoForm.addProperties({
                         if (!record || record.tcostos_indirecto == true) {
                             form.getItem('unidad_medida_codigo_ingreso').setValue('NING');
                             form.getItem('insumo_merma').setValue(0);
+                            form.getItem('insumo_precio_mercado').setValue(0);
                         }
                     }
                 },
@@ -129,6 +130,9 @@ isc.WinInsumoForm.addProperties({
                     initialSort: [{property: 'moneda_descripcion'}]
                 },
                 {name: "insumo_costo", showPending: true, width: '80'},
+                {name: "insumo_precio_mercado", showPending: true, width: '80',
+                    visibleWhen: {tcostos_indirecto: false}
+                },
                 {name: "tcostos_indirecto", hidden:true},
                 {
                     name: "empresa_id",
