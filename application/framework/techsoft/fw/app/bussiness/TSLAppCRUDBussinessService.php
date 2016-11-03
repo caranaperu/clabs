@@ -116,7 +116,7 @@ abstract class TSLAppCRUDBussinessService extends \TSLStandardBussinessService {
             /* @var $outMessage TSLOutMessage */
             $outMessage->setSuccess(true);
             $outMessage->setResultData($ret);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             // Coloco la excepcion en el DTO.
             // TODO: Internacionalizar.
             $processError = new \TSLProcessErrorMessage($ex->getCode(), 'Error Interno', $ex);

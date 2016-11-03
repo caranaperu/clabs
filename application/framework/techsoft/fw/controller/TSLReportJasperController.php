@@ -139,7 +139,7 @@ abstract class TSLReportJasperController extends TSLReportController {
             } else {
                 $this->outputError('No se encontro contenido del reporte...');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->outputError($ex->getMessage());
         }
     }

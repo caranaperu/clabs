@@ -155,7 +155,7 @@ abstract class TSLAppDefaultCRUDController extends TSLAppDefaultController {
                 //$service = $this->getBussinessService();
                 $this->getBussinessService()->executeService($operationCode, $this->DTO);
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $outMessage = &$this->DTO->getOutMessage();
             // TODO: Internacionalizar.
             $processError = new TSLProcessErrorMessage($ex->getCode(), 'Error Interno', $ex);

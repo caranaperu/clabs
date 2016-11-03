@@ -316,7 +316,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                         if ($ret == DB_ERR_ALLOK) {
                             $ret = DB_ERR_RECORD_MODIFIED;
                         }
-                    } catch (Exception $ex) {
+                    } catch (\Exception $ex) {
                         $ret = $ex->getCode();
                     }
                 } else {
@@ -329,7 +329,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                         // Aqui leemos de no exister recibiremos DB_ERR_RECORDNOTFOUND
                         // de lo contrario DB_ERR_ALLOK
                         $ret = $this->get($record->getId(), $record, $constraints,$subOperation );
-                    } catch (Exception $ex) {
+                    } catch (\Exception $ex) {
                         $ret = $ex->getCode();
                     }
                 }
@@ -389,7 +389,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                 } else {
                     $ret = DB_ERR_RECORDNOTFOUND;
                 }
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $ret = $ex->getCode();
             }
             // Aqui para el caso exista una excepcion
@@ -414,7 +414,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                         }
                     }
                     unset($query);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     $ret = $ex->getCode();
                 }
 
@@ -446,7 +446,7 @@ abstract class TSLBasicRecordDAO implements TSLIBasicRecordDAO {
                         // de lo contrario DB_ERR_ALLOK
                         $constaints = NULL;
                         $ret = $this->getByCode($uniqueId, $record,$constaints, $subOperation );
-                    } catch (Exception $ex) {
+                    } catch (\Exception $ex) {
                         $ret = $ex->getCode();
                     }
                 }
