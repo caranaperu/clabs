@@ -425,10 +425,12 @@ isc.WindowBasicFormExt.addProperties({
             // Preservamos los valores de fetchMissingValues y autoFetchData
             var fetchMissingValues = item.fetchMissingValues;
             var autoFetchData = item.autoFetchData;
-            //var plCriteria;
 
             item.fetchMissingValues = false;
             item.autoFetchData = false;
+
+            // pickListCriteria puede venir definida
+            var criteriaBackup = isc.clone(item.pickListCriteria);
 
             // Si hay criteria enviada se agrega al picklist criteria.
             if (criteria) {
@@ -458,7 +460,7 @@ isc.WindowBasicFormExt.addProperties({
 
                 // Al terminar el fetch la criteria sera puesta en blanco.
                 if (criteria) {
-                    item.pickListCriteria = {};
+                    item.pickListCriteria = isc.clone(criteriaBackup);
                 }
                 // Restauramos los valores de fetchMissingValues y autoFetchData
                 item.fetchMissingValues = fetchMissingValues;
