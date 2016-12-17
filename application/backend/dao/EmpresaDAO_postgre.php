@@ -63,7 +63,7 @@ class EmpresaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
 
         if ($subOperation == 'fetchJoined') {
             $sql = $this->_getFecthNormalized();
-        } else {
+        }  else {
             // Si la busqueda permite buscar solo activos e inactivos
             $sql = 'select empresa_id,empresa_razon_social,tipo_empresa_codigo,empresa_ruc,empresa_direccion,'.
                 'empresa_telefonos,empresa_fax,empresa_correo,activo,xmin as "versionId" from  tb_empresa ep';

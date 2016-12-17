@@ -36,12 +36,14 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
      */
     protected function getAddRecordQuery(\TSLDataModel &$record) {
         /* @var $record  UnidadMedidaModel  */
+        
         return 'insert into tb_unidad_medida (unidad_medida_codigo,unidad_medida_descripcion,unidad_medida_siglas,'
-        . 'unidad_medida_tipo,unidad_medida_protected,activo,usuario) values(\'' .
+        . 'unidad_medida_tipo,unidad_medida_default,unidad_medida_protected,activo,usuario) values(\'' .
                 $record->get_unidad_medida_codigo() . '\',\'' .
                 $record->get_unidad_medida_descripcion() . '\',\'' .
                 $record->get_unidad_medida_siglas() . '\',\'' .
-                $record->get_unidad_medida_tipo() . '\',\'' .
+                $record->get_unidad_medida_tipo() . '\',' .
+                ($record->get_unidad_medida_default() != TRUE ? '0' : '1') . '::boolean,\'' .
                 $record->get_unidad_medida_protected() . '\',\'' .
                 $record->getActivo() . '\',\'' .
                 $record->getUsuario() . '\')';
@@ -52,7 +54,7 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
      */
     protected function getFetchQuery(\TSLDataModel &$record = NULL, \TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
         // Si la busqueda permite buscar solo activos e inactivos
-        $sql = 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_protected,activo,xmin as "versionId" from  tb_unidad_medida ';
+        $sql = 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_default,unidad_medida_protected,activo,xmin as "versionId" from  tb_unidad_medida ';
 
         if ($this->activeSearchOnly == TRUE) {
             // Solo activos
@@ -90,7 +92,7 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
      * @see \TSLBasicRecordDAO::getRecordQueryByCode()
      */
     protected function getRecordQueryByCode($code,\TSLRequestConstraints &$constraints = NULL, $subOperation = NULL) {
-        return 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_protected,activo,' .
+        return 'select unidad_medida_codigo,unidad_medida_siglas,unidad_medida_descripcion,unidad_medida_tipo,unidad_medida_default,unidad_medida_protected,activo,' .
                 'xmin as "versionId" from tb_unidad_medida where "unidad_medida_codigo" =  \'' . $code . '\'';
     }
 
@@ -104,6 +106,7 @@ class UnidadMedidaDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postg
                 'unidad_medida_descripcion=\'' . $record->get_unidad_medida_descripcion() . '\',' .
                 'unidad_medida_siglas=\'' . $record->get_unidad_medida_siglas() . '\',' .
                 'unidad_medida_tipo=\'' . $record->get_unidad_medida_tipo(). '\',' .
+                'unidad_medida_default=\'' . ($record->get_unidad_medida_default() != TRUE ? '0' : '1') . '\'::boolean,' .
                 'unidad_medida_protected=\'' . $record->get_unidad_medida_protected(). '\',' .
                 'activo=\'' . $record->getActivo() . '\',' .
                 'usuario_mod=\'' . $record->get_Usuario_mod() . '\'' .

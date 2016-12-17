@@ -93,6 +93,22 @@
     <SCRIPT SRC=./view/reglas/ReglasWindow.js></SCRIPT>
     <SCRIPT SRC=./view/reglas/ReglasForm.js></SCRIPT>
 
+    <SCRIPT SRC=./model/TipoClienteModel.js></SCRIPT>
+    <SCRIPT SRC=./view/tcliente/TipoClienteWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/tcliente/TipoClienteForm.js></SCRIPT>
+
+    <SCRIPT SRC=./model/ClienteModel.js></SCRIPT>
+    <SCRIPT SRC=./view/cliente/ClienteWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/cliente/ClienteForm.js></SCRIPT>
+
+    <SCRIPT SRC=./model/CotizacionModel.js></SCRIPT>
+    <SCRIPT SRC=./model/CotizacionDetalleModel.js></SCRIPT>
+    <SCRIPT SRC=./model/ClienteCotizacionModel.js></SCRIPT>
+    <SCRIPT SRC=./model/ProductoCotizacionDetalleModel.js></SCRIPT>
+
+    <SCRIPT SRC=./view/cotizacion/CotizacionWindow.js></SCRIPT>
+    <SCRIPT SRC=./view/cotizacion/CotizacionForm.js></SCRIPT>
+
 </head>
 <body></body>
 <SCRIPT>

@@ -278,9 +278,6 @@ isc.WinProductoForm.addProperties({
                                 filterLocally: false,
                                 pickListWidth: 350,
                                 completeOnTab: true,
-                                // Solo es pasado al servidor si no existe cache data all en el modelo
-                                // de lo contrario el sort se hace en el lado cliente.
-                                initialSort: [{property: 'insumo_descripcion'}],
                                 pickListProperties: {
                                     getCellCSSText: function(record, rowNum, colNum) {
                                         if (record.insumo_tipo === 'IN') {

@@ -21,9 +21,9 @@ class TipoEmpresaModel extends \app\common\model\TSLAppCommonBaseModel
     protected $tipo_empresa_descripcion;
 
     /**
-     * Setea el codigo de la monedas
+     * Setea el codigo del tipo de empresa
      *
-     * @param string $tipo_empresa_codigo codigo unico de la monedas
+     * @param string $tipo_empresa_codigo codigo unico del tipo de empresa
      */
     public function set_tipo_empresa_codigo($tipo_empresa_codigo)
     {
@@ -32,7 +32,7 @@ class TipoEmpresaModel extends \app\common\model\TSLAppCommonBaseModel
     }
 
     /**
-     * @return string retorna el codigo unico de la monedas
+     * @return string retorna el codigo unico del tipo de empresa.
      */
     public function get_tipo_empresa_codigo()
     {
@@ -40,9 +40,9 @@ class TipoEmpresaModel extends \app\common\model\TSLAppCommonBaseModel
     }
 
     /**
-     * Setea la descrpcion de la monedas
+     * Setea la descrpcion del tipo de moneda.
      *
-     * @param string $tipo_empresa_descripcionla descrpcion de la monedas
+     * @param string $tipo_empresa_descripcion la descrpcion del tipo de empresa.
      */
     public function set_tipo_empresa_descripcion($tipo_empresa_descripcion)
     {
@@ -51,7 +51,7 @@ class TipoEmpresaModel extends \app\common\model\TSLAppCommonBaseModel
 
     /**
      *
-     * @return string la descripcion de la monedas
+     * @return string la descripcion del tipo de empresa.
      */
     public function get_tipo_empresa_descripcion()
     {

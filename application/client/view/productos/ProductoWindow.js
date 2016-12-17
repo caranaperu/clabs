@@ -48,9 +48,7 @@ isc.WinProductoWindow.addProperties({
                     name: "insumo_costo",
                     align: 'right',
                     width: '8%',
-                    filterEditorProperties: {
-                        operator: "equals"
-                    }
+                    filterOperator: "equals"
                 },
                 {
                     name: "insumo_precio_mercado", align: 'right', width: '8%',

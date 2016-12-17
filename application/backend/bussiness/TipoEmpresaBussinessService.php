@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 /**
- * Objeto de Negocios que manipula las acciones directas a las monedas
+ * Objeto de Negocios que manipula las acciones directas a los tipos de empresas.
  *  tales como listar , agregar , eliminar , etc.
  *
  * @author $Author: aranape $
@@ -30,8 +30,8 @@ class TipoEmpresaBussinessService extends \app\common\bussiness\TSLAppCRUDBussin
     protected function &getModelToAdd(\TSLIDataTransferObj $dto) {
         $model = new TipoEmpresaModel();
         // Leo el id enviado en el DTO
-        $model->set_tipo_empresa_codigo($dto->getParameterValue('empresa_codigo'));
-        $model->set_tipo_empresa_descripcion($dto->getParameterValue('empresa_descripcion'));
+        $model->set_tipo_empresa_codigo($dto->getParameterValue('tipo_empresa_codigo'));
+        $model->set_tipo_empresa_descripcion($dto->getParameterValue('tipo_empresa_descripcion'));
 
         if ($dto->getParameterValue('activo') != NULL)
             $model->setActivo($dto->getParameterValue('activo'));
@@ -48,8 +48,8 @@ class TipoEmpresaBussinessService extends \app\common\bussiness\TSLAppCRUDBussin
     protected function &getModelToUpdate(\TSLIDataTransferObj $dto) {
         $model = new TipoEmpresaModel();
         // Leo el id enviado en el DTO
-        $model->set_tipo_empresa_codigo($dto->getParameterValue('empresa_codigo'));
-        $model->set_tipo_empresa_descripcion($dto->getParameterValue('empresa_descripcion'));
+        $model->set_tipo_empresa_codigo($dto->getParameterValue('tipo_empresa_codigo'));
+        $model->set_tipo_empresa_descripcion($dto->getParameterValue('tipo_empresa_descripcion'));
         $model->setVersionId($dto->getParameterValue('versionId'));
 
         if ($dto->getParameterValue('activo') != NULL)
@@ -74,7 +74,7 @@ class TipoEmpresaBussinessService extends \app\common\bussiness\TSLAppCRUDBussin
      */
     protected function &getModelToDelete(\TSLIDataTransferObj $dto) {
         $model = new TipoEmpresaModel();
-        $model->set_tipo_empresa_codigo($dto->getParameterValue('empresa_codigo'));
+        $model->set_tipo_empresa_codigo($dto->getParameterValue('tipo_empresa_codigo'));
         $model->setVersionId($dto->getParameterValue('versionId'));
         $model->set_Usuario_mod($dto->getSessionUser());
 

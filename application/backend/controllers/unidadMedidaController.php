@@ -37,9 +37,9 @@ class unidadMedidaController extends app\common\controller\TSLAppDefaultCRUDCont
             "paramsList" => [
                 "fetch" => [],
                 "read" => ['unidad_medida_codigo', 'verifyExist'],
-                "add" => ['unidad_medida_codigo','unidad_medida_siglas', 'unidad_medida_descripcion', 'unidad_medida_tipo','unidad_medida_protected', 'activo'],
+                "add" => ['unidad_medida_codigo','unidad_medida_siglas', 'unidad_medida_descripcion', 'unidad_medida_tipo','unidad_medida_default','unidad_medida_protected', 'activo'],
                 "del" => ['unidad_medida_codigo', 'versionId'],
-                "upd" => ['unidad_medida_codigo', 'unidad_medida_siglas','unidad_medida_descripcion', 'unidad_medida_tipo','unidad_medida_protected','versionId', 'activo'],
+                "upd" => ['unidad_medida_codigo', 'unidad_medida_siglas','unidad_medida_descripcion', 'unidad_medida_tipo','unidad_medida_default','unidad_medida_protected','versionId', 'activo'],
             ],
             "paramsFixableToNull" => ['unidad_medida_'],
             "paramsFixableToValue" => ["unidad_medida_codigo" => ["valueToFix" => 'null', "valueToReplace" => NULL, "isID" => true]],

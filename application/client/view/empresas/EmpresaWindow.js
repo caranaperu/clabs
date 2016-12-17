@@ -45,7 +45,7 @@ isc.WinEmpresaWindow.addProperties({
             canMultiSort: false,
             autoSize: true,
             AutoFitWidthApproach: 'both',
-            sortField: 'moneda_descripcion'
+            sortField: 'empresa_razon_social'
         });
     },
     initWidget: function() {

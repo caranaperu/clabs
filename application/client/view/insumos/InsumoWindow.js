@@ -18,6 +18,7 @@ isc.WinInsumoWindow.addProperties({
             ID: "InsumoList",
             alternateRecordStyles: true,
             dataSource: mdl_insumo,
+            fetchOperation: 'fetchJoined',
             autoFetchData: true,
             fields: [
                 //{name: "insumo_codigo",width: '10%'},

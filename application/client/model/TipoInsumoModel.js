@@ -9,7 +9,7 @@
 isc.RestDataSource.create({
     ID: "mdl_tinsumo",
     dataFormat: "json",
-    cacheAllData: true, // Son datos pequeños hay que evitar releer
+   // cacheAllData: true, // Son datos pequeños hay que evitar releer
     fields: [
         {name: "tinsumo_codigo", title: "Codigo", primaryKey: "true", required: true},
         {name: "tinsumo_descripcion", title: "Descripcion", required: true,

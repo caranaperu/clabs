@@ -89,6 +89,21 @@ isc.SystemTreeMenu.addProperties({
                 mainWindowClass: 'WinReglasWindow',
                 formWindowClass: 'WinReglasForm'
             });
+        } else if (menuId === 'smn_cotizacion') {
+            controller = isc.DefaultController.create({
+                mainWindowClass: 'WinCotizacionWindow',
+                formWindowClass: 'WinCotizacionForm'
+            });
+        } else if (menuId === 'smn_tcliente') {
+            controller = isc.DefaultController.create({
+                mainWindowClass: 'WinTipoClienteWindow',
+                formWindowClass: 'WinTipoClienteForm'
+            });
+        } else if (menuId === 'smn_clientes') {
+            controller = isc.DefaultController.create({
+                mainWindowClass: 'WinClienteWindow',
+                formWindowClass: 'WinClienteForm'
+            });
         }
 
         return controller;

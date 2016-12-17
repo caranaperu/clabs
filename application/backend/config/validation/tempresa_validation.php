@@ -1,14 +1,14 @@
 <?php
 
-$config['vtipo_empresa_'] = array(
-    'getTipoEmprersa' => array(
+$config['vtipo_empresa'] = array(
+    'getTipoEmpresa' => array(
         array(
             'field' => 'tipo_empresa_codigo',
             'label' => 'lang:tipo_empresa_codigo',
             'rules' => 'required|alpha|xss_clean||max_length[3]'
         )
     ),
-    'updTipoEmprersa' => array(
+    'updTipoEmpresa' => array(
         array(
             'field' => 'tipo_empresa_codigo',
             'label' => 'lang:tipo_empresa_codigo',
@@ -25,7 +25,7 @@ $config['vtipo_empresa_'] = array(
             'rules' => 'required|integer|xss_clean'
         )
     ),
-    'delTipoEmprersa' => array(
+    'delTipoEmpresa' => array(
         array(
             'field' => 'tipo_empresa_codigo',
             'label' => 'lang:tipo_empresa_codigo',
@@ -37,7 +37,7 @@ $config['vtipo_empresa_'] = array(
             'rules' => 'required|integer|xss_clean'
         )
     ),
-    'addTipoEmprersa' => array(
+    'addTipoEmpresa' => array(
         array(
             'field' => 'tipo_empresa_codigo',
             'label' => 'lang:tipo_empresa_codigo',

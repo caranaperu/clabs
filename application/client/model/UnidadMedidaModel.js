@@ -17,8 +17,10 @@ isc.RestDataSource.create({
         {name: "unidad_medida_protected", title: '', type: 'boolean', getFieldValue: function(r, v, f, fn) {
                 return mdl_unidadmedida._getBooleanFieldValue(v);
             }, required: true},
-        {name: "unidad_medida_tipo", title: "Tipo", valueMap: {"P":"Peso", "V":"Volumen", "L":"Longitud"}, required: true}
-
+        {name: "unidad_medida_tipo", title: "Tipo", valueMap: {"P":"Peso", "V":"Volumen", "L":"Longitud","T":"Tiempo"}, required: true},
+        {name: "unidad_medida_default", title: 'Default', type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_unidadmedida._getBooleanFieldValue(v);
+        }, required: true},
     ],
     /**
      * Normalizador de valores booleanos ya que el backend pude devolver de diversas formas

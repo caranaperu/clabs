@@ -22,7 +22,8 @@ class UnidadMedidaModel extends \app\common\model\TSLAppCommonBaseModel
     protected $unidad_medida_descripcion;
     protected $unidad_medida_tipo;
     protected $unidad_medida_protected;
-    private static $_UM_TIPO = array('P', 'V', 'L');
+    protected $unidad_medida_default;
+    private static $_UM_TIPO = array('P', 'V', 'L', 'T');
 
     /**
      * Setea el codigo de la unidad de medida
@@ -135,6 +136,37 @@ class UnidadMedidaModel extends \app\common\model\TSLAppCommonBaseModel
         $this->unidad_medida_protected = $unidad_medida_protected;
     }
 
+    /**
+     * Setea si esta unidad de medida sera usada como default de conversion cuando
+     * se requiera saber todos los componentes de un producto y alguno exista mas de una
+     * vez con diferente unidad de medida (del mismo tipo).
+     *
+     * @param boolean $unidad_medida_default true /  false.
+     */
+    public function set_unidad_medida_default($unidad_medida_default) {
+        // $this->unidad_medida_default = $unidad_medida_default;
+        if ($unidad_medida_default !== 'true' && $unidad_medida_default !== 'TRUE' &&
+            $unidad_medida_default !== TRUE && $unidad_medida_default != 't' &&
+            $unidad_medida_default != 'T' && $unidad_medida_default != '1') {
+            $this->unidad_medida_default = false;
+        } else {
+            $this->unidad_medida_default = true;
+        }
+    }
+
+    /**
+     * Retorna si esta unidad de medida es la default de conversion.
+     *
+     *
+     * @return boolean true / true.
+     */
+    public function get_unidad_medida_default() {
+        if (!isset($this->unidad_medida_default)) {
+            return false;
+        }
+        return $this->unidad_medida_default;
+    }
+    
     public function &getPKAsArray()
     {
         $pk['unidad_medida_codigo'] = $this->getId();

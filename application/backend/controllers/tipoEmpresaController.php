@@ -28,10 +28,10 @@ class tipoEmpresaController extends app\common\controller\TSLAppDefaultCRUDContr
         $this->setupOpts = [
             "validateOptions" => [
                 "fetch" => [],
-                "read" => ["langId" => 'moneda', "validationId" => 'tempresa_validation', "validationGroupId" => 'v_moneda', "validationRulesId" => 'getTipoEmprersa'],
-                "add" => ["langId" => 'moneda', "validationId" => 'tempresa_validation', "validationGroupId" => 'v_moneda', "validationRulesId" => 'addTipoEmprersa'],
-                "del" => ["langId" => 'moneda', "validationId" => 'tempresa_validation', "validationGroupId" => 'v_moneda', "validationRulesId" => 'delTipoEmprersa'],
-                "upd" => ["langId" => 'moneda', "validationId" => 'tempresa_validation', "validationGroupId" => 'v_moneda', "validationRulesId" => 'updTipoEmprersa']
+                "read" => ["langId" => 'tempresa', "validationId" => 'tempresa_validation', "validationGroupId" => 'vtipo_empresa', "validationRulesId" => 'getTipoEmprersa'],
+                "add" => ["langId" => 'tempresa', "validationId" => 'tempresa_validation', "validationGroupId" => 'vtipo_empresa', "validationRulesId" => 'addTipoEmprersa'],
+                "del" => ["langId" => 'tempresa', "validationId" => 'tempresa_validation', "validationGroupId" => 'vtipo_empresa', "validationRulesId" => 'delTipoEmprersa'],
+                "upd" => ["langId" => 'tempresa', "validationId" => 'tempresa_validation', "validationGroupId" => 'vtipo_empresa', "validationRulesId" => 'updTipoEmprersa']
             ],
             "paramsList" => [
                 "fetch" => [],

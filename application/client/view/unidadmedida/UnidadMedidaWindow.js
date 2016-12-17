@@ -11,7 +11,7 @@ isc.defineClass("WinUnidadMedidaWindow", "WindowGridListExt");
 isc.WinUnidadMedidaWindow.addProperties({
     ID: "winUnidadMedidaWindow",
     title: "Unidades de Medida",
-    width: 500, height: 400,
+    width: 520, height: 400,
     createGridList: function() {
         return isc.ListGrid.create({
             ID: "UnidadMedidaList",
@@ -19,10 +19,11 @@ isc.WinUnidadMedidaWindow.addProperties({
             dataSource: mdl_unidadmedida,
             autoFetchData: true,
             fields: [
-                {name: "unidad_medida_codigo", title: "Codigo", width: '15%'},
-                {name: "unidad_medida_siglas", title: "Siglas", width: '20%'},
-                {name: "unidad_medida_descripcion", title: "Nombre", width: '50%'},
-                {name: "unidad_medida_tipo", title: "Tipo", width: '15%'}
+                {name: "unidad_medida_codigo",  width: '15%'},
+                {name: "unidad_medida_siglas",  width: '20%'},
+                {name: "unidad_medida_descripcion", width: '45%'},
+                {name: "unidad_medida_tipo", width: '10%'},
+                {name: "unidad_medida_default", width: '10%'}
             ],
             canReorderFields: false,
             showFilterEditor: true,

@@ -15,6 +15,7 @@ $lang['unidad_medida_codigo'] = 'Codigo de Unidad de Medida';
 $lang['unidad_medida_descripcion'] = 'Descripcion';
 $lang['unidad_medida_siglas'] = 'Siglas';
 $lang['unidad_medida_tipo'] = 'Tipo';
+$lang['unidad_medida_default'] = 'Default';
 $lang['unidad_medida_protected'] = 'Flag de protegido';
 $lang['versionId'] = 'Version';
 ?>

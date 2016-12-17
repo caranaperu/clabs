@@ -1,6 +1,6 @@
 /**
  * Definicion del modelo para los insumos/productos que pueden seleccionarse como
- * componentes de un principal.
+ * componentes de un principal en una formulacion de producto.
  *
  * Solo se acepta querys no se graba a traves de este modelo.
  *

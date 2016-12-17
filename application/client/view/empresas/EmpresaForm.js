@@ -21,7 +21,6 @@ isc.WinEmpresaForm.addProperties({
             fixedColWidths: false,
             padding: 5,
             errorOrientation: "right",
-            validateOnExit: true,
             dataSource: mdl_empresa,
             autoFocus: true,
             formMode: 'edit', // parametro de inicializacion

@@ -62,60 +62,78 @@ class ProductoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
         // Si se esta solicitando la lista de insumos/productos para los posibles valores a
         // seleccionar para un nuevo item extraemos a que producto principal pertenece.
         // Si este valor existe sera usado para filtrar.
-        if ($subOperation == 'fetchForProductoDetalle') {
-            $insumo_id_origen = $constraints->getFilterField('insumo_id_origen');
-            $constraints->removeFilterField('insumo_id_origen');
-        }
+        if ($subOperation == 'fetchForCotizacionDetalle') {
+            $insumo_id = $constraints->getFilterField('insumo_id');
+            $insumo_descripcion = $constraints->getFilterField('insumo_descripcion');
+            $cotizacion_id = $constraints->getFilterField('cotizacion_id');
 
+            $constraints->removeFilterField('cotizacion_id');
+            $constraints->removeFilterField('insumo_id');
+            $constraints->removeFilterField('insumo_descripcion');
 
-        // Si la busqueda permite buscar solo activos e inactivos
-        $sql = $this->_getFecthNormalized();
+            // Chequeamos paginacion
+            $startRow = $constraints->getStartRow();
+            $endRow = $constraints->getEndRow();
 
-        if ($this->activeSearchOnly == TRUE) {
-            // Solo activos
-            $sql .= ' where ins."activo"=TRUE ';
-        }
-
-        $where = $constraints->getFilterFieldsAsString();
-        if (strlen($where) > 0) {
-            // Mapeamos las virtuales a los campos reales
-            $where = str_replace('"unidad_medida_descripcion_ingreso"', 'umi.unidad_medida_descripcion', $where);
-            $where = str_replace('"unidad_medida_descripcion_costo"', 'umc.unidad_medida_descripcion', $where);
-
-            $sql .= ' and ' . $where;
-        }
-
-        // Para buscar insumos/productos para items se excluyen los que ya estan en otro item del mismo producto
-        // y se excluye el principal.
-        if ($subOperation == 'fetchForProductoDetalle') {
-            if (isset($insumo_id_origen) && strlen($insumo_id_origen) > 0) {
-                $sql .= ' and  ins.insumo_id !=' . $insumo_id_origen;
-                $insumo_id = $constraints->getFilterField('insumo_id');
-                if (!isset($insumo_id)) {
-                    $sql .= ' and  ins.insumo_id not in (select insumo_id from tb_producto_detalle  where insumo_id_origen = '.$insumo_id_origen.')';
+            // Si no se indica el id del producto principal se busca el item-insumo basado en el
+            // insumo_id del item.
+            // De lo contrario se buscara todos los insumos/productos posibles segun el tipo de empresa.
+            $sql = 'select insumo_id,insumo_codigo,insumo_descripcion,unidad_medida_codigo,unidad_medida_descripcion,'.
+                'moneda_simbolo,precio_original,precio_cotizar  ';
+            if (isset($insumo_descripcion)) {
+                if ($endRow > $startRow) {
+                    $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.',null,\''.$insumo_descripcion.'\','.($endRow - $startRow).', '.$startRow.') ';
+                } else {
+                    $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.',null,\''.$insumo_descripcion.'\',null,null) ';
+                }
+            } else if (!isset($insumo_id)) {
+                $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.',null,null,null,null) ';
+            } else {
+                if ($endRow > $startRow) {
+//                    $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.','.$insumo_id.',null,\''.(!isset($insumo_descripcion) ? null : $insumo_descripcion).'\',' .($endRow - $startRow).', '.$startRow.') ';
+                    $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.','.$insumo_id.',null,' .($endRow - $startRow).', '.$startRow.') ';
+                } else {
+                    $sql .= 'from sp_get_productos_for_cotizacion('.$cotizacion_id.','.$insumo_id.',null,null,null) ';
                 }
             }
-        }
 
-        if (isset($constraints)) {
-            $orderby = $constraints->getSortFieldsAsString();
-            if ($orderby !== NULL) {
-                $sql .= ' order by ' . $orderby;
+        } else {
+            // Si la busqueda permite buscar solo activos e inactivos
+            $sql = $this->_getFecthNormalized();
+
+            if ($this->activeSearchOnly == TRUE) {
+                // Solo activos
+                $sql .= ' where ins."activo"=TRUE ';
             }
+
+            $where = $constraints->getFilterFieldsAsString();
+            if (strlen($where) > 0) {
+                // Mapeamos las virtuales a los campos reales
+                $where = str_replace('"unidad_medida_descripcion_ingreso"', 'umi.unidad_medida_descripcion', $where);
+                $where = str_replace('"unidad_medida_descripcion_costo"', 'umc.unidad_medida_descripcion', $where);
+
+                $sql .= ' and '.$where;
+            }
+
+
+            if (isset($constraints)) {
+                $orderby = $constraints->getSortFieldsAsString();
+                if ($orderby !== NULL) {
+                    $sql .= ' order by '.$orderby;
+                }
+            }
+
+
+            // Chequeamos paginacion
+            $startRow = $constraints->getStartRow();
+            $endRow = $constraints->getEndRow();
+
+            if ($endRow > $startRow) {
+                $sql .= ' LIMIT '.($endRow - $startRow).' OFFSET '.$startRow;
+            }
+            $sql = str_replace('like', 'ilike', $sql);
+
         }
-
-
-
-        // Chequeamos paginacion
-        $startRow = $constraints->getStartRow();
-        $endRow = $constraints->getEndRow();
-
-        if ($endRow > $startRow) {
-            $sql .= ' LIMIT ' . ($endRow - $startRow) . ' OFFSET ' . $startRow;
-        }
-
-
-        $sql = str_replace('like', 'ilike', $sql);
      //   echo $sql;
         return $sql;
     }

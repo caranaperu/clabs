@@ -39,15 +39,11 @@ isc.WinTipoCambioWindow.addProperties({
                 },
                 {
                     name: "tipo_cambio_tasa_compra", width: '15%',
-                    filterEditorProperties: {
-                        operator: "equals"
-                    }
+                    filterOperator: "equals"
                 },
                 {
                     name: "tipo_cambio_tasa_venta", width: '15%',
-                    filterEditorProperties: {
-                        operator: "equals"
-                    }
+                    filterOperator: "equals"
                 }
             ],
             canReorderFields: false,

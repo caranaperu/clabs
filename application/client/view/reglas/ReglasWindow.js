@@ -23,9 +23,9 @@ isc.WinReglasWindow.addProperties({
                 {name: "empresa_razon_social_o",  width: '35%'},
                 {name: "empresa_razon_social_d",  width: '35%'},
                 {name: "regla_by_costo",
-                    filterEditorProperties: {operator: "equals"},
+                    filterOperator: 'equals',
                     width: '15%'},
-                {name: "regla_porcentaje",  width: '15%'}
+                {name: "regla_porcentaje",  width: '15%',filterOperator: 'equals'}
             ],
             canReorderFields: false,
             showFilterEditor: true,
