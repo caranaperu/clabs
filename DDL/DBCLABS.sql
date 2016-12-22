@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.15
 -- Dumped by pg_dump version 9.3.0
--- Started on 2016-12-17 04:30:07
+-- Started on 2016-12-22 02:14:17
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -22,7 +22,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2515 (class 0 OID 0)
+-- TOC entry 2513 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
@@ -39,7 +39,7 @@ CREATE EXTENSION IF NOT EXISTS pldbgapi WITH SCHEMA public;
 
 
 --
--- TOC entry 2516 (class 0 OID 0)
+-- TOC entry 2514 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: EXTENSION pldbgapi; Type: COMMENT; Schema: -; Owner:
 --
@@ -50,7 +50,7 @@ COMMENT ON EXTENSION pldbgapi IS 'server-side support for debugging PL/pgSQL fun
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 248 (class 1255 OID 100645)
+-- TOC entry 247 (class 1255 OID 100645)
 -- Name: fn_get_cotizacion_next_id(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -86,7 +86,7 @@ $$;
 ALTER FUNCTION public.fn_get_cotizacion_next_id() OWNER TO clabsuser;
 
 --
--- TOC entry 287 (class 1255 OID 109595)
+-- TOC entry 284 (class 1255 OID 109595)
 -- Name: fn_get_producto_costo(integer, date); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -359,7 +359,7 @@ $$;
 ALTER FUNCTION public.fn_get_producto_detalle_costo(p_producto_detalle_id integer, p_a_fecha date) OWNER TO clabsuser;
 
 --
--- TOC entry 279 (class 1255 OID 109600)
+-- TOC entry 278 (class 1255 OID 109600)
 -- Name: fn_get_producto_detalle_costo_base(integer, date); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -663,7 +663,7 @@ $$;
 ALTER FUNCTION public.fn_get_producto_detalle_costo_old(p_producto_detalle_id integer, p_a_fecha date) OWNER TO clabsuser;
 
 --
--- TOC entry 280 (class 1255 OID 109603)
+-- TOC entry 279 (class 1255 OID 109603)
 -- Name: fn_get_producto_precio(integer, integer, integer, boolean, character varying, date); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1056,7 +1056,7 @@ $$;
 ALTER FUNCTION public.fn_get_producto_precio_old(p_insumo_id integer, p_empresa_id integer, p_cliente_id integer, p_es_cliente_real boolean, p_moneda_codigo character varying, p_a_fecha date) OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1255 OID 58417)
+-- TOC entry 233 (class 1255 OID 58417)
 -- Name: sp_asigperfiles_save_record(integer, integer, integer, boolean, character varying, integer, bit); Type: FUNCTION; Schema: public; Owner: atluser
 --
 
@@ -1130,7 +1130,7 @@ $$;
 ALTER FUNCTION public.sp_asigperfiles_save_record(p_asigperfiles_id integer, p_perfil_id integer, p_usuarios_id integer, p_activo boolean, p_usuario character varying, p_version_id integer, p_is_update bit) OWNER TO atluser;
 
 --
--- TOC entry 247 (class 1255 OID 100640)
+-- TOC entry 246 (class 1255 OID 100640)
 -- Name: sp_get_cantidad_insumos_for_producto(integer); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1174,7 +1174,7 @@ $$;
 ALTER FUNCTION public.sp_get_cantidad_insumos_for_producto(p_insumo_id integer) OWNER TO clabsuser;
 
 --
--- TOC entry 286 (class 1255 OID 101225)
+-- TOC entry 283 (class 1255 OID 101225)
 -- Name: sp_get_clientes_for_cotizacion(integer, character varying, integer, boolean, integer, integer); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1327,7 +1327,7 @@ $_$;
 ALTER FUNCTION public.sp_get_clientes_for_cotizacion(p_empresa_origen_id integer, p_cliente_razon_social character varying, pc_cliente_id integer, pc_es_cliente_real boolean, p_max_results integer, p_offset integer) OWNER TO clabsuser;
 
 --
--- TOC entry 283 (class 1255 OID 100639)
+-- TOC entry 281 (class 1255 OID 100639)
 -- Name: sp_get_datos_insumos_for_producto(integer); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1689,7 +1689,7 @@ $$;
 ALTER FUNCTION public.sp_get_insumos_for_producto_detalle_old(p_product_header_id integer, p_max_results integer, p_offset integer) OWNER TO clabsuser;
 
 --
--- TOC entry 284 (class 1255 OID 100637)
+-- TOC entry 282 (class 1255 OID 100637)
 -- Name: sp_get_insumos_for_producto_old(integer); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1795,7 +1795,7 @@ $$;
 ALTER FUNCTION public.sp_get_insumos_for_producto_old(p_insumo_id integer) OWNER TO clabsuser;
 
 --
--- TOC entry 290 (class 1255 OID 109739)
+-- TOC entry 289 (class 1255 OID 109739)
 -- Name: sp_get_productos_for_cotizacion(integer, integer, character varying, integer, integer); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -1936,7 +1936,7 @@ $$;
 ALTER FUNCTION public.sp_get_productos_for_cotizacion(p_cotizacion_id integer, pc_insumo_id integer, pc_insumo_descripcion character varying, p_max_results integer, p_offset integer) OWNER TO clabsuser;
 
 --
--- TOC entry 289 (class 1255 OID 109698)
+-- TOC entry 285 (class 1255 OID 109698)
 -- Name: sp_get_productos_for_cotizacion_old(integer, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -2099,7 +2099,7 @@ $$;
 ALTER FUNCTION public.sp_insumo_delete_record(p_insumo_id integer, p_usuario_mod character varying, p_version_id integer) OWNER TO clabsuser;
 
 --
--- TOC entry 235 (class 1255 OID 58453)
+-- TOC entry 234 (class 1255 OID 58453)
 -- Name: sp_perfil_delete_record(integer, character varying, integer); Type: FUNCTION; Schema: public; Owner: atluser
 --
 
@@ -2168,7 +2168,7 @@ $$;
 ALTER FUNCTION public.sp_perfil_delete_record(p_perfil_id integer, p_usuario_mod character varying, p_version_id integer) OWNER TO atluser;
 
 --
--- TOC entry 232 (class 1255 OID 58454)
+-- TOC entry 231 (class 1255 OID 58454)
 -- Name: sp_perfil_detalle_save_record(integer, integer, integer, boolean, boolean, boolean, boolean, boolean, boolean, character varying, integer); Type: FUNCTION; Schema: public; Owner: atluser
 --
 
@@ -2301,7 +2301,7 @@ $$;
 ALTER FUNCTION public.sp_perfil_detalle_save_record(p_perfdet_id integer, p_perfil_id integer, p_menu_id integer, p_acc_leer boolean, p_acc_agregar boolean, p_acc_actualizar boolean, p_acc_eliminar boolean, p_acc_imprimir boolean, p_activo boolean, p_usuario character varying, p_version_id integer) OWNER TO atluser;
 
 --
--- TOC entry 236 (class 1255 OID 58480)
+-- TOC entry 235 (class 1255 OID 58480)
 -- Name: sp_sysperfil_add_record(character varying, character varying, character varying, integer, boolean, character varying); Type: FUNCTION; Schema: public; Owner: atluser
 --
 
@@ -2553,11 +2553,6 @@ BEGIN
 		END IF;
 
 		-- Agregar campos requeridos para log de cotizaciones.
-		IF NEW.cotizacion_cerrada IS NULL
-		THEN
-			NEW.cotizacion_cerrada = FALSE;
-		END IF;
-
 		NEW.tipo_cambio_tasa_venta  = v_tipo_cambio_tasa_venta;
 		NEW.tipo_cambio_tasa_compra = v_tipo_cambio_tasa_compra;
 		NEW.regla_by_costo = v_regla_by_costo;
@@ -2572,14 +2567,13 @@ $$;
 ALTER FUNCTION public.sptrg_cotizacion_detalle_validate_save() OWNER TO postgres;
 
 --
--- TOC entry 285 (class 1255 OID 101052)
+-- TOC entry 248 (class 1255 OID 101052)
 -- Name: sptrg_cotizacion_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
 CREATE FUNCTION sptrg_cotizacion_validate_save() RETURNS trigger
 LANGUAGE plpgsql
 AS $$
-
 -------------------------------------------------------------------------------------------
 --
 -- Funcion para trigger que verifica que al agregarse la cabecera de una cotizzacion exista
@@ -2590,6 +2584,7 @@ AS $$
 -- Fecha: 30/10/2016
 -- Version 1.00
 -------------------------------------------------------------------------------------------
+DECLARE rec_changed boolean;
 
 BEGIN
 	IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE')
@@ -2607,6 +2602,31 @@ BEGIN
 			IF NOT EXISTS (select 1 from tb_empresa where empresa_id = NEW.cliente_id)
 			THEN
 				RAISE 'No existe la empresa del grupo indicada' USING ERRCODE = 'restrict_violation';
+			END IF;
+		END IF;
+
+		IF (TG_OP = 'UPDATE')
+		THEN
+			IF OLD.cotizacion_cerrada = TRUE
+			THEN
+				RAISE 'La cotizacion esta cerrada , no puede modificarse' USING ERRCODE = 'restrict_violation';
+			END IF;
+
+
+			IF NEW.cliente_id != OLD.cliente_id OR NEW.cotizacion_numero != OLD.cotizacion_numero OR
+				 NEW.moneda_codigo != OLD.moneda_codigo OR NEW.cotizacion_fecha != OLD.cotizacion_fecha
+			THEN
+				rec_changed := TRUE;
+			ELSE
+				rec_changed := FALSE;
+			END IF;
+
+			IF rec_changed = TRUE
+			THEN
+				IF EXISTS(select 1 from tb_cotizacion_detalle where cotizacion_id = NEW.cotizacion_id LIMIT 1)
+				THEN
+					RAISE 'La cotizacion tiene items solo puede cerrarse no modificarse , elimine los items o eliminela' USING ERRCODE = 'restrict_violation';
+				END IF;
 			END IF;
 		END IF;
 	END IF;
@@ -2654,7 +2674,7 @@ $$;
 ALTER FUNCTION public.sptrg_empresa_validate_delete() OWNER TO clabsuser;
 
 --
--- TOC entry 278 (class 1255 OID 59436)
+-- TOC entry 287 (class 1255 OID 59436)
 -- Name: sptrg_insumo_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -2736,6 +2756,12 @@ BEGIN
 			RAISE 'Debera existir la conversion entre las unidades de medidas indicadas [% - %]',NEW.unidad_medida_codigo_ingreso,NEW.unidad_medida_codigo_costo  USING ERRCODE = 'restrict_violation';
 		END IF;
 
+
+		IF EXISTS (SELECT 1 FROM tb_cotizacion_detalle where insumo_id = NEW.insumo_id LIMIT 1)
+		THEN
+			RAISE 'No puede modificarse un producto que ya se encuentra cotizado , cree uno nuevo o elimine las cotizaciones' USING ERRCODE = 'restrict_violation';
+		END IF;
+
 	END IF;
 	RETURN NEW;
 END;
@@ -2745,7 +2771,7 @@ $$;
 ALTER FUNCTION public.sptrg_insumo_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 240 (class 1255 OID 59408)
+-- TOC entry 239 (class 1255 OID 59408)
 -- Name: sptrg_moneda_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -2797,14 +2823,13 @@ $$;
 ALTER FUNCTION public.sptrg_moneda_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 282 (class 1255 OID 75870)
+-- TOC entry 290 (class 1255 OID 75870)
 -- Name: sptrg_producto_detalle_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
 CREATE FUNCTION sptrg_producto_detalle_validate_save() RETURNS trigger
 LANGUAGE plpgsql
 AS $$
-
 -------------------------------------------------------------------------------------------
 --
 -- Funcion para trigger que verifica durante un add o update que no permite agregar un producto
@@ -2828,6 +2853,13 @@ BEGIN
 		THEN
 			RAISE 'Un componente no puede ser igual al producto principal' USING ERRCODE = 'restrict_violation';
 		END IF;
+
+		-- Si ya esta cotizado el producto principal no pueden cambiarse un componente del mismo.
+		IF EXISTS (SELECT 1 FROM tb_cotizacion_detalle where insumo_id = NEW.insumo_id_origen LIMIT 1)
+		THEN
+			RAISE 'No puede modificarse un producto que ya se encuentra cotizado , cree uno nuevo o elimine las cotizaciones' USING ERRCODE = 'restrict_violation';
+		END IF;
+
 
 		--No se puede agregar un producto como item si es que este mismo contiene al producto
 		-- principal.
@@ -2915,7 +2947,7 @@ $$;
 ALTER FUNCTION public.sptrg_producto_detalle_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 281 (class 1255 OID 100541)
+-- TOC entry 280 (class 1255 OID 100541)
 -- Name: sptrg_reglas_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -2976,7 +3008,7 @@ $$;
 ALTER FUNCTION public.sptrg_reglas_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 241 (class 1255 OID 75920)
+-- TOC entry 240 (class 1255 OID 75920)
 -- Name: sptrg_tcostos_validate_delete(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3009,7 +3041,7 @@ $$;
 ALTER FUNCTION public.sptrg_tcostos_validate_delete() OWNER TO clabsuser;
 
 --
--- TOC entry 244 (class 1255 OID 59493)
+-- TOC entry 243 (class 1255 OID 59493)
 -- Name: sptrg_tcostos_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3054,7 +3086,7 @@ $$;
 ALTER FUNCTION public.sptrg_tcostos_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 243 (class 1255 OID 75922)
+-- TOC entry 242 (class 1255 OID 75922)
 -- Name: sptrg_tinsumo_validate_delete(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3087,7 +3119,7 @@ $$;
 ALTER FUNCTION public.sptrg_tinsumo_validate_delete() OWNER TO clabsuser;
 
 --
--- TOC entry 231 (class 1255 OID 59257)
+-- TOC entry 286 (class 1255 OID 59257)
 -- Name: sptrg_tinsumo_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3121,7 +3153,7 @@ BEGIN
 
 		IF NEW.tinsumo_codigo != v_tinsumo_codigo
 		THEN
-			-- Excepcion de region con ese nombre existe
+			-- Excepcion no puede usarse el mismo nombre para un insumo
 			RAISE 'Ya existe una tipo de insumo con ese nombre en el tipo de insumo [%]',v_tinsumo_codigo USING ERRCODE = 'restrict_violation';
 		END IF;
 	END IF;
@@ -3133,7 +3165,7 @@ $$;
 ALTER FUNCTION public.sptrg_tinsumo_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 242 (class 1255 OID 59481)
+-- TOC entry 241 (class 1255 OID 59481)
 -- Name: sptrg_tipo_cambio_validate_save(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -3198,7 +3230,7 @@ $$;
 ALTER FUNCTION public.sptrg_tipo_cambio_validate_save() OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1255 OID 59370)
+-- TOC entry 232 (class 1255 OID 59370)
 -- Name: sptrg_unidad_medida_conversion_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3249,7 +3281,7 @@ $$;
 ALTER FUNCTION public.sptrg_unidad_medida_conversion_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 239 (class 1255 OID 75961)
+-- TOC entry 238 (class 1255 OID 75961)
 -- Name: sptrg_unidad_medida_validate_delete(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3282,7 +3314,7 @@ $$;
 ALTER FUNCTION public.sptrg_unidad_medida_validate_delete() OWNER TO clabsuser;
 
 --
--- TOC entry 245 (class 1255 OID 59400)
+-- TOC entry 244 (class 1255 OID 59400)
 -- Name: sptrg_unidad_medida_validate_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3360,7 +3392,7 @@ $$;
 ALTER FUNCTION public.sptrg_unidad_medida_validate_save() OWNER TO clabsuser;
 
 --
--- TOC entry 237 (class 1255 OID 58511)
+-- TOC entry 236 (class 1255 OID 58511)
 -- Name: sptrg_update_log_fields(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3410,7 +3442,7 @@ $$;
 ALTER FUNCTION public.sptrg_update_log_fields() OWNER TO clabsuser;
 
 --
--- TOC entry 246 (class 1255 OID 100553)
+-- TOC entry 245 (class 1255 OID 100553)
 -- Name: sptrg_usuario_perfiles_save(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3459,7 +3491,7 @@ $$;
 ALTER FUNCTION public.sptrg_usuario_perfiles_save() OWNER TO clabsuser;
 
 --
--- TOC entry 238 (class 1255 OID 58512)
+-- TOC entry 237 (class 1255 OID 58512)
 -- Name: sptrg_verify_usuario_code_change(); Type: FUNCTION; Schema: public; Owner: clabsuser
 --
 
@@ -3608,7 +3640,7 @@ CACHE 1;
 ALTER TABLE public.tb_cliente_cliente_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2517 (class 0 OID 0)
+-- TOC entry 2515 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: tb_cliente_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -3634,11 +3666,7 @@ CREATE TABLE tb_cotizacion (
 	fecha_creacion timestamp without time zone NOT NULL,
 	usuario_mod character varying(15),
 	fecha_modificacion timestamp without time zone,
-	cotizacion_cerrada boolean DEFAULT false NOT NULL,
-	regla_by_costo boolean NOT NULL,
-	regla_porcentaje numeric(6,2) NOT NULL,
-	tipo_cambio_tasa_compra numeric(8,4) NOT NULL,
-	tipo_cambio_tasa_venta numeric(8,4) DEFAULT 1
+	cotizacion_cerrada boolean DEFAULT false NOT NULL
 );
 
 
@@ -3660,7 +3688,7 @@ CACHE 1;
 ALTER TABLE public.tb_cotizacion_cotizacion_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2518 (class 0 OID 0)
+-- TOC entry 2516 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: tb_cotizacion_cotizacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -3698,7 +3726,6 @@ CREATE TABLE tb_cotizacion_detalle (
 	fecha_creacion timestamp without time zone NOT NULL,
 	usuario_mod character varying(15),
 	fecha_modificacion timestamp without time zone,
-	cotizacion_cerrada boolean DEFAULT false NOT NULL,
 	regla_by_costo boolean,
 	regla_porcentaje numeric(6,2),
 	tipo_cambio_tasa_compra numeric(8,4) NOT NULL,
@@ -3724,7 +3751,7 @@ CACHE 1;
 ALTER TABLE public.tb_cotizacion_detalle_cotizacion_detalle_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2519 (class 0 OID 0)
+-- TOC entry 2517 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: tb_cotizacion_detalle_cotizacion_detalle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -3773,7 +3800,7 @@ CACHE 1;
 ALTER TABLE public.tb_empresa_empresa_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2520 (class 0 OID 0)
+-- TOC entry 2518 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: tb_empresa_empresa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -3805,7 +3832,7 @@ CREATE TABLE tb_entidad (
 ALTER TABLE public.tb_entidad OWNER TO atluser;
 
 --
--- TOC entry 2521 (class 0 OID 0)
+-- TOC entry 2519 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: TABLE tb_entidad; Type: COMMENT; Schema: public; Owner: atluser
 --
@@ -3829,7 +3856,7 @@ CACHE 1;
 ALTER TABLE public.tb_entidad_entidad_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2522 (class 0 OID 0)
+-- TOC entry 2520 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: tb_entidad_entidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -3891,7 +3918,7 @@ CACHE 1;
 ALTER TABLE public.tb_insumo_insumo_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2523 (class 0 OID 0)
+-- TOC entry 2521 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: tb_insumo_insumo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -3962,7 +3989,7 @@ CACHE 1;
 ALTER TABLE public.tb_producto_detalle_producto_detalle_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2524 (class 0 OID 0)
+-- TOC entry 2522 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: tb_producto_detalle_producto_detalle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -4007,7 +4034,7 @@ CACHE 1;
 ALTER TABLE public.tb_reglas_regla_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2525 (class 0 OID 0)
+-- TOC entry 2523 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: tb_reglas_regla_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -4054,7 +4081,7 @@ CACHE 1;
 ALTER TABLE public.tb_sys_menu_menu_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2526 (class 0 OID 0)
+-- TOC entry 2524 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: tb_sys_menu_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -4123,7 +4150,7 @@ CACHE 1;
 ALTER TABLE public.tb_sys_perfil_detalle_perfdet_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2527 (class 0 OID 0)
+-- TOC entry 2525 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: tb_sys_perfil_detalle_perfdet_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -4147,7 +4174,7 @@ CACHE 1;
 ALTER TABLE public.tb_sys_perfil_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2528 (class 0 OID 0)
+-- TOC entry 2526 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: tb_sys_perfil_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -4208,7 +4235,7 @@ CACHE 1;
 ALTER TABLE public.tb_sys_usuario_perfiles_usuario_perfil_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2529 (class 0 OID 0)
+-- TOC entry 2527 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: tb_sys_usuario_perfiles_usuario_perfil_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -4298,7 +4325,7 @@ CACHE 1;
 ALTER TABLE public.tb_tipo_cambio_tipo_cambio_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2530 (class 0 OID 0)
+-- TOC entry 2528 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: tb_tipo_cambio_tipo_cambio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -4407,7 +4434,7 @@ CACHE 1;
 ALTER TABLE public.tb_unidad_medida_conversion_unidad_medida_conversion_id_seq OWNER TO clabsuser;
 
 --
--- TOC entry 2531 (class 0 OID 0)
+-- TOC entry 2529 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: tb_unidad_medida_conversion_unidad_medida_conversion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: clabsuser
 --
@@ -4453,7 +4480,7 @@ CACHE 1;
 ALTER TABLE public.tb_usuarios_usuarios_id_seq OWNER TO atluser;
 
 --
--- TOC entry 2532 (class 0 OID 0)
+-- TOC entry 2530 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: tb_usuarios_usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: atluser
 --
@@ -4490,7 +4517,7 @@ ALTER TABLE ONLY tb_cotizacion ALTER COLUMN cotizacion_id SET DEFAULT nextval('t
 
 
 --
--- TOC entry 2195 (class 2604 OID 109663)
+-- TOC entry 2194 (class 2604 OID 109663)
 -- Name: cotizacion_detalle_id; Type: DEFAULT; Schema: public; Owner: clabsuser
 --
 
@@ -4594,22 +4621,19 @@ ALTER TABLE ONLY tb_usuarios ALTER COLUMN usuarios_id SET DEFAULT nextval('tb_us
 
 
 --
--- TOC entry 2496 (class 0 OID 92399)
+-- TOC entry 2494 (class 0 OID 92399)
 -- Dependencies: 200
 -- Data for Name: ci_sessions; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
 
 COPY ci_sessions (session_id, ip_address, user_agent, last_activity, user_data) FROM stdin;
-dc9ede99e5d36f56ba4dedf00f5aa9ab	::1	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.92 Safari/537.36 Vivaldi/1.6.689	1481951900	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
-c8a1b34da95a9c8009d2e1cc5329c085	127.0.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0	1481954921	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
-3f2c4e5fa657c27cde06a0da48c8db76	127.0.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0	1481966735	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
-3635d49e0c5816c6b6da2eab0d719c5d	127.0.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0	1481958982	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
-d5557340815c27e48b199367eb56d643	::1	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.92 Safari/537.36 Vivaldi/1.6.689	1481950270	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
+4232d47a6c8dd66bcd2d8c966fd55568	127.0.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0	1482384712	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
+a840f85d27c9bdb3fcbffb4083012ed7	127.0.0.1	Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0	1482387878	a:6:{s:9:"user_data";s:0:"";s:10:"empresa_id";s:1:"5";s:10:"usuario_id";s:2:"21";s:12:"usuario_code";s:5:"ADMIN";s:12:"usuario_name";s:21:"Carlos Arana Reategui";s:10:"isLoggedIn";b:1;}
 \.
 
 
 --
--- TOC entry 2502 (class 0 OID 100956)
+-- TOC entry 2500 (class 0 OID 100956)
 -- Dependencies: 206
 -- Data for Name: tb_cliente; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4620,7 +4644,7 @@ COPY tb_cliente (cliente_id, empresa_id, cliente_razon_social, tipo_cliente_codi
 
 
 --
--- TOC entry 2533 (class 0 OID 0)
+-- TOC entry 2531 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: tb_cliente_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -4629,62 +4653,66 @@ SELECT pg_catalog.setval('tb_cliente_cliente_id_seq', 1, true);
 
 
 --
--- TOC entry 2504 (class 0 OID 101028)
+-- TOC entry 2502 (class 0 OID 101028)
 -- Dependencies: 208
 -- Data for Name: tb_cotizacion; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
 
-COPY tb_cotizacion (cotizacion_id, empresa_id, cliente_id, cotizacion_es_cliente_real, cotizacion_numero, moneda_codigo, cotizacion_fecha, activo, usuario, fecha_creacion, usuario_mod, fecha_modificacion, cotizacion_cerrada, regla_by_costo, regla_porcentaje, tipo_cambio_tasa_compra, tipo_cambio_tasa_venta) FROM stdin;
-4	5	1	t	17	EURO	2016-12-15	t	ADMIN	2016-11-02 04:02:42.749312	ADMIN	2016-12-15 01:30:55.012394	f	t	0.00	0.0000	\N
-5	5	7	f	18	EURO	2016-12-15	t	ADMIN	2016-12-07 02:05:24.714805	postgres	2016-12-15 01:30:59.875641	f	t	0.00	0.0000	\N
+COPY tb_cotizacion (cotizacion_id, empresa_id, cliente_id, cotizacion_es_cliente_real, cotizacion_numero, moneda_codigo, cotizacion_fecha, activo, usuario, fecha_creacion, usuario_mod, fecha_modificacion, cotizacion_cerrada) FROM stdin;
+4	5	1	t	17	EURO	2016-12-15	t	ADMIN	2016-11-02 04:02:42.749312	ADMIN	2016-12-21 14:53:47.872968	f
+11	5	1	t	20	USD	2016-12-21	t	ADMIN	2016-12-21 15:37:53.983507	ADMIN	2016-12-21 17:09:47.769185	t
+10	5	7	f	19	EURO	2016-12-21	t	ADMIN	2016-12-21 15:08:17.359936	ADMIN	2016-12-22 00:26:06.918168	t
+5	5	7	f	18	EURO	2016-12-15	t	ADMIN	2016-12-07 02:05:24.714805	ADMIN	2016-12-22 00:39:35.532438	t
 \.
 
 
 --
--- TOC entry 2534 (class 0 OID 0)
+-- TOC entry 2532 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: tb_cotizacion_cotizacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
 
-SELECT pg_catalog.setval('tb_cotizacion_cotizacion_id_seq', 5, true);
+SELECT pg_catalog.setval('tb_cotizacion_cotizacion_id_seq', 11, true);
 
 
 --
--- TOC entry 2499 (class 0 OID 100641)
+-- TOC entry 2497 (class 0 OID 100641)
 -- Dependencies: 203
 -- Data for Name: tb_cotizacion_counter; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
 
 COPY tb_cotizacion_counter (cotizacion_counter_last_id) FROM stdin;
-18
+20
 \.
 
 
 --
--- TOC entry 2507 (class 0 OID 109660)
+-- TOC entry 2505 (class 0 OID 109660)
 -- Dependencies: 216
 -- Data for Name: tb_cotizacion_detalle; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
 
-COPY tb_cotizacion_detalle (cotizacion_detalle_id, cotizacion_id, insumo_id, unidad_medida_codigo, cotizacion_detalle_cantidad, cotizacion_detalle_precio, cotizacion_detalle_total, activo, usuario, fecha_creacion, usuario_mod, fecha_modificacion, cotizacion_cerrada, regla_by_costo, regla_porcentaje, tipo_cambio_tasa_compra, tipo_cambio_tasa_venta) FROM stdin;
-18	5	16	GALON	0.63	530.70	334.34	t	ADMIN	2016-12-14 02:05:18.385587	ADMIN	2016-12-17 01:10:49.779151	f	t	50.00	0.9000	0.9100
-19	4	10	GALON	1.00	3120.54	3120.54	t	ADMIN	2016-12-14 02:07:02.312474	ADMIN	2016-12-17 01:11:02.994592	f	\N	\N	1.0000	1.0000
-17	5	10	GALON	0.76	3120.54	2371.61	t	ADMIN	2016-12-14 02:04:17.141361	ADMIN	2016-12-17 02:05:34.541557	f	t	50.00	1.0000	1.0000
-20	4	12	GALON	0.98	315.00	308.70	t	ADMIN	2016-12-14 02:07:40.748058	ADMIN	2016-12-17 02:05:49.793877	f	\N	\N	0.9000	0.9100
+COPY tb_cotizacion_detalle (cotizacion_detalle_id, cotizacion_id, insumo_id, unidad_medida_codigo, cotizacion_detalle_cantidad, cotizacion_detalle_precio, cotizacion_detalle_total, activo, usuario, fecha_creacion, usuario_mod, fecha_modificacion, regla_by_costo, regla_porcentaje, tipo_cambio_tasa_compra, tipo_cambio_tasa_venta) FROM stdin;
+18	5	16	GALON	0.63	530.70	334.34	t	ADMIN	2016-12-14 02:05:18.385587	ADMIN	2016-12-17 01:10:49.779151	t	50.00	0.9000	0.9100
+19	4	10	GALON	1.00	3120.54	3120.54	t	ADMIN	2016-12-14 02:07:02.312474	ADMIN	2016-12-17 01:11:02.994592	\N	\N	1.0000	1.0000
+17	5	10	GALON	0.76	3120.54	2371.61	t	ADMIN	2016-12-14 02:04:17.141361	ADMIN	2016-12-17 02:05:34.541557	t	50.00	1.0000	1.0000
+20	4	12	GALON	0.98	315.00	308.70	t	ADMIN	2016-12-14 02:07:40.748058	ADMIN	2016-12-17 02:05:49.793877	\N	\N	0.9000	0.9100
+24	10	12	GALON	2.00	350.00	700.00	t	ADMIN	2016-12-21 23:03:49.497308	\N	\N	t	50.00	4.2500	4.2100
+26	4	16	GALON	3.00	378.00	1134.00	t	ADMIN	2016-12-22 00:40:09.417147	\N	\N	\N	\N	0.9000	0.9100
 \.
 
 
 --
--- TOC entry 2535 (class 0 OID 0)
+-- TOC entry 2533 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: tb_cotizacion_detalle_cotizacion_detalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
 
-SELECT pg_catalog.setval('tb_cotizacion_detalle_cotizacion_detalle_id_seq', 20, true);
+SELECT pg_catalog.setval('tb_cotizacion_detalle_cotizacion_detalle_id_seq', 27, true);
 
 
 --
--- TOC entry 2495 (class 0 OID 92358)
+-- TOC entry 2493 (class 0 OID 92358)
 -- Dependencies: 199
 -- Data for Name: tb_empresa; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4698,7 +4726,7 @@ COPY tb_empresa (empresa_id, empresa_razon_social, tipo_empresa_codigo, empresa_
 
 
 --
--- TOC entry 2536 (class 0 OID 0)
+-- TOC entry 2534 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: tb_empresa_empresa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -4707,7 +4735,7 @@ SELECT pg_catalog.setval('tb_empresa_empresa_id_seq', 23, true);
 
 
 --
--- TOC entry 2493 (class 0 OID 92328)
+-- TOC entry 2491 (class 0 OID 92328)
 -- Dependencies: 197
 -- Data for Name: tb_entidad; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4718,7 +4746,7 @@ COPY tb_entidad (entidad_id, entidad_razon_social, entidad_ruc, entidad_direccio
 
 
 --
--- TOC entry 2537 (class 0 OID 0)
+-- TOC entry 2535 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: tb_entidad_entidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -4727,7 +4755,7 @@ SELECT pg_catalog.setval('tb_entidad_entidad_id_seq', 1, true);
 
 
 --
--- TOC entry 2488 (class 0 OID 84160)
+-- TOC entry 2486 (class 0 OID 84160)
 -- Dependencies: 192
 -- Data for Name: tb_insumo; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4741,13 +4769,13 @@ COPY tb_insumo (insumo_id, insumo_tipo, insumo_codigo, insumo_descripcion, tinsu
 9	IN	CODTRES	Transportista	SERV	CIND	NING	COMIS	0.0000	1.0000	USD	t	TESTUSER	2016-08-31 01:51:52.552593	ADMIN	2016-11-29 23:51:47.032277	5	0.00
 12	PR	PRODDOS	prodos	NING	NING	NING	GALON	10.0000	\N	USD	t	TESTUSER	2016-09-01 03:30:37.600921	ADMIN	2016-11-30 21:54:07.394495	5	350.00
 13	IN	PUTTTT	Insumo 1 de PUSER	SOLUCION	CDIR	LITROS	LITROS	23.0000	4.0000	EURO	t	PUSER	2016-09-27 00:05:46.171545	PUSER	2016-11-30 22:38:07.781714	7	6.00
-10	PR	PRODUNO	Producto 1	NING	NING	NING	GALON	2.0000	\N	EURO	t	TESTUSER	2016-08-31 23:07:15.951263	ADMIN	2016-11-30 22:39:24.427757	5	3500.00
 16	PR	PROTREES	qweqwwqe	NING	NING	NING	GALON	2.0000	\N	USD	t	ADMIN	2016-10-10 02:05:38.919148	ADMIN	2016-11-30 22:39:36.281245	5	420.00
+10	PR	PRODUNO	Producto 1	NING	NING	NING	GALON	2.0000	\N	EURO	t	TESTUSER	2016-08-31 23:07:15.951263	ADMIN	2016-12-17 16:12:05.442705	5	3500.00
 \.
 
 
 --
--- TOC entry 2538 (class 0 OID 0)
+-- TOC entry 2536 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: tb_insumo_insumo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -4756,7 +4784,7 @@ SELECT pg_catalog.setval('tb_insumo_insumo_id_seq', 17, true);
 
 
 --
--- TOC entry 2480 (class 0 OID 59242)
+-- TOC entry 2478 (class 0 OID 59242)
 -- Dependencies: 184
 -- Data for Name: tb_moneda; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4770,7 +4798,7 @@ EURO	â¬	Euro	f	t	TESTUSER	2016-08-21 23:36:32.726364	TESTUSER	2016-08-21 23:
 
 
 --
--- TOC entry 2490 (class 0 OID 84303)
+-- TOC entry 2488 (class 0 OID 84303)
 -- Dependencies: 194
 -- Data for Name: tb_producto_detalle; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4795,7 +4823,7 @@ COPY tb_producto_detalle (producto_detalle_id, insumo_id_origen, insumo_id, unid
 
 
 --
--- TOC entry 2539 (class 0 OID 0)
+-- TOC entry 2537 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: tb_producto_detalle_producto_detalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -4804,7 +4832,7 @@ SELECT pg_catalog.setval('tb_producto_detalle_producto_detalle_id_seq', 35, true
 
 
 --
--- TOC entry 2498 (class 0 OID 100520)
+-- TOC entry 2496 (class 0 OID 100520)
 -- Dependencies: 202
 -- Data for Name: tb_reglas; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4817,7 +4845,7 @@ COPY tb_reglas (regla_id, regla_empresa_origen_id, regla_empresa_destino_id, reg
 
 
 --
--- TOC entry 2540 (class 0 OID 0)
+-- TOC entry 2538 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: tb_reglas_regla_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -4826,7 +4854,7 @@ SELECT pg_catalog.setval('tb_reglas_regla_id_seq', 19, true);
 
 
 --
--- TOC entry 2468 (class 0 OID 58731)
+-- TOC entry 2466 (class 0 OID 58731)
 -- Dependencies: 172
 -- Data for Name: tb_sys_menu; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4856,7 +4884,7 @@ labcostos	69	smn_clientes	Clientes	A         	11	185	t	TESTUSER	2016-10-29 14:51
 
 
 --
--- TOC entry 2541 (class 0 OID 0)
+-- TOC entry 2539 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: tb_sys_menu_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -4865,7 +4893,7 @@ SELECT pg_catalog.setval('tb_sys_menu_menu_id_seq', 69, true);
 
 
 --
--- TOC entry 2470 (class 0 OID 58738)
+-- TOC entry 2468 (class 0 OID 58738)
 -- Dependencies: 174
 -- Data for Name: tb_sys_perfil; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4877,7 +4905,7 @@ COPY tb_sys_perfil (perfil_id, sys_systemcode, perfil_codigo, perfil_descripcion
 
 
 --
--- TOC entry 2471 (class 0 OID 58742)
+-- TOC entry 2469 (class 0 OID 58742)
 -- Dependencies: 175
 -- Data for Name: tb_sys_perfil_detalle; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4924,7 +4952,7 @@ COPY tb_sys_perfil_detalle (perfdet_id, perfdet_accessdef, perfdet_accleer, perf
 
 
 --
--- TOC entry 2542 (class 0 OID 0)
+-- TOC entry 2540 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: tb_sys_perfil_detalle_perfdet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -4933,7 +4961,7 @@ SELECT pg_catalog.setval('tb_sys_perfil_detalle_perfdet_id_seq', 714, true);
 
 
 --
--- TOC entry 2543 (class 0 OID 0)
+-- TOC entry 2541 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: tb_sys_perfil_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -4942,7 +4970,7 @@ SELECT pg_catalog.setval('tb_sys_perfil_id_seq', 23, true);
 
 
 --
--- TOC entry 2474 (class 0 OID 58755)
+-- TOC entry 2472 (class 0 OID 58755)
 -- Dependencies: 178
 -- Data for Name: tb_sys_sistemas; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4953,7 +4981,7 @@ labcostos	Sistema De Costos Laboratorios	t	TESTUSER	2016-07-08 23:47:11.960862	p
 
 
 --
--- TOC entry 2475 (class 0 OID 58759)
+-- TOC entry 2473 (class 0 OID 58759)
 -- Dependencies: 179
 -- Data for Name: tb_sys_usuario_perfiles; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -4965,7 +4993,7 @@ COPY tb_sys_usuario_perfiles (usuario_perfil_id, perfil_id, usuarios_id, activo,
 
 
 --
--- TOC entry 2544 (class 0 OID 0)
+-- TOC entry 2542 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: tb_sys_usuario_perfiles_usuario_perfil_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -4974,7 +5002,7 @@ SELECT pg_catalog.setval('tb_sys_usuario_perfiles_usuario_perfil_id_seq', 23, tr
 
 
 --
--- TOC entry 2486 (class 0 OID 84146)
+-- TOC entry 2484 (class 0 OID 84146)
 -- Dependencies: 190
 -- Data for Name: tb_tcostos; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -4987,7 +5015,7 @@ CIND	Costo Indirecto	f	t	t	TESTUSER	2016-08-30 20:18:59.46133	TESTUSER	2016-08-3
 
 
 --
--- TOC entry 2485 (class 0 OID 84062)
+-- TOC entry 2483 (class 0 OID 84062)
 -- Dependencies: 189
 -- Data for Name: tb_tinsumo; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5003,7 +5031,7 @@ TRANS	Transporte	f	t	ADMIN	2016-11-29 23:51:15.20716	\N	\N
 
 
 --
--- TOC entry 2484 (class 0 OID 75877)
+-- TOC entry 2482 (class 0 OID 75877)
 -- Dependencies: 188
 -- Data for Name: tb_tipo_cambio; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5014,21 +5042,24 @@ COPY tb_tipo_cambio (tipo_cambio_id, moneda_codigo_origen, moneda_codigo_destino
 3	EURO	USD	2016-12-15	2016-12-15	4.0000	4.2000	t	TESTUSER	2016-08-22 15:58:06.566396	ADMIN	2016-12-15 01:05:55.682777
 5	PEN	USD	2016-12-15	2016-12-15	3.2400	3.2900	t	TESTUSER	2016-08-24 16:18:47.669771	ADMIN	2016-12-15 01:06:06.582977
 6	USD	EURO	2016-12-15	2016-12-15	0.9000	0.9100	t	TESTUSER	2016-09-01 01:20:07.450926	ADMIN	2016-12-15 01:06:14.767977
+10	USD	EURO	2016-12-21	2016-12-21	4.2500	4.2100	t	ADMIN	2016-12-21 22:21:42.120595	\N	\N
+11	PEN	USD	2016-12-21	2016-12-21	3.2400	3.2300	t	ADMIN	2016-12-21 22:22:57.348017	\N	\N
+12	EURO	USD	2016-12-21	2016-12-21	0.9500	0.9400	t	ADMIN	2016-12-21 22:23:47.148811	\N	\N
 4	PEN	USD	2016-09-13	2016-09-13	3.2500	3.3000	t	TESTUSER	2016-08-23 14:31:00.466178	TESTUSER	2016-09-13 01:31:28.473115
 \.
 
 
 --
--- TOC entry 2545 (class 0 OID 0)
+-- TOC entry 2543 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: tb_tipo_cambio_tipo_cambio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
 
-SELECT pg_catalog.setval('tb_tipo_cambio_tipo_cambio_id_seq', 9, true);
+SELECT pg_catalog.setval('tb_tipo_cambio_tipo_cambio_id_seq', 12, true);
 
 
 --
--- TOC entry 2500 (class 0 OID 100944)
+-- TOC entry 2498 (class 0 OID 100944)
 -- Dependencies: 204
 -- Data for Name: tb_tipo_cliente; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5040,7 +5071,7 @@ VET	Veterinaria	f	t	ADMIN	2016-10-29 01:16:24.303677	\N	\N
 
 
 --
--- TOC entry 2491 (class 0 OID 92271)
+-- TOC entry 2489 (class 0 OID 92271)
 -- Dependencies: 195
 -- Data for Name: tb_tipo_empresa; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5053,7 +5084,7 @@ DIS	Distribuidor	t	t	TESTUSER	2016-09-14 14:32:35.783304	postgres	2016-09-21 01:
 
 
 --
--- TOC entry 2479 (class 0 OID 59224)
+-- TOC entry 2477 (class 0 OID 59224)
 -- Dependencies: 183
 -- Data for Name: tb_unidad_medida; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5070,7 +5101,7 @@ COMIS	Com.	Comision	T	f	t	ADMIN	2016-11-29 23:48:42.283533	\N	\N	f
 
 
 --
--- TOC entry 2482 (class 0 OID 59377)
+-- TOC entry 2480 (class 0 OID 59377)
 -- Dependencies: 186
 -- Data for Name: tb_unidad_medida_conversion; Type: TABLE DATA; Schema: public; Owner: clabsuser
 --
@@ -5084,7 +5115,7 @@ COPY tb_unidad_medida_conversion (unidad_medida_conversion_id, unidad_medida_ori
 
 
 --
--- TOC entry 2546 (class 0 OID 0)
+-- TOC entry 2544 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: tb_unidad_medida_conversion_unidad_medida_conversion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: clabsuser
 --
@@ -5093,7 +5124,7 @@ SELECT pg_catalog.setval('tb_unidad_medida_conversion_unidad_medida_conversion_i
 
 
 --
--- TOC entry 2477 (class 0 OID 58771)
+-- TOC entry 2475 (class 0 OID 58771)
 -- Dependencies: 181
 -- Data for Name: tb_usuarios; Type: TABLE DATA; Schema: public; Owner: atluser
 --
@@ -5105,7 +5136,7 @@ COPY tb_usuarios (usuarios_id, usuarios_code, usuarios_password, usuarios_nombre
 
 
 --
--- TOC entry 2547 (class 0 OID 0)
+-- TOC entry 2545 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: tb_usuarios_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atluser
 --
@@ -5114,7 +5145,7 @@ SELECT pg_catalog.setval('tb_usuarios_usuarios_id_seq', 22, true);
 
 
 --
--- TOC entry 2505 (class 0 OID 101306)
+-- TOC entry 2503 (class 0 OID 101306)
 -- Dependencies: 209
 -- Data for Name: v_insumo_costo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5124,7 +5155,7 @@ COPY v_insumo_costo (insumo_costo) FROM stdin;
 
 
 --
--- TOC entry 2279 (class 2606 OID 100966)
+-- TOC entry 2277 (class 2606 OID 100966)
 -- Name: pk_cliente; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5133,7 +5164,7 @@ ADD CONSTRAINT pk_cliente PRIMARY KEY (cliente_id);
 
 
 --
--- TOC entry 2283 (class 2606 OID 101035)
+-- TOC entry 2281 (class 2606 OID 101035)
 -- Name: pk_cotizacion; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5142,7 +5173,7 @@ ADD CONSTRAINT pk_cotizacion PRIMARY KEY (cotizacion_id);
 
 
 --
--- TOC entry 2290 (class 2606 OID 109666)
+-- TOC entry 2288 (class 2606 OID 109666)
 -- Name: pk_cotizacion_detalle; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5151,7 +5182,7 @@ ADD CONSTRAINT pk_cotizacion_detalle PRIMARY KEY (cotizacion_detalle_id);
 
 
 --
--- TOC entry 2264 (class 2606 OID 92368)
+-- TOC entry 2262 (class 2606 OID 92368)
 -- Name: pk_empresa; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5160,7 +5191,7 @@ ADD CONSTRAINT pk_empresa PRIMARY KEY (empresa_id);
 
 
 --
--- TOC entry 2259 (class 2606 OID 92337)
+-- TOC entry 2257 (class 2606 OID 92337)
 -- Name: pk_entidad; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5169,7 +5200,7 @@ ADD CONSTRAINT pk_entidad PRIMARY KEY (entidad_id);
 
 
 --
--- TOC entry 2245 (class 2606 OID 84171)
+-- TOC entry 2243 (class 2606 OID 84171)
 -- Name: pk_insumo; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5178,7 +5209,7 @@ ADD CONSTRAINT pk_insumo PRIMARY KEY (insumo_id);
 
 
 --
--- TOC entry 2201 (class 2606 OID 58841)
+-- TOC entry 2199 (class 2606 OID 58841)
 -- Name: pk_menu; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5187,7 +5218,7 @@ ADD CONSTRAINT pk_menu PRIMARY KEY (menu_id);
 
 
 --
--- TOC entry 2226 (class 2606 OID 59248)
+-- TOC entry 2224 (class 2606 OID 59248)
 -- Name: pk_moneda; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5196,7 +5227,7 @@ ADD CONSTRAINT pk_moneda PRIMARY KEY (moneda_codigo);
 
 
 --
--- TOC entry 2212 (class 2606 OID 58845)
+-- TOC entry 2210 (class 2606 OID 58845)
 -- Name: pk_perfdet_id; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5205,7 +5236,7 @@ ADD CONSTRAINT pk_perfdet_id PRIMARY KEY (perfdet_id);
 
 
 --
--- TOC entry 2252 (class 2606 OID 84313)
+-- TOC entry 2250 (class 2606 OID 84313)
 -- Name: pk_producto_detalle; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5214,7 +5245,7 @@ ADD CONSTRAINT pk_producto_detalle PRIMARY KEY (producto_detalle_id);
 
 
 --
--- TOC entry 2269 (class 2606 OID 100527)
+-- TOC entry 2267 (class 2606 OID 100527)
 -- Name: pk_reglas; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5223,7 +5254,7 @@ ADD CONSTRAINT pk_reglas PRIMARY KEY (regla_id);
 
 
 --
--- TOC entry 2267 (class 2606 OID 92409)
+-- TOC entry 2265 (class 2606 OID 92409)
 -- Name: pk_sessions; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5232,7 +5263,7 @@ ADD CONSTRAINT pk_sessions PRIMARY KEY (session_id);
 
 
 --
--- TOC entry 2214 (class 2606 OID 58859)
+-- TOC entry 2212 (class 2606 OID 58859)
 -- Name: pk_sistemas; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5241,7 +5272,7 @@ ADD CONSTRAINT pk_sistemas PRIMARY KEY (sys_systemcode);
 
 
 --
--- TOC entry 2206 (class 2606 OID 58861)
+-- TOC entry 2204 (class 2606 OID 58861)
 -- Name: pk_sys_perfil; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5250,7 +5281,7 @@ ADD CONSTRAINT pk_sys_perfil PRIMARY KEY (perfil_id);
 
 
 --
--- TOC entry 2237 (class 2606 OID 84154)
+-- TOC entry 2235 (class 2606 OID 84154)
 -- Name: pk_tcostos; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5259,7 +5290,7 @@ ADD CONSTRAINT pk_tcostos PRIMARY KEY (tcostos_codigo);
 
 
 --
--- TOC entry 2235 (class 2606 OID 84070)
+-- TOC entry 2233 (class 2606 OID 84070)
 -- Name: pk_tinsumo; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5268,7 +5299,7 @@ ADD CONSTRAINT pk_tinsumo PRIMARY KEY (tinsumo_codigo);
 
 
 --
--- TOC entry 2233 (class 2606 OID 75885)
+-- TOC entry 2231 (class 2606 OID 75885)
 -- Name: pk_tipo_cambio; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5277,7 +5308,7 @@ ADD CONSTRAINT pk_tipo_cambio PRIMARY KEY (tipo_cambio_id);
 
 
 --
--- TOC entry 2274 (class 2606 OID 100951)
+-- TOC entry 2272 (class 2606 OID 100951)
 -- Name: pk_tipo_cliente; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5286,7 +5317,7 @@ ADD CONSTRAINT pk_tipo_cliente PRIMARY KEY (tipo_cliente_codigo);
 
 
 --
--- TOC entry 2257 (class 2606 OID 92278)
+-- TOC entry 2255 (class 2606 OID 92278)
 -- Name: pk_tipo_empresa; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5295,7 +5326,7 @@ ADD CONSTRAINT pk_tipo_empresa PRIMARY KEY (tipo_empresa_codigo);
 
 
 --
--- TOC entry 2229 (class 2606 OID 59384)
+-- TOC entry 2227 (class 2606 OID 59384)
 -- Name: pk_unidad_conversion; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5304,7 +5335,7 @@ ADD CONSTRAINT pk_unidad_conversion PRIMARY KEY (unidad_medida_conversion_id);
 
 
 --
--- TOC entry 2224 (class 2606 OID 59231)
+-- TOC entry 2222 (class 2606 OID 59231)
 -- Name: pk_unidad_medida; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5313,7 +5344,7 @@ ADD CONSTRAINT pk_unidad_medida PRIMARY KEY (unidad_medida_codigo);
 
 
 --
--- TOC entry 2218 (class 2606 OID 58865)
+-- TOC entry 2216 (class 2606 OID 58865)
 -- Name: pk_usuarioperfiles; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5322,7 +5353,7 @@ ADD CONSTRAINT pk_usuarioperfiles PRIMARY KEY (usuario_perfil_id);
 
 
 --
--- TOC entry 2222 (class 2606 OID 58867)
+-- TOC entry 2220 (class 2606 OID 58867)
 -- Name: pk_usuarios; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5331,7 +5362,7 @@ ADD CONSTRAINT pk_usuarios PRIMARY KEY (usuarios_id);
 
 
 --
--- TOC entry 2203 (class 2606 OID 58885)
+-- TOC entry 2201 (class 2606 OID 58885)
 -- Name: unq_codigomenu; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5340,7 +5371,7 @@ ADD CONSTRAINT unq_codigomenu UNIQUE (menu_codigo);
 
 
 --
--- TOC entry 2285 (class 2606 OID 101037)
+-- TOC entry 2283 (class 2606 OID 101037)
 -- Name: unq_cotizacion_numero; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5349,7 +5380,7 @@ ADD CONSTRAINT unq_cotizacion_numero UNIQUE (empresa_id, cotizacion_numero);
 
 
 --
--- TOC entry 2247 (class 2606 OID 84235)
+-- TOC entry 2245 (class 2606 OID 84235)
 -- Name: unq_insumo_codigo; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5358,7 +5389,7 @@ ADD CONSTRAINT unq_insumo_codigo UNIQUE (insumo_codigo);
 
 
 --
--- TOC entry 2208 (class 2606 OID 58889)
+-- TOC entry 2206 (class 2606 OID 58889)
 -- Name: unq_perfil_syscode_codigo; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5367,7 +5398,7 @@ ADD CONSTRAINT unq_perfil_syscode_codigo UNIQUE (sys_systemcode, perfil_codigo);
 
 
 --
--- TOC entry 2210 (class 2606 OID 58891)
+-- TOC entry 2208 (class 2606 OID 58891)
 -- Name: unq_perfil_syscode_perfil_id; Type: CONSTRAINT; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5376,7 +5407,7 @@ ADD CONSTRAINT unq_perfil_syscode_perfil_id UNIQUE (sys_systemcode, perfil_id);
 
 
 --
--- TOC entry 2254 (class 2606 OID 84315)
+-- TOC entry 2252 (class 2606 OID 84315)
 -- Name: unq_producto_detalle; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5385,7 +5416,7 @@ ADD CONSTRAINT unq_producto_detalle UNIQUE (insumo_id_origen, insumo_id);
 
 
 --
--- TOC entry 2271 (class 2606 OID 100529)
+-- TOC entry 2269 (class 2606 OID 100529)
 -- Name: unq_regla; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5394,7 +5425,7 @@ ADD CONSTRAINT unq_regla UNIQUE (regla_empresa_origen_id, regla_empresa_destino_
 
 
 --
--- TOC entry 2231 (class 2606 OID 59386)
+-- TOC entry 2229 (class 2606 OID 59386)
 -- Name: uq_unidad_conversion; Type: CONSTRAINT; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5403,7 +5434,7 @@ ADD CONSTRAINT uq_unidad_conversion UNIQUE (unidad_medida_origen, unidad_medida_
 
 
 --
--- TOC entry 2275 (class 1259 OID 100992)
+-- TOC entry 2273 (class 1259 OID 100992)
 -- Name: fki_cliente_tipo_empresa; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5411,7 +5442,7 @@ CREATE INDEX fki_cliente_tipo_empresa ON tb_cliente USING btree (tipo_cliente_co
 
 
 --
--- TOC entry 2286 (class 1259 OID 109682)
+-- TOC entry 2284 (class 1259 OID 109682)
 -- Name: fki_cotizacion_detalle_cotizacion; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5419,7 +5450,7 @@ CREATE INDEX fki_cotizacion_detalle_cotizacion ON tb_cotizacion_detalle USING bt
 
 
 --
--- TOC entry 2287 (class 1259 OID 109683)
+-- TOC entry 2285 (class 1259 OID 109683)
 -- Name: fki_cotizacion_detalle_insumo; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5427,7 +5458,7 @@ CREATE INDEX fki_cotizacion_detalle_insumo ON tb_cotizacion_detalle USING btree 
 
 
 --
--- TOC entry 2288 (class 1259 OID 109684)
+-- TOC entry 2286 (class 1259 OID 109684)
 -- Name: fki_cotizacion_detalle_umedida; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5435,7 +5466,7 @@ CREATE INDEX fki_cotizacion_detalle_umedida ON tb_cotizacion_detalle USING btree
 
 
 --
--- TOC entry 2280 (class 1259 OID 101048)
+-- TOC entry 2278 (class 1259 OID 101048)
 -- Name: fki_cotizacion_empresa_origen; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5443,7 +5474,7 @@ CREATE INDEX fki_cotizacion_empresa_origen ON tb_cotizacion USING btree (empresa
 
 
 --
--- TOC entry 2281 (class 1259 OID 101049)
+-- TOC entry 2279 (class 1259 OID 101049)
 -- Name: fki_cotizacion_moneda; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5451,7 +5482,7 @@ CREATE INDEX fki_cotizacion_moneda ON tb_cotizacion USING btree (moneda_codigo);
 
 
 --
--- TOC entry 2260 (class 1259 OID 100875)
+-- TOC entry 2258 (class 1259 OID 100875)
 -- Name: fki_empresa_tipo_empresa; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5459,7 +5490,7 @@ CREATE INDEX fki_empresa_tipo_empresa ON tb_empresa USING btree (tipo_empresa_co
 
 
 --
--- TOC entry 2238 (class 1259 OID 100669)
+-- TOC entry 2236 (class 1259 OID 100669)
 -- Name: fki_insumo_empresa; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5467,7 +5498,7 @@ CREATE INDEX fki_insumo_empresa ON tb_insumo USING btree (empresa_id);
 
 
 --
--- TOC entry 2239 (class 1259 OID 100670)
+-- TOC entry 2237 (class 1259 OID 100670)
 -- Name: fki_insumo_moneda_costo; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5475,7 +5506,7 @@ CREATE INDEX fki_insumo_moneda_costo ON tb_insumo USING btree (moneda_codigo_cos
 
 
 --
--- TOC entry 2240 (class 1259 OID 100671)
+-- TOC entry 2238 (class 1259 OID 100671)
 -- Name: fki_insumo_tcostos; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5483,7 +5514,7 @@ CREATE INDEX fki_insumo_tcostos ON tb_insumo USING btree (tcostos_codigo);
 
 
 --
--- TOC entry 2241 (class 1259 OID 100672)
+-- TOC entry 2239 (class 1259 OID 100672)
 -- Name: fki_insumo_tinsumo; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5491,7 +5522,7 @@ CREATE INDEX fki_insumo_tinsumo ON tb_insumo USING btree (tinsumo_codigo);
 
 
 --
--- TOC entry 2242 (class 1259 OID 100673)
+-- TOC entry 2240 (class 1259 OID 100673)
 -- Name: fki_insumo_unidad_medida_costo; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5499,7 +5530,7 @@ CREATE INDEX fki_insumo_unidad_medida_costo ON tb_insumo USING btree (unidad_med
 
 
 --
--- TOC entry 2243 (class 1259 OID 100674)
+-- TOC entry 2241 (class 1259 OID 100674)
 -- Name: fki_insumo_unidad_medida_ingreso; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5507,7 +5538,7 @@ CREATE INDEX fki_insumo_unidad_medida_ingreso ON tb_insumo USING btree (unidad_m
 
 
 --
--- TOC entry 2198 (class 1259 OID 58916)
+-- TOC entry 2196 (class 1259 OID 58916)
 -- Name: fki_menu_parent_id; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5515,7 +5546,7 @@ CREATE INDEX fki_menu_parent_id ON tb_sys_menu USING btree (menu_parent_id);
 
 
 --
--- TOC entry 2199 (class 1259 OID 58917)
+-- TOC entry 2197 (class 1259 OID 58917)
 -- Name: fki_menu_sistemas; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5523,7 +5554,7 @@ CREATE INDEX fki_menu_sistemas ON tb_sys_menu USING btree (sys_systemcode);
 
 
 --
--- TOC entry 2204 (class 1259 OID 58918)
+-- TOC entry 2202 (class 1259 OID 58918)
 -- Name: fki_perfil_sistema; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5531,7 +5562,7 @@ CREATE INDEX fki_perfil_sistema ON tb_sys_perfil USING btree (sys_systemcode);
 
 
 --
--- TOC entry 2215 (class 1259 OID 58919)
+-- TOC entry 2213 (class 1259 OID 58919)
 -- Name: fki_perfil_usuario; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5539,7 +5570,7 @@ CREATE INDEX fki_perfil_usuario ON tb_sys_usuario_perfiles USING btree (perfil_i
 
 
 --
--- TOC entry 2248 (class 1259 OID 92422)
+-- TOC entry 2246 (class 1259 OID 92422)
 -- Name: fki_producto_detalle_empresa; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5547,7 +5578,7 @@ CREATE INDEX fki_producto_detalle_empresa ON tb_producto_detalle USING btree (em
 
 
 --
--- TOC entry 2249 (class 1259 OID 100667)
+-- TOC entry 2247 (class 1259 OID 100667)
 -- Name: fki_producto_detalle_insumo_id; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5555,7 +5586,7 @@ CREATE INDEX fki_producto_detalle_insumo_id ON tb_producto_detalle USING btree (
 
 
 --
--- TOC entry 2250 (class 1259 OID 100668)
+-- TOC entry 2248 (class 1259 OID 100668)
 -- Name: fki_producto_detalle_unidad_medida; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5563,7 +5594,7 @@ CREATE INDEX fki_producto_detalle_unidad_medida ON tb_producto_detalle USING btr
 
 
 --
--- TOC entry 2227 (class 1259 OID 100675)
+-- TOC entry 2225 (class 1259 OID 100675)
 -- Name: fki_unidad_conversion_medida_destino; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5571,7 +5602,7 @@ CREATE INDEX fki_unidad_conversion_medida_destino ON tb_unidad_medida_conversion
 
 
 --
--- TOC entry 2219 (class 1259 OID 92398)
+-- TOC entry 2217 (class 1259 OID 92398)
 -- Name: fki_usuario_empresa; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5579,7 +5610,7 @@ CREATE INDEX fki_usuario_empresa ON tb_usuarios USING btree (empresa_id);
 
 
 --
--- TOC entry 2216 (class 1259 OID 58932)
+-- TOC entry 2214 (class 1259 OID 58932)
 -- Name: fki_usuarioperfiles; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5587,7 +5618,7 @@ CREATE INDEX fki_usuarioperfiles ON tb_sys_usuario_perfiles USING btree (usuario
 
 
 --
--- TOC entry 2265 (class 1259 OID 92410)
+-- TOC entry 2263 (class 1259 OID 92410)
 -- Name: idx_sessions_last_activity; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5595,7 +5626,7 @@ CREATE INDEX idx_sessions_last_activity ON ci_sessions USING btree (last_activit
 
 
 --
--- TOC entry 2220 (class 1259 OID 58937)
+-- TOC entry 2218 (class 1259 OID 58937)
 -- Name: idx_unique_usuarios; Type: INDEX; Schema: public; Owner: atluser; Tablespace:
 --
 
@@ -5603,7 +5634,7 @@ CREATE UNIQUE INDEX idx_unique_usuarios ON tb_usuarios USING btree (upper((usuar
 
 
 --
--- TOC entry 2276 (class 1259 OID 100972)
+-- TOC entry 2274 (class 1259 OID 100972)
 -- Name: idx_unq_cliente_razon_social; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5611,7 +5642,7 @@ CREATE UNIQUE INDEX idx_unq_cliente_razon_social ON tb_cliente USING btree (empr
 
 
 --
--- TOC entry 2277 (class 1259 OID 100973)
+-- TOC entry 2275 (class 1259 OID 100973)
 -- Name: idx_unq_cliente_ruc; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5619,7 +5650,7 @@ CREATE UNIQUE INDEX idx_unq_cliente_ruc ON tb_cliente USING btree (empresa_id, u
 
 
 --
--- TOC entry 2261 (class 1259 OID 100921)
+-- TOC entry 2259 (class 1259 OID 100921)
 -- Name: idx_unq_empresa_razon_social; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5627,7 +5658,7 @@ CREATE UNIQUE INDEX idx_unq_empresa_razon_social ON tb_empresa USING btree (uppe
 
 
 --
--- TOC entry 2262 (class 1259 OID 100920)
+-- TOC entry 2260 (class 1259 OID 100920)
 -- Name: idx_unq_empresa_ruc; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5635,7 +5666,7 @@ CREATE UNIQUE INDEX idx_unq_empresa_ruc ON tb_empresa USING btree (upper((empres
 
 
 --
--- TOC entry 2272 (class 1259 OID 100952)
+-- TOC entry 2270 (class 1259 OID 100952)
 -- Name: idx_unq_tipo_cliente_descripcion; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5643,7 +5674,7 @@ CREATE UNIQUE INDEX idx_unq_tipo_cliente_descripcion ON tb_tipo_cliente USING bt
 
 
 --
--- TOC entry 2255 (class 1259 OID 92381)
+-- TOC entry 2253 (class 1259 OID 92381)
 -- Name: idx_unq_tipo_empresa_descripcion; Type: INDEX; Schema: public; Owner: clabsuser; Tablespace:
 --
 
@@ -5651,7 +5682,7 @@ CREATE UNIQUE INDEX idx_unq_tipo_empresa_descripcion ON tb_tipo_empresa USING bt
 
 
 --
--- TOC entry 2327 (class 2620 OID 58944)
+-- TOC entry 2325 (class 2620 OID 58944)
 -- Name: sptrg_verify_usuario_code_change; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5659,7 +5690,7 @@ CREATE TRIGGER sptrg_verify_usuario_code_change BEFORE INSERT OR DELETE OR UPDAT
 
 
 --
--- TOC entry 2356 (class 2620 OID 100974)
+-- TOC entry 2354 (class 2620 OID 100974)
 -- Name: tr_cliente; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5667,7 +5698,7 @@ CREATE TRIGGER tr_cliente BEFORE INSERT OR UPDATE ON tb_cliente FOR EACH ROW EXE
 
 
 --
--- TOC entry 2355 (class 2620 OID 101057)
+-- TOC entry 2353 (class 2620 OID 101057)
 -- Name: tr_cliente_validate_delete; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5675,7 +5706,7 @@ CREATE TRIGGER tr_cliente_validate_delete BEFORE DELETE ON tb_cliente FOR EACH R
 
 
 --
--- TOC entry 2357 (class 2620 OID 101050)
+-- TOC entry 2355 (class 2620 OID 101050)
 -- Name: tr_cotizacion; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5683,7 +5714,7 @@ CREATE TRIGGER tr_cotizacion BEFORE INSERT OR UPDATE ON tb_cotizacion FOR EACH R
 
 
 --
--- TOC entry 2360 (class 2620 OID 109700)
+-- TOC entry 2358 (class 2620 OID 109700)
 -- Name: tr_cotizacion_detalle; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5691,7 +5722,7 @@ CREATE TRIGGER tr_cotizacion_detalle BEFORE INSERT OR UPDATE ON tb_cotizacion_de
 
 
 --
--- TOC entry 2359 (class 2620 OID 109696)
+-- TOC entry 2357 (class 2620 OID 109696)
 -- Name: tr_cotizacion_detalle_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5699,7 +5730,7 @@ CREATE TRIGGER tr_cotizacion_detalle_validate_save BEFORE INSERT OR UPDATE ON tb
 
 
 --
--- TOC entry 2358 (class 2620 OID 101053)
+-- TOC entry 2356 (class 2620 OID 101053)
 -- Name: tr_cotizacion_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5707,7 +5738,7 @@ CREATE TRIGGER tr_cotizacion_validate_save BEFORE INSERT OR UPDATE OF cliente_id
 
 
 --
--- TOC entry 2351 (class 2620 OID 92374)
+-- TOC entry 2349 (class 2620 OID 92374)
 -- Name: tr_empresa; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5715,7 +5746,7 @@ CREATE TRIGGER tr_empresa BEFORE INSERT OR UPDATE ON tb_empresa FOR EACH ROW EXE
 
 
 --
--- TOC entry 2350 (class 2620 OID 101056)
+-- TOC entry 2348 (class 2620 OID 101056)
 -- Name: tr_empresa_validate_delete; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5723,7 +5754,7 @@ CREATE TRIGGER tr_empresa_validate_delete BEFORE DELETE ON tb_empresa FOR EACH R
 
 
 --
--- TOC entry 2349 (class 2620 OID 92338)
+-- TOC entry 2347 (class 2620 OID 92338)
 -- Name: tr_entidad; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5731,7 +5762,7 @@ CREATE TRIGGER tr_entidad BEFORE INSERT OR UPDATE ON tb_entidad FOR EACH ROW EXE
 
 
 --
--- TOC entry 2344 (class 2620 OID 84197)
+-- TOC entry 2342 (class 2620 OID 84197)
 -- Name: tr_insumo_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5739,7 +5770,7 @@ CREATE TRIGGER tr_insumo_validate_save BEFORE INSERT OR UPDATE ON tb_insumo FOR 
 
 
 --
--- TOC entry 2332 (class 2620 OID 59409)
+-- TOC entry 2330 (class 2620 OID 59409)
 -- Name: tr_moneda_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5747,7 +5778,7 @@ CREATE TRIGGER tr_moneda_validate_save BEFORE INSERT OR UPDATE ON tb_moneda FOR 
 
 
 --
--- TOC entry 2346 (class 2620 OID 84331)
+-- TOC entry 2344 (class 2620 OID 84331)
 -- Name: tr_producto_detalle_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5755,7 +5786,7 @@ CREATE TRIGGER tr_producto_detalle_validate_save BEFORE INSERT OR UPDATE ON tb_p
 
 
 --
--- TOC entry 2353 (class 2620 OID 100542)
+-- TOC entry 2351 (class 2620 OID 100542)
 -- Name: tr_reglas_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5763,7 +5794,7 @@ CREATE TRIGGER tr_reglas_validate_save BEFORE INSERT OR UPDATE ON tb_reglas FOR 
 
 
 --
--- TOC entry 2322 (class 2620 OID 58977)
+-- TOC entry 2320 (class 2620 OID 58977)
 -- Name: tr_sys_perfil; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5771,7 +5802,7 @@ CREATE TRIGGER tr_sys_perfil BEFORE INSERT OR UPDATE ON tb_sys_perfil FOR EACH R
 
 
 --
--- TOC entry 2323 (class 2620 OID 58978)
+-- TOC entry 2321 (class 2620 OID 58978)
 -- Name: tr_sys_perfil_detalle; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5779,7 +5810,7 @@ CREATE TRIGGER tr_sys_perfil_detalle BEFORE INSERT OR UPDATE ON tb_sys_perfil_de
 
 
 --
--- TOC entry 2324 (class 2620 OID 58979)
+-- TOC entry 2322 (class 2620 OID 58979)
 -- Name: tr_sys_sistemas; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5787,7 +5818,7 @@ CREATE TRIGGER tr_sys_sistemas BEFORE INSERT OR UPDATE ON tb_sys_sistemas FOR EA
 
 
 --
--- TOC entry 2325 (class 2620 OID 58980)
+-- TOC entry 2323 (class 2620 OID 58980)
 -- Name: tr_sys_usuario_perfiles; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5795,7 +5826,7 @@ CREATE TRIGGER tr_sys_usuario_perfiles BEFORE INSERT OR UPDATE ON tb_sys_usuario
 
 
 --
--- TOC entry 2341 (class 2620 OID 84155)
+-- TOC entry 2339 (class 2620 OID 84155)
 -- Name: tr_tcostos_validate_delete; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5803,7 +5834,7 @@ CREATE TRIGGER tr_tcostos_validate_delete BEFORE DELETE ON tb_tcostos FOR EACH R
 
 
 --
--- TOC entry 2342 (class 2620 OID 84156)
+-- TOC entry 2340 (class 2620 OID 84156)
 -- Name: tr_tcostos_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5811,7 +5842,7 @@ CREATE TRIGGER tr_tcostos_validate_save BEFORE INSERT OR UPDATE ON tb_tcostos FO
 
 
 --
--- TOC entry 2338 (class 2620 OID 84071)
+-- TOC entry 2336 (class 2620 OID 84071)
 -- Name: tr_tinsumo_validate_delete; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5819,7 +5850,7 @@ CREATE TRIGGER tr_tinsumo_validate_delete BEFORE DELETE ON tb_tinsumo FOR EACH R
 
 
 --
--- TOC entry 2339 (class 2620 OID 84072)
+-- TOC entry 2337 (class 2620 OID 84072)
 -- Name: tr_tinsumo_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5827,7 +5858,7 @@ CREATE TRIGGER tr_tinsumo_validate_save BEFORE INSERT OR UPDATE ON tb_tinsumo FO
 
 
 --
--- TOC entry 2336 (class 2620 OID 75896)
+-- TOC entry 2334 (class 2620 OID 75896)
 -- Name: tr_tipo_cambio; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5835,7 +5866,7 @@ CREATE TRIGGER tr_tipo_cambio BEFORE INSERT OR UPDATE ON tb_tipo_cambio FOR EACH
 
 
 --
--- TOC entry 2337 (class 2620 OID 75897)
+-- TOC entry 2335 (class 2620 OID 75897)
 -- Name: tr_tipo_cambio_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5843,7 +5874,7 @@ CREATE TRIGGER tr_tipo_cambio_validate_save BEFORE INSERT OR UPDATE ON tb_tipo_c
 
 
 --
--- TOC entry 2334 (class 2620 OID 59398)
+-- TOC entry 2332 (class 2620 OID 59398)
 -- Name: tr_unidad_medida_conversion_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5851,7 +5882,7 @@ CREATE TRIGGER tr_unidad_medida_conversion_validate_save BEFORE INSERT OR UPDATE
 
 
 --
--- TOC entry 2329 (class 2620 OID 75962)
+-- TOC entry 2327 (class 2620 OID 75962)
 -- Name: tr_unidad_medida_validate_delete; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5859,7 +5890,7 @@ CREATE TRIGGER tr_unidad_medida_validate_delete BEFORE DELETE ON tb_unidad_medid
 
 
 --
--- TOC entry 2330 (class 2620 OID 59401)
+-- TOC entry 2328 (class 2620 OID 59401)
 -- Name: tr_unidad_medida_validate_save; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5867,7 +5898,7 @@ CREATE TRIGGER tr_unidad_medida_validate_save BEFORE INSERT OR UPDATE ON tb_unid
 
 
 --
--- TOC entry 2331 (class 2620 OID 59233)
+-- TOC entry 2329 (class 2620 OID 59233)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5875,7 +5906,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_unidad_medida 
 
 
 --
--- TOC entry 2333 (class 2620 OID 59249)
+-- TOC entry 2331 (class 2620 OID 59249)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5883,7 +5914,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_moneda FOR EAC
 
 
 --
--- TOC entry 2335 (class 2620 OID 59397)
+-- TOC entry 2333 (class 2620 OID 59397)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5891,7 +5922,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_unidad_medida_
 
 
 --
--- TOC entry 2340 (class 2620 OID 84073)
+-- TOC entry 2338 (class 2620 OID 84073)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5899,7 +5930,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_tinsumo FOR EA
 
 
 --
--- TOC entry 2343 (class 2620 OID 84157)
+-- TOC entry 2341 (class 2620 OID 84157)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5907,7 +5938,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_tcostos FOR EA
 
 
 --
--- TOC entry 2345 (class 2620 OID 84198)
+-- TOC entry 2343 (class 2620 OID 84198)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5915,7 +5946,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_insumo FOR EAC
 
 
 --
--- TOC entry 2347 (class 2620 OID 84332)
+-- TOC entry 2345 (class 2620 OID 84332)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5923,7 +5954,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_producto_detal
 
 
 --
--- TOC entry 2348 (class 2620 OID 92279)
+-- TOC entry 2346 (class 2620 OID 92279)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5931,7 +5962,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_tipo_empresa F
 
 
 --
--- TOC entry 2352 (class 2620 OID 100540)
+-- TOC entry 2350 (class 2620 OID 100540)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5939,7 +5970,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_reglas FOR EAC
 
 
 --
--- TOC entry 2354 (class 2620 OID 100953)
+-- TOC entry 2352 (class 2620 OID 100953)
 -- Name: tr_update_log_fields; Type: TRIGGER; Schema: public; Owner: clabsuser
 --
 
@@ -5947,7 +5978,7 @@ CREATE TRIGGER tr_update_log_fields BEFORE INSERT OR UPDATE ON tb_tipo_cliente F
 
 
 --
--- TOC entry 2326 (class 2620 OID 100554)
+-- TOC entry 2324 (class 2620 OID 100554)
 -- Name: tr_usuario_perfiles_save; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5955,7 +5986,7 @@ CREATE TRIGGER tr_usuario_perfiles_save BEFORE INSERT OR UPDATE ON tb_sys_usuari
 
 
 --
--- TOC entry 2328 (class 2620 OID 58981)
+-- TOC entry 2326 (class 2620 OID 58981)
 -- Name: tr_usuarios; Type: TRIGGER; Schema: public; Owner: atluser
 --
 
@@ -5963,7 +5994,7 @@ CREATE TRIGGER tr_usuarios BEFORE INSERT OR UPDATE ON tb_usuarios FOR EACH ROW E
 
 
 --
--- TOC entry 2315 (class 2606 OID 100982)
+-- TOC entry 2313 (class 2606 OID 100982)
 -- Name: fk_cliente_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -5972,7 +6003,7 @@ ADD CONSTRAINT fk_cliente_empresa FOREIGN KEY (empresa_id) REFERENCES tb_empresa
 
 
 --
--- TOC entry 2316 (class 2606 OID 100987)
+-- TOC entry 2314 (class 2606 OID 100987)
 -- Name: fk_cliente_tipo_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -5981,7 +6012,7 @@ ADD CONSTRAINT fk_cliente_tipo_empresa FOREIGN KEY (tipo_cliente_codigo) REFEREN
 
 
 --
--- TOC entry 2319 (class 2606 OID 109667)
+-- TOC entry 2317 (class 2606 OID 109667)
 -- Name: fk_cotizacion_detalle_cotizacion; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -5990,7 +6021,7 @@ ADD CONSTRAINT fk_cotizacion_detalle_cotizacion FOREIGN KEY (cotizacion_id) REFE
 
 
 --
--- TOC entry 2320 (class 2606 OID 109672)
+-- TOC entry 2318 (class 2606 OID 109672)
 -- Name: fk_cotizacion_detalle_insumo; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -5999,7 +6030,7 @@ ADD CONSTRAINT fk_cotizacion_detalle_insumo FOREIGN KEY (insumo_id) REFERENCES t
 
 
 --
--- TOC entry 2321 (class 2606 OID 109677)
+-- TOC entry 2319 (class 2606 OID 109677)
 -- Name: fk_cotizacion_detalle_umedida; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6008,7 +6039,7 @@ ADD CONSTRAINT fk_cotizacion_detalle_umedida FOREIGN KEY (unidad_medida_codigo) 
 
 
 --
--- TOC entry 2318 (class 2606 OID 101038)
+-- TOC entry 2316 (class 2606 OID 101038)
 -- Name: fk_cotizacion_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6017,7 +6048,7 @@ ADD CONSTRAINT fk_cotizacion_empresa FOREIGN KEY (empresa_id) REFERENCES tb_empr
 
 
 --
--- TOC entry 2317 (class 2606 OID 101043)
+-- TOC entry 2315 (class 2606 OID 101043)
 -- Name: fk_cotizacion_moneda; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6026,7 +6057,7 @@ ADD CONSTRAINT fk_cotizacion_moneda FOREIGN KEY (moneda_codigo) REFERENCES tb_mo
 
 
 --
--- TOC entry 2312 (class 2606 OID 92369)
+-- TOC entry 2310 (class 2606 OID 92369)
 -- Name: fk_empresa_tipo_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6035,7 +6066,7 @@ ADD CONSTRAINT fk_empresa_tipo_empresa FOREIGN KEY (tipo_empresa_codigo) REFEREN
 
 
 --
--- TOC entry 2304 (class 2606 OID 100451)
+-- TOC entry 2302 (class 2606 OID 100451)
 -- Name: fk_insumo_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6044,7 +6075,7 @@ ADD CONSTRAINT fk_insumo_empresa FOREIGN KEY (empresa_id) REFERENCES tb_empresa(
 
 
 --
--- TOC entry 2302 (class 2606 OID 84172)
+-- TOC entry 2300 (class 2606 OID 84172)
 -- Name: fk_insumo_moneda_costo; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6053,7 +6084,7 @@ ADD CONSTRAINT fk_insumo_moneda_costo FOREIGN KEY (moneda_codigo_costo) REFERENC
 
 
 --
--- TOC entry 2303 (class 2606 OID 84177)
+-- TOC entry 2301 (class 2606 OID 84177)
 -- Name: fk_insumo_tcostos; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6062,7 +6093,7 @@ ADD CONSTRAINT fk_insumo_tcostos FOREIGN KEY (tcostos_codigo) REFERENCES tb_tcos
 
 
 --
--- TOC entry 2305 (class 2606 OID 84182)
+-- TOC entry 2303 (class 2606 OID 84182)
 -- Name: fk_insumo_tinsumo; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6071,7 +6102,7 @@ ADD CONSTRAINT fk_insumo_tinsumo FOREIGN KEY (tinsumo_codigo) REFERENCES tb_tins
 
 
 --
--- TOC entry 2306 (class 2606 OID 84187)
+-- TOC entry 2304 (class 2606 OID 84187)
 -- Name: fk_insumo_unidad_medida_costo; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6080,7 +6111,7 @@ ADD CONSTRAINT fk_insumo_unidad_medida_costo FOREIGN KEY (unidad_medida_codigo_c
 
 
 --
--- TOC entry 2307 (class 2606 OID 84192)
+-- TOC entry 2305 (class 2606 OID 84192)
 -- Name: fk_insumo_unidad_medida_ingreso; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6089,7 +6120,7 @@ ADD CONSTRAINT fk_insumo_unidad_medida_ingreso FOREIGN KEY (unidad_medida_codigo
 
 
 --
--- TOC entry 2291 (class 2606 OID 59107)
+-- TOC entry 2289 (class 2606 OID 59107)
 -- Name: fk_menu_parent; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6098,7 +6129,7 @@ ADD CONSTRAINT fk_menu_parent FOREIGN KEY (menu_parent_id) REFERENCES tb_sys_men
 
 
 --
--- TOC entry 2292 (class 2606 OID 59112)
+-- TOC entry 2290 (class 2606 OID 59112)
 -- Name: fk_menu_sistemas; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6107,7 +6138,7 @@ ADD CONSTRAINT fk_menu_sistemas FOREIGN KEY (sys_systemcode) REFERENCES tb_sys_s
 
 
 --
--- TOC entry 2300 (class 2606 OID 75886)
+-- TOC entry 2298 (class 2606 OID 75886)
 -- Name: fk_moneda_destino; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6116,7 +6147,7 @@ ADD CONSTRAINT fk_moneda_destino FOREIGN KEY (moneda_codigo_destino) REFERENCES 
 
 
 --
--- TOC entry 2301 (class 2606 OID 75891)
+-- TOC entry 2299 (class 2606 OID 75891)
 -- Name: fk_moneda_origen; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6125,7 +6156,7 @@ ADD CONSTRAINT fk_moneda_origen FOREIGN KEY (moneda_codigo_origen) REFERENCES tb
 
 
 --
--- TOC entry 2294 (class 2606 OID 59122)
+-- TOC entry 2292 (class 2606 OID 59122)
 -- Name: fk_perfdet_perfil; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6134,7 +6165,7 @@ ADD CONSTRAINT fk_perfdet_perfil FOREIGN KEY (perfil_id) REFERENCES tb_sys_perfi
 
 
 --
--- TOC entry 2293 (class 2606 OID 59127)
+-- TOC entry 2291 (class 2606 OID 59127)
 -- Name: fk_perfil_sistema; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6143,7 +6174,7 @@ ADD CONSTRAINT fk_perfil_sistema FOREIGN KEY (sys_systemcode) REFERENCES tb_sys_
 
 
 --
--- TOC entry 2311 (class 2606 OID 92417)
+-- TOC entry 2309 (class 2606 OID 92417)
 -- Name: fk_producto_detalle_empresa; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6152,7 +6183,7 @@ ADD CONSTRAINT fk_producto_detalle_empresa FOREIGN KEY (empresa_id) REFERENCES t
 
 
 --
--- TOC entry 2308 (class 2606 OID 84316)
+-- TOC entry 2306 (class 2606 OID 84316)
 -- Name: fk_producto_detalle_insumo_id; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6161,7 +6192,7 @@ ADD CONSTRAINT fk_producto_detalle_insumo_id FOREIGN KEY (insumo_id) REFERENCES 
 
 
 --
--- TOC entry 2309 (class 2606 OID 84321)
+-- TOC entry 2307 (class 2606 OID 84321)
 -- Name: fk_producto_detalle_insumo_id_origen; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6170,7 +6201,7 @@ ADD CONSTRAINT fk_producto_detalle_insumo_id_origen FOREIGN KEY (insumo_id_orige
 
 
 --
--- TOC entry 2310 (class 2606 OID 84326)
+-- TOC entry 2308 (class 2606 OID 84326)
 -- Name: fk_producto_detalle_unidad_medida; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6179,7 +6210,7 @@ ADD CONSTRAINT fk_producto_detalle_unidad_medida FOREIGN KEY (unidad_medida_codi
 
 
 --
--- TOC entry 2313 (class 2606 OID 100530)
+-- TOC entry 2311 (class 2606 OID 100530)
 -- Name: fk_regla_empresa_destino; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6188,7 +6219,7 @@ ADD CONSTRAINT fk_regla_empresa_destino FOREIGN KEY (regla_empresa_destino_id) R
 
 
 --
--- TOC entry 2314 (class 2606 OID 100535)
+-- TOC entry 2312 (class 2606 OID 100535)
 -- Name: fk_regla_empresa_origen; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6197,7 +6228,7 @@ ADD CONSTRAINT fk_regla_empresa_origen FOREIGN KEY (regla_empresa_origen_id) REF
 
 
 --
--- TOC entry 2298 (class 2606 OID 59387)
+-- TOC entry 2296 (class 2606 OID 59387)
 -- Name: fk_unidad_conversion_medida_destino; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6206,7 +6237,7 @@ ADD CONSTRAINT fk_unidad_conversion_medida_destino FOREIGN KEY (unidad_medida_de
 
 
 --
--- TOC entry 2299 (class 2606 OID 59392)
+-- TOC entry 2297 (class 2606 OID 59392)
 -- Name: fk_unidad_conversion_medida_origen; Type: FK CONSTRAINT; Schema: public; Owner: clabsuser
 --
 
@@ -6215,7 +6246,7 @@ ADD CONSTRAINT fk_unidad_conversion_medida_origen FOREIGN KEY (unidad_medida_ori
 
 
 --
--- TOC entry 2297 (class 2606 OID 92393)
+-- TOC entry 2295 (class 2606 OID 92393)
 -- Name: fk_usuario_empresa; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6224,7 +6255,7 @@ ADD CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id) REFERENCES tb_empresa
 
 
 --
--- TOC entry 2295 (class 2606 OID 59172)
+-- TOC entry 2293 (class 2606 OID 59172)
 -- Name: fk_usuarioperfiles; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6233,7 +6264,7 @@ ADD CONSTRAINT fk_usuarioperfiles FOREIGN KEY (perfil_id) REFERENCES tb_sys_perf
 
 
 --
--- TOC entry 2296 (class 2606 OID 59177)
+-- TOC entry 2294 (class 2606 OID 59177)
 -- Name: fk_usuarioperfiles_usuario; Type: FK CONSTRAINT; Schema: public; Owner: atluser
 --
 
@@ -6242,7 +6273,7 @@ ADD CONSTRAINT fk_usuarioperfiles_usuario FOREIGN KEY (usuarios_id) REFERENCES t
 
 
 --
--- TOC entry 2514 (class 0 OID 0)
+-- TOC entry 2512 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -6253,7 +6284,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2016-12-17 04:30:10
+-- Completed on 2016-12-22 02:14:20
 
 --
 -- PostgreSQL database dump complete
