@@ -23,6 +23,9 @@ isc.RestDataSourceCotizacion.create({
         {name: "cotizacion_es_cliente_real", title: '', type: 'boolean', getFieldValue: function(r, v, f, fn) {
             return mdl_cotizacion._getBooleanFieldValue(v);
         }, required: true},
+        {name: "cotizacion_cerrada", title: 'Cerrada ?', type: 'boolean', getFieldValue: function(r, v, f, fn) {
+            return mdl_cotizacion._getBooleanFieldValue(v);
+        }, required: true},
         // Campos join
         {name: "cliente_razon_social",title:'Cliente'},
         {name: "moneda_descripcion", title:'Moneda'}

@@ -42,11 +42,12 @@ class CotizacionDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     protected function getAddRecordQuery(\TSLDataModel &$record)
     {
         /* @var $record  CotizacionModel */
-        return 'insert into tb_cotizacion (empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_numero,moneda_codigo,cotizacion_fecha,'.
+        return 'insert into tb_cotizacion (empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_cerrada,cotizacion_numero,moneda_codigo,cotizacion_fecha,'.
         'activo,usuario) values(' .
         $record->get_empresa_id() . ',' .
         $record->get_cliente_id() . ',\'' .
-        $record->get_cotizacion_es_cliente_real() . '\',' .
+        $record->get_cotizacion_es_cliente_real() . '\',\'' .
+        $record->get_cotizacion_cerrada() . '\',' .
         '(select fn_get_cotizacion_next_id()),\'' .
         $record->get_moneda_codigo() . '\',\'' .
         $record->get_cotizacion_fecha() . '\',\'' .
@@ -65,7 +66,7 @@ class CotizacionDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
         if ($subOperation == 'fetchJoined') {
             $sql = $this->_getFecthNormalized();
         } else {
-            $sql = 'SELECT cotizacion_id,empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_numero,moneda_codigo,cotizacion_fecha,activo,xmin AS "versionId" ' .
+            $sql = 'SELECT cotizacion_id,empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_numero,moneda_codigo,cotizacion_fecha,cotizacion_cerrada,activo,xmin AS "versionId" ' .
                 'FROM  tb_cotizacion pd ';
         }
 
@@ -133,7 +134,7 @@ class CotizacionDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
             $sql = $this->_getFecthNormalized();
             $sql .= ' WHERE cotizacion_id = ' . $code;
         } else {
-            $sql =  'SELECT cotizacion_id,empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_numero,moneda_codigo,cotizacion_fecha,activo,xmin AS "versionId" ' .
+            $sql =  'SELECT cotizacion_id,empresa_id,cliente_id,cotizacion_es_cliente_real,cotizacion_numero,moneda_codigo,cotizacion_fecha,cotizacion_cerrada,activo,xmin AS "versionId" ' .
             'FROM tb_cotizacion WHERE cotizacion_id = ' . $code;
         }
         return $sql;
@@ -148,11 +149,12 @@ class CotizacionDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     {
 
         /* @var $record  CotizacionModel */
-
+        
         return 'update tb_cotizacion set cotizacion_id=' . $record->get_cotizacion_id() . ',' .
         'empresa_id=' . $record->get_empresa_id() . ',' .
         'cliente_id=' . $record->get_cliente_id() . ',' .
         'cotizacion_es_cliente_real=\'' . $record->get_cotizacion_es_cliente_real() . '\',' .
+        'cotizacion_cerrada=\'' . $record->get_cotizacion_cerrada() . '\',' .
         'cotizacion_numero=' . $record->get_cotizacion_numero() . ',' .
         'moneda_codigo=\'' . $record->get_moneda_codigo() . '\',' .
         'cotizacion_fecha=\'' . $record->get_cotizacion_fecha() . '\',' .
@@ -163,7 +165,7 @@ class CotizacionDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre
     }
 
     private function _getFecthNormalized() {
-        $sql = 'SELECT cotizacion_id,pd.empresa_id,pd.cliente_id,cotizacion_es_cliente_real,
+        $sql = 'SELECT cotizacion_id,pd.empresa_id,pd.cliente_id,cotizacion_es_cliente_real,cotizacion_cerrada,
                     coalesce(cliente_razon_social,empresa_razon_social) as cliente_razon_social,
                     cotizacion_numero,pd.moneda_codigo,moneda_descripcion,cotizacion_fecha,pd.activo,pd.xmin AS "versionId" 
                 FROM  tb_cotizacion pd

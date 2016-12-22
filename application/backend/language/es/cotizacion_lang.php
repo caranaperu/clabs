@@ -21,6 +21,7 @@ $lang['cotizacion_es_cliente_real'] = 'Es cliente real';
 $lang['cotizacion_numero'] = 'Numero de Cotizacion';
 $lang['moneda_codigo'] = 'Codigo de Moneda';
 $lang['cotizacion_fecha'] = 'Fecha';
+$lang['cotizacion_cerrada'] = 'Cerrada ?';
 $lang['activo'] = 'El campo obligatorio debe ser si o no';
 $lang['versionId'] = 'Version';
 ?>

@@ -108,6 +108,19 @@ isc.WinCotizacionForm.addProperties({
                     }
                 },
                 {
+                    name: "cotizacion_cerrada",
+                    showPending: true,
+                    defaultValue: false,
+                    setValue: function(value) {
+                        if (value == true) {
+                            this.title = 'Cerrada';
+                        } else {
+                            this.title = 'Abierta';
+                        }
+                        this.Super('setValue', arguments);
+                    }
+                },
+                {
                     name: "cotizacion_es_cliente_real",
                     hidden: true
                 }
@@ -122,6 +135,9 @@ isc.WinCotizacionForm.addProperties({
                 this.Super("setEditMode", arguments);
                 if (mode == 'add') {
                     formCotizacion.getField('cotizacion_numero').setRequired(false);
+                    formCotizacion.getField('moneda_codigo').enable();
+                    formCotizacion.getField('cliente_id').enable();
+                    formCotizacion.getField('cotizacion_cerrada').enable();
                 } else {
                     formCotizacion.getField('cotizacion_numero').setRequired(true);
                 }
@@ -153,6 +169,17 @@ isc.WinCotizacionForm.addProperties({
 
                 // retornamos el valor original
                 fieldCliente.setOptionCriteria(isc.clone(origCriteria));
+
+                var record = component.getSelectedRecord();
+                if (record && record.cotizacion_cerrada == true) {
+                    formCotizacion.getField('moneda_codigo').disable();
+                    formCotizacion.getField('cliente_id').disable();
+                    formCotizacion.getField('cotizacion_cerrada').disable();
+                } else {
+                    formCotizacion.getField('moneda_codigo').enable();
+                    formCotizacion.getField('cliente_id').enable();
+                    formCotizacion.getField('cotizacion_cerrada').enable();
+                }
             }
         });
     },

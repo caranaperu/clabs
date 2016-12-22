@@ -35,6 +35,7 @@ class CotizacionBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         $model->set_empresa_id($dto->getParameterValue('empresa_id'));
         $model->set_cliente_id($dto->getParameterValue('cliente_id'));
         $model->set_cotizacion_es_cliente_real($dto->getParameterValue('cotizacion_es_cliente_real'));
+        $model->set_cotizacion_cerrada($dto->getParameterValue('cotizacion_cerrada'));
         $model->set_moneda_codigo($dto->getParameterValue('moneda_codigo'));
         $model->set_cotizacion_fecha($dto->getParameterValue('cotizacion_fecha'));
 
@@ -56,6 +57,7 @@ class CotizacionBussinessService extends \app\common\bussiness\TSLAppCRUDBussine
         $model->set_empresa_id($dto->getParameterValue('empresa_id'));
         $model->set_cliente_id($dto->getParameterValue('cliente_id'));
         $model->set_cotizacion_es_cliente_real($dto->getParameterValue('cotizacion_es_cliente_real'));
+        $model->set_cotizacion_cerrada($dto->getParameterValue('cotizacion_cerrada'));
         $model->set_cotizacion_numero($dto->getParameterValue('cotizacion_numero'));
         $model->set_moneda_codigo($dto->getParameterValue('moneda_codigo'));
         $model->set_cotizacion_fecha($dto->getParameterValue('cotizacion_fecha'));

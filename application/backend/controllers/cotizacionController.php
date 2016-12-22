@@ -36,9 +36,9 @@ class cotizacionController extends app\common\controller\TSLAppDefaultCRUDContro
             "paramsList" => [
                 "fetch" => [],
                 "read" => ['cotizacion_id', 'verifyExist'],
-                "add" => ['empresa_id','cliente_id','cotizacion_es_cliente_real','cotizacion_numero','moneda_codigo','cotizacion_fecha','activo'],
+                "add" => ['empresa_id','cliente_id','cotizacion_es_cliente_real','cotizacion_cerrada','cotizacion_numero','moneda_codigo','cotizacion_fecha','activo'],
                 "del" => ['cotizacion_id', 'versionId'],
-                "upd" => ['cotizacion_id', 'empresa_id','cliente_id','cotizacion_es_cliente_real','cotizacion_numero','moneda_codigo','cotizacion_fecha','versionId', 'activo'],
+                "upd" => ['cotizacion_id', 'empresa_id','cliente_id','cotizacion_es_cliente_real','cotizacion_cerrada','cotizacion_numero','moneda_codigo','cotizacion_fecha','versionId', 'activo'],
             ],
             "paramsFixableToNull" => ['cotizacion_', 'empresa_', 'moneda_'],
             "paramsFixableToValue" => ["cotizacion_id" => ["valueToFix" => 'null', "valueToReplace" => NULL, "isID" => true]],

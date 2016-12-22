@@ -37,7 +37,11 @@ isc.WinCotizacionWindow.addProperties({
                 },
                 {
                     name: "cliente_razon_social",
-                    width: '50%'
+                    width: '40%'
+                },
+                {
+                    name: "cotizacion_cerrada",
+                    width: '10%'
                 }
             ],
             getCellCSSText2: function(record, rowNum, colNum) {

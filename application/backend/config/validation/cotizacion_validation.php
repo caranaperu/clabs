@@ -28,7 +28,7 @@ $config['v_cotizacion'] = array(
         array(
             'field' => 'cotizacion_es_cliente_real',
             'label' => 'lang:cotizacion_es_cliente_real',
-            'rules' => 'is_bool|xss_clean")'
+            'rules' => 'is_bool|xss_clean'
         ),
         array(
             'field' => 'moneda_codigo',
@@ -44,6 +44,11 @@ $config['v_cotizacion'] = array(
             'field' => 'cotizacion_numero',
             'label' => 'lang:cotizacion_numero',
             'rules' => 'required|integer|xss_clean'
+        ),
+        array(
+            'field' => 'cotizacion_cerrada',
+            'label' => 'lang:cotizacion_cerrada',
+            'rules' => 'required|is_bool|xss_clean'
         ),
         array(
             'field' => 'activo',
@@ -82,7 +87,7 @@ $config['v_cotizacion'] = array(
         array(
             'field' => 'cotizacion_es_cliente_real',
             'label' => 'lang:cotizacion_es_cliente_real',
-            'rules' => 'is_bool|xss_clean")'
+            'rules' => 'is_bool|xss_clean'
         ),
         array(
             'field' => 'moneda_codigo',
@@ -95,9 +100,14 @@ $config['v_cotizacion'] = array(
             'rules' => 'required|validDate|xss_clean'
         ),
         array(
+            'field' => 'cotizacion_cerrada',
+            'label' => 'lang:cotizacion_cerrada',
+            'rules' => 'required|is_bool|xss_clean'
+        ),
+        array(
             'field' => 'activo',
             'label' => 'lang:activo',
-            'rules' => 'is_bool|xss_clean")'
+            'rules' => 'is_bool|xss_clean'
         )
     )
 );

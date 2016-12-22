@@ -24,6 +24,7 @@ class CotizacionModel extends \app\common\model\TSLAppCommonBaseModel
     protected $cotizacion_numero;
     protected $moneda_codigo;
     protected $cotizacion_fecha;
+    protected $cotizacion_cerrada;
 
 
     public function set_cotizacion_id($cotizacion_id)
@@ -164,7 +165,25 @@ class CotizacionModel extends \app\common\model\TSLAppCommonBaseModel
         return $this->cotizacion_fecha;
     }
 
+    /**
+     * Setea si una cotizacion sera cerrada y ya no podra
+     * modificarse.
+     *
+     * @param boolean $cotizacion_cerrada true/false
+     */
+    public function set_cotizacion_cerrada($cotizacion_cerrada) {
+        $this->cotizacion_cerrada = $cotizacion_cerrada;
+    }
 
+    /**
+     * Retorna si una cotizacion esta cerrada , de ser asi
+     * ya no pueden alterarse los datos.
+     *
+     * @return boolean true si esta cerrada.
+     */
+    public function get_cotizacion_cerrada() {
+        return $this->cotizacion_cerrada;
+    }
 
     public function &getPKAsArray()
     {

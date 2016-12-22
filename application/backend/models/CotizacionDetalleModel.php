@@ -24,7 +24,6 @@ class CotizacionDetalleModel extends \app\common\model\TSLAppCommonBaseModel
     protected $unidad_medida_codigo;
     protected $cotizacion_detalle_precio;
     protected $cotizacion_detalle_total;
-    protected $cotizacion_cerrada;
     protected $regla_by_costo;
     protected $regla_porcentaje;
     protected $tipo_cambio_tasa_compra;
@@ -156,28 +155,8 @@ class CotizacionDetalleModel extends \app\common\model\TSLAppCommonBaseModel
     public function set_cotizacion_detalle_precio($cotizacion_detalle_precio) {
         $this->cotizacion_detalle_precio = $cotizacion_detalle_precio;
     }
-
-    /**
-     * Setea si una cotizacion sera cerrada y ya no podra
-     * modificarse.
-     *
-     * @param boolean $cotizacion_cerrada true/false
-     */
-    public function setCotizacionCerrada($cotizacion_cerrada) {
-        $this->cotizacion_cerrada = $cotizacion_cerrada;
-    }
-
-    /**
-     * Retorna si una cotizacion esta cerrada , de ser asi
-     * ya no pueden alterarse los datos.
-     *
-     * @return boolean true si esta cerrada.
-     */
-    public function getCotizacionCerrada() {
-        return $this->cotizacion_cerrada;
-    }
-
-
+    
+    
     /**
      * Setea con que tipo de regla se determino es precio de
      * cotizacion , esto es por motivos historicos.
