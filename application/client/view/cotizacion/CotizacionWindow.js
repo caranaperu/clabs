@@ -58,6 +58,18 @@ isc.WinCotizacionWindow.addProperties({
                     operator: 'equals'
                 }]
             },
+            isAllowedToDelete: function() {
+                if (this.anySelected() === true) {
+                    var record = this.getSelectedRecord();
+                    // Si el registro tienen flag de protegido no se permite la grabacacion desde el GUI
+                    if (record.cotizacion_cerrada == true) {
+                        isc.say('No puede eliminarse una cotizacion cerrada');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
             canReorderFields: false,
             showFilterEditor: true,
             autoDraw: false,
@@ -65,8 +77,6 @@ isc.WinCotizacionWindow.addProperties({
             canMultiSort: false,
             autoSize: true,
             AutoFitWidthApproach: 'both'
-           // sortField: 'cotizacion_numero'
-
         });
     },
     initWidget: function() {

@@ -238,8 +238,8 @@ isc.WinCotizacionForm.addProperties({
             // funcionaria ya que se setea estaticamente y no dinamicamente.
             //
             childFormShow: function() {
-             //   gform_cotizacion_detalle.getField('insumo_id').pickListCriteria = {cotizacion_id: formCotizacion.getValue('cotizacion_id')};
-                gform_cotizacion_detalle.getField('insumo_id').optionCriteria = {cotizacion_id: formCotizacion.getValue('cotizacion_id')};
+              gform_cotizacion_detalle.getField('insumo_id').setOptionCriteria(isc.addProperties({}, {cotizacion_id: formCotizacion.getValue('cotizacion_id')}));
+
                 this.Super("childFormShow", arguments);
             },
             getFormComponent: function() {
