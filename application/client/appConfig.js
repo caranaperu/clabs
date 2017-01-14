@@ -19,7 +19,7 @@ var glb_dataUrl = '/clabs/index.php/';
  * @cfg {String} glb_mainUrl
  * Define el directorio base de la aplicacion
  */
-var glb_mainUrl = '/clabs/'
+var glb_mainUrl = '/clabs/';
 
 /**
  * @cfg {int} glb_empresaId
@@ -38,13 +38,13 @@ var glb_photoUrl = '../../photos';
  * @cfg {String} glb_photoMaleUrlurl
  * default para la imagen de foto default de varon
  */
-var glb_photoMaleUrl = glb_photoUrl + "/user_male.png"
+var glb_photoMaleUrl = glb_photoUrl + "/user_male.png";
 /**
  * @cfg {String} glb_photoFemaleUrl
  * @cfg {String} glb_photoMaleUrlurl
  * default para la imagen de foto default de varon
  */
-var glb_photoFemaleUrl = glb_photoUrl + "/user_female.png"
+var glb_photoFemaleUrl = glb_photoUrl + "/user_female.png";
 
 // Para marcaidaciones
 
@@ -95,10 +95,10 @@ var glb_systemident = 'labcostos';
 /* @cfg {String} glb_reportServerUrl
  * Define el url basico del  sevidor de reportes
  */
-var glb_reportServerUrl = 'http://192.168.1.42:8080/jasperserver';
+var glb_reportServerUrl = 'http://192.168.0.5:8080/jasperserver';
 
-var glb_reportServerUser = 'atluser';
-var glb_reportServerPsw = 'atluser';
+var glb_reportServerUser = 'laboratorio_user';
+var glb_reportServerPsw = 'laboratorio_user';
 
 
 Date.setShortDisplayFormat("toEuropeanShortDate");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="PostgreSQL - db_clabs@192.168.1.54" uuid="ca7ac729-e8fa-4da9-ae9e-db14df006296">
-    <database-info product="PostgreSQL" version="9.3.13" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+  <data-source name="PostgreSQL - db_clabs@192.168.0.5" uuid="ca7ac729-e8fa-4da9-ae9e-db14df006296">
+    <database-info product="PostgreSQL" version="9.3.15" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
       <identifier-quote-string>&quot;</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
@@ -10,2146 +10,3402 @@
       <schema id="2" parent="1" name="public">
         <object-id>2200</object-id>
         <comment>standard public schema</comment>
-        <introspection-state-number>25663</introspection-state-number>
-        <introspection-timestamp>2016-10-15.15:17:35.153</introspection-timestamp>
+        <introspection-state-number>28262</introspection-state-number>
+        <introspection-timestamp>2017-01-10.14:17:45.743</introspection-timestamp>
       </schema>
-      <sequence id="3" parent="2" name="tb_empresa_empresa_id_seq">
+      <sequence id="3" parent="2" name="tb_cliente_cliente_id_seq">
+        <object-id>100954</object-id>
+        <state-number>25897</state-number>
+      </sequence>
+      <sequence id="4" parent="2" name="tb_cotizacion_cotizacion_id_seq">
+        <object-id>101026</object-id>
+        <state-number>26092</state-number>
+      </sequence>
+      <sequence id="5" parent="2" name="tb_cotizacion_detalle_cotizacion_detalle_id_seq">
+        <object-id>109774</object-id>
+        <state-number>27815</state-number>
+      </sequence>
+      <sequence id="6" parent="2" name="tb_empresa_empresa_id_seq">
         <object-id>92356</object-id>
         <state-number>24072</state-number>
       </sequence>
-      <sequence id="4" parent="2" name="tb_entidad_entidad_id_seq">
+      <sequence id="7" parent="2" name="tb_entidad_entidad_id_seq">
         <object-id>92326</object-id>
         <state-number>24066</state-number>
       </sequence>
-      <sequence id="5" parent="2" name="tb_insumo_insumo_id_seq">
+      <sequence id="8" parent="2" name="tb_insumo_insumo_id_seq">
         <object-id>84158</object-id>
         <state-number>23805</state-number>
       </sequence>
-      <sequence id="6" parent="2" name="tb_producto_detalle_producto_detalle_id_seq">
+      <sequence id="9" parent="2" name="tb_producto_detalle_producto_detalle_id_seq">
         <object-id>84301</object-id>
         <state-number>23948</state-number>
       </sequence>
-      <sequence id="7" parent="2" name="tb_reglas_regla_id_seq">
+      <sequence id="10" parent="2" name="tb_reglas_regla_id_seq">
         <object-id>100518</object-id>
         <state-number>24956</state-number>
       </sequence>
-      <sequence id="8" parent="2" name="tb_sys_menu_menu_id_seq">
+      <sequence id="11" parent="2" name="tb_sys_menu_menu_id_seq">
         <object-id>58736</object-id>
         <state-number>22083</state-number>
       </sequence>
-      <sequence id="9" parent="2" name="tb_sys_perfil_detalle_perfdet_id_seq">
+      <sequence id="12" parent="2" name="tb_sys_perfil_detalle_perfdet_id_seq">
         <object-id>58751</object-id>
         <state-number>22090</state-number>
       </sequence>
-      <sequence id="10" parent="2" name="tb_sys_perfil_id_seq">
+      <sequence id="13" parent="2" name="tb_sys_perfil_id_seq">
         <object-id>58753</object-id>
         <state-number>22093</state-number>
       </sequence>
-      <sequence id="11" parent="2" name="tb_sys_usuario_perfiles_usuario_perfil_id_seq">
+      <sequence id="14" parent="2" name="tb_sys_usuario_perfiles_usuario_perfil_id_seq">
         <object-id>58763</object-id>
         <state-number>22100</state-number>
       </sequence>
-      <sequence id="12" parent="2" name="tb_tipo_cambio_tipo_cambio_id_seq">
+      <sequence id="15" parent="2" name="tb_tipo_cambio_tipo_cambio_id_seq">
         <object-id>75875</object-id>
         <state-number>23065</state-number>
       </sequence>
-      <sequence id="13" parent="2" name="tb_unidad_medida_conversion_unidad_medida_conversion_id_seq">
+      <sequence id="16" parent="2" name="tb_unidad_medida_conversion_unidad_medida_conversion_id_seq">
         <object-id>59375</object-id>
         <state-number>22514</state-number>
       </sequence>
-      <sequence id="14" parent="2" name="tb_usuarios_usuarios_id_seq">
+      <sequence id="17" parent="2" name="tb_usuarios_usuarios_id_seq">
         <object-id>58776</object-id>
         <state-number>22107</state-number>
       </sequence>
-      <table id="15" parent="2" name="ci_sessions">
+      <object-type id="18" parent="2" name="breakpoint">
+        <object-id>109560</object-id>
+        <state-number>26968</state-number>
+        <sub-kind>COMPOSITE</sub-kind>
+        <sub-category>COMPOSITE</sub-category>
+      </object-type>
+      <object-type id="19" parent="2" name="frame">
+        <object-id>109563</object-id>
+        <state-number>26968</state-number>
+        <sub-kind>COMPOSITE</sub-kind>
+        <sub-category>COMPOSITE</sub-category>
+      </object-type>
+      <object-type id="20" parent="2" name="var">
+        <object-id>109566</object-id>
+        <state-number>26968</state-number>
+        <sub-kind>COMPOSITE</sub-kind>
+        <sub-category>COMPOSITE</sub-category>
+      </object-type>
+      <object-type id="21" parent="2" name="proxyinfo">
+        <object-id>109569</object-id>
+        <state-number>26968</state-number>
+        <sub-kind>COMPOSITE</sub-kind>
+        <sub-category>COMPOSITE</sub-category>
+      </object-type>
+      <object-type id="22" parent="2" name="targetinfo">
+        <object-id>109592</object-id>
+        <state-number>26968</state-number>
+        <sub-kind>COMPOSITE</sub-kind>
+        <sub-category>COMPOSITE</sub-category>
+      </object-type>
+      <table id="23" parent="2" name="ci_sessions">
         <object-id>92399</object-id>
-        <state-number>24132</state-number>
+        <state-number>27951</state-number>
       </table>
-      <table id="16" parent="2" name="tb_cotizacion_counter">
+      <table id="24" parent="2" name="tb_cliente">
+        <object-id>100956</object-id>
+        <state-number>27981</state-number>
+      </table>
+      <table id="25" parent="2" name="tb_cotizacion">
+        <object-id>101028</object-id>
+        <state-number>28262</state-number>
+      </table>
+      <table id="26" parent="2" name="tb_cotizacion_counter">
         <object-id>100641</object-id>
-        <state-number>25657</state-number>
+        <state-number>27871</state-number>
       </table>
-      <table id="17" parent="2" name="tb_empresa">
+      <table id="27" parent="2" name="tb_cotizacion_detalle">
+        <object-id>109776</object-id>
+        <state-number>27989</state-number>
+      </table>
+      <table id="28" parent="2" name="tb_empresa">
         <object-id>92358</object-id>
-        <state-number>24956</state-number>
+        <state-number>27995</state-number>
       </table>
-      <table id="18" parent="2" name="tb_entidad">
+      <table id="29" parent="2" name="tb_entidad">
         <object-id>92328</object-id>
         <comment>Datos generales de la entidad que usa el sistema</comment>
-        <state-number>24066</state-number>
+        <state-number>27999</state-number>
       </table>
-      <table id="19" parent="2" name="tb_insumo">
+      <table id="30" parent="2" name="tb_igv">
+        <object-id>110317</object-id>
+        <state-number>28250</state-number>
+      </table>
+      <table id="31" parent="2" name="tb_insumo">
         <object-id>84160</object-id>
-        <state-number>25146</state-number>
+        <state-number>28011</state-number>
       </table>
-      <table id="20" parent="2" name="tb_moneda">
+      <table id="32" parent="2" name="tb_moneda">
         <object-id>59242</object-id>
-        <state-number>23805</state-number>
+        <state-number>28015</state-number>
       </table>
-      <table id="21" parent="2" name="tb_producto_detalle">
+      <table id="33" parent="2" name="tb_producto_detalle">
         <object-id>84303</object-id>
-        <state-number>24539</state-number>
+        <state-number>27979</state-number>
       </table>
-      <table id="22" parent="2" name="tb_reglas">
+      <table id="34" parent="2" name="tb_reglas">
         <object-id>100520</object-id>
-        <state-number>25017</state-number>
+        <state-number>28005</state-number>
       </table>
-      <table id="23" parent="2" name="tb_sys_menu">
+      <table id="35" parent="2" name="tb_sys_menu">
         <object-id>58731</object-id>
-        <state-number>22346</state-number>
+        <state-number>28007</state-number>
       </table>
-      <table id="24" parent="2" name="tb_sys_perfil">
+      <table id="36" parent="2" name="tb_sys_perfil">
         <object-id>58738</object-id>
-        <state-number>22358</state-number>
+        <state-number>27985</state-number>
       </table>
-      <table id="25" parent="2" name="tb_sys_perfil_detalle">
+      <table id="37" parent="2" name="tb_sys_perfil_detalle">
         <object-id>58742</object-id>
-        <state-number>22348</state-number>
+        <state-number>27991</state-number>
       </table>
-      <table id="26" parent="2" name="tb_sys_sistemas">
+      <table id="38" parent="2" name="tb_sys_sistemas">
         <object-id>58755</object-id>
-        <state-number>22349</state-number>
+        <state-number>27987</state-number>
       </table>
-      <table id="27" parent="2" name="tb_sys_usuario_perfiles">
+      <table id="39" parent="2" name="tb_sys_usuario_perfiles">
         <object-id>58759</object-id>
-        <state-number>25156</state-number>
+        <state-number>27983</state-number>
       </table>
-      <table id="28" parent="2" name="tb_tcostos">
+      <table id="40" parent="2" name="tb_tcostos">
         <object-id>84146</object-id>
-        <state-number>23805</state-number>
+        <state-number>27997</state-number>
       </table>
-      <table id="29" parent="2" name="tb_tinsumo">
+      <table id="41" parent="2" name="tb_tinsumo">
         <object-id>84062</object-id>
-        <state-number>23805</state-number>
+        <state-number>28257</state-number>
       </table>
-      <table id="30" parent="2" name="tb_tipo_cambio">
+      <table id="42" parent="2" name="tb_tipo_cambio">
         <object-id>75877</object-id>
-        <state-number>23065</state-number>
+        <state-number>27993</state-number>
       </table>
-      <table id="31" parent="2" name="tb_tipo_empresa">
+      <table id="43" parent="2" name="tb_tipo_cliente">
+        <object-id>100944</object-id>
+        <state-number>27964</state-number>
+      </table>
+      <table id="44" parent="2" name="tb_tipo_empresa">
         <object-id>92271</object-id>
-        <state-number>24072</state-number>
+        <state-number>28003</state-number>
       </table>
-      <table id="32" parent="2" name="tb_unidad_medida">
+      <table id="45" parent="2" name="tb_unidad_medida">
         <object-id>59224</object-id>
-        <state-number>25485</state-number>
+        <state-number>28013</state-number>
       </table>
-      <table id="33" parent="2" name="tb_unidad_medida_conversion">
+      <table id="46" parent="2" name="tb_unidad_medida_conversion">
         <object-id>59377</object-id>
-        <state-number>22514</state-number>
+        <state-number>28009</state-number>
       </table>
-      <table id="34" parent="2" name="tb_usuarios">
+      <table id="47" parent="2" name="tb_usuarios">
         <object-id>58771</object-id>
-        <state-number>24120</state-number>
+        <state-number>28001</state-number>
       </table>
-      <routine id="35" parent="2" name="fn_get_cotizacion_next_id">
+      <table id="48" parent="2" name="v_insumo_costo">
+        <object-id>101306</object-id>
+        <state-number>27970</state-number>
+      </table>
+      <routine id="49" parent="2" name="fn_get_cotizacion_next_id">
         <object-id>100645</object-id>
-        <state-number>25663</state-number>
+        <state-number>25732</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="36" parent="2" name="fn_get_producto_costo">
-        <object-id>76103</object-id>
-        <state-number>25338</state-number>
+      <routine id="50" parent="2" name="fn_get_producto_costo">
+        <object-id>109595</object-id>
+        <state-number>26989</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="37" parent="2" name="fn_get_producto_detalle_costo_base">
-        <object-id>100579</object-id>
-        <state-number>25339</state-number>
+      <routine id="51" parent="2" name="fn_get_producto_detalle_costo_base">
+        <object-id>109600</object-id>
+        <state-number>26994</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="38" parent="2" name="fn_get_producto_detalle_costo_old">
+      <routine id="52" parent="2" name="fn_get_producto_detalle_costo_old">
         <object-id>92253</object-id>
         <state-number>24027</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="39" parent="2" name="fn_get_producto_detalle_costo">
-        <object-id>76089</object-id>
-        <state-number>25289</state-number>
+      <routine id="53" parent="2" name="fn_get_producto_detalle_costo">
+        <object-id>109596</object-id>
+        <state-number>26992</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="40" parent="2" name="sp_asigperfiles_save_record">
+      <routine id="54" parent="2" name="fn_get_producto_precio_old">
+        <object-id>109484</object-id>
+        <state-number>26816</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="55" parent="2" name="fn_get_producto_precio">
+        <object-id>109603</object-id>
+        <state-number>26996</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="56" parent="2" name="pldbg_abort_target">
+        <object-id>109572</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="57" parent="2" name="pldbg_attach_to_port">
+        <object-id>109573</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="58" parent="2" name="pldbg_continue">
+        <object-id>109574</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="59" parent="2" name="pldbg_create_listener">
+        <object-id>109575</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="60" parent="2" name="pldbg_deposit_value">
+        <object-id>109576</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="61" parent="2" name="pldbg_drop_breakpoint">
+        <object-id>109577</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="62" parent="2" name="pldbg_get_breakpoints">
+        <object-id>109578</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="63" parent="2" name="pldbg_get_proxy_info">
+        <object-id>109581</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="64" parent="2" name="pldbg_get_source">
+        <object-id>109579</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="65" parent="2" name="pldbg_get_stack">
+        <object-id>109580</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="66" parent="2" name="pldbg_get_target_info">
+        <object-id>109593</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="67" parent="2" name="pldbg_get_variables">
+        <object-id>109582</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="68" parent="2" name="pldbg_oid_debug">
+        <object-id>109570</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="69" parent="2" name="pldbg_select_frame">
+        <object-id>109583</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="70" parent="2" name="pldbg_set_breakpoint">
+        <object-id>109584</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="71" parent="2" name="pldbg_set_global_breakpoint">
+        <object-id>109585</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="72" parent="2" name="pldbg_step_into">
+        <object-id>109586</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="73" parent="2" name="pldbg_step_over">
+        <object-id>109587</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="74" parent="2" name="pldbg_wait_for_breakpoint">
+        <object-id>109588</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="75" parent="2" name="pldbg_wait_for_target">
+        <object-id>109589</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="76" parent="2" name="plpgsql_oid_debug">
+        <object-id>109571</object-id>
+        <state-number>26968</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="77" parent="2" name="sp_asigperfiles_save_record">
         <object-id>58417</object-id>
         <state-number>21897</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="41" parent="2" name="sp_get_cantidad_insumos_for_producto">
+      <routine id="78" parent="2" name="sp_get_cantidad_insumos_for_producto">
         <object-id>100640</object-id>
         <state-number>25607</state-number>
         <routine-kind>FUNCTION</routine-kind>
         <returns-set>1</returns-set>
       </routine>
-      <routine id="42" parent="2" name="sp_get_datos_insumos_for_producto">
+      <routine id="79" parent="2" name="sp_get_clientes_for_cotizacion">
+        <object-id>101225</object-id>
+        <state-number>27088</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="80" parent="2" name="sp_get_datos_insumos_for_producto">
         <object-id>100639</object-id>
         <state-number>25601</state-number>
         <routine-kind>FUNCTION</routine-kind>
         <returns-set>1</returns-set>
       </routine>
-      <routine id="43" parent="2" name="sp_get_insumos_for_producto_detalle">
-        <object-id>100549</object-id>
-        <state-number>25600</state-number>
+      <routine id="81" parent="2" name="sp_get_insumos_for_producto_detalle_old">
+        <object-id>101145</object-id>
+        <state-number>26245</state-number>
         <routine-kind>FUNCTION</routine-kind>
         <returns-set>1</returns-set>
       </routine>
-      <routine id="44" parent="2" name="sp_get_insumos_for_producto_old">
+      <routine id="82" parent="2" name="sp_get_insumos_for_producto_detalle">
+        <object-id>101230</object-id>
+        <state-number>26441</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="83" parent="2" name="sp_get_insumos_for_producto">
         <object-id>100637</object-id>
-        <state-number>25608</state-number>
+        <state-number>27854</state-number>
         <routine-kind>FUNCTION</routine-kind>
         <returns-set>1</returns-set>
       </routine>
-      <routine id="45" parent="2" name="sp_insumo_delete_record">
+      <routine id="84" parent="2" name="sp_get_productos_for_cotizacion_old">
+        <object-id>109698</object-id>
+        <state-number>27409</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="85" parent="2" name="sp_get_productos_for_cotizacion">
+        <object-id>109739</object-id>
+        <state-number>27424</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+        <returns-set>1</returns-set>
+      </routine>
+      <routine id="86" parent="2" name="sp_insumo_delete_record">
         <object-id>84061</object-id>
         <state-number>23745</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="46" parent="2" name="sp_perfil_delete_record">
+      <routine id="87" parent="2" name="sp_perfil_delete_record">
         <object-id>58453</object-id>
         <state-number>21930</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="47" parent="2" name="sp_perfil_detalle_save_record">
+      <routine id="88" parent="2" name="sp_perfil_detalle_save_record">
         <object-id>58454</object-id>
         <state-number>21932</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="48" parent="2" name="sp_sysperfil_add_record">
+      <routine id="89" parent="2" name="sp_sysperfil_add_record">
         <object-id>58480</object-id>
         <state-number>21953</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="49" parent="2" name="sptrg_insumo_validate_save">
-        <object-id>59436</object-id>
-        <state-number>25125</state-number>
+      <routine id="90" parent="2" name="sptrg_cliente_validate_delete">
+        <object-id>101054</object-id>
+        <state-number>26114</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="50" parent="2" name="sptrg_moneda_validate_save">
+      <routine id="91" parent="2" name="sptrg_cotizacion_detalle_validate_save">
+        <object-id>109695</object-id>
+        <state-number>27853</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="92" parent="2" name="sptrg_cotizacion_validate_delete">
+        <object-id>110323</object-id>
+        <state-number>28260</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="93" parent="2" name="sptrg_cotizacion_validate_save">
+        <object-id>101052</object-id>
+        <state-number>27683</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="94" parent="2" name="sptrg_empresa_validate_delete">
+        <object-id>101055</object-id>
+        <state-number>26115</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="95" parent="2" name="sptrg_insumo_validate_save">
+        <object-id>59436</object-id>
+        <state-number>27544</state-number>
+        <routine-kind>FUNCTION</routine-kind>
+      </routine>
+      <routine id="96" parent="2" name="sptrg_moneda_validate_save">
         <object-id>59408</object-id>
         <state-number>22618</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="51" parent="2" name="sptrg_producto_detalle_validate_save">
+      <routine id="97" parent="2" name="sptrg_producto_detalle_validate_save">
         <object-id>75870</object-id>
-        <state-number>25314</state-number>
+        <state-number>27546</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="52" parent="2" name="sptrg_records_save">
-        <object-id>58510</object-id>
-        <state-number>21973</state-number>
-        <routine-kind>FUNCTION</routine-kind>
-      </routine>
-      <routine id="53" parent="2" name="sptrg_reglas_validate_save">
+      <routine id="98" parent="2" name="sptrg_reglas_validate_save">
         <object-id>100541</object-id>
         <state-number>25037</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="54" parent="2" name="sptrg_tcostos_validate_delete">
+      <routine id="99" parent="2" name="sptrg_tcostos_validate_delete">
         <object-id>75920</object-id>
         <state-number>23133</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="55" parent="2" name="sptrg_tcostos_validate_save">
+      <routine id="100" parent="2" name="sptrg_tcostos_validate_save">
         <object-id>59493</object-id>
         <state-number>23142</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="56" parent="2" name="sptrg_tinsumo_validate_delete">
+      <routine id="101" parent="2" name="sptrg_tinsumo_validate_delete">
         <object-id>75922</object-id>
-        <state-number>23132</state-number>
+        <state-number>28261</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="57" parent="2" name="sptrg_tinsumo_validate_save">
+      <routine id="102" parent="2" name="sptrg_tinsumo_validate_save">
         <object-id>59257</object-id>
-        <state-number>23095</state-number>
+        <state-number>27541</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="58" parent="2" name="sptrg_tipo_cambio_validate_save">
+      <routine id="103" parent="2" name="sptrg_tipo_cambio_validate_save">
         <object-id>59481</object-id>
         <state-number>22783</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="59" parent="2" name="sptrg_unidad_medida_conversion_validate_save">
+      <routine id="104" parent="2" name="sptrg_unidad_medida_conversion_validate_save">
         <object-id>59370</object-id>
         <state-number>22510</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="60" parent="2" name="sptrg_unidad_medida_validate_delete">
+      <routine id="105" parent="2" name="sptrg_unidad_medida_validate_delete">
         <object-id>75961</object-id>
         <state-number>23167</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="61" parent="2" name="sptrg_unidad_medida_validate_save">
+      <routine id="106" parent="2" name="sptrg_unidad_medida_validate_save">
         <object-id>59400</object-id>
         <state-number>25474</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="62" parent="2" name="sptrg_update_log_fields">
+      <routine id="107" parent="2" name="sptrg_update_log_fields">
         <object-id>58511</object-id>
-        <state-number>21975</state-number>
+        <state-number>26101</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="63" parent="2" name="sptrg_usuario_perfiles_save">
+      <routine id="108" parent="2" name="sptrg_usuario_perfiles_save">
         <object-id>100553</object-id>
         <state-number>25190</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <routine id="64" parent="2" name="sptrg_verify_usuario_code_change">
+      <routine id="109" parent="2" name="sptrg_verify_usuario_code_change">
         <object-id>58512</object-id>
-        <state-number>21977</state-number>
+        <state-number>26102</state-number>
         <routine-kind>FUNCTION</routine-kind>
       </routine>
-      <column id="65" parent="15" name="session_id">
+      <object-attribute id="110" parent="18" name="func">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="111" parent="18" name="linenumber">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="112" parent="18" name="targetname">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="113" parent="19" name="level">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="114" parent="19" name="targetname">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="115" parent="19" name="func">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="116" parent="19" name="linenumber">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="117" parent="19" name="args">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="118" parent="20" name="name">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="119" parent="20" name="varclass">
+        <data-type>char</data-type>
+      </object-attribute>
+      <object-attribute id="120" parent="20" name="linenumber">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="121" parent="20" name="isunique">
+        <data-type>boolean</data-type>
+      </object-attribute>
+      <object-attribute id="122" parent="20" name="isconst">
+        <data-type>boolean</data-type>
+      </object-attribute>
+      <object-attribute id="123" parent="20" name="isnotnull">
+        <data-type>boolean</data-type>
+      </object-attribute>
+      <object-attribute id="124" parent="20" name="dtype">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="125" parent="20" name="value">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="126" parent="21" name="serverversionstr">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="127" parent="21" name="serverversionnum">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="128" parent="21" name="proxyapiver">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="129" parent="21" name="serverprocessid">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="130" parent="22" name="target">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="131" parent="22" name="schema">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="132" parent="22" name="nargs">
+        <data-type>integer</data-type>
+      </object-attribute>
+      <object-attribute id="133" parent="22" name="argtypes">
+        <data-type>oidvector</data-type>
+      </object-attribute>
+      <object-attribute id="134" parent="22" name="targetname">
+        <data-type>name</data-type>
+      </object-attribute>
+      <object-attribute id="135" parent="22" name="argmodes">
+        <data-type>&quot;char&quot;[]</data-type>
+      </object-attribute>
+      <object-attribute id="136" parent="22" name="argnames">
+        <data-type>text[]</data-type>
+      </object-attribute>
+      <object-attribute id="137" parent="22" name="targetlang">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="138" parent="22" name="fqname">
+        <data-type>text</data-type>
+      </object-attribute>
+      <object-attribute id="139" parent="22" name="returnsset">
+        <data-type>boolean</data-type>
+      </object-attribute>
+      <object-attribute id="140" parent="22" name="returntype">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="141" parent="22" name="isfunc">
+        <data-type>boolean</data-type>
+      </object-attribute>
+      <object-attribute id="142" parent="22" name="pkg">
+        <data-type>oid</data-type>
+      </object-attribute>
+      <object-attribute id="143" parent="22" name="argdefvals">
+        <data-type>text[]</data-type>
+      </object-attribute>
+      <column id="144" parent="23" name="session_id">
         <state-number>24131</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(40)</data-type>
         <default-expression>&apos;0&apos;::character varying</default-expression>
       </column>
-      <column id="66" parent="15" name="ip_address">
+      <column id="145" parent="23" name="ip_address">
         <state-number>24131</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
         <default-expression>&apos;0&apos;::character varying</default-expression>
       </column>
-      <column id="67" parent="15" name="user_agent">
+      <column id="146" parent="23" name="user_agent">
         <state-number>24131</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(120)</data-type>
       </column>
-      <column id="68" parent="15" name="last_activity">
+      <column id="147" parent="23" name="last_activity">
         <state-number>24131</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>0</default-expression>
       </column>
-      <column id="69" parent="15" name="user_data">
+      <column id="148" parent="23" name="user_data">
         <state-number>24131</state-number>
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <index id="70" parent="15" name="pk_sessions">
+      <index id="149" parent="23" name="pk_sessions">
         <object-id>92408</object-id>
         <columns>session_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="71" parent="15" name="idx_sessions_last_activity">
+      <index id="150" parent="23" name="idx_sessions_last_activity">
         <object-id>92410</object-id>
         <columns>last_activity</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="72" parent="15" name="pk_sessions">
+      <key id="151" parent="23" name="pk_sessions">
         <columns>session_id</columns>
         <underlying-index>pk_sessions</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="73" parent="16" name="cotizacion_counter_last_id">
-        <state-number>25658</state-number>
+      <column id="152" parent="24" name="cliente_id">
+        <state-number>25897</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_cliente_cliente_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="153" parent="24" name="empresa_id">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="74" parent="17" name="empresa_id">
-        <state-number>24072</state-number>
-        <mandatory>1</mandatory>
-        <data-type>integer</data-type>
-        <default-expression>nextval(&apos;tb_empresa_empresa_id_seq&apos;::regclass)</default-expression>
-      </column>
-      <column id="75" parent="17" name="empresa_razon_social">
-        <state-number>24072</state-number>
+      <column id="154" parent="24" name="cliente_razon_social">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="76" parent="17" name="tipo_empresa_codigo">
-        <state-number>24072</state-number>
+      <column id="155" parent="24" name="tipo_cliente_codigo">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(3)</data-type>
       </column>
-      <column id="77" parent="17" name="empresa_ruc">
-        <state-number>24072</state-number>
+      <column id="156" parent="24" name="cliente_ruc">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="78" parent="17" name="empresa_direccion">
-        <state-number>24072</state-number>
+      <column id="157" parent="24" name="cliente_direccion">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="79" parent="17" name="empresa_telefonos">
-        <state-number>24072</state-number>
+      <column id="158" parent="24" name="cliente_telefonos">
+        <state-number>25897</state-number>
         <data-type>varchar(60)</data-type>
       </column>
-      <column id="80" parent="17" name="empresa_fax">
-        <state-number>24072</state-number>
+      <column id="159" parent="24" name="cliente_fax">
+        <state-number>25897</state-number>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="81" parent="17" name="empresa_correo">
-        <state-number>24072</state-number>
+      <column id="160" parent="24" name="cliente_correo">
+        <state-number>25897</state-number>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="82" parent="17" name="activo">
-        <state-number>24072</state-number>
+      <column id="161" parent="24" name="activo">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="83" parent="17" name="usuario">
-        <state-number>24072</state-number>
+      <column id="162" parent="24" name="usuario">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="84" parent="17" name="fecha_creacion">
-        <state-number>24072</state-number>
+      <column id="163" parent="24" name="fecha_creacion">
+        <state-number>25897</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="85" parent="17" name="usuario_mod">
-        <state-number>24072</state-number>
+      <column id="164" parent="24" name="usuario_mod">
+        <state-number>25897</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="86" parent="17" name="fecha_modificacion">
-        <state-number>24072</state-number>
+      <column id="165" parent="24" name="fecha_modificacion">
+        <state-number>25897</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="87" parent="17" name="pk_empresa">
-        <object-id>92367</object-id>
+      <index id="166" parent="24" name="pk_cliente">
+        <object-id>100965</object-id>
+        <columns>cliente_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="167" parent="24" name="idx_unq_cliente_razon_social">
+        <object-id>100972</object-id>
         <columns>empresa_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="88" parent="17" name="idx_unq_empresa_razon_social">
-        <object-id>92379</object-id>
-        <columns></columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <index id="89" parent="17" name="idx_unq_empresa_ruc">
-        <object-id>92380</object-id>
-        <columns></columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="90" parent="17" name="pk_empresa">
+      <index id="168" parent="24" name="idx_unq_cliente_ruc">
+        <object-id>100973</object-id>
         <columns>empresa_id</columns>
-        <underlying-index>pk_empresa</underlying-index>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="91" parent="17" name="fk_empresa_tipo_empresa">
-        <columns>tipo_empresa_codigo</columns>
-        <ref-key>~.tb_tipo_empresa.pk_tipo_empresa</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <check id="92" parent="17" name="chk_razon_social_field_len">
-        <columns>empresa_razon_social</columns>
-        <predicate>length(rtrim((empresa_razon_social)::text)) &gt; 0</predicate>
-      </check>
-      <column id="93" parent="18" name="entidad_id">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>integer</data-type>
-        <default-expression>nextval(&apos;tb_entidad_entidad_id_seq&apos;::regclass)</default-expression>
-      </column>
-      <column id="94" parent="18" name="entidad_razon_social">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="95" parent="18" name="entidad_ruc">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="96" parent="18" name="entidad_direccion">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="97" parent="18" name="entidad_telefonos">
-        <state-number>24066</state-number>
-        <data-type>varchar(60)</data-type>
-      </column>
-      <column id="98" parent="18" name="entidad_fax">
-        <state-number>24066</state-number>
-        <data-type>varchar(10)</data-type>
-      </column>
-      <column id="99" parent="18" name="entidad_correo">
-        <state-number>24066</state-number>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="100" parent="18" name="activo">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>boolean</data-type>
-        <default-expression>true</default-expression>
-      </column>
-      <column id="101" parent="18" name="usuario">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="102" parent="18" name="fecha_creacion">
-        <state-number>24066</state-number>
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="103" parent="18" name="usuario_mod">
-        <state-number>24066</state-number>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="104" parent="18" name="fecha_modificacion">
-        <state-number>24066</state-number>
-        <data-type>timestamp</data-type>
-      </column>
-      <index id="105" parent="18" name="pk_entidad">
-        <object-id>92336</object-id>
-        <columns>entidad_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="106" parent="18" name="pk_entidad">
-        <columns>entidad_id</columns>
-        <underlying-index>pk_entidad</underlying-index>
+      <index id="169" parent="24" name="fki_cliente_tipo_empresa">
+        <object-id>100992</object-id>
+        <columns>tipo_cliente_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="170" parent="24" name="pk_cliente">
+        <columns>cliente_id</columns>
+        <underlying-index>pk_cliente</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="107" parent="19" name="insumo_id">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>integer</data-type>
-        <default-expression>nextval(&apos;tb_insumo_insumo_id_seq&apos;::regclass)</default-expression>
-      </column>
-      <column id="108" parent="19" name="insumo_tipo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(2)</data-type>
-      </column>
-      <column id="109" parent="19" name="insumo_codigo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="110" parent="19" name="insumo_descripcion">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(60)</data-type>
-      </column>
-      <column id="111" parent="19" name="tinsumo_codigo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="112" parent="19" name="tcostos_codigo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(5)</data-type>
-      </column>
-      <column id="113" parent="19" name="unidad_medida_codigo_ingreso">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(8)</data-type>
-      </column>
-      <column id="114" parent="19" name="unidad_medida_codigo_costo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(8)</data-type>
-      </column>
-      <column id="115" parent="19" name="insumo_merma">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>numeric(10,4)</data-type>
-        <default-expression>0.00</default-expression>
-      </column>
-      <column id="116" parent="19" name="insumo_costo">
-        <state-number>23805</state-number>
-        <data-type>numeric(10,4)</data-type>
-        <default-expression>0.00</default-expression>
-      </column>
-      <column id="117" parent="19" name="moneda_codigo_costo">
-        <state-number>23805</state-number>
-        <mandatory>1</mandatory>
-        <data-type>varchar(8)</data-type>
-      </column>
-      <column id="118" parent="19" name="activo">
-        <state-number>23805</state-number>
-        <data-type>boolean</data-type>
-      </column>
-      <column id="119" parent="19" name="usuario">
-        <state-number>23805</state-number>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="120" parent="19" name="fecha_creacion">
-        <state-number>23805</state-number>
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="121" parent="19" name="usuario_mod">
-        <state-number>23805</state-number>
-        <data-type>varchar(15)</data-type>
-      </column>
-      <column id="122" parent="19" name="fecha_modificacion">
-        <state-number>23805</state-number>
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="123" parent="19" name="empresa_id">
-        <state-number>24706</state-number>
-        <mandatory>1</mandatory>
-        <data-type>integer</data-type>
-        <default-expression>5</default-expression>
-      </column>
-      <column id="124" parent="19" name="insumo_precio_mercado">
-        <state-number>25114</state-number>
-        <mandatory>1</mandatory>
-        <data-type>numeric(10,2)</data-type>
-        <default-expression>0</default-expression>
-      </column>
-      <index id="125" parent="19" name="pk_insumo">
-        <object-id>84170</object-id>
-        <columns>insumo_id</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <index id="126" parent="19" name="unq_insumo_codigo">
-        <object-id>84234</object-id>
-        <columns>insumo_codigo</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="127" parent="19" name="pk_insumo">
-        <columns>insumo_id</columns>
-        <underlying-index>pk_insumo</underlying-index>
-        <primary>1</primary>
-      </key>
-      <key id="128" parent="19" name="unq_insumo_codigo">
-        <columns>insumo_codigo</columns>
-        <underlying-index>unq_insumo_codigo</underlying-index>
-      </key>
-      <foreign-key id="129" parent="19" name="fk_insumo_tinsumo">
-        <columns>tinsumo_codigo</columns>
-        <ref-key>~.tb_tinsumo.pk_tinsumo</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="130" parent="19" name="fk_insumo_tcostos">
-        <columns>tcostos_codigo</columns>
-        <ref-key>~.tb_tcostos.pk_tcostos</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="131" parent="19" name="fk_insumo_unidad_medida_ingreso">
-        <columns>unidad_medida_codigo_ingreso</columns>
-        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="132" parent="19" name="fk_insumo_unidad_medida_costo">
-        <columns>unidad_medida_codigo_costo</columns>
-        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="133" parent="19" name="fk_insumo_moneda_costo">
-        <columns>moneda_codigo_costo</columns>
-        <ref-key>~.tb_moneda.pk_moneda</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="134" parent="19" name="fk_insumo_empresa">
+      <foreign-key id="171" parent="24" name="fk_cliente_empresa">
         <columns>empresa_id</columns>
         <ref-key>~.tb_empresa.pk_empresa</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <check id="135" parent="19" name="chk_insumo_costo">
+      <foreign-key id="172" parent="24" name="fk_cliente_tipo_empresa">
+        <columns>tipo_cliente_codigo</columns>
+        <ref-key>~.tb_tipo_cliente.pk_tipo_cliente</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <check id="173" parent="24" name="chk_razon_social_field_len">
+        <columns>cliente_razon_social</columns>
+        <predicate>length(rtrim((cliente_razon_social)::text)) &gt; 0</predicate>
+      </check>
+      <column id="174" parent="25" name="cotizacion_id">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_cotizacion_cotizacion_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="175" parent="25" name="empresa_id">
+        <state-number>27063</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="176" parent="25" name="cliente_id">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="177" parent="25" name="cotizacion_es_cliente_real">
+        <state-number>26111</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="178" parent="25" name="cotizacion_numero">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="179" parent="25" name="moneda_codigo">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="180" parent="25" name="cotizacion_fecha">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="181" parent="25" name="activo">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="182" parent="25" name="usuario">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="183" parent="25" name="fecha_creacion">
+        <state-number>26092</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="184" parent="25" name="usuario_mod">
+        <state-number>26092</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="185" parent="25" name="fecha_modificacion">
+        <state-number>26092</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="186" parent="25" name="cotizacion_cerrada">
+        <state-number>27179</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>false</default-expression>
+      </column>
+      <index id="187" parent="25" name="pk_cotizacion">
+        <object-id>101034</object-id>
+        <columns>cotizacion_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="188" parent="25" name="unq_cotizacion_numero">
+        <object-id>101036</object-id>
+        <columns>empresa_id
+cotizacion_numero</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="189" parent="25" name="fki_cotizacion_empresa_origen">
+        <object-id>101048</object-id>
+        <columns>empresa_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="190" parent="25" name="fki_cotizacion_moneda">
+        <object-id>101049</object-id>
+        <columns>moneda_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="191" parent="25" name="pk_cotizacion">
+        <columns>cotizacion_id</columns>
+        <underlying-index>pk_cotizacion</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="192" parent="25" name="unq_cotizacion_numero">
+        <columns>empresa_id
+cotizacion_numero</columns>
+        <underlying-index>unq_cotizacion_numero</underlying-index>
+      </key>
+      <foreign-key id="193" parent="25" name="fk_cotizacion_empresa">
+        <columns>empresa_id</columns>
+        <ref-key>~.tb_empresa.pk_empresa</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="194" parent="25" name="fk_cotizacion_moneda">
+        <columns>moneda_codigo</columns>
+        <ref-key>~.tb_moneda.pk_moneda</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="195" parent="26" name="cotizacion_counter_last_id">
+        <state-number>25658</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="196" parent="27" name="cotizacion_detalle_id">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_cotizacion_detalle_cotizacion_detalle_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="197" parent="27" name="cotizacion_id">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="198" parent="27" name="insumo_id">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="199" parent="27" name="unidad_medida_codigo">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="200" parent="27" name="cotizacion_detalle_cantidad">
+        <state-number>27833</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(8,2)</data-type>
+      </column>
+      <column id="201" parent="27" name="cotizacion_detalle_precio">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="202" parent="27" name="cotizacion_detalle_total">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(12,2)</data-type>
+      </column>
+      <column id="203" parent="27" name="activo">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="204" parent="27" name="usuario">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="205" parent="27" name="fecha_creacion">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="206" parent="27" name="usuario_mod">
+        <state-number>27815</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="207" parent="27" name="fecha_modificacion">
+        <state-number>27815</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="208" parent="27" name="log_regla_by_costo">
+        <state-number>27815</state-number>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="209" parent="27" name="log_regla_porcentaje">
+        <state-number>27815</state-number>
+        <data-type>numeric(6,2)</data-type>
+      </column>
+      <column id="210" parent="27" name="log_tipo_cambio_tasa_compra">
+        <state-number>27825</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(8,4)</data-type>
+      </column>
+      <column id="211" parent="27" name="log_tipo_cambio_tasa_venta">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(8,4)</data-type>
+      </column>
+      <column id="212" parent="27" name="log_moneda_codigo_costo">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="213" parent="27" name="log_unidad_medida_codigo_costo">
+        <state-number>27815</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="214" parent="27" name="log_insumo_precio_original">
+        <state-number>27818</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <column id="215" parent="27" name="log_insumo_precio_mercado">
+        <state-number>27820</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+      </column>
+      <index id="216" parent="27" name="pk_cotizacion_detalle">
+        <object-id>109781</object-id>
+        <columns>cotizacion_detalle_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="217" parent="27" name="fki_cotizacion_detalle_cotizacion">
+        <object-id>109798</object-id>
+        <columns>cotizacion_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="218" parent="27" name="fki_cotizacion_detalle_insumo">
+        <object-id>109799</object-id>
+        <columns>insumo_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="219" parent="27" name="fki_cotizacion_detalle_umedida">
+        <object-id>109800</object-id>
+        <columns>unidad_medida_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="220" parent="27" name="fki_cotizacion_detalle_moneda_codigo_costo">
+        <object-id>109831</object-id>
+        <columns>log_moneda_codigo_costo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="221" parent="27" name="fki_cotizacion_detalle_umedida_costo">
+        <object-id>109832</object-id>
+        <columns>log_unidad_medida_codigo_costo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="222" parent="27" name="pk_cotizacion_detalle">
+        <columns>cotizacion_detalle_id</columns>
+        <underlying-index>pk_cotizacion_detalle</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="223" parent="27" name="fk_cotizacion_detalle_cotizacion">
+        <columns>cotizacion_id</columns>
+        <ref-key>~.tb_cotizacion.pk_cotizacion</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="224" parent="27" name="fk_cotizacion_detalle_insumo">
+        <columns>insumo_id</columns>
+        <ref-key>~.tb_insumo.pk_insumo</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="225" parent="27" name="fk_cotizacion_detalle_umedida">
+        <columns>unidad_medida_codigo</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="226" parent="27" name="fk_cotizacion_detalle_moneda_codigo_costo">
+        <columns>log_moneda_codigo_costo</columns>
+        <ref-key>~.tb_moneda.pk_moneda</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="227" parent="27" name="fk_cotizacion_detalle_umedida_costo">
+        <columns>log_unidad_medida_codigo_costo</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="228" parent="28" name="empresa_id">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_empresa_empresa_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="229" parent="28" name="empresa_razon_social">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="230" parent="28" name="tipo_empresa_codigo">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(3)</data-type>
+      </column>
+      <column id="231" parent="28" name="empresa_ruc">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="232" parent="28" name="empresa_direccion">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="233" parent="28" name="empresa_telefonos">
+        <state-number>24072</state-number>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="234" parent="28" name="empresa_fax">
+        <state-number>24072</state-number>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="235" parent="28" name="empresa_correo">
+        <state-number>24072</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="236" parent="28" name="activo">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="237" parent="28" name="usuario">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="238" parent="28" name="fecha_creacion">
+        <state-number>24072</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="239" parent="28" name="usuario_mod">
+        <state-number>24072</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="240" parent="28" name="fecha_modificacion">
+        <state-number>24072</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="241" parent="28" name="pk_empresa">
+        <object-id>92367</object-id>
+        <columns>empresa_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="242" parent="28" name="idx_unq_empresa_razon_social">
+        <object-id>100921</object-id>
+        <columns></columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="243" parent="28" name="idx_unq_empresa_ruc">
+        <object-id>100920</object-id>
+        <columns></columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="244" parent="28" name="fki_empresa_tipo_empresa">
+        <object-id>100875</object-id>
+        <columns>tipo_empresa_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="245" parent="28" name="pk_empresa">
+        <columns>empresa_id</columns>
+        <underlying-index>pk_empresa</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="246" parent="28" name="fk_empresa_tipo_empresa">
+        <columns>tipo_empresa_codigo</columns>
+        <ref-key>~.tb_tipo_empresa.pk_tipo_empresa</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <check id="247" parent="28" name="chk_razon_social_field_len">
+        <columns>empresa_razon_social</columns>
+        <predicate>length(rtrim((empresa_razon_social)::text)) &gt; 0</predicate>
+      </check>
+      <column id="248" parent="29" name="entidad_id">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_entidad_entidad_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="249" parent="29" name="entidad_razon_social">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="250" parent="29" name="entidad_ruc">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="251" parent="29" name="entidad_direccion">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(200)</data-type>
+      </column>
+      <column id="252" parent="29" name="entidad_telefonos">
+        <state-number>24066</state-number>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="253" parent="29" name="entidad_fax">
+        <state-number>24066</state-number>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="254" parent="29" name="entidad_correo">
+        <state-number>24066</state-number>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="255" parent="29" name="activo">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="256" parent="29" name="usuario">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="257" parent="29" name="fecha_creacion">
+        <state-number>24066</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="258" parent="29" name="usuario_mod">
+        <state-number>24066</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="259" parent="29" name="fecha_modificacion">
+        <state-number>24066</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="260" parent="29" name="pk_entidad">
+        <object-id>92336</object-id>
+        <columns>entidad_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="261" parent="29" name="pk_entidad">
+        <columns>entidad_id</columns>
+        <underlying-index>pk_entidad</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="262" parent="30" name="fecha_desde">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="263" parent="30" name="fecha_hasta">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="264" parent="30" name="igv_valor">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(4,2)</data-type>
+      </column>
+      <column id="265" parent="30" name="activo">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="266" parent="30" name="usuario">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="267" parent="30" name="fecha_creacion">
+        <state-number>28247</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="268" parent="30" name="usuario_mod">
+        <state-number>28247</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="269" parent="30" name="fecha_modificacion">
+        <state-number>28247</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="270" parent="31" name="insumo_id">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;tb_insumo_insumo_id_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="271" parent="31" name="insumo_tipo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(2)</data-type>
+      </column>
+      <column id="272" parent="31" name="insumo_codigo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="273" parent="31" name="insumo_descripcion">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="274" parent="31" name="tinsumo_codigo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="275" parent="31" name="tcostos_codigo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(5)</data-type>
+      </column>
+      <column id="276" parent="31" name="unidad_medida_codigo_ingreso">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="277" parent="31" name="unidad_medida_codigo_costo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="278" parent="31" name="insumo_merma">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,4)</data-type>
+        <default-expression>0.00</default-expression>
+      </column>
+      <column id="279" parent="31" name="insumo_costo">
+        <state-number>23805</state-number>
+        <data-type>numeric(10,4)</data-type>
+        <default-expression>0.00</default-expression>
+      </column>
+      <column id="280" parent="31" name="moneda_codigo_costo">
+        <state-number>23805</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="281" parent="31" name="activo">
+        <state-number>23805</state-number>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="282" parent="31" name="usuario">
+        <state-number>23805</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="283" parent="31" name="fecha_creacion">
+        <state-number>23805</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="284" parent="31" name="usuario_mod">
+        <state-number>23805</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="285" parent="31" name="fecha_modificacion">
+        <state-number>23805</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="286" parent="31" name="empresa_id">
+        <state-number>24706</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>5</default-expression>
+      </column>
+      <column id="287" parent="31" name="insumo_precio_mercado">
+        <state-number>25114</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(10,2)</data-type>
+        <default-expression>0</default-expression>
+      </column>
+      <index id="288" parent="31" name="pk_insumo">
+        <object-id>84170</object-id>
+        <columns>insumo_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="289" parent="31" name="unq_insumo_codigo">
+        <object-id>84234</object-id>
+        <columns>insumo_codigo</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="290" parent="31" name="fki_insumo_tinsumo">
+        <object-id>100672</object-id>
+        <columns>tinsumo_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="291" parent="31" name="fki_insumo_tcostos">
+        <object-id>100671</object-id>
+        <columns>tcostos_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="292" parent="31" name="fki_insumo_unidad_medida_ingreso">
+        <object-id>100674</object-id>
+        <columns>unidad_medida_codigo_ingreso</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="293" parent="31" name="fki_insumo_unidad_medida_costo">
+        <object-id>100673</object-id>
+        <columns>unidad_medida_codigo_costo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="294" parent="31" name="fki_insumo_moneda_costo">
+        <object-id>100670</object-id>
+        <columns>moneda_codigo_costo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="295" parent="31" name="fki_insumo_empresa">
+        <object-id>100669</object-id>
+        <columns>empresa_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="296" parent="31" name="pk_insumo">
+        <columns>insumo_id</columns>
+        <underlying-index>pk_insumo</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="297" parent="31" name="unq_insumo_codigo">
+        <columns>insumo_codigo</columns>
+        <underlying-index>unq_insumo_codigo</underlying-index>
+      </key>
+      <foreign-key id="298" parent="31" name="fk_insumo_tinsumo">
+        <columns>tinsumo_codigo</columns>
+        <ref-key>~.tb_tinsumo.pk_tinsumo</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="299" parent="31" name="fk_insumo_tcostos">
+        <columns>tcostos_codigo</columns>
+        <ref-key>~.tb_tcostos.pk_tcostos</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="300" parent="31" name="fk_insumo_unidad_medida_ingreso">
+        <columns>unidad_medida_codigo_ingreso</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="301" parent="31" name="fk_insumo_unidad_medida_costo">
+        <columns>unidad_medida_codigo_costo</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="302" parent="31" name="fk_insumo_moneda_costo">
+        <columns>moneda_codigo_costo</columns>
+        <ref-key>~.tb_moneda.pk_moneda</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="303" parent="31" name="fk_insumo_empresa">
+        <columns>empresa_id</columns>
+        <ref-key>~.tb_empresa.pk_empresa</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <check id="304" parent="31" name="chk_insumo_costo">
         <columns>insumo_tipo
 insumo_costo</columns>
         <predicate>CASE WHEN ((insumo_tipo)::text = &apos;IN&apos;::text) THEN (insumo_costo IS NOT NULL) ELSE (insumo_costo = NULL::numeric) END</predicate>
       </check>
-      <check id="136" parent="19" name="chk_insumo_tipo">
+      <check id="305" parent="31" name="chk_insumo_tipo">
         <columns>insumo_tipo</columns>
         <predicate>((insumo_tipo)::text = &apos;IN&apos;::text) OR ((insumo_tipo)::text = &apos;PR&apos;::text)</predicate>
       </check>
-      <check id="137" parent="19" name="chk_insumo_field_len">
+      <check id="306" parent="31" name="chk_insumo_field_len">
         <columns>insumo_codigo
 insumo_descripcion</columns>
         <predicate>(length(rtrim((insumo_codigo)::text)) &gt; 0) AND (length(rtrim((insumo_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <check id="138" parent="19" name="chk_insumo_merma">
+      <check id="307" parent="31" name="chk_insumo_merma">
         <columns>insumo_merma</columns>
         <predicate>insumo_merma &gt;= 0.00</predicate>
       </check>
-      <check id="139" parent="19" name="chk_insumo_pmercado">
+      <check id="308" parent="31" name="chk_insumo_pmercado">
         <columns>insumo_precio_mercado</columns>
         <predicate>insumo_precio_mercado &gt;= 0.00</predicate>
       </check>
-      <column id="140" parent="20" name="moneda_codigo">
+      <column id="309" parent="32" name="moneda_codigo">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="141" parent="20" name="moneda_simbolo">
+      <column id="310" parent="32" name="moneda_simbolo">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(6)</data-type>
       </column>
-      <column id="142" parent="20" name="moneda_descripcion">
+      <column id="311" parent="32" name="moneda_descripcion">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(80)</data-type>
       </column>
-      <column id="143" parent="20" name="moneda_protected">
+      <column id="312" parent="32" name="moneda_protected">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="144" parent="20" name="activo">
+      <column id="313" parent="32" name="activo">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="145" parent="20" name="usuario">
+      <column id="314" parent="32" name="usuario">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="146" parent="20" name="fecha_creacion">
+      <column id="315" parent="32" name="fecha_creacion">
         <state-number>22465</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="147" parent="20" name="usuario_mod">
+      <column id="316" parent="32" name="usuario_mod">
         <state-number>22465</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="148" parent="20" name="fecha_modificacion">
+      <column id="317" parent="32" name="fecha_modificacion">
         <state-number>22465</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="149" parent="20" name="pk_moneda">
+      <index id="318" parent="32" name="pk_moneda">
         <object-id>59247</object-id>
         <columns>moneda_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="150" parent="20" name="pk_moneda">
+      <key id="319" parent="32" name="pk_moneda">
         <columns>moneda_codigo</columns>
         <underlying-index>pk_moneda</underlying-index>
         <primary>1</primary>
       </key>
-      <check id="151" parent="20" name="chk_moneda_field_len">
+      <check id="320" parent="32" name="chk_moneda_field_len">
         <columns>moneda_codigo
 moneda_simbolo
 moneda_descripcion</columns>
         <predicate>((length(rtrim((moneda_codigo)::text)) &gt; 0) AND (length(rtrim((moneda_simbolo)::text)) &gt; 0)) AND (length(rtrim((moneda_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <column id="152" parent="21" name="producto_detalle_id">
+      <column id="321" parent="33" name="producto_detalle_id">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_producto_detalle_producto_detalle_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="153" parent="21" name="insumo_id_origen">
+      <column id="322" parent="33" name="insumo_id_origen">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="154" parent="21" name="insumo_id">
+      <column id="323" parent="33" name="insumo_id">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="155" parent="21" name="unidad_medida_codigo">
+      <column id="324" parent="33" name="unidad_medida_codigo">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="156" parent="21" name="producto_detalle_cantidad">
+      <column id="325" parent="33" name="producto_detalle_cantidad">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(10,4)</data-type>
         <default-expression>0.00</default-expression>
       </column>
-      <column id="157" parent="21" name="producto_detalle_valor">
+      <column id="326" parent="33" name="producto_detalle_valor">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(10,4)</data-type>
         <default-expression>0.00</default-expression>
       </column>
-      <column id="158" parent="21" name="producto_detalle_merma">
+      <column id="327" parent="33" name="producto_detalle_merma">
         <state-number>23948</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(10,4)</data-type>
         <default-expression>0.00</default-expression>
       </column>
-      <column id="159" parent="21" name="activo">
+      <column id="328" parent="33" name="activo">
         <state-number>23948</state-number>
         <data-type>boolean</data-type>
       </column>
-      <column id="160" parent="21" name="usuario">
+      <column id="329" parent="33" name="usuario">
         <state-number>23948</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="161" parent="21" name="fecha_creacion">
+      <column id="330" parent="33" name="fecha_creacion">
         <state-number>23948</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <column id="162" parent="21" name="usuario_mod">
+      <column id="331" parent="33" name="usuario_mod">
         <state-number>23948</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="163" parent="21" name="fecha_modificacion">
+      <column id="332" parent="33" name="fecha_modificacion">
         <state-number>23948</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <column id="164" parent="21" name="empresa_id">
+      <column id="333" parent="33" name="empresa_id">
         <state-number>24538</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <index id="165" parent="21" name="pk_producto_detalle">
+      <index id="334" parent="33" name="pk_producto_detalle">
         <object-id>84312</object-id>
         <columns>producto_detalle_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="166" parent="21" name="unq_producto_detalle">
+      <index id="335" parent="33" name="unq_producto_detalle">
         <object-id>84314</object-id>
         <columns>insumo_id_origen
 insumo_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="167" parent="21" name="fki_producto_detalle_empresa">
+      <index id="336" parent="33" name="fki_producto_detalle_insumo_id">
+        <object-id>100667</object-id>
+        <columns>insumo_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="337" parent="33" name="fki_producto_detalle_unidad_medida">
+        <object-id>100668</object-id>
+        <columns>unidad_medida_codigo</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="338" parent="33" name="fki_producto_detalle_empresa">
         <object-id>92422</object-id>
         <columns>empresa_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="168" parent="21" name="pk_producto_detalle">
+      <key id="339" parent="33" name="pk_producto_detalle">
         <columns>producto_detalle_id</columns>
         <underlying-index>pk_producto_detalle</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="169" parent="21" name="unq_producto_detalle">
+      <key id="340" parent="33" name="unq_producto_detalle">
         <columns>insumo_id_origen
 insumo_id</columns>
         <underlying-index>unq_producto_detalle</underlying-index>
       </key>
-      <foreign-key id="170" parent="21" name="fk_producto_detalle_insumo_id_origen">
+      <foreign-key id="341" parent="33" name="fk_producto_detalle_insumo_id_origen">
         <columns>insumo_id_origen</columns>
+        <ref-key>~.tb_insumo.pk_insumo</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="171" parent="21" name="fk_producto_detalle_insumo_id">
+      <foreign-key id="342" parent="33" name="fk_producto_detalle_insumo_id">
         <columns>insumo_id</columns>
+        <ref-key>~.tb_insumo.pk_insumo</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="172" parent="21" name="fk_producto_detalle_unidad_medida">
+      <foreign-key id="343" parent="33" name="fk_producto_detalle_unidad_medida">
         <columns>unidad_medida_codigo</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="173" parent="21" name="fk_producto_detalle_empresa">
+      <foreign-key id="344" parent="33" name="fk_producto_detalle_empresa">
         <columns>empresa_id</columns>
+        <ref-key>~.tb_empresa.pk_empresa</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <check id="174" parent="21" name="chk_producto_detalle_cantidad">
+      <check id="345" parent="33" name="chk_producto_detalle_cantidad">
         <columns>producto_detalle_cantidad</columns>
         <predicate>producto_detalle_cantidad &gt; 0.00</predicate>
       </check>
-      <check id="175" parent="21" name="chk_producto_detalle_merma">
+      <check id="346" parent="33" name="chk_producto_detalle_merma">
         <columns>producto_detalle_merma</columns>
         <predicate>producto_detalle_merma &gt;= 0.00</predicate>
       </check>
-      <column id="176" parent="22" name="regla_id">
+      <column id="347" parent="34" name="regla_id">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_reglas_regla_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="177" parent="22" name="regla_empresa_origen_id">
+      <column id="348" parent="34" name="regla_empresa_origen_id">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="178" parent="22" name="regla_empresa_destino_id">
+      <column id="349" parent="34" name="regla_empresa_destino_id">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="179" parent="22" name="regla_by_costo">
+      <column id="350" parent="34" name="regla_by_costo">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="180" parent="22" name="regla_porcentaje">
+      <column id="351" parent="34" name="regla_porcentaje">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(6,2)</data-type>
       </column>
-      <column id="181" parent="22" name="activo">
+      <column id="352" parent="34" name="activo">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="182" parent="22" name="usuario">
+      <column id="353" parent="34" name="usuario">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="183" parent="22" name="fecha_creacion">
+      <column id="354" parent="34" name="fecha_creacion">
         <state-number>24956</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="184" parent="22" name="usuario_mod">
+      <column id="355" parent="34" name="usuario_mod">
         <state-number>24956</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="185" parent="22" name="fecha_modificacion">
+      <column id="356" parent="34" name="fecha_modificacion">
         <state-number>24956</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="186" parent="22" name="pk_reglas">
+      <index id="357" parent="34" name="pk_reglas">
         <object-id>100526</object-id>
         <columns>regla_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="187" parent="22" name="unq_regla">
+      <index id="358" parent="34" name="unq_regla">
         <object-id>100528</object-id>
         <columns>regla_empresa_origen_id
 regla_empresa_destino_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="188" parent="22" name="pk_reglas">
+      <key id="359" parent="34" name="pk_reglas">
         <columns>regla_id</columns>
         <underlying-index>pk_reglas</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="189" parent="22" name="unq_regla">
+      <key id="360" parent="34" name="unq_regla">
         <columns>regla_empresa_origen_id
 regla_empresa_destino_id</columns>
         <underlying-index>unq_regla</underlying-index>
       </key>
-      <foreign-key id="190" parent="22" name="fk_regla_empresa_origen">
+      <foreign-key id="361" parent="34" name="fk_regla_empresa_origen">
         <columns>regla_empresa_origen_id</columns>
         <ref-key>~.tb_empresa.pk_empresa</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="191" parent="22" name="fk_regla_empresa_destino">
+      <foreign-key id="362" parent="34" name="fk_regla_empresa_destino">
         <columns>regla_empresa_destino_id</columns>
         <ref-key>~.tb_empresa.pk_empresa</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="192" parent="23" name="sys_systemcode">
+      <column id="363" parent="35" name="sys_systemcode">
         <state-number>22080</state-number>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="193" parent="23" name="menu_id">
+      <column id="364" parent="35" name="menu_id">
         <state-number>22124</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_sys_menu_menu_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="194" parent="23" name="menu_codigo">
+      <column id="365" parent="35" name="menu_codigo">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(30)</data-type>
       </column>
-      <column id="195" parent="23" name="menu_descripcion">
+      <column id="366" parent="35" name="menu_descripcion">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="196" parent="23" name="menu_accesstype">
+      <column id="367" parent="35" name="menu_accesstype">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>char(10)</data-type>
       </column>
-      <column id="197" parent="23" name="menu_parent_id">
+      <column id="368" parent="35" name="menu_parent_id">
         <state-number>22080</state-number>
         <data-type>integer</data-type>
       </column>
-      <column id="198" parent="23" name="menu_orden">
+      <column id="369" parent="35" name="menu_orden">
         <state-number>22080</state-number>
         <data-type>integer</data-type>
         <default-expression>0</default-expression>
       </column>
-      <column id="199" parent="23" name="activo">
+      <column id="370" parent="35" name="activo">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="200" parent="23" name="usuario">
+      <column id="371" parent="35" name="usuario">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="201" parent="23" name="fecha_creacion">
+      <column id="372" parent="35" name="fecha_creacion">
         <state-number>22080</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="202" parent="23" name="usuario_mod">
+      <column id="373" parent="35" name="usuario_mod">
         <state-number>22080</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="203" parent="23" name="fecha_modificacion">
+      <column id="374" parent="35" name="fecha_modificacion">
         <state-number>22080</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="204" parent="23" name="pk_menu">
+      <index id="375" parent="35" name="pk_menu">
         <object-id>58840</object-id>
         <columns>menu_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="205" parent="23" name="unq_codigomenu">
+      <index id="376" parent="35" name="unq_codigomenu">
         <object-id>58884</object-id>
         <columns>menu_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="206" parent="23" name="fki_menu_sistemas">
+      <index id="377" parent="35" name="fki_menu_sistemas">
         <object-id>58917</object-id>
         <columns>sys_systemcode</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="207" parent="23" name="fki_menu_parent_id">
+      <index id="378" parent="35" name="fki_menu_parent_id">
         <object-id>58916</object-id>
         <columns>menu_parent_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="208" parent="23" name="pk_menu">
+      <key id="379" parent="35" name="pk_menu">
         <columns>menu_id</columns>
         <underlying-index>pk_menu</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="209" parent="23" name="unq_codigomenu">
+      <key id="380" parent="35" name="unq_codigomenu">
         <columns>menu_codigo</columns>
         <underlying-index>unq_codigomenu</underlying-index>
       </key>
-      <foreign-key id="210" parent="23" name="fk_menu_sistemas">
+      <foreign-key id="381" parent="35" name="fk_menu_sistemas">
         <columns>sys_systemcode</columns>
         <ref-key>~.tb_sys_sistemas.pk_sistemas</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="211" parent="23" name="fk_menu_parent">
+      <foreign-key id="382" parent="35" name="fk_menu_parent">
         <columns>menu_parent_id</columns>
         <ref-key>pk_menu</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="212" parent="24" name="perfil_id">
+      <column id="383" parent="36" name="perfil_id">
         <state-number>22125</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_sys_perfil_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="213" parent="24" name="sys_systemcode">
+      <column id="384" parent="36" name="sys_systemcode">
         <state-number>22085</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="214" parent="24" name="perfil_codigo">
+      <column id="385" parent="36" name="perfil_codigo">
         <state-number>22085</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="215" parent="24" name="perfil_descripcion">
+      <column id="386" parent="36" name="perfil_descripcion">
         <state-number>22085</state-number>
         <data-type>varchar(120)</data-type>
       </column>
-      <column id="216" parent="24" name="activo">
+      <column id="387" parent="36" name="activo">
         <state-number>22085</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="217" parent="24" name="usuario">
+      <column id="388" parent="36" name="usuario">
         <state-number>22085</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="218" parent="24" name="fecha_creacion">
+      <column id="389" parent="36" name="fecha_creacion">
         <state-number>22085</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="219" parent="24" name="usuario_mod">
+      <column id="390" parent="36" name="usuario_mod">
         <state-number>22085</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="220" parent="24" name="fecha_modificacion">
+      <column id="391" parent="36" name="fecha_modificacion">
         <state-number>22085</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="221" parent="24" name="pk_sys_perfil">
+      <index id="392" parent="36" name="pk_sys_perfil">
         <object-id>58860</object-id>
         <columns>perfil_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="222" parent="24" name="unq_perfil_syscode_perfil_id">
+      <index id="393" parent="36" name="unq_perfil_syscode_perfil_id">
         <object-id>58890</object-id>
         <columns>sys_systemcode
 perfil_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="223" parent="24" name="unq_perfil_syscode_codigo">
+      <index id="394" parent="36" name="unq_perfil_syscode_codigo">
         <object-id>58888</object-id>
         <columns>sys_systemcode
 perfil_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="224" parent="24" name="fki_perfil_sistema">
+      <index id="395" parent="36" name="fki_perfil_sistema">
         <object-id>58918</object-id>
         <columns>sys_systemcode</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="225" parent="24" name="pk_sys_perfil">
+      <key id="396" parent="36" name="pk_sys_perfil">
         <columns>perfil_id</columns>
         <underlying-index>pk_sys_perfil</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="226" parent="24" name="unq_perfil_syscode_perfil_id">
+      <key id="397" parent="36" name="unq_perfil_syscode_perfil_id">
         <columns>sys_systemcode
 perfil_id</columns>
         <underlying-index>unq_perfil_syscode_perfil_id</underlying-index>
       </key>
-      <key id="227" parent="24" name="unq_perfil_syscode_codigo">
+      <key id="398" parent="36" name="unq_perfil_syscode_codigo">
         <columns>sys_systemcode
 perfil_codigo</columns>
         <underlying-index>unq_perfil_syscode_codigo</underlying-index>
       </key>
-      <foreign-key id="228" parent="24" name="fk_perfil_sistema">
+      <foreign-key id="399" parent="36" name="fk_perfil_sistema">
         <columns>sys_systemcode</columns>
         <ref-key>~.tb_sys_sistemas.pk_sistemas</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="229" parent="25" name="perfdet_id">
+      <column id="400" parent="37" name="perfdet_id">
         <state-number>22126</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_sys_perfil_detalle_perfdet_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="230" parent="25" name="perfdet_accessdef">
+      <column id="401" parent="37" name="perfdet_accessdef">
         <state-number>22087</state-number>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="231" parent="25" name="perfdet_accleer">
+      <column id="402" parent="37" name="perfdet_accleer">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="232" parent="25" name="perfdet_accagregar">
+      <column id="403" parent="37" name="perfdet_accagregar">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="233" parent="25" name="perfdet_accactualizar">
+      <column id="404" parent="37" name="perfdet_accactualizar">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="234" parent="25" name="perfdet_acceliminar">
+      <column id="405" parent="37" name="perfdet_acceliminar">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="235" parent="25" name="perfdet_accimprimir">
+      <column id="406" parent="37" name="perfdet_accimprimir">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="236" parent="25" name="perfil_id">
+      <column id="407" parent="37" name="perfil_id">
         <state-number>22087</state-number>
         <data-type>integer</data-type>
       </column>
-      <column id="237" parent="25" name="menu_id">
+      <column id="408" parent="37" name="menu_id">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="238" parent="25" name="activo">
+      <column id="409" parent="37" name="activo">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="239" parent="25" name="usuario">
+      <column id="410" parent="37" name="usuario">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="240" parent="25" name="fecha_creacion">
+      <column id="411" parent="37" name="fecha_creacion">
         <state-number>22087</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="241" parent="25" name="usuario_mod">
+      <column id="412" parent="37" name="usuario_mod">
         <state-number>22087</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="242" parent="25" name="fecha_modificacion">
+      <column id="413" parent="37" name="fecha_modificacion">
         <state-number>22087</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="243" parent="25" name="pk_perfdet_id">
+      <index id="414" parent="37" name="pk_perfdet_id">
         <object-id>58844</object-id>
         <columns>perfdet_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="244" parent="25" name="pk_perfdet_id">
+      <key id="415" parent="37" name="pk_perfdet_id">
         <columns>perfdet_id</columns>
         <underlying-index>pk_perfdet_id</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="245" parent="25" name="fk_perfdet_perfil">
+      <foreign-key id="416" parent="37" name="fk_perfdet_perfil">
         <columns>perfil_id</columns>
         <ref-key>~.tb_sys_perfil.pk_sys_perfil</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="246" parent="26" name="sys_systemcode">
+      <column id="417" parent="38" name="sys_systemcode">
         <state-number>22095</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="247" parent="26" name="sistema_descripcion">
+      <column id="418" parent="38" name="sistema_descripcion">
         <state-number>22095</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="248" parent="26" name="activo">
+      <column id="419" parent="38" name="activo">
         <state-number>22095</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="249" parent="26" name="usuario">
+      <column id="420" parent="38" name="usuario">
         <state-number>22095</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="250" parent="26" name="fecha_creacion">
+      <column id="421" parent="38" name="fecha_creacion">
         <state-number>22095</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="251" parent="26" name="usuario_mod">
+      <column id="422" parent="38" name="usuario_mod">
         <state-number>22095</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="252" parent="26" name="fecha_modificacion">
+      <column id="423" parent="38" name="fecha_modificacion">
         <state-number>22095</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="253" parent="26" name="pk_sistemas">
+      <index id="424" parent="38" name="pk_sistemas">
         <object-id>58858</object-id>
         <columns>sys_systemcode</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="254" parent="26" name="pk_sistemas">
+      <key id="425" parent="38" name="pk_sistemas">
         <columns>sys_systemcode</columns>
         <underlying-index>pk_sistemas</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="255" parent="27" name="usuario_perfil_id">
+      <column id="426" parent="39" name="usuario_perfil_id">
         <state-number>22127</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_sys_usuario_perfiles_usuario_perfil_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="256" parent="27" name="perfil_id">
+      <column id="427" parent="39" name="perfil_id">
         <state-number>22097</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="257" parent="27" name="usuarios_id">
+      <column id="428" parent="39" name="usuarios_id">
         <state-number>22097</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
-      <column id="258" parent="27" name="activo">
+      <column id="429" parent="39" name="activo">
         <state-number>22097</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="259" parent="27" name="usuario">
+      <column id="430" parent="39" name="usuario">
         <state-number>22097</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="260" parent="27" name="fecha_creacion">
+      <column id="431" parent="39" name="fecha_creacion">
         <state-number>22097</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="261" parent="27" name="usuario_mod">
+      <column id="432" parent="39" name="usuario_mod">
         <state-number>22097</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="262" parent="27" name="fecha_modificacion">
+      <column id="433" parent="39" name="fecha_modificacion">
         <state-number>22097</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="263" parent="27" name="pk_usuarioperfiles">
+      <index id="434" parent="39" name="pk_usuarioperfiles">
         <object-id>58864</object-id>
         <columns>usuario_perfil_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="264" parent="27" name="fki_perfil_usuario">
+      <index id="435" parent="39" name="fki_perfil_usuario">
         <object-id>58919</object-id>
         <columns>perfil_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="265" parent="27" name="fki_usuarioperfiles">
+      <index id="436" parent="39" name="fki_usuarioperfiles">
         <object-id>58932</object-id>
         <columns>usuarios_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="266" parent="27" name="pk_usuarioperfiles">
+      <key id="437" parent="39" name="pk_usuarioperfiles">
         <columns>usuario_perfil_id</columns>
         <underlying-index>pk_usuarioperfiles</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="267" parent="27" name="fk_usuarioperfiles">
+      <foreign-key id="438" parent="39" name="fk_usuarioperfiles">
         <columns>perfil_id</columns>
         <ref-key>~.tb_sys_perfil.pk_sys_perfil</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="268" parent="27" name="fk_usuarioperfiles_usuario">
+      <foreign-key id="439" parent="39" name="fk_usuarioperfiles_usuario">
         <columns>usuarios_id</columns>
         <ref-key>~.tb_usuarios.pk_usuarios</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="269" parent="28" name="tcostos_codigo">
+      <column id="440" parent="40" name="tcostos_codigo">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(5)</data-type>
       </column>
-      <column id="270" parent="28" name="tcostos_descripcion">
+      <column id="441" parent="40" name="tcostos_descripcion">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(60)</data-type>
       </column>
-      <column id="271" parent="28" name="tcostos_protected">
+      <column id="442" parent="40" name="tcostos_protected">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="272" parent="28" name="tcostos_indirecto">
+      <column id="443" parent="40" name="tcostos_indirecto">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="273" parent="28" name="activo">
+      <column id="444" parent="40" name="activo">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="274" parent="28" name="usuario">
+      <column id="445" parent="40" name="usuario">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="275" parent="28" name="fecha_creacion">
+      <column id="446" parent="40" name="fecha_creacion">
         <state-number>23804</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="276" parent="28" name="usuario_mod">
+      <column id="447" parent="40" name="usuario_mod">
         <state-number>23804</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="277" parent="28" name="fecha_modificacion">
+      <column id="448" parent="40" name="fecha_modificacion">
         <state-number>23804</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="278" parent="28" name="pk_tcostos">
+      <index id="449" parent="40" name="pk_tcostos">
         <object-id>84153</object-id>
         <columns>tcostos_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="279" parent="28" name="pk_tcostos">
+      <key id="450" parent="40" name="pk_tcostos">
         <columns>tcostos_codigo</columns>
         <underlying-index>pk_tcostos</underlying-index>
         <primary>1</primary>
       </key>
-      <check id="280" parent="28" name="chk_tcostos_field_len">
+      <check id="451" parent="40" name="chk_tcostos_field_len">
         <columns>tcostos_codigo
 tcostos_descripcion</columns>
         <predicate>(length(rtrim((tcostos_codigo)::text)) &gt; 0) AND (length(rtrim((tcostos_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <column id="281" parent="29" name="tinsumo_codigo">
+      <column id="452" parent="41" name="tinsumo_codigo">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="282" parent="29" name="tinsumo_descripcion">
+      <column id="453" parent="41" name="tinsumo_descripcion">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(60)</data-type>
       </column>
-      <column id="283" parent="29" name="tinsumo_protected">
+      <column id="454" parent="41" name="tinsumo_protected">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="284" parent="29" name="activo">
+      <column id="455" parent="41" name="activo">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="285" parent="29" name="usuario">
+      <column id="456" parent="41" name="usuario">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="286" parent="29" name="fecha_creacion">
+      <column id="457" parent="41" name="fecha_creacion">
         <state-number>23787</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="287" parent="29" name="usuario_mod">
+      <column id="458" parent="41" name="usuario_mod">
         <state-number>23787</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="288" parent="29" name="fecha_modificacion">
+      <column id="459" parent="41" name="fecha_modificacion">
         <state-number>23787</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="289" parent="29" name="pk_tinsumo">
+      <index id="460" parent="41" name="pk_tinsumo">
         <object-id>84069</object-id>
         <columns>tinsumo_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="290" parent="29" name="pk_tinsumo">
+      <key id="461" parent="41" name="pk_tinsumo">
         <columns>tinsumo_codigo</columns>
         <underlying-index>pk_tinsumo</underlying-index>
         <primary>1</primary>
       </key>
-      <check id="291" parent="29" name="chk_tinsumo_field_len">
+      <check id="462" parent="41" name="chk_tinsumo_field_len">
         <columns>tinsumo_codigo
 tinsumo_descripcion</columns>
         <predicate>(length(rtrim((tinsumo_codigo)::text)) &gt; 0) AND (length(rtrim((tinsumo_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <column id="292" parent="30" name="tipo_cambio_id">
+      <column id="463" parent="42" name="tipo_cambio_id">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_tipo_cambio_tipo_cambio_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="293" parent="30" name="moneda_codigo_origen">
+      <column id="464" parent="42" name="moneda_codigo_origen">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="294" parent="30" name="moneda_codigo_destino">
+      <column id="465" parent="42" name="moneda_codigo_destino">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="295" parent="30" name="tipo_cambio_fecha_desde">
+      <column id="466" parent="42" name="tipo_cambio_fecha_desde">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="296" parent="30" name="tipo_cambio_fecha_hasta">
+      <column id="467" parent="42" name="tipo_cambio_fecha_hasta">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="297" parent="30" name="tipo_cambio_tasa_compra">
+      <column id="468" parent="42" name="tipo_cambio_tasa_compra">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(8,4)</data-type>
       </column>
-      <column id="298" parent="30" name="tipo_cambio_tasa_venta">
+      <column id="469" parent="42" name="tipo_cambio_tasa_venta">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(8,4)</data-type>
       </column>
-      <column id="299" parent="30" name="activo">
+      <column id="470" parent="42" name="activo">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="300" parent="30" name="usuario">
+      <column id="471" parent="42" name="usuario">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="301" parent="30" name="fecha_creacion">
+      <column id="472" parent="42" name="fecha_creacion">
         <state-number>23065</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="302" parent="30" name="usuario_mod">
+      <column id="473" parent="42" name="usuario_mod">
         <state-number>23065</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="303" parent="30" name="fecha_modificacion">
+      <column id="474" parent="42" name="fecha_modificacion">
         <state-number>23065</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="304" parent="30" name="pk_tipo_cambio">
+      <index id="475" parent="42" name="pk_tipo_cambio">
         <object-id>75884</object-id>
         <columns>tipo_cambio_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="305" parent="30" name="pk_tipo_cambio">
+      <key id="476" parent="42" name="pk_tipo_cambio">
         <columns>tipo_cambio_id</columns>
         <underlying-index>pk_tipo_cambio</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="306" parent="30" name="fk_moneda_origen">
+      <foreign-key id="477" parent="42" name="fk_moneda_origen">
         <columns>moneda_codigo_origen</columns>
         <ref-key>~.tb_moneda.pk_moneda</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="307" parent="30" name="fk_moneda_destino">
+      <foreign-key id="478" parent="42" name="fk_moneda_destino">
         <columns>moneda_codigo_destino</columns>
         <ref-key>~.tb_moneda.pk_moneda</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <check id="308" parent="30" name="ckk_tipo_cambio_tasa_compra">
+      <check id="479" parent="42" name="ckk_tipo_cambio_tasa_compra">
         <columns>tipo_cambio_tasa_compra</columns>
         <predicate>tipo_cambio_tasa_compra &gt; 0.00</predicate>
       </check>
-      <check id="309" parent="30" name="ckk_tipo_cambio_tasa_venta">
+      <check id="480" parent="42" name="ckk_tipo_cambio_tasa_venta">
         <columns>tipo_cambio_tasa_venta</columns>
         <predicate>tipo_cambio_tasa_venta &gt; 0.00</predicate>
       </check>
-      <column id="310" parent="31" name="tipo_empresa_codigo">
+      <column id="481" parent="43" name="tipo_cliente_codigo">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(3)</data-type>
+      </column>
+      <column id="482" parent="43" name="tipo_cliente_descripcion">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(120)</data-type>
+      </column>
+      <column id="483" parent="43" name="tipo_cliente_protected">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>false</default-expression>
+      </column>
+      <column id="484" parent="43" name="activo">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="485" parent="43" name="usuario">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="486" parent="43" name="fecha_creacion">
+        <state-number>25895</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="487" parent="43" name="usuario_mod">
+        <state-number>25895</state-number>
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="488" parent="43" name="fecha_modificacion">
+        <state-number>25895</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="489" parent="43" name="pk_tipo_cliente">
+        <object-id>100950</object-id>
+        <columns>tipo_cliente_codigo</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="490" parent="43" name="idx_unq_tipo_cliente_descripcion">
+        <object-id>100952</object-id>
+        <columns></columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="491" parent="43" name="pk_tipo_cliente">
+        <columns>tipo_cliente_codigo</columns>
+        <underlying-index>pk_tipo_cliente</underlying-index>
+        <primary>1</primary>
+      </key>
+      <check id="492" parent="43" name="chk_tipo_cliente_field_len">
+        <columns>tipo_cliente_codigo
+tipo_cliente_descripcion</columns>
+        <predicate>(length(rtrim((tipo_cliente_codigo)::text)) &gt; 0) AND (length(rtrim((tipo_cliente_descripcion)::text)) &gt; 0)</predicate>
+      </check>
+      <column id="493" parent="44" name="tipo_empresa_codigo">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(3)</data-type>
       </column>
-      <column id="311" parent="31" name="tipo_empresa_descripcion">
+      <column id="494" parent="44" name="tipo_empresa_descripcion">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(120)</data-type>
       </column>
-      <column id="312" parent="31" name="tipo_empresa_protected">
+      <column id="495" parent="44" name="tipo_empresa_protected">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="313" parent="31" name="activo">
+      <column id="496" parent="44" name="activo">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="314" parent="31" name="usuario">
+      <column id="497" parent="44" name="usuario">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="315" parent="31" name="fecha_creacion">
+      <column id="498" parent="44" name="fecha_creacion">
         <state-number>24052</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="316" parent="31" name="usuario_mod">
+      <column id="499" parent="44" name="usuario_mod">
         <state-number>24052</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="317" parent="31" name="fecha_modificacion">
+      <column id="500" parent="44" name="fecha_modificacion">
         <state-number>24052</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="318" parent="31" name="pk_tipo_empresa">
+      <index id="501" parent="44" name="pk_tipo_empresa">
         <object-id>92277</object-id>
         <columns>tipo_empresa_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="319" parent="31" name="idx_unq_tipo_empresa_descripcion">
+      <index id="502" parent="44" name="idx_unq_tipo_empresa_descripcion">
         <object-id>92381</object-id>
         <columns></columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="320" parent="31" name="pk_tipo_empresa">
+      <key id="503" parent="44" name="pk_tipo_empresa">
         <columns>tipo_empresa_codigo</columns>
         <underlying-index>pk_tipo_empresa</underlying-index>
         <primary>1</primary>
       </key>
-      <check id="321" parent="31" name="chk_tipo_empresa_field_len">
+      <check id="504" parent="44" name="chk_tipo_empresa_field_len">
         <columns>tipo_empresa_codigo
 tipo_empresa_descripcion</columns>
         <predicate>(length(rtrim((tipo_empresa_codigo)::text)) &gt; 0) AND (length(rtrim((tipo_empresa_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <column id="322" parent="32" name="unidad_medida_codigo">
+      <column id="505" parent="45" name="unidad_medida_codigo">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="323" parent="32" name="unidad_medida_siglas">
+      <column id="506" parent="45" name="unidad_medida_siglas">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(6)</data-type>
       </column>
-      <column id="324" parent="32" name="unidad_medida_descripcion">
+      <column id="507" parent="45" name="unidad_medida_descripcion">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(80)</data-type>
       </column>
-      <column id="325" parent="32" name="unidad_medida_tipo">
+      <column id="508" parent="45" name="unidad_medida_tipo">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>char</data-type>
       </column>
-      <column id="326" parent="32" name="unidad_medida_protected">
+      <column id="509" parent="45" name="unidad_medida_protected">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="327" parent="32" name="activo">
+      <column id="510" parent="45" name="activo">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="328" parent="32" name="usuario">
+      <column id="511" parent="45" name="usuario">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="329" parent="32" name="fecha_creacion">
+      <column id="512" parent="45" name="fecha_creacion">
         <state-number>22451</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="330" parent="32" name="usuario_mod">
+      <column id="513" parent="45" name="usuario_mod">
         <state-number>22451</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="331" parent="32" name="fecha_modificacion">
+      <column id="514" parent="45" name="fecha_modificacion">
         <state-number>22451</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <column id="332" parent="32" name="unidad_medida_default">
+      <column id="515" parent="45" name="unidad_medida_default">
         <state-number>25453</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <index id="333" parent="32" name="pk_unidad_medida">
+      <index id="516" parent="45" name="pk_unidad_medida">
         <object-id>59230</object-id>
         <columns>unidad_medida_codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="334" parent="32" name="pk_unidad_medida">
+      <key id="517" parent="45" name="pk_unidad_medida">
         <columns>unidad_medida_codigo</columns>
         <underlying-index>pk_unidad_medida</underlying-index>
         <primary>1</primary>
       </key>
-      <check id="335" parent="32" name="chk_unidad_medida_field_len">
+      <check id="518" parent="45" name="chk_unidad_medida_field_len">
         <columns>unidad_medida_codigo
 unidad_medida_siglas
 unidad_medida_descripcion</columns>
         <predicate>((length(rtrim((unidad_medida_codigo)::text)) &gt; 0) AND (length(rtrim((unidad_medida_siglas)::text)) &gt; 0)) AND (length(rtrim((unidad_medida_descripcion)::text)) &gt; 0)</predicate>
       </check>
-      <check id="336" parent="32" name="chk_unidad_medida_tipo">
+      <check id="519" parent="45" name="chk_unidad_medida_tipo">
         <columns>unidad_medida_tipo</columns>
         <predicate>unidad_medida_tipo = ANY (ARRAY[&apos;P&apos;::bpchar, &apos;V&apos;::bpchar, &apos;L&apos;::bpchar, &apos;T&apos;::bpchar])</predicate>
       </check>
-      <column id="337" parent="33" name="unidad_medida_conversion_id">
+      <column id="520" parent="46" name="unidad_medida_conversion_id">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_unidad_medida_conversion_unidad_medida_conversion_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="338" parent="33" name="unidad_medida_origen">
+      <column id="521" parent="46" name="unidad_medida_origen">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="339" parent="33" name="unidad_medida_destino">
+      <column id="522" parent="46" name="unidad_medida_destino">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(8)</data-type>
       </column>
-      <column id="340" parent="33" name="unidad_medida_conversion_factor">
+      <column id="523" parent="46" name="unidad_medida_conversion_factor">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>numeric(12,5)</data-type>
       </column>
-      <column id="341" parent="33" name="activo">
+      <column id="524" parent="46" name="activo">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="342" parent="33" name="usuario">
+      <column id="525" parent="46" name="usuario">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="343" parent="33" name="fecha_creacion">
+      <column id="526" parent="46" name="fecha_creacion">
         <state-number>22514</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="344" parent="33" name="usuario_mod">
+      <column id="527" parent="46" name="usuario_mod">
         <state-number>22514</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="345" parent="33" name="fecha_modificacion">
+      <column id="528" parent="46" name="fecha_modificacion">
         <state-number>22514</state-number>
         <data-type>timestamp</data-type>
       </column>
-      <index id="346" parent="33" name="pk_unidad_conversion">
+      <index id="529" parent="46" name="pk_unidad_conversion">
         <object-id>59383</object-id>
         <columns>unidad_medida_conversion_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="347" parent="33" name="uq_unidad_conversion">
+      <index id="530" parent="46" name="uq_unidad_conversion">
         <object-id>59385</object-id>
         <columns>unidad_medida_origen
 unidad_medida_destino</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="348" parent="33" name="pk_unidad_conversion">
+      <index id="531" parent="46" name="fki_unidad_conversion_medida_destino">
+        <object-id>100675</object-id>
+        <columns>unidad_medida_destino</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="532" parent="46" name="pk_unidad_conversion">
         <columns>unidad_medida_conversion_id</columns>
         <underlying-index>pk_unidad_conversion</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="349" parent="33" name="uq_unidad_conversion">
+      <key id="533" parent="46" name="uq_unidad_conversion">
         <columns>unidad_medida_origen
 unidad_medida_destino</columns>
         <underlying-index>uq_unidad_conversion</underlying-index>
       </key>
-      <foreign-key id="350" parent="33" name="fk_unidad_conversion_medida_origen">
+      <foreign-key id="534" parent="46" name="fk_unidad_conversion_medida_origen">
         <columns>unidad_medida_origen</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="351" parent="33" name="fk_unidad_conversion_medida_destino">
+      <foreign-key id="535" parent="46" name="fk_unidad_conversion_medida_destino">
         <columns>unidad_medida_destino</columns>
+        <ref-key>~.tb_unidad_medida.pk_unidad_medida</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <check id="352" parent="33" name="chk_unidad_medida_conversion_factor">
+      <check id="536" parent="46" name="chk_unidad_medida_conversion_factor">
         <columns>unidad_medida_conversion_factor</columns>
         <predicate>unidad_medida_conversion_factor &gt; 0.00</predicate>
       </check>
-      <column id="353" parent="34" name="usuarios_id">
+      <column id="537" parent="47" name="usuarios_id">
         <state-number>22128</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;tb_usuarios_usuarios_id_seq&apos;::regclass)</default-expression>
       </column>
-      <column id="354" parent="34" name="usuarios_code">
+      <column id="538" parent="47" name="usuarios_code">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="355" parent="34" name="usuarios_password">
+      <column id="539" parent="47" name="usuarios_password">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="356" parent="34" name="usuarios_nombre_completo">
+      <column id="540" parent="47" name="usuarios_nombre_completo">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="357" parent="34" name="usuarios_admin">
+      <column id="541" parent="47" name="usuarios_admin">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>false</default-expression>
       </column>
-      <column id="358" parent="34" name="activo">
+      <column id="542" parent="47" name="activo">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
-      <column id="359" parent="34" name="usuario">
+      <column id="543" parent="47" name="usuario">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="360" parent="34" name="fecha_creacion">
+      <column id="544" parent="47" name="fecha_creacion">
         <state-number>22104</state-number>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
       </column>
-      <column id="361" parent="34" name="usuario_mod">
+      <column id="545" parent="47" name="usuario_mod">
         <state-number>22104</state-number>
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="362" parent="34" name="fecha_modificacion">
+      <column id="546" parent="47" name="fecha_modificacion">
         <state-number>22104</state-number>
         <data-type>time</data-type>
       </column>
-      <column id="363" parent="34" name="empresa_id">
+      <column id="547" parent="47" name="empresa_id">
         <state-number>24116</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>1</default-expression>
       </column>
-      <index id="364" parent="34" name="pk_usuarios">
+      <index id="548" parent="47" name="pk_usuarios">
         <object-id>58866</object-id>
         <columns>usuarios_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="365" parent="34" name="idx_unique_usuarios">
+      <index id="549" parent="47" name="idx_unique_usuarios">
         <object-id>58937</object-id>
         <columns></columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="366" parent="34" name="fki_usuario_empresa">
+      <index id="550" parent="47" name="fki_usuario_empresa">
         <object-id>92398</object-id>
         <columns>empresa_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="367" parent="34" name="pk_usuarios">
+      <key id="551" parent="47" name="pk_usuarios">
         <columns>usuarios_id</columns>
         <underlying-index>pk_usuarios</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="368" parent="34" name="fk_usuario_empresa">
+      <foreign-key id="552" parent="47" name="fk_usuario_empresa">
         <columns>empresa_id</columns>
+        <ref-key>~.tb_empresa.pk_empresa</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <argument id="369" parent="35">
+      <column id="553" parent="48" name="insumo_costo">
+        <state-number>26684</state-number>
+        <data-type>numeric</data-type>
+      </column>
+      <argument id="554" parent="49">
         <direction>RETURN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="370" parent="36" name="p_insumo_id">
+      <argument id="555" parent="50" name="p_insumo_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="371" parent="36" name="p_a_fecha">
+      <argument id="556" parent="50" name="p_a_fecha">
         <direction>IN</direction>
         <data-type>date</data-type>
       </argument>
-      <argument id="372" parent="36">
+      <argument id="557" parent="50">
         <direction>RETURN</direction>
         <data-type>numeric</data-type>
       </argument>
-      <argument id="373" parent="37" name="p_producto_detalle_id">
+      <argument id="558" parent="51" name="p_producto_detalle_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="374" parent="37" name="p_a_fecha">
+      <argument id="559" parent="51" name="p_a_fecha">
         <direction>IN</direction>
         <data-type>date</data-type>
       </argument>
-      <argument id="375" parent="37">
+      <argument id="560" parent="51">
         <direction>RETURN</direction>
         <data-type>numeric</data-type>
       </argument>
-      <argument id="376" parent="38" name="p_producto_detalle_id">
+      <argument id="561" parent="52" name="p_producto_detalle_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="377" parent="38" name="p_a_fecha">
+      <argument id="562" parent="52" name="p_a_fecha">
         <direction>IN</direction>
         <data-type>date</data-type>
       </argument>
-      <argument id="378" parent="38">
+      <argument id="563" parent="52">
         <direction>RETURN</direction>
         <data-type>numeric</data-type>
       </argument>
-      <argument id="379" parent="39" name="p_producto_detalle_id">
+      <argument id="564" parent="53" name="p_producto_detalle_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="380" parent="39" name="p_a_fecha">
+      <argument id="565" parent="53" name="p_a_fecha">
         <direction>IN</direction>
         <data-type>date</data-type>
       </argument>
-      <argument id="381" parent="39">
+      <argument id="566" parent="53">
         <direction>RETURN</direction>
         <data-type>numeric</data-type>
       </argument>
-      <argument id="382" parent="40" name="p_asigperfiles_id">
+      <argument id="567" parent="54" name="p_insumo_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="383" parent="40" name="p_perfil_id">
+      <argument id="568" parent="54" name="p_empresa_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="384" parent="40" name="p_usuarios_id">
+      <argument id="569" parent="54" name="p_cliente_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="385" parent="40" name="p_activo">
+      <argument id="570" parent="54" name="p_es_cliente_real">
         <direction>IN</direction>
         <data-type>boolean</data-type>
       </argument>
-      <argument id="386" parent="40" name="p_usuario">
+      <argument id="571" parent="54" name="p_moneda_codigo">
         <direction>IN</direction>
         <data-type>varchar</data-type>
       </argument>
-      <argument id="387" parent="40" name="p_version_id">
+      <argument id="572" parent="54" name="p_a_fecha">
+        <direction>IN</direction>
+        <data-type>date</data-type>
+      </argument>
+      <argument id="573" parent="54">
+        <direction>RETURN</direction>
+        <data-type>numeric</data-type>
+      </argument>
+      <argument id="574" parent="55" name="p_insumo_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="388" parent="40" name="p_is_update">
+      <argument id="575" parent="55" name="p_empresa_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="576" parent="55" name="p_cliente_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="577" parent="55" name="p_es_cliente_real">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="578" parent="55" name="p_moneda_codigo">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="579" parent="55" name="p_a_fecha">
+        <direction>IN</direction>
+        <data-type>date</data-type>
+      </argument>
+      <argument id="580" parent="55">
+        <direction>RETURN</direction>
+        <data-type>numeric</data-type>
+      </argument>
+      <argument id="581" parent="56" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="582" parent="56">
+        <direction>RETURN</direction>
+        <data-type>setof boolean</data-type>
+      </argument>
+      <argument id="583" parent="57" name="portnumber">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="584" parent="57">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="585" parent="58" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="586" parent="58">
+        <direction>RETURN</direction>
+        <data-type>breakpoint</data-type>
+      </argument>
+      <argument id="587" parent="59">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="588" parent="60" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="589" parent="60" name="varname">
+        <direction>IN</direction>
+        <data-type>text</data-type>
+      </argument>
+      <argument id="590" parent="60" name="linenumber">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="591" parent="60" name="value">
+        <direction>IN</direction>
+        <data-type>text</data-type>
+      </argument>
+      <argument id="592" parent="60">
+        <direction>RETURN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="593" parent="61" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="594" parent="61" name="func">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="595" parent="61" name="linenumber">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="596" parent="61">
+        <direction>RETURN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="597" parent="62" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="598" parent="62">
+        <direction>RETURN</direction>
+        <data-type>setof breakpoint</data-type>
+      </argument>
+      <argument id="599" parent="63">
+        <direction>RETURN</direction>
+        <data-type>proxyinfo</data-type>
+      </argument>
+      <argument id="600" parent="64" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="601" parent="64" name="func">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="602" parent="64">
+        <direction>RETURN</direction>
+        <data-type>text</data-type>
+      </argument>
+      <argument id="603" parent="65" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="604" parent="65">
+        <direction>RETURN</direction>
+        <data-type>setof frame</data-type>
+      </argument>
+      <argument id="605" parent="66" name="signature">
+        <direction>IN</direction>
+        <data-type>text</data-type>
+      </argument>
+      <argument id="606" parent="66" name="targettype">
+        <direction>IN</direction>
+        <data-type>&quot;char&quot;</data-type>
+      </argument>
+      <argument id="607" parent="66">
+        <direction>RETURN</direction>
+        <data-type>targetinfo</data-type>
+      </argument>
+      <argument id="608" parent="67" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="609" parent="67">
+        <direction>RETURN</direction>
+        <data-type>setof var</data-type>
+      </argument>
+      <argument id="610" parent="68" name="functionoid">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="611" parent="68">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="612" parent="69" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="613" parent="69" name="frame">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="614" parent="69">
+        <direction>RETURN</direction>
+        <data-type>breakpoint</data-type>
+      </argument>
+      <argument id="615" parent="70" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="616" parent="70" name="func">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="617" parent="70" name="linenumber">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="618" parent="70">
+        <direction>RETURN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="619" parent="71" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="620" parent="71" name="func">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="621" parent="71" name="linenumber">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="622" parent="71" name="targetpid">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="623" parent="71">
+        <direction>RETURN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="624" parent="72" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="625" parent="72">
+        <direction>RETURN</direction>
+        <data-type>breakpoint</data-type>
+      </argument>
+      <argument id="626" parent="73" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="627" parent="73">
+        <direction>RETURN</direction>
+        <data-type>breakpoint</data-type>
+      </argument>
+      <argument id="628" parent="74" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="629" parent="74">
+        <direction>RETURN</direction>
+        <data-type>breakpoint</data-type>
+      </argument>
+      <argument id="630" parent="75" name="session">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="631" parent="75">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="632" parent="76" name="functionoid">
+        <direction>IN</direction>
+        <data-type>oid</data-type>
+      </argument>
+      <argument id="633" parent="76">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="634" parent="77" name="p_asigperfiles_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="635" parent="77" name="p_perfil_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="636" parent="77" name="p_usuarios_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="637" parent="77" name="p_activo">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="638" parent="77" name="p_usuario">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="639" parent="77" name="p_version_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="640" parent="77" name="p_is_update">
         <direction>IN</direction>
         <data-type>bit</data-type>
       </argument>
-      <argument id="389" parent="40">
+      <argument id="641" parent="77">
         <direction>RETURN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="390" parent="41" name="p_insumo_id">
+      <argument id="642" parent="78" name="p_insumo_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="391" parent="41">
+      <argument id="643" parent="78">
         <direction>RESULT</direction>
         <data-type>table(insumo_id integer, insumo_descripcion varchar, unidad_medida_codigo_default varchar, total_cantidad numeric)</data-type>
       </argument>
-      <argument id="392" parent="42" name="p_insumo_id">
+      <argument id="644" parent="79" name="p_empresa_origen_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="393" parent="42">
+      <argument id="645" parent="79" name="p_cliente_razon_social">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="646" parent="79" name="pc_cliente_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="647" parent="79" name="pc_es_cliente_real">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="648" parent="79" name="p_max_results">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="649" parent="79" name="p_offset">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="650" parent="79">
+        <direction>RESULT</direction>
+        <data-type>table(cliente_id integer, cliente_razon_social varchar, tipo_empresa_codigo varchar)</data-type>
+      </argument>
+      <argument id="651" parent="80" name="p_insumo_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="652" parent="80">
         <direction>RESULT</direction>
         <data-type>table(insumo_id integer, insumo_descripcion varchar, producto_detalle_cantidad numeric, unidad_medida_codigo varchar, producto_detalle_merma numeric, insumo_tipo varchar, tcostos_indirecto boolean, unidad_medida_codigo_default varchar, unidad_medida_conversion_factor numeric, producto_total_cantidad numeric)</data-type>
       </argument>
-      <argument id="394" parent="43" name="p_product_header_id">
+      <argument id="653" parent="81" name="p_product_header_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="395" parent="43" name="p_max_results">
+      <argument id="654" parent="81" name="p_max_results">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="396" parent="43" name="p_offset">
+      <argument id="655" parent="81" name="p_offset">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="397" parent="43">
+      <argument id="656" parent="81">
         <direction>RESULT</direction>
         <data-type>table(empresa_id integer, empresa_razon_social varchar, insumo_id integer, insumo_tipo varchar, insumo_codigo varchar, insumo_descripcion varchar, unidad_medida_codigo_costo varchar, insumo_merma numeric, insumo_costo numeric, insumo_precio_mercado numeric, moneda_simbolo varchar, tcostos_indirecto boolean)</data-type>
       </argument>
-      <argument id="398" parent="44" name="p_insumo_id">
+      <argument id="657" parent="82" name="p_product_header_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="399" parent="44">
+      <argument id="658" parent="82" name="pc_insumo_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="659" parent="82" name="p_insumo_descripcion">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="660" parent="82" name="p_max_results">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="661" parent="82" name="p_offset">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="662" parent="82">
+        <direction>RESULT</direction>
+        <data-type>table(empresa_id integer, empresa_razon_social varchar, insumo_id integer, insumo_tipo varchar, insumo_codigo varchar, insumo_descripcion varchar, unidad_medida_codigo_costo varchar, insumo_merma numeric, insumo_costo numeric, insumo_precio_mercado numeric, moneda_simbolo varchar, tcostos_indirecto boolean)</data-type>
+      </argument>
+      <argument id="663" parent="83" name="p_insumo_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="664" parent="83">
         <direction>RESULT</direction>
         <data-type>table(insumo_id integer, insumo_descripcion varchar, producto_detalle_cantidad numeric, unidad_medida_codigo varchar, producto_detalle_merma numeric, insumo_tipo varchar, tcostos_indirecto boolean, unidad_medida_codigo_default varchar, unidad_medida_conversion_factor numeric, producto_total_cantidad numeric)</data-type>
       </argument>
-      <argument id="400" parent="45" name="p_insumo_id">
+      <argument id="665" parent="84" name="p_cotizacion_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="401" parent="45" name="p_usuario_mod">
+      <argument id="666" parent="84" name="p_max_results">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="667" parent="84" name="p_offset">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="668" parent="84">
+        <direction>RESULT</direction>
+        <data-type>table(insumo_id integer, insumo_codigo varchar, insumo_descripcion varchar, unidad_medida_codigo varchar, unidad_medida_descripcion varchar, moneda_simbolo varchar, precio_original numeric, precio_cotizar numeric)</data-type>
+      </argument>
+      <argument id="669" parent="85" name="p_cotizacion_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="670" parent="85" name="pc_insumo_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="671" parent="85" name="pc_insumo_descripcion">
         <direction>IN</direction>
         <data-type>varchar</data-type>
       </argument>
-      <argument id="402" parent="45" name="p_version_id">
+      <argument id="672" parent="85" name="p_max_results">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="403" parent="45">
-        <direction>RETURN</direction>
-        <data-type>integer</data-type>
-      </argument>
-      <argument id="404" parent="46" name="p_perfil_id">
+      <argument id="673" parent="85" name="p_offset">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="405" parent="46" name="p_usuario_mod">
+      <argument id="674" parent="85">
+        <direction>RESULT</direction>
+        <data-type>table(insumo_id integer, insumo_codigo varchar, insumo_descripcion varchar, unidad_medida_codigo varchar, unidad_medida_descripcion varchar, moneda_simbolo varchar, precio_original numeric, precio_cotizar numeric)</data-type>
+      </argument>
+      <argument id="675" parent="86" name="p_insumo_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="676" parent="86" name="p_usuario_mod">
         <direction>IN</direction>
         <data-type>varchar</data-type>
       </argument>
-      <argument id="406" parent="46" name="p_version_id">
+      <argument id="677" parent="86" name="p_version_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="407" parent="46">
+      <argument id="678" parent="86">
         <direction>RETURN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="408" parent="47" name="p_perfdet_id">
+      <argument id="679" parent="87" name="p_perfil_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="409" parent="47" name="p_perfil_id">
-        <direction>IN</direction>
-        <data-type>integer</data-type>
-      </argument>
-      <argument id="410" parent="47" name="p_menu_id">
-        <direction>IN</direction>
-        <data-type>integer</data-type>
-      </argument>
-      <argument id="411" parent="47" name="p_acc_leer">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="412" parent="47" name="p_acc_agregar">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="413" parent="47" name="p_acc_actualizar">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="414" parent="47" name="p_acc_eliminar">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="415" parent="47" name="p_acc_imprimir">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="416" parent="47" name="p_activo">
-        <direction>IN</direction>
-        <data-type>boolean</data-type>
-      </argument>
-      <argument id="417" parent="47" name="p_usuario">
+      <argument id="680" parent="87" name="p_usuario_mod">
         <direction>IN</direction>
         <data-type>varchar</data-type>
       </argument>
-      <argument id="418" parent="47" name="p_version_id">
+      <argument id="681" parent="87" name="p_version_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="419" parent="47">
+      <argument id="682" parent="87">
         <direction>RETURN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="420" parent="48" name="p_sys_systemcode">
-        <direction>IN</direction>
-        <data-type>varchar</data-type>
-      </argument>
-      <argument id="421" parent="48" name="p_perfil_codigo">
-        <direction>IN</direction>
-        <data-type>varchar</data-type>
-      </argument>
-      <argument id="422" parent="48" name="p_perfil_descripcion">
-        <direction>IN</direction>
-        <data-type>varchar</data-type>
-      </argument>
-      <argument id="423" parent="48" name="p_copyfrom">
+      <argument id="683" parent="88" name="p_perfdet_id">
         <direction>IN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="424" parent="48" name="p_activo">
+      <argument id="684" parent="88" name="p_perfil_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="685" parent="88" name="p_menu_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="686" parent="88" name="p_acc_leer">
         <direction>IN</direction>
         <data-type>boolean</data-type>
       </argument>
-      <argument id="425" parent="48" name="p_usuario">
+      <argument id="687" parent="88" name="p_acc_agregar">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="688" parent="88" name="p_acc_actualizar">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="689" parent="88" name="p_acc_eliminar">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="690" parent="88" name="p_acc_imprimir">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="691" parent="88" name="p_activo">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="692" parent="88" name="p_usuario">
         <direction>IN</direction>
         <data-type>varchar</data-type>
       </argument>
-      <argument id="426" parent="48">
+      <argument id="693" parent="88" name="p_version_id">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="694" parent="88">
         <direction>RETURN</direction>
         <data-type>integer</data-type>
       </argument>
-      <argument id="427" parent="49">
+      <argument id="695" parent="89" name="p_sys_systemcode">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="696" parent="89" name="p_perfil_codigo">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="697" parent="89" name="p_perfil_descripcion">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="698" parent="89" name="p_copyfrom">
+        <direction>IN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="699" parent="89" name="p_activo">
+        <direction>IN</direction>
+        <data-type>boolean</data-type>
+      </argument>
+      <argument id="700" parent="89" name="p_usuario">
+        <direction>IN</direction>
+        <data-type>varchar</data-type>
+      </argument>
+      <argument id="701" parent="89">
+        <direction>RETURN</direction>
+        <data-type>integer</data-type>
+      </argument>
+      <argument id="702" parent="90">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="428" parent="50">
+      <argument id="703" parent="91">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="429" parent="51">
+      <argument id="704" parent="92">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="430" parent="52">
+      <argument id="705" parent="93">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="431" parent="53">
+      <argument id="706" parent="94">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="432" parent="54">
+      <argument id="707" parent="95">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="433" parent="55">
+      <argument id="708" parent="96">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="434" parent="56">
+      <argument id="709" parent="97">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="435" parent="57">
+      <argument id="710" parent="98">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="436" parent="58">
+      <argument id="711" parent="99">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="437" parent="59">
+      <argument id="712" parent="100">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="438" parent="60">
+      <argument id="713" parent="101">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="439" parent="61">
+      <argument id="714" parent="102">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="440" parent="62">
+      <argument id="715" parent="103">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="441" parent="63">
+      <argument id="716" parent="104">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
-      <argument id="442" parent="64">
+      <argument id="717" parent="105">
+        <direction>RETURN</direction>
+        <data-type>trigger</data-type>
+      </argument>
+      <argument id="718" parent="106">
+        <direction>RETURN</direction>
+        <data-type>trigger</data-type>
+      </argument>
+      <argument id="719" parent="107">
+        <direction>RETURN</direction>
+        <data-type>trigger</data-type>
+      </argument>
+      <argument id="720" parent="108">
+        <direction>RETURN</direction>
+        <data-type>trigger</data-type>
+      </argument>
+      <argument id="721" parent="109">
         <direction>RETURN</direction>
         <data-type>trigger</data-type>
       </argument>
