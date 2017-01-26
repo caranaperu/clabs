@@ -7,16 +7,16 @@
  * $Date: 2015-02-22 22:10:50 -0500 (dom, 22 feb 2015) $
  * $Rev: 352 $
  */
-isc.defineClass("ReportsRecordsOutputWindow", "Window");
-isc.ReportsRecordsOutputWindow.addProperties({
-    ID: 'reportsRecordsOutputWindow',
+isc.defineClass("ReportsOutputWindow", "Window");
+isc.ReportsOutputWindow.addProperties({
+    ID: 'reportsOutputWindow',
     canDragResize: true,
     showFooter: false,
     autoCenter: true,
     isModal: true,
     autoDraw: false,
-    width: '900',
-    height: '600',
+    width: '970',
+    height: '700',
     title: 'Reporte de Records',
     _htmlPane: undefined,
     /**
@@ -34,7 +34,7 @@ isc.ReportsRecordsOutputWindow.addProperties({
         this._htmlPane = isc.HTMLPane.create({
             //  ID: "reportPane",
             showEdges: false,
-            contentsURL: reportsRecordsOutputWindow.source,
+            contentsURL: reportsOutputWindow.source,
             contentsType: "page",
             height: '90%'
         })
@@ -51,7 +51,7 @@ isc.ReportsRecordsOutputWindow.addProperties({
                     autoDraw: false,
                     title: "Salir",
                     click: function () {
-                        reportsRecordsOutputWindow.hide();
+                        reportsOutputWindow.hide();
                     }
                 })
             ]
@@ -67,5 +67,41 @@ isc.ReportsRecordsOutputWindow.addProperties({
         });
 
         this.addItem(layout);
+    }
+});
+
+/**
+ * Atreibutos y funciones de clase que apoyan la creacion de unica unica instancia.
+ */
+isc.ReportsOutputWindow.addClassProperties({
+   _myInstance: undefined,
+    /**
+     * Metodo que sirve para determinar si la instancia esta creada on  no.
+     * @returns {boolean} true si esta creada
+     */
+    isCreated: function() {
+        if (this._myInstance === undefined)  {
+            return false;
+        }
+        return true;
+    },
+    /**
+     * Retorna la instancia de la ventana , si no existe la crea de lo contrario
+     * retorna la instancia creada.
+     *
+     * En el caso exista y se indique el parametro url se pasa esa url a la instancia
+     * para refrescar la ventana , de lo contrario solo devuelve la instancia actual.
+     *
+     * @param urlurl del web destino a mostrar en el htmlpane.
+     * @returns {Object} la instancia del objeto tipo ReportsOutputWindow
+     */
+    getInstance: function(url) {
+        if (this._myInstance === undefined) {
+            this._myInstance = this.create({source: url});
+        } else if (url) {
+            this._myInstance.setNewContents(url);
+        }
+
+        return this._myInstance;
     }
 });

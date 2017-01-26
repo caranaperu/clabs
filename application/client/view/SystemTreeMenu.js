@@ -12,16 +12,27 @@ isc.SystemTreeMenu.addProperties({
     showCloseIcons: true,
     showDropIcons: true,
     showHeader: false,
+    costosHistoricosReport: null,
     fields: [{name: "menu_descripcion"}], // El campo a pintar en el arbol
     _controllersList: {},
     leafClick: function (viewer, leaf, recordNum) {
-        if (!this._controllersList[leaf.menu_codigo]) {
-            this._controllersList[leaf.menu_codigo] = this._getController(leaf.menu_codigo);
-        }
-        if (leaf.menu_codigo === 'smn_entidad' ) {
-            this._controllersList[leaf.menu_codigo].doSetup(true, null);
+        if (leaf.menu_codigo === 'smn_costos_historicos') {
+            if (this.costosHistoricosReport == null) {
+                this.costosHistoricosReport = CostosHistoricosReportWindow.create();
+                this.costosHistoricosReport.show();
+            } else {
+                this.costosHistoricosReport.show();
+            }
+
         } else {
-            this._controllersList[leaf.menu_codigo].doSetup(false, null);
+            if (!this._controllersList[leaf.menu_codigo]) {
+                this._controllersList[leaf.menu_codigo] = this._getController(leaf.menu_codigo);
+            }
+            if (leaf.menu_codigo === 'smn_entidad') {
+                this._controllersList[leaf.menu_codigo].doSetup(true, null);
+            } else {
+                this._controllersList[leaf.menu_codigo].doSetup(false, null);
+            }
         }
     },
     _getController: function (menuId) {

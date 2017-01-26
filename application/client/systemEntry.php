@@ -101,6 +101,8 @@
     <SCRIPT SRC=./view/cliente/ClienteWindow.js></SCRIPT>
     <SCRIPT SRC=./view/cliente/ClienteForm.js></SCRIPT>
 
+    <SCRIPT SRC=view/reports/ReportsOutputWindow.js></SCRIPT>
+
     <SCRIPT SRC=./model/CotizacionModel.js></SCRIPT>
     <SCRIPT SRC=./model/CotizacionDetalleModel.js></SCRIPT>
     <SCRIPT SRC=./model/ClienteCotizacionModel.js></SCRIPT>
@@ -108,6 +110,10 @@
 
     <SCRIPT SRC=./view/cotizacion/CotizacionWindow.js></SCRIPT>
     <SCRIPT SRC=./view/cotizacion/CotizacionForm.js></SCRIPT>
+
+    <SCRIPT SRC=./model/InsumosCostosHistoricosReportModel.js></SCRIPT>
+    <SCRIPT SRC=./view/reports/CostosHistoricosReportWindow.js></SCRIPT>
+
 
 </head>
 <body></body>

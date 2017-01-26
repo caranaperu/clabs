@@ -101,6 +101,8 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
             // Si la busqueda permite buscar solo activos e inactivos
             if ($subOperation == 'fetchJoined') {
                 $sql = $this->_getFecthNormalized();
+            } else if ($subOperation == 'fetchSimpleList') {
+                $sql =  'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion from tb_insumo ins ';
             } else {
                 $sql =  'select empresa_id,insumo_id,insumo_tipo,insumo_codigo,insumo_descripcion,tinsumo_codigo,tcostos_codigo,'.
                     'unidad_medida_codigo_ingreso,unidad_medida_codigo_costo,insumo_merma,insumo_costo,insumo_precio_mercado,moneda_codigo_costo,activo,' .

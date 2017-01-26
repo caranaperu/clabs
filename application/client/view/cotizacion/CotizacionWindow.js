@@ -13,7 +13,6 @@ isc.WinCotizacionWindow.addProperties({
     title: "Cotizaciones",
     width: 800,
     height: 400,
-    _reportWindow: undefined,
     createGridList: function() {
         return isc.ListGrid.create({
             ID: "CotizacionList",
@@ -69,6 +68,7 @@ isc.WinCotizacionWindow.addProperties({
                         click : function () {
                             isc.ask('Desea imprimir la cotizacion Nro: '+record.cotizacion_numero+' <BR>Desea Continuar ?',
                                 function (val) {
+                                    var reportWindow;
                                     if (val == true) {
                                         //item.setValue(oldValue);
                                         var url = glb_reportServerUrl + '/flow.html?_flowId=viewReportFlow&standAlone=false&decorate=no&_flowId=viewReportFlow' +
@@ -80,13 +80,8 @@ isc.WinCotizacionWindow.addProperties({
                                         url += '&j_username=' + glb_reportServerUser;
                                         url += '&j_password=' + glb_reportServerPsw;
 
-
-                                        if (winCotizacionWindow._reportWindow == undefined) {
-                                            winCotizacionWindow._reportWindow = isc.ReportsRecordsOutputWindow.create({source: url});
-                                        } else {
-                                            winCotizacionWindow._reportWindow.setNewContents(url);
-                                        }
-                                        winCotizacionWindow._reportWindow.show();
+                                        reportWindow = isc.ReportsOutputWindow.getInstance(url);
+                                        reportWindow.show();
                                     }
                                 });
                         }
@@ -143,68 +138,5 @@ isc.WinCotizacionWindow.addProperties({
     },
     initWidget: function() {
         this.Super("initWidget", arguments);
-    }
-});
-
-isc.defineClass("ReportsRecordsOutputWindow", "Window");
-isc.ReportsRecordsOutputWindow.addProperties({
-    ID: 'reportsRecordsOutputWindow',
-    canDragResize: true,
-    showFooter: false,
-    autoCenter: true,
-    isModal: true,
-    autoDraw: false,
-    width: '900',
-    height: '600',
-    title: 'Reporte de Records',
-    _htmlPane: undefined,
-    /**
-     * Metodo para cambiar el url que presenta el pane de salida
-     * del reporte
-     *
-     * @param String url , el URL del reporte a presentar
-     */
-    setNewContents: function (url) {
-        this._htmlPane.setContentsURL(url);
-    },
-    // Inicialiamos los widgets interiores
-    initWidget: function () {
-        this.Super("initWidget", arguments);
-        this._htmlPane = isc.HTMLPane.create({
-            //  ID: "reportPane",
-            showEdges: false,
-            contentsURL: reportsRecordsOutputWindow.source,
-            contentsType: "page",
-            height: '90%'
-        })
-
-        // Botones principales del header
-        var formButtons = isc.HStack.create({
-            membersMargin: 10,
-            height: '5%',
-            layoutAlign: "center", padding: 5, autoDraw: false,
-            align: 'center',
-            members: [isc.Button.create({
-                //ID: "btnExit" + this.ID,
-                width: '100',
-                autoDraw: false,
-                title: "Salir",
-                click: function () {
-                    reportsRecordsOutputWindow.hide();
-                }
-            })
-            ]
-        });
-
-        var layout = isc.VLayout.create({
-            width: '100%',
-            height: '*',
-            members: [
-                this._htmlPane,
-                formButtons
-            ]
-        });
-
-        this.addItem(layout);
     }
 });
