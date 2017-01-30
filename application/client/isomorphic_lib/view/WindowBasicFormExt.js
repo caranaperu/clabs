@@ -531,7 +531,7 @@ isc.WindowBasicFormExt.addProperties({
         // De lo contrario si el tabPane destino esta definido cambiamos el tamaño
         // para poder contener completo el pane.
         if (tabNum == 0) {
-            if (this.isDetailGridListVisible()) {
+            if (this._detailGridContainer && this._detailGridContainer.sectionIsExpanded(0) == true) {
                 this.resizeTo(this.getWidth(), this.minHeight + this._detailGridContainer.getHeight());
             }
             else {
@@ -542,7 +542,15 @@ isc.WindowBasicFormExt.addProperties({
             // lo obtenemos a partir del tabNum.
             tabPane = this._tabSet.getTabPane(tabNum);
             if (tabPane) {
-                this.resizeTo(this.getWidth(), this.minHeight + (tabPane.getHeight() - this._tabSet.getTabPane(0).getHeight()));
+                // Esta linea ha sido modificada para no depender del contenido del tab en la posicion en cero sino
+                // de las metricas de las ventanas. Existen ajustes segun el caso si el area del nuevo tab es menor o mayor que el area actual.
+                // TODO: mejorar esto .
+                //this.resizeTo(this.getWidth(), this.minHeight + (tabPane.getHeight() - this._tabSet.getTabPane(0).getHeight()));
+                if (this.getHeight() <= tabPane.getHeight()) {
+                    this.resizeTo(this.getWidth(), (tabPane.getHeight() + tabPane.getHeight() - this.getHeight() - this._tabSet.tabBar.getHeight()-10));
+                } else {
+                    this.resizeTo(this.getWidth(), (20+tabPane.getHeight() + this._tabSet.tabBar.getHeight()+this.header.getHeight()+(this.getHeight()-this.getInnerHeight())));
+                }
             }
         }
     },
