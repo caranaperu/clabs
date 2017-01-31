@@ -79,6 +79,8 @@
     <SCRIPT SRC=./view/tcostos/TipoCostosWindow.js></SCRIPT>
     <SCRIPT SRC=./view/tcostos/TipoCostosForm.js></SCRIPT>
 
+    <SCRIPT SRC=view/insumos/InsumoCostosHistoricosForm.js></SCRIPT>
+    <SCRIPT SRC=./model/InsumoCostosHistoricoModel.js></SCRIPT>
     <SCRIPT SRC=./model/InsumoModel.js></SCRIPT>
     <SCRIPT SRC=./model/InsumoProductoDetalleModel.js></SCRIPT>
     <SCRIPT SRC=./view/insumos/InsumoWindow.js></SCRIPT>
@@ -111,7 +113,7 @@
     <SCRIPT SRC=./view/cotizacion/CotizacionWindow.js></SCRIPT>
     <SCRIPT SRC=./view/cotizacion/CotizacionForm.js></SCRIPT>
 
-    <SCRIPT SRC=./model/InsumosCostosHistoricosReportModel.js></SCRIPT>
+    <SCRIPT SRC=./model/InsumoCostosHistoricosReportModel.js></SCRIPT>
     <SCRIPT SRC=./view/reports/CostosHistoricosReportWindow.js></SCRIPT>
 
 

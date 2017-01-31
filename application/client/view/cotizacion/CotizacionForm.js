@@ -33,7 +33,7 @@ isc.WinCotizacionForm.addProperties({
             focusInEditFld: 'moneda_codigo',
             addOperation: 'readAfterSaveJoined',
             updateOperation: 'readAfterUpdateJoined',
-            disableValidation: true,
+         //   disableValidation: true,
             fields: [
                 {
                     name: "cotizacion_id",
@@ -363,6 +363,7 @@ isc.WinCotizacionForm.addProperties({
             }
         });
     },
+
     initWidget: function() {
         this.Super("initWidget", arguments);
     }

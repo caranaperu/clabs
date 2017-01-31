@@ -1,6 +1,6 @@
 /**
  * Definicion del modelo para los insumos reducido el numero de campos
- * util para reportes.
+ * util para los select list de reportes.
  *
  * @version 1.00
  * @since 1.00

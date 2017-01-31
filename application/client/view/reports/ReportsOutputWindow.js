@@ -71,7 +71,7 @@ isc.ReportsOutputWindow.addProperties({
 });
 
 /**
- * Atreibutos y funciones de clase que apoyan la creacion de unica unica instancia.
+ * Atributos y funciones de clase que apoyan la creacion de unica unica instancia.
  */
 isc.ReportsOutputWindow.addClassProperties({
    _myInstance: undefined,
@@ -92,7 +92,7 @@ isc.ReportsOutputWindow.addClassProperties({
      * En el caso exista y se indique el parametro url se pasa esa url a la instancia
      * para refrescar la ventana , de lo contrario solo devuelve la instancia actual.
      *
-     * @param urlurl del web destino a mostrar en el htmlpane.
+     * @param url url del web destino a mostrar en el htmlpane.
      * @returns {Object} la instancia del objeto tipo ReportsOutputWindow
      */
     getInstance: function(url) {

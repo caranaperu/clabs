@@ -97,6 +97,37 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
                 }
             }
 
+        } else if ($subOperation == 'fetchForInsumosCostos') {
+            $insumo_id = $constraints->getFilterField('insumo_id');
+            $fecha_desde = $constraints->getFilterField('p_date_from');
+            $fecha_hasta = $constraints->getFilterField('p_date_to');
+
+            $constraints->removeFilterField('insumo_id');
+            $constraints->removeFilterField('p_date_from');
+            $constraints->removeFilterField('p_date_to');
+
+            // Chequeamos paginacion
+            $startRow = $constraints->getStartRow();
+            $endRow = $constraints->getEndRow();
+
+            $sql = 'select insumo_codigo,insumo_descripcion,insumo_history_fecha,insumo_history_id,
+                    tinsumo_descripcion,tcostos_descripcion,unidad_medida_descripcion,insumo_merma,
+                    insumo_costo,moneda_costo_descripcion,insumo_precio_mercado ';
+
+            if ($endRow > $startRow) {
+                if ($fecha_desde && $fecha_hasta) {
+                    $sql .= 'from sp_get_historico_costos_for_insumo ('.$insumo_id.',\''.$fecha_desde.'\',\''.$fecha_hasta.'\','.($endRow - $startRow).', '.$startRow.') ';
+                } else {
+                    $sql .= 'from sp_get_historico_costos_for_insumo ('.$insumo_id.',null,null,'.($endRow - $startRow).', '.$startRow.') ';
+                }
+            } else {
+                if ($fecha_desde && $fecha_hasta) {
+                    $sql .= 'from sp_get_historico_costos_for_insumo ('.$insumo_id.',\''.$fecha_desde.'\',\''.$fecha_hasta.'\',null,null)';
+                } else {
+                    $sql .= 'from sp_get_historico_costos_for_insumo ('.$insumo_id.',null,null,null,null)';
+                }
+            }
+
         } else {
             // Si la busqueda permite buscar solo activos e inactivos
             if ($subOperation == 'fetchJoined') {
@@ -141,7 +172,7 @@ class InsumoDAO_postgre extends \app\common\dao\TSLAppBasicRecordDAO_postgre {
 
             $sql = str_replace('like', 'ilike', $sql);
         }
-     //   echo $sql;
+        //echo $sql;
         return $sql;
     }
 

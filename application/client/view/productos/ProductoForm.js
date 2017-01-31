@@ -448,6 +448,24 @@ isc.WinProductoForm.addProperties({
             }
         });
     },
+    /**
+     * Metodo llamado durante de la inicializacion de la clase
+     * para si se desea agregar mas tabs a la pantalla principal
+     * para esto eso debe hacerse en un override de este metodo.
+     *
+     * Observese que el TabSet es del tipo TabSetExt el cual soporta el metodo
+     * addAditionalTab.
+     *
+     * @param isc.TabSetExt tabset El tab set principal al cual agregar.
+     */
+    addAdditionalTabs: function (tabset) {
+        tabset.addAdditionalTab({
+            ID: 'TabInfoCostosHistoricosFormProducto',
+            title: 'Historico de Costos',
+            paneClass: 'InsumoCostosHistoricosForm',
+            joinField: 'insumo_id'
+        });
+    },
     initWidget: function() {
         this.Super("initWidget", arguments);
     }

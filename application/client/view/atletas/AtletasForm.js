@@ -345,8 +345,8 @@ isc.WinAtletasForm.addProperties({
         tabset.addAdditionalTab({
             ID: 'TabInfoAtletaMarcasForm',
             title: 'Marcas / Resultados',
-            paneClass: 'AtletaMarcasForm',
-            joinField: 'atletas_codigo'
+            paneClass: 'CotizacionCostosHistoricosForm',
+            joinField: 'insumo_id'
         });
     },
     initWidget: function () {
